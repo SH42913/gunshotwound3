@@ -1,0 +1,7 @@
+[submodule "leoecs"]
+	path = leoecs
+	url = https://github.com/Leopotam/ecs
+	branch = develop
+[submodule "weightrandom"]
+	path = weightrandom
+	url = https://github.com/BlueRaja/Weighted-Item-Randomizer-for-C-Sharp
