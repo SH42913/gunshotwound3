@@ -21,6 +21,7 @@ namespace GunshotWound2.GswWorld
         public void Initialize()
         {
             _catcher.LastExecutedSystem = nameof(GswWorldInitSystem);
+            
             var gswWorld = _ecsWorld.CreateEntityWith<GswWorldComponent>();
             FillWithDefaultValues(gswWorld);
             try
@@ -62,8 +63,8 @@ namespace GunshotWound2.GswWorld
                 throw new Exception("Can't find root in " + CONFIG_PATH);
             }
 
-            XElement worldElement = GetElement(xmlRoot, WORLD_ENABLED_ELEMENT);
-            XElement scanOnlyDamageElement = GetElement(xmlRoot, SCAN_ONLY_DAMAGED_ELEMENT);
+            XElement worldElement = xmlRoot.GetElement(WORLD_ENABLED_ELEMENT);
+            XElement scanOnlyDamageElement = xmlRoot.GetElement(SCAN_ONLY_DAMAGED_ELEMENT);
             
             gswWorld.PedDetectingEnabled = worldElement.GetBool();
             gswWorld.ScanOnlyDamaged = scanOnlyDamageElement.GetBool();
@@ -73,16 +74,6 @@ namespace GunshotWound2.GswWorld
             Game.Console.Print("PedDetectingEnabled is " + gswWorld.PedDetectingEnabled);
             Game.Console.Print("ScanOnlyDamaged is " + gswWorld.ScanOnlyDamaged);
 #endif
-        }
-
-        private XElement GetElement(XElement root, string elementName)
-        {
-            XElement element = root.Element(elementName);
-            if (element == null)
-            {
-                throw new Exception("Can't find " + elementName + " in " + CONFIG_PATH);
-            }
-            return element;
         }
 
         public void Destroy()

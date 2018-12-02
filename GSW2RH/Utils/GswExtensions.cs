@@ -36,6 +36,16 @@ namespace GunshotWound2.Utils
             NativeFunction.Natives.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
             NativeFunction.Natives.END_TEXT_COMMAND_DISPLAY_TEXT(x, y);
         }
+
+        public static XElement GetElement(this XElement root, string elementName)
+        {
+            XElement element = root.Element(elementName);
+            if (element == null)
+            {
+                throw new Exception("Can't find " + elementName);
+            }
+            return element;
+        }
         
         public static bool GetBool(this XElement node, string attributeName = "Value")
         {
