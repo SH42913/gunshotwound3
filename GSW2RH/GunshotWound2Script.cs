@@ -22,7 +22,6 @@ namespace GunshotWound2
             _systems
                 .Add(new GswWorldInitSystem())
                 .Add(new GswWorldSystem());
-            _systems.Inject(new ExceptionCatcher());
             _systems.Initialize();
             GameFiber.Yield();
         }

@@ -12,7 +12,6 @@ namespace GunshotWound2.GswWorld
     public class GswWorldInitSystem : IEcsInitSystem
     {
         private EcsWorld _ecsWorld;
-        private ExceptionCatcher _catcher;
 
         private const string CONFIG_PATH = "\\Plugins\\GswConfigs\\GswWorldConfig.xml";
         private const string WORLD_ENABLED_ELEMENT = "GswWorldEnabled";
@@ -20,8 +19,6 @@ namespace GunshotWound2.GswWorld
         
         public void Initialize()
         {
-            _catcher.LastExecutedSystem = nameof(GswWorldInitSystem);
-            
             var gswWorld = _ecsWorld.CreateEntityWith<GswWorldComponent>();
             FillWithDefaultValues(gswWorld);
             try
@@ -31,7 +28,6 @@ namespace GunshotWound2.GswWorld
             catch (Exception e)
             {
                 Game.Console.Print(e.Message);
-                _catcher.WorldLoadFailReason = e.Message;
                 FillWithDefaultValues(gswWorld);
             }
         }

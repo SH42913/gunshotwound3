@@ -16,12 +16,10 @@ namespace GunshotWound2.GswWorld
         private EcsFilter<GswWorldComponent> _world;
         private EcsFilter<GswPedComponent> _gswPeds;
 
-        private ExceptionCatcher _detector;
         private readonly Stopwatch _stopwatch = new Stopwatch();
 
         public void Run()
         {
-            _detector.LastExecutedSystem = nameof(GswWorldSystem);
             if (_world.EntitiesCount <= 0) return;
 
             GswWorldComponent gswWorld = _world.Components1[0];
