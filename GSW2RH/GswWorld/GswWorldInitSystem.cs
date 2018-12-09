@@ -41,7 +41,7 @@ namespace GunshotWound2.GswWorld
             gswWorld.PedsToEntityDict = new Dictionary<Ped, int>();
             gswWorld.NeedToCheckPeds = new Queue<Ped>();
 
-            gswWorld.MaxDetectTimeInMs = 10;
+            gswWorld.MaxDetectTimeInMs = 7;
         }
 
         private void FillWithConfigValues(GswWorldComponent gswWorld)

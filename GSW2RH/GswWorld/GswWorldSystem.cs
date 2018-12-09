@@ -56,10 +56,10 @@ namespace GunshotWound2.GswWorld
 
 #if DEBUG
             string pedCounter = "Peds: " + _gswPeds.EntitiesCount;
-            pedCounter.ShowInGsw(0.165f, 0.955f, 0.25f, Color.White);
+            pedCounter.ShowInGsw(0.165f, 0.94f, 0.25f, Color.White);
 
             string worldTime = "World Time: " + _stopwatch.ElapsedMilliseconds;
-            worldTime.ShowInGsw(0.165f, 0.97f, 0.25f, Color.White);
+            worldTime.ShowInGsw(0.165f, 0.955f, 0.25f, Color.White);
 #endif
             _stopwatch.Stop();
         }
