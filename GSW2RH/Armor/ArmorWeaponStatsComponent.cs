@@ -9,11 +9,11 @@
 
         public override string ToString()
         {
-            return "ArmorWeaponStats: " +
-                   "CanPenetrateArmor " + CanPenetrateArmor + ";" +
-                   "ArmorDamage " + ArmorDamage + ";" +
-                   "MinArmorPercentForPenetration " + MinArmorPercentForPenetration + ";" +
-                   "ChanceToPenetrateHelmet " + ChanceToPenetrateHelmet;
+            return nameof(ArmorWeaponStatsComponent) + ": " +
+                   nameof(CanPenetrateArmor) + " " + CanPenetrateArmor + "; " +
+                   nameof(ArmorDamage) + " " + ArmorDamage + "; " +
+                   nameof(MinArmorPercentForPenetration) + " " + MinArmorPercentForPenetration + "; " +
+                   nameof(ChanceToPenetrateHelmet) + " " + ChanceToPenetrateHelmet;
         }
     }
 }

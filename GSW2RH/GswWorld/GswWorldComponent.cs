@@ -9,7 +9,7 @@ namespace GunshotWound2.GswWorld
         public bool PedDetectingEnabled;
 
         public bool ScanOnlyDamaged;
-        
+
         public Queue<Ped> NeedToCheckPeds;
         public Dictionary<Ped, int> PedsToEntityDict;
 
@@ -19,6 +19,14 @@ namespace GunshotWound2.GswWorld
         {
             NeedToCheckPeds = null;
             PedsToEntityDict = null;
+        }
+
+        public override string ToString()
+        {
+            return nameof(GswWorldComponent) + ": " +
+                   nameof(PedDetectingEnabled) + " " + PedDetectingEnabled + "; " +
+                   nameof(ScanOnlyDamaged) + " " + ScanOnlyDamaged + "; " +
+                   nameof(MaxDetectTimeInMs) + " " + MaxDetectTimeInMs;
         }
     }
 }

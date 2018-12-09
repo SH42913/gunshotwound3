@@ -7,7 +7,7 @@ namespace GunshotWound2.Weapons
     public class WeaponInitComponent : IEcsAutoResetComponent
     {
         public XElement WeaponRoot;
-        
+
         public void Reset()
         {
             WeaponRoot = null;

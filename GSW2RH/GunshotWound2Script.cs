@@ -17,7 +17,7 @@ namespace GunshotWound2
     {
         private EcsWorld _world;
         private EcsSystems _systems;
-        
+
         public bool IsRunning { get; set; }
         public bool IsPaused { get; set; }
 
@@ -67,7 +67,7 @@ namespace GunshotWound2
                     GameFiber.Yield();
                     continue;
                 }
-                
+
                 _systems.Run();
                 _world.RemoveOneFrameComponents();
 #if DEBUG
@@ -77,10 +77,11 @@ namespace GunshotWound2
                 {
                     _maxFrameTime = elapsed;
                 }
+
                 string worldTime = "Total/Max Time: " + elapsed + "/" + _maxFrameTime;
                 worldTime.ShowInGsw(0.165f, 0.97f, 0.25f, Color.White);
 #endif
-                
+
                 GameFiber.Yield();
             }
         }

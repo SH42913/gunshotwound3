@@ -17,6 +17,12 @@ namespace GunshotWound2.GswWorld
         private EcsFilter<GswPedComponent> _gswPeds;
 
         private readonly Stopwatch _stopwatch = new Stopwatch();
+        private GswLogger _logger;
+
+        public GswWorldSystem()
+        {
+            _logger = new GswLogger(typeof(GswWorldSystem));
+        }
 
         public void Run()
         {
@@ -34,14 +40,10 @@ namespace GunshotWound2.GswWorld
                 {
                     gswWorld.NeedToCheckPeds.Enqueue(ped);
                 }
-
-                if (TimeIsOver()) return;
             }
 
-            while (gswWorld.NeedToCheckPeds.Count > 0)
+            while (!TimeIsOver() && gswWorld.NeedToCheckPeds.Count > 0)
             {
-                if (TimeIsOver()) break;
-
                 Ped pedToCheck = gswWorld.NeedToCheckPeds.Dequeue();
                 if (PedIsNotExistsDeadOrNotHuman(pedToCheck)) continue;
                 if (CheckGswPedAlreadyExist(pedToCheck)) continue;
@@ -52,7 +54,7 @@ namespace GunshotWound2.GswWorld
                 gswPed.DefaultAccuracy = pedToCheck.Accuracy;
                 gswPed.Armor = pedToCheck.Armor;
                 NativeFunction.Natives.SET_PED_HELMET(pedToCheck, true);
-                
+
                 gswWorld.PedsToEntityDict.Add(pedToCheck, entity);
             }
 
@@ -99,7 +101,7 @@ namespace GunshotWound2.GswWorld
 
                 Ped ped = gswPed.ThisPed;
                 if (ped.Exists() && ped.IsAlive)
-                {              
+                {
 #if DEBUG
                     Debug.DrawSphereDebug(ped.AbovePosition + 0.5f * Vector3.WorldUp, 0.15f, Color.Red);
 #endif

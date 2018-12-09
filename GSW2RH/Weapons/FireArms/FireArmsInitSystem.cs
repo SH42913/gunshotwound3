@@ -1,7 +1,6 @@
 ﻿using System.Xml.Linq;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
-using Rage;
 using Weighted_Randomizer;
 
 namespace GunshotWound2.Weapons.FireArms
@@ -13,6 +12,13 @@ namespace GunshotWound2.Weapons.FireArms
         private EcsFilter<WeaponTypeComponent, WeaponInitComponent, WeaponHashesComponent> _initWeapons;
 
         private const string FIRE_ARMS_CHANCES_KEY = "FireArmsWeightChances";
+
+        private readonly GswLogger _logger;
+
+        public FireArmsInitSystem()
+        {
+            _logger = new GswLogger(typeof(FireArmsInitSystem));
+        }
 
         public void Initialize()
         {
@@ -43,12 +49,12 @@ namespace GunshotWound2.Weapons.FireArms
                 };
 
 #if DEBUG
-                Game.Console.Print(weaponName + " is " + type + ", chances: " +
-                                   FireArmsWounds.GRAZE_WOUND + " " + graze + ";" +
-                                   FireArmsWounds.FLESH_WOUND + " " + flesh + ";" +
-                                   FireArmsWounds.PENETRATING_WOUND + " " + penetrating + ";" +
-                                   FireArmsWounds.PERFORATING_WOUND + " " + perforating + ";" +
-                                   FireArmsWounds.AVULSIVE_WOUND + " " + avulsive);
+                _logger.MakeLog(weaponName + " is " + type + ", chances: " +
+                                FireArmsWounds.GRAZE_WOUND + " " + graze + ";" +
+                                FireArmsWounds.FLESH_WOUND + " " + flesh + ";" +
+                                FireArmsWounds.PENETRATING_WOUND + " " + penetrating + ";" +
+                                FireArmsWounds.PERFORATING_WOUND + " " + perforating + ";" +
+                                FireArmsWounds.AVULSIVE_WOUND + " " + avulsive);
 #endif
             }
         }

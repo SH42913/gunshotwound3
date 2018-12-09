@@ -9,7 +9,7 @@
         FIRE,
         SUFFOCATING
     }
-    
+
     public class WeaponTypeComponent
     {
         public WeaponTypes Type;

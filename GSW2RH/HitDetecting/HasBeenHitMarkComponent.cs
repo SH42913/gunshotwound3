@@ -6,6 +6,5 @@ namespace GunshotWound2.HitDetecting
     [EcsIgnoreInFilter]
     public class HasBeenHitMarkComponent
     {
-        
     }
 }

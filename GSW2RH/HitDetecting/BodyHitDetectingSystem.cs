@@ -1,4 +1,5 @@
 ﻿using GunshotWound2.GswWorld;
+using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
 
@@ -9,21 +10,28 @@ namespace GunshotWound2.HitDetecting
     {
         private EcsWorld _ecsWorld;
         private EcsFilter<GswPedComponent, HasBeenHitMarkComponent> _damagedPeds;
-        
+
+        private readonly GswLogger _logger;
+
+        public BodyHitDetectingSystem()
+        {
+            _logger = new GswLogger(typeof(BodyHitDetectingSystem));
+        }
+
         public void Run()
         {
             foreach (int i in _damagedPeds)
             {
                 Ped ped = _damagedPeds.Components1[i].ThisPed;
-                if(!ped.Exists()) continue;
-                
+                if (!ped.Exists()) continue;
+
                 int entity = _damagedPeds.Entities[i];
                 BodyParts bodyPart = GetDamagedBodyPart(ped);
-                if(bodyPart == BodyParts.NOTHING) continue;
+                if (bodyPart == BodyParts.NOTHING) continue;
 
 #if DEBUG
                 PedBoneId lastBone = ped.LastDamageBone;
-                Game.Console.Print("Ped " + ped.Model.Name + " has damaged " + bodyPart + " with boneId " + lastBone);
+                _logger.MakeLog("Ped " + ped.Name() + " has damaged " + bodyPart + " with boneId " + lastBone);
 
                 var history = _ecsWorld.EnsureComponent<BodyHitHistoryComponent>(entity, out bool newBodyHitHistory);
                 if (newBodyHitHistory)
@@ -45,13 +53,13 @@ namespace GunshotWound2.HitDetecting
                     };
                 }
 #endif
-                
+
                 _ecsWorld.AddComponent<DamagedBodyPartComponent>(entity).DamagedBodyPart = bodyPart;
                 ped.ClearLastDamageBone();
             }
         }
 
-        private static BodyParts GetDamagedBodyPart(Ped target)
+        private BodyParts GetDamagedBodyPart(Ped target)
         {
             if (target == null)
             {
@@ -61,10 +69,10 @@ namespace GunshotWound2.HitDetecting
             PedBoneId lastBone = target.LastDamageBone;
             if (lastBone == 0)
             {
-                Game.Console.Print("Ped " + target.Model.Name + " doesn't have damaged bone!");
+                _logger.MakeLog("Ped " + target.Model.Name + " doesn't have damaged bone!");
                 return BodyParts.NOTHING;
             }
-            
+
             switch (lastBone)
             {
                 case PedBoneId.Head:
@@ -130,8 +138,8 @@ namespace GunshotWound2.HitDetecting
                 case PedBoneId.RightPinky2:
                     return BodyParts.ARM;
                 default:
-                    Game.Console.Print("Bone " + target.LastDamageBone +
-                                       " for ped " + target.Model.Name + " is unknown!");
+                    _logger.MakeLog("Bone " + target.LastDamageBone +
+                                    " for ped " + target.Model.Name + " is unknown!");
                     return BodyParts.NOTHING;
             }
         }

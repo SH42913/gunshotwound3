@@ -9,11 +9,11 @@
 
         public override string ToString()
         {
-            return "BaseWeaponStats: " +
-                   "DamageMult " + DamageMult + ";" +
-                   "BleedingMult " + BleedingMult + ";" +
-                   "PainMult " + PainMult + ";" +
-                   "CritChance " + CritChance;
+            return nameof(BaseWeaponStatsComponent) + ": " +
+                   nameof(DamageMult) + " " + DamageMult + "; " +
+                   nameof(BleedingMult) + " " + BleedingMult + "; " +
+                   nameof(PainMult) + " " + PainMult + "; " +
+                   nameof(CritChance) + " " + CritChance;
         }
     }
 }

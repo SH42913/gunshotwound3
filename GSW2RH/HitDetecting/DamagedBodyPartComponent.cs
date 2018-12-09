@@ -12,7 +12,7 @@ namespace GunshotWound2.HitDetecting
         LEG,
         NOTHING
     }
-    
+
     [EcsOneFrame]
     public class DamagedBodyPartComponent
     {

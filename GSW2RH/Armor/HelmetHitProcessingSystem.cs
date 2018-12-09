@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 using GunshotWound2.GswWorld;
 using GunshotWound2.HitDetecting;
 using GunshotWound2.Utils;
@@ -15,6 +14,12 @@ namespace GunshotWound2.Armor
         private EcsFilter<GswPedComponent, DamagedBodyPartComponent, DamagedByWeaponComponent> _damagedPeds;
 
         private static readonly Random Random = new Random();
+        private readonly GswLogger _logger;
+
+        public HelmetHitProcessingSystem()
+        {
+            _logger = new GswLogger(typeof(HelmetHitProcessingSystem));
+        }
 
         public void Run()
         {
@@ -26,7 +31,7 @@ namespace GunshotWound2.Armor
                 if (!ped.IsWearingHelmet)
                 {
 #if DEBUG
-                    Game.Console.Print("Ped " + ped.Model.Name + " doesn't have Helmet");
+                    _logger.MakeLog("Ped " + ped.Name() + " doesn't have Helmet");
 #endif
                     continue;
                 }
@@ -35,7 +40,7 @@ namespace GunshotWound2.Armor
                 if (bodyPart != BodyParts.HEAD)
                 {
 #if DEBUG
-                    Game.Console.Print("Helmet doesn't protect " + bodyPart);
+                    _logger.MakeLog("Helmet of " + ped.Name() + " doesn't protect " + bodyPart);
 #endif
                     continue;
                 }
@@ -46,7 +51,7 @@ namespace GunshotWound2.Armor
                 if (weaponStats == null)
                 {
 #if DEBUG
-                    Game.Console.Print("This weapon doesn't have " + nameof(ArmorWeaponStatsComponent));
+                    _logger.MakeLog("This weapon doesn't have " + nameof(ArmorWeaponStatsComponent));
 #endif
                     continue;
                 }
@@ -56,14 +61,14 @@ namespace GunshotWound2.Armor
                 if (!helmetPenetrated)
                 {
 #if DEBUG
-                    Game.Console.Print("Helmet was not penetrated, when chance was " + chance);
+                    _logger.MakeLog("Helmet of " + ped.Name() + " was not penetrated, when chance was " + chance);
 #endif
                     _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(pedEntity);
                     continue;
                 }
 
 #if DEBUG
-                Game.Console.Print("Helmet was penetrated, when chance was " + chance);
+                _logger.MakeLog("Helmet of " + ped.Name() + " was penetrated, when chance was " + chance);
 #endif
             }
         }

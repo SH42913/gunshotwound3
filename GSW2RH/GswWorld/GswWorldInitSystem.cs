@@ -9,15 +9,22 @@ using Rage;
 namespace GunshotWound2.GswWorld
 {
     [EcsInject]
-    public class GswWorldInitSystem : IEcsInitSystem
+    public class GswWorldInitSystem : IEcsPreInitSystem
     {
         private EcsWorld _ecsWorld;
 
         private const string CONFIG_PATH = "\\Plugins\\GswConfigs\\GswWorldConfig.xml";
         private const string WORLD_ENABLED_ELEMENT = "GswWorldEnabled";
         private const string SCAN_ONLY_DAMAGED_ELEMENT = "ScanOnlyDamaged";
-        
-        public void Initialize()
+
+        private readonly GswLogger _logger;
+
+        public GswWorldInitSystem()
+        {
+            _logger = new GswLogger(typeof(GswWorldInitSystem));
+        }
+
+        public void PreInitialize()
         {
             var gswWorld = _ecsWorld.CreateEntityWith<GswWorldComponent>();
             FillWithDefaultValues(gswWorld);
@@ -27,7 +34,7 @@ namespace GunshotWound2.GswWorld
             }
             catch (Exception e)
             {
-                Game.Console.Print(e.Message);
+                _logger.MakeLog(e.Message);
                 FillWithDefaultValues(gswWorld);
             }
         }
@@ -52,7 +59,7 @@ namespace GunshotWound2.GswWorld
             {
                 throw new Exception("Can't find " + fullPath);
             }
-            
+
             XElement xmlRoot = XDocument.Load(file.OpenRead()).Root;
             if (xmlRoot == null)
             {
@@ -61,18 +68,17 @@ namespace GunshotWound2.GswWorld
 
             XElement worldElement = xmlRoot.GetElement(WORLD_ENABLED_ELEMENT);
             XElement scanOnlyDamageElement = xmlRoot.GetElement(SCAN_ONLY_DAMAGED_ELEMENT);
-            
+
             gswWorld.PedDetectingEnabled = worldElement.GetBool();
             gswWorld.ScanOnlyDamaged = scanOnlyDamageElement.GetBool();
 
+            _logger.MakeLog("GswWorld is inited!");
 #if DEBUG
-            Game.Console.Print("GswWorld is inited!");
-            Game.Console.Print("PedDetectingEnabled is " + gswWorld.PedDetectingEnabled);
-            Game.Console.Print("ScanOnlyDamaged is " + gswWorld.ScanOnlyDamaged);
+            _logger.MakeLog(gswWorld.ToString());
 #endif
         }
 
-        public void Destroy()
+        public void PreDestroy()
         {
         }
     }

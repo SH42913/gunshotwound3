@@ -9,14 +9,14 @@ namespace GunshotWound2.HitDetecting
     public class BodyHitHistoryShowSystem : IEcsRunSystem
     {
         private EcsFilter<GswPedComponent, BodyHitHistoryComponent> _peds;
-        
+
         public void Run()
         {
             foreach (int i in _peds)
             {
                 Ped ped = _peds.Components1[i].ThisPed;
-                if(!ped.Exists()) continue;
-                
+                if (!ped.Exists()) continue;
+
                 PedBoneId?[] history = _peds.Components2[i].LastDamagedBones;
                 for (int historyIndex = 0; historyIndex < history.Length; historyIndex++)
                 {

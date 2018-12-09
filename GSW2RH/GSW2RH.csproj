@@ -68,6 +68,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\GswExtensions.cs" />
+    <Compile Include="Utils\GswLogger.cs" />
     <Compile Include="Weapons\BaseWeaponStatsComponent.cs" />
     <Compile Include="Weapons\FireArms\FireArmsInitSystem.cs" />
     <Compile Include="Weapons\FireArms\FireArmsWoundRandomizerComponent.cs" />

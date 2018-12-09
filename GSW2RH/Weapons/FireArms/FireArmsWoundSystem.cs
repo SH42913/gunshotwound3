@@ -1,6 +1,6 @@
-﻿using System;
-using GunshotWound2.GswWorld;
+﻿using GunshotWound2.GswWorld;
 using GunshotWound2.HitDetecting;
+using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
 
@@ -11,13 +11,20 @@ namespace GunshotWound2.Weapons.FireArms
     {
         private EcsWorld _ecsWorld;
         private EcsFilter<GswPedComponent, DamagedBodyPartComponent, DamagedByWeaponComponent> _damagedPeds;
-        
+
+        private readonly GswLogger _logger;
+
+        public FireArmsWoundSystem()
+        {
+            _logger = new GswLogger(typeof(FireArmsWoundSystem));
+        }
+
         public void Run()
         {
             foreach (int i in _damagedPeds)
             {
                 DamagedByWeaponComponent damagedWeapon = _damagedPeds.Components3[i];
-                if(damagedWeapon.WeaponType != WeaponTypes.FIRE_ARMS) continue;
+                if (damagedWeapon.WeaponType != WeaponTypes.FIRE_ARMS) continue;
 
                 Ped ped = _damagedPeds.Components1[i].ThisPed;
                 int weaponEntity = _damagedPeds.Components3[i].WeaponEntity;
@@ -25,7 +32,7 @@ namespace GunshotWound2.Weapons.FireArms
                 var woundRandomizer = _ecsWorld.GetComponent<FireArmsWoundRandomizerComponent>(weaponEntity);
                 if (woundRandomizer == null)
                 {
-                    Game.Console.Print("Weapon Entity doesn't have " + nameof(FireArmsWoundRandomizerComponent));
+                    _logger.MakeLog("Weapon Entity doesn't have " + nameof(FireArmsWoundRandomizerComponent));
                     _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(pedEntity);
                     continue;
                 }
@@ -34,22 +41,22 @@ namespace GunshotWound2.Weapons.FireArms
                 switch (wound)
                 {
                     case FireArmsWounds.GRAZE_WOUND:
-                        Game.Console.Print("Ped have got graze GSW");
+                        _logger.MakeLog("Ped " + ped.Name() + " have got graze GSW");
                         break;
                     case FireArmsWounds.FLESH_WOUND:
-                        Game.Console.Print("Ped have got flesh GSW");
+                        _logger.MakeLog("Ped " + ped.Name() + " have got flesh GSW");
                         break;
                     case FireArmsWounds.PENETRATING_WOUND:
-                        Game.Console.Print("Ped have got penetrating GSW");
+                        _logger.MakeLog("Ped " + ped.Name() + " have got penetrating GSW");
                         break;
                     case FireArmsWounds.PERFORATING_WOUND:
-                        Game.Console.Print("Ped have got perforating GSW");
+                        _logger.MakeLog("Ped " + ped.Name() + " have got perforating GSW");
                         break;
                     case FireArmsWounds.AVULSIVE_WOUND:
-                        Game.Console.Print("Ped have got avulsive GSW");
+                        _logger.MakeLog("Ped " + ped.Name() + " have got avulsive GSW");
                         break;
                     default:
-                        Game.Console.Print("Unknow wound");
+                        _logger.MakeLog("Ped " + ped.Name() + " have got Unknow wound");
                         continue;
                 }
             }

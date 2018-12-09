@@ -11,7 +11,7 @@ namespace GunshotWound2.Weapons.FireArms
         PERFORATING_WOUND,
         AVULSIVE_WOUND
     }
-    
+
     public class FireArmsWoundRandomizerComponent : IEcsAutoResetComponent
     {
         public StaticWeightedRandomizer<FireArmsWounds> WoundRandomizer;
