@@ -94,7 +94,7 @@ namespace GunshotWound2.Armor
                     : 100;
                 
                 float armorPercent = gswPed.Armor / maxArmor;
-                if (!weaponStats.CanPenetrateArmor || weaponStats.PercentToPenetrateChance < armorPercent)
+                if (!weaponStats.CanPenetrateArmor || weaponStats.MinArmorPercentForPenetration < armorPercent)
                 {
 #if DEBUG
                     Game.Console.Print("Armor was not penetrated");
@@ -104,7 +104,7 @@ namespace GunshotWound2.Armor
                     continue;
                 }
 
-                float chanceToPenetrate = 1 - armorPercent / weaponStats.PercentToPenetrateChance;
+                float chanceToPenetrate = 1 - armorPercent / weaponStats.MinArmorPercentForPenetration;
                 bool wasPenetrated = Random.IsTrueWithProbability(chanceToPenetrate);
                 if (!wasPenetrated)
                 {

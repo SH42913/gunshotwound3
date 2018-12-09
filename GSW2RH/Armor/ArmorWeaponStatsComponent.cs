@@ -4,16 +4,16 @@
     {
         public bool CanPenetrateArmor;
         public int ArmorDamage;
-        public float PercentToPenetrateChance;
-        public float HelmetSaveChance;
+        public float MinArmorPercentForPenetration;
+        public float ChanceToPenetrateHelmet;
 
         public override string ToString()
         {
             return "ArmorWeaponStats: " +
                    "CanPenetrateArmor " + CanPenetrateArmor + ";" +
                    "ArmorDamage " + ArmorDamage + ";" +
-                   "PercentToPenetrateChance " + PercentToPenetrateChance + ";" +
-                   "HelmetSaveChance " + HelmetSaveChance;
+                   "MinArmorPercentForPenetration " + MinArmorPercentForPenetration + ";" +
+                   "ChanceToPenetrateHelmet " + ChanceToPenetrateHelmet;
         }
     }
 }

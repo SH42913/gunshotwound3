@@ -4,14 +4,14 @@
         <WeaponType Type="FIRE_ARMS"/>
         <WeaponHashes Name="Pistol" Hashes="453432689;1593441988"/>
         <BaseStats DamageMult="1.0" BleedingMult="1.0" PainMult="1.0" CritChance="1.0"/>
-        <ArmorStats CanPenetrateArmor="TRUE" HelmetSaveChance="0.5" ArmorDamage="1" MinArmorPercentToPenetrate="0.5"/>
+        <ArmorStats CanPenetrateArmor="TRUE" ChanceToPenetrateHelmet="0.2" ArmorDamage="1" MinArmorPercentForPenetration="0.5"/>
         <FireArmsWeightChances Graze="1" Flesh="1" Penetrating="1" Perforating="1" Avulsive="1"/>
     </WeaponGroup>
     <WeaponGroup>
         <WeaponType Type="FIRE_ARMS"/>
         <WeaponHashes Name="CarbineRifle" Hashes="2210333304"/>
         <BaseStats DamageMult="1.0" BleedingMult="1.0" PainMult="1.0" CritChance="1.0"/>
-        <ArmorStats CanPenetrateArmor="TRUE" HelmetSaveChance="0.5" ArmorDamage="5" MinArmorPercentToPenetrate="1"/>
+        <ArmorStats CanPenetrateArmor="TRUE" ChanceToPenetrateHelmet="1" ArmorDamage="5" MinArmorPercentForPenetration="1"/>
         <FireArmsWeightChances Graze="1" Flesh="1" Penetrating="1" Perforating="1" Avulsive="1"/>
     </WeaponGroup>
 </GswWeaponConfig>

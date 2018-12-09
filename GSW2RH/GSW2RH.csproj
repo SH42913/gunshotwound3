@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Armor\ArmorHitProcessingSystem.cs" />
     <Compile Include="Armor\ArmorWeaponStatsComponent.cs" />
+    <Compile Include="Armor\HelmetHitProcessingSystem.cs" />
     <Compile Include="GswWorld\GswPedComponent.cs" />
     <Compile Include="GswWorld\GswWorldComponent.cs" />
     <Compile Include="GswWorld\GswWorldInitSystem.cs" />

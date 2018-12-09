@@ -114,9 +114,9 @@ namespace GunshotWound2.Weapons
         {
             var stats = _ecsWorld.AddComponent<ArmorWeaponStatsComponent>(entity);
             stats.CanPenetrateArmor = bool.Parse(statsElement.Attribute("CanPenetrateArmor").Value);
-            stats.HelmetSaveChance = float.Parse(statsElement.Attribute("HelmetSaveChance").Value, CultureInfo.InvariantCulture);
+            stats.ChanceToPenetrateHelmet = float.Parse(statsElement.Attribute("ChanceToPenetrateHelmet").Value, CultureInfo.InvariantCulture);
             stats.ArmorDamage = int.Parse(statsElement.Attribute("ArmorDamage").Value);
-            stats.PercentToPenetrateChance = float.Parse(statsElement.Attribute("MinArmorPercentToPenetrate").Value, CultureInfo.InvariantCulture);
+            stats.MinArmorPercentForPenetration = float.Parse(statsElement.Attribute("MinArmorPercentForPenetration").Value, CultureInfo.InvariantCulture);
             
 #if DEBUG
             Game.Console.Print(stats.ToString());

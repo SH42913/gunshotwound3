@@ -42,6 +42,7 @@ namespace GunshotWound2
                 .Add(new WeaponHitDetectingSystem())
                 .Add(new WeaponHitValidatingSystem())
                 .Add(new BaseHitCleanSystem())
+                .Add(new HelmetHitProcessingSystem())
                 .Add(new ArmorHitProcessingSystem());
             _systems.Initialize();
             GameFiber.Yield();
