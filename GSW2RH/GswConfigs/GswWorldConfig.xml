@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GswWorldConfig>
+	<GswWorldEnabled Value="TRUE"/>
+	<!-- If TRUE, GSW will mark other peds as GswPed
+	and every peds will have realistic damage -->
+	
+	<ScanOnlyDamaged Value="FALSE"/>
+	<!-- If TRUE, GSW will mark ped as GSWPed only after first damage.
+    It will increase performance, but it can have bugs.
+    Attention! PedHealth, new Accuracy and ShootRate will applied only after first damage! -->
+</GswWorldConfig>
