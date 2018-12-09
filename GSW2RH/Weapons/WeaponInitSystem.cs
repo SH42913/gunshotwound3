@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Xml.Linq;
+using GunshotWound2.Armor;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
@@ -74,6 +75,9 @@ namespace GunshotWound2.Weapons
         {
             var hashesComponent = _ecsWorld.AddComponent<WeaponHashesComponent>(entity);
             hashesComponent.Name = hashesElement.Attribute("Name").Value;
+#if DEBUG
+            Game.Console.Print("Loading Weapon " + hashesComponent.Name);
+#endif
             
             var hashes = new List<uint>();
             foreach (string hashString in hashesElement.Attribute("Hashes").Value.Split(';'))
@@ -81,6 +85,9 @@ namespace GunshotWound2.Weapons
                 if (uint.TryParse(hashString, out var hash))
                 {
                     hashes.Add(hash);
+#if DEBUG
+                    Game.Console.Print("Added Hash " + hash);
+#endif
                 }
                 else
                 {
@@ -97,6 +104,10 @@ namespace GunshotWound2.Weapons
             stats.BleedingMult = float.Parse(statsElement.Attribute("BleedingMult").Value, CultureInfo.InvariantCulture);
             stats.PainMult = float.Parse(statsElement.Attribute("PainMult").Value, CultureInfo.InvariantCulture);
             stats.CritChance = float.Parse(statsElement.Attribute("CritChance").Value, CultureInfo.InvariantCulture);
+
+#if DEBUG
+            Game.Console.Print(stats.ToString());
+#endif
         }
 
         private void AttachArmorStats(XElement statsElement, int entity)
@@ -105,6 +116,11 @@ namespace GunshotWound2.Weapons
             stats.CanPenetrateArmor = bool.Parse(statsElement.Attribute("CanPenetrateArmor").Value);
             stats.HelmetSaveChance = float.Parse(statsElement.Attribute("HelmetSaveChance").Value, CultureInfo.InvariantCulture);
             stats.ArmorDamage = int.Parse(statsElement.Attribute("ArmorDamage").Value);
+            stats.PercentToPenetrateChance = float.Parse(statsElement.Attribute("MinArmorPercentToPenetrate").Value, CultureInfo.InvariantCulture);
+            
+#if DEBUG
+            Game.Console.Print(stats.ToString());
+#endif
         }
 
         public void PreDestroy()

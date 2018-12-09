@@ -1,6 +1,6 @@
 ﻿using Leopotam.Ecs;
 
-namespace GunshotWound2.HitDetecting.Components
+namespace GunshotWound2.HitDetecting
 {
     public enum BodyParts
     {

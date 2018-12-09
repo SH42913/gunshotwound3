@@ -8,6 +8,7 @@ namespace GunshotWound2.GswWorld
         public Ped ThisPed;
         
         public int DefaultAccuracy;
+        public int Armor;
 
         public string NoPainAnim;
         public string MildPainAnim;

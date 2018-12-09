@@ -15,6 +15,8 @@ namespace GunshotWound2.HitDetecting
             foreach (int i in _hitPeds)
             {
                 Ped ped = _hitPeds.Components1[i].ThisPed;
+                if(!ped.Exists()) continue;
+                
                 NativeFunction.Natives.CLEAR_PED_LAST_WEAPON_DAMAGE(ped);
             }
         }

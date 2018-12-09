@@ -25,14 +25,6 @@ namespace GunshotWound2.HitDetecting
                     continue;
                 }
 
-                if (_ecsWorld.GetComponent<ArmorWeaponStatsComponent>(weaponEntity) == null)
-                {
-                    Game.Console.Print("Weapon Entity with type " + type +
-                                       " doesn't has " + nameof(ArmorWeaponStatsComponent));
-                    _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(hitEntity);
-                    continue;
-                }
-
                 if (_ecsWorld.GetComponent<BaseWeaponStatsComponent>(weaponEntity) == null)
                 {
                     Game.Console.Print("Weapon Entity with type " + type +

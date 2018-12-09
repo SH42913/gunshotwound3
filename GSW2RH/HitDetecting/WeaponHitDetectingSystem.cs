@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using GunshotWound2.GswWorld;
-using GunshotWound2.HitDetecting.Components;
+﻿using GunshotWound2.GswWorld;
 using GunshotWound2.Weapons;
 using Leopotam.Ecs;
 using Rage;

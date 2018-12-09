@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Globalization;
 using System.Xml.Linq;
-using Rage;
 using Rage.Native;
 
 namespace GunshotWound2.Utils

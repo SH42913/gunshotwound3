@@ -50,6 +50,7 @@ namespace GunshotWound2.GswWorld
                 int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed);
                 gswPed.ThisPed = pedToCheck;
                 gswPed.DefaultAccuracy = pedToCheck.Accuracy;
+                gswPed.Armor = pedToCheck.Armor;
                 
                 gswWorld.PedsToEntityDict.Add(pedToCheck, entity);
             }
@@ -99,7 +100,7 @@ namespace GunshotWound2.GswWorld
                 if (ped.Exists() && ped.IsAlive)
                 {              
 #if DEBUG
-                    Debug.DrawSphereDebug(ped.AbovePosition + 0.4f * Vector3.WorldUp, 0.15f, Color.Red);
+                    Debug.DrawSphereDebug(ped.AbovePosition + 0.5f * Vector3.WorldUp, 0.15f, Color.Red);
 #endif
                     continue;
                 }

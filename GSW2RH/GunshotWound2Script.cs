@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+using GunshotWound2.Armor;
 using GunshotWound2.GswWorld;
 using GunshotWound2.HitDetecting;
 using GunshotWound2.Utils;
@@ -40,7 +41,8 @@ namespace GunshotWound2
 #endif
                 .Add(new WeaponHitDetectingSystem())
                 .Add(new WeaponHitValidatingSystem())
-                .Add(new BaseHitCleanSystem());
+                .Add(new BaseHitCleanSystem())
+                .Add(new ArmorHitProcessingSystem());
             _systems.Initialize();
             GameFiber.Yield();
         }
