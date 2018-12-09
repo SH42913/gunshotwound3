@@ -51,6 +51,7 @@ namespace GunshotWound2.GswWorld
                 gswPed.ThisPed = pedToCheck;
                 gswPed.DefaultAccuracy = pedToCheck.Accuracy;
                 gswPed.Armor = pedToCheck.Armor;
+                NativeFunction.Natives.SET_PED_HELMET(pedToCheck, true);
                 
                 gswWorld.PedsToEntityDict.Add(pedToCheck, entity);
             }

@@ -28,7 +28,7 @@ namespace GunshotWound2.HitDetecting
                 if (_ecsWorld.GetComponent<BaseWeaponStatsComponent>(weaponEntity) == null)
                 {
                     Game.Console.Print("Weapon Entity with type " + type +
-                                       " doesn't has " + nameof(BaseWeaponStatsComponent));
+                                       " doesn't have " + nameof(BaseWeaponStatsComponent));
                     _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(hitEntity);
                     continue;
                 }

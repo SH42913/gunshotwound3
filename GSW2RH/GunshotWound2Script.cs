@@ -7,6 +7,7 @@ using GunshotWound2.GswWorld;
 using GunshotWound2.HitDetecting;
 using GunshotWound2.Utils;
 using GunshotWound2.Weapons;
+using GunshotWound2.Weapons.FireArms;
 using Leopotam.Ecs;
 using Rage;
 
@@ -33,6 +34,7 @@ namespace GunshotWound2
             _systems
                 .Add(new GswWorldInitSystem())
                 .Add(new WeaponInitSystem())
+                .Add(new FireArmsInitSystem())
                 .Add(new GswWorldSystem())
                 .Add(new BaseHitDetectingSystem())
                 .Add(new BodyHitDetectingSystem())
@@ -43,7 +45,8 @@ namespace GunshotWound2
                 .Add(new WeaponHitValidatingSystem())
                 .Add(new BaseHitCleanSystem())
                 .Add(new HelmetHitProcessingSystem())
-                .Add(new ArmorHitProcessingSystem());
+                .Add(new ArmorHitProcessingSystem())
+                .Add(new FireArmsWoundSystem());
             _systems.Initialize();
             GameFiber.Yield();
         }
