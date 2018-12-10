@@ -47,6 +47,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Armor\ArmorComponent.cs" />
     <Compile Include="Armor\ArmorHitProcessingSystem.cs" />
     <Compile Include="Armor\ArmorWeaponStatsComponent.cs" />
     <Compile Include="Armor\HelmetHitProcessingSystem.cs" />

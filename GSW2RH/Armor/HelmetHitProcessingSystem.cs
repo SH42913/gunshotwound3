@@ -11,7 +11,7 @@ namespace GunshotWound2.Armor
     public class HelmetHitProcessingSystem : IEcsRunSystem
     {
         private EcsWorld _ecsWorld;
-        private EcsFilter<GswPedComponent, DamagedBodyPartComponent, DamagedByWeaponComponent> _damagedPeds;
+        private EcsFilter<GswPedComponent, DamagedBodyPartComponent, DamagedByWeaponComponent, ArmorComponent> _damagedPeds;
 
         private static readonly Random Random = new Random();
         private readonly GswLogger _logger;

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
+using GunshotWound2.Armor;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
@@ -45,15 +46,18 @@ namespace GunshotWound2.GswWorld
             while (!TimeIsOver() && gswWorld.NeedToCheckPeds.Count > 0)
             {
                 Ped pedToCheck = gswWorld.NeedToCheckPeds.Dequeue();
-                if (PedIsNotExistsDeadOrNotHuman(pedToCheck)) continue;
+                if (PedIsNotExistsOrDead(pedToCheck)) continue;
                 if (CheckGswPedAlreadyExist(pedToCheck)) continue;
                 if (CheckNotDamaged(pedToCheck)) continue;
 
                 int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed);
                 gswPed.ThisPed = pedToCheck;
-                gswPed.DefaultAccuracy = pedToCheck.Accuracy;
-                gswPed.Armor = pedToCheck.Armor;
-                NativeFunction.Natives.SET_PED_HELMET(pedToCheck, true);
+
+                if (pedToCheck.IsHuman)
+                {
+                    var armor = _ecsWorld.AddComponent<ArmorComponent>(entity);
+                    armor.Armor = pedToCheck.Armor;
+                }
 
                 gswWorld.PedsToEntityDict.Add(pedToCheck, entity);
             }
@@ -73,9 +77,9 @@ namespace GunshotWound2.GswWorld
             return _stopwatch.ElapsedMilliseconds > _world.Components1[0].MaxDetectTimeInMs;
         }
 
-        private bool PedIsNotExistsDeadOrNotHuman(Ped ped)
+        private bool PedIsNotExistsOrDead(Ped ped)
         {
-            return !ped.Exists() || !ped.IsHuman || ped.IsDead;
+            return !ped.Exists() || ped.IsDead;
         }
 
         private bool CheckGswPedAlreadyExist(Ped pedToCheck)
