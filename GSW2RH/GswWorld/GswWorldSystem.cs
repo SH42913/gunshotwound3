@@ -1,7 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using GunshotWound2.Armor;
 using GunshotWound2.Utils;
+using GunshotWound2.WoundProcessing.Health;
 using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
@@ -19,6 +21,7 @@ namespace GunshotWound2.GswWorld
 
         private readonly Stopwatch _stopwatch = new Stopwatch();
         private GswLogger _logger;
+        private static readonly Random Random = new Random();
 
         public GswWorldSystem()
         {
@@ -30,7 +33,7 @@ namespace GunshotWound2.GswWorld
             if (_world.EntitiesCount <= 0) return;
 
             GswWorldComponent gswWorld = _world.Components1[0];
-            if (!gswWorld.PedDetectingEnabled) return;
+            if (!gswWorld.PedDetectingEnabled && !gswWorld.AnimalDetectingEnabled) return;
 
             _stopwatch.Restart();
             if (gswWorld.NeedToCheckPeds.Count <= 0)
@@ -50,16 +53,15 @@ namespace GunshotWound2.GswWorld
                 if (CheckGswPedAlreadyExist(pedToCheck)) continue;
                 if (CheckNotDamaged(pedToCheck)) continue;
 
-                int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed);
-                gswPed.ThisPed = pedToCheck;
-
-                if (pedToCheck.IsHuman)
+                if (pedToCheck.IsHuman && gswWorld.PedDetectingEnabled)
                 {
-                    var armor = _ecsWorld.AddComponent<ArmorComponent>(entity);
-                    armor.Armor = pedToCheck.Armor;
+                    CreateHuman(gswWorld, pedToCheck);
                 }
 
-                gswWorld.PedsToEntityDict.Add(pedToCheck, entity);
+                if (!pedToCheck.IsHuman && gswWorld.AnimalDetectingEnabled)
+                {
+                    CreateAnimal(gswWorld, pedToCheck);
+                }
             }
 
 #if DEBUG
@@ -104,17 +106,55 @@ namespace GunshotWound2.GswWorld
                 GswPedComponent gswPed = _gswPeds.Components1[i];
 
                 Ped ped = gswPed.ThisPed;
-                if (ped.Exists() && ped.IsAlive)
-                {
-#if DEBUG
-                    Debug.DrawSphereDebug(ped.AbovePosition + 0.5f * Vector3.WorldUp, 0.15f, Color.Red);
-#endif
-                    continue;
-                }
+                if (ped.Exists() && ped.IsAlive) continue;
 
                 gswWorld.PedsToEntityDict.Remove(ped);
                 _ecsWorld.RemoveEntity(_gswPeds.Entities[i]);
             }
+        }
+
+        private void CreateHuman(GswWorldComponent gswWorld, Ped ped)
+        {
+            int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed, out HealthComponent health);
+            gswPed.ThisPed = ped;
+
+            health.Health = Random.NextMinMax(gswWorld.PedHealth);
+            health.MaxHealth = health.Health + 101;
+
+            ped.Health = 1;
+            ped.MaxHealth = (int) health.MaxHealth;
+            ped.Health = (int) health.Health;
+
+            if (!gswWorld.PedAccuracy.IsDisabled())
+            {
+                ped.Accuracy = (int) Random.NextMinMax(gswWorld.PedAccuracy);
+            }
+            
+            if (!gswWorld.PedShootRate.IsDisabled())
+            {
+                int rate = (int) Random.NextMinMax(gswWorld.PedShootRate);
+                NativeFunction.Natives.SET_PED_SHOOT_RATE(ped, rate);
+            }
+
+            var armor = _ecsWorld.AddComponent<ArmorComponent>(entity);
+            armor.Armor = ped.Armor;
+
+            gswWorld.PedsToEntityDict.Add(ped, entity);
+        }
+
+        private void CreateAnimal(GswWorldComponent gswWorld, Ped ped)
+        {
+            int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed, out HealthComponent health);
+            gswPed.ThisPed = ped;
+
+            health.Health = ped.Health - 1;
+            health.MaxHealth = health.Health + 101;
+
+            ped.Health = 1;
+            ped.MaxHealth = (int) health.MaxHealth;
+            ped.Health = (int) health.Health;
+
+            gswWorld.PedsToEntityDict.Add(ped, entity);
         }
     }
 }

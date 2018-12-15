@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GswWoundConfig>
+	<DamageMultiplier Value="1.0"/>
+	<!-- Overall damage multiplier, 2.0 mean every wound will make x2 damage for ped -->
+
+	<DamageDeviation Value="0.2"/>
+	<!-- 0.2 mean +-20% random damage -->
+</GswWoundConfig>

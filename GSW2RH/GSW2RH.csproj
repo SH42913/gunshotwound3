@@ -66,10 +66,16 @@
     <Compile Include="HitDetecting\HasBeenHitMarkComponent.cs" />
     <Compile Include="HitDetecting\WeaponHitValidatingSystem.cs" />
     <Compile Include="HitDetecting\WeaponHitDetectingSystem.cs" />
+    <Compile Include="WoundProcessing\Health\FullyHealedComponent.cs" />
+    <Compile Include="WoundProcessing\Health\HealDetectSystem.cs" />
+    <Compile Include="WoundProcessing\Health\HealthComponent.cs" />
+    <Compile Include="WoundProcessing\Health\HealthSystem.cs" />
+    <Compile Include="WoundProcessing\Health\ReceivedDamageComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\GswExtensions.cs" />
     <Compile Include="Utils\GswLogger.cs" />
+    <Compile Include="Utils\MinMax.cs" />
     <Compile Include="Weapons\BaseWeaponStatsComponent.cs" />
     <Compile Include="Weapons\FireArms\FireArmsInitSystem.cs" />
     <Compile Include="Weapons\FireArms\FireArmsWoundRandomizerComponent.cs" />
@@ -78,6 +84,8 @@
     <Compile Include="Weapons\WeaponInitComponent.cs" />
     <Compile Include="Weapons\WeaponInitSystem.cs" />
     <Compile Include="Weapons\WeaponTypeComponent.cs" />
+    <Compile Include="WoundProcessing\MainWoundStatsComponent.cs" />
+    <Compile Include="WoundProcessing\WoundInitSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\leoecs\Leopotam.Ecs.csproj">
@@ -90,6 +98,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GswConfigs\GswWoundConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GswConfigs\OldGSW2Config.xml" />
     <Content Include="GswConfigs\GswWeaponConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

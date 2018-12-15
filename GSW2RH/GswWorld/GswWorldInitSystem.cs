@@ -14,7 +14,7 @@ namespace GunshotWound2.GswWorld
         private EcsWorld _ecsWorld;
 
         private const string CONFIG_PATH = "\\Plugins\\GswConfigs\\GswWorldConfig.xml";
-        private const string WORLD_ENABLED_ELEMENT = "GswWorldEnabled";
+        private const string TARGETS_KEY = "DetectingTargets";
         private const string SCAN_ONLY_DAMAGED_ELEMENT = "ScanOnlyDamaged";
 
         private readonly GswLogger _logger;
@@ -42,13 +42,30 @@ namespace GunshotWound2.GswWorld
         private void FillWithDefaultValues(GswWorldComponent gswWorld)
         {
             gswWorld.PedDetectingEnabled = true;
+            gswWorld.AnimalDetectingEnabled = true;
+            
+            gswWorld.PedHealth = new MinMax
+            {
+                Min = 50,
+                Max = 100
+            };
+            gswWorld.PedAccuracy = new MinMax
+            {
+                Min = 10,
+                Max = 30
+            };
+            gswWorld.PedShootRate = new MinMax
+            {
+                Min = 10,
+                Max = 30
+            };
 
             gswWorld.ScanOnlyDamaged = false;
 
             gswWorld.PedsToEntityDict = new Dictionary<Ped, int>();
             gswWorld.NeedToCheckPeds = new Queue<Ped>();
 
-            gswWorld.MaxDetectTimeInMs = 7;
+            gswWorld.MaxDetectTimeInMs = 5;
         }
 
         private void FillWithConfigValues(GswWorldComponent gswWorld)
@@ -66,10 +83,25 @@ namespace GunshotWound2.GswWorld
                 throw new Exception("Can't find root in " + CONFIG_PATH);
             }
 
-            XElement worldElement = xmlRoot.GetElement(WORLD_ENABLED_ELEMENT);
+            XElement worldElement = xmlRoot.GetElement(TARGETS_KEY);
             XElement scanOnlyDamageElement = xmlRoot.GetElement(SCAN_ONLY_DAMAGED_ELEMENT);
 
-            gswWorld.PedDetectingEnabled = worldElement.GetBool();
+            XElement pedHealth = xmlRoot.GetElement("PedHealth");
+            XElement pedAccuracy = xmlRoot.GetElement("PedAccuracy");
+            XElement pedShootRate = xmlRoot.GetElement("PedShootRate");
+
+            gswWorld.PedDetectingEnabled = worldElement.GetBool("Peds");
+            gswWorld.AnimalDetectingEnabled = worldElement.GetBool("Animals");
+
+            var health = pedHealth.GetMinMax();
+            if (!health.IsDisabled())
+            {
+                gswWorld.PedHealth = health;
+            }
+
+            gswWorld.PedAccuracy = pedAccuracy.GetMinMax();
+            gswWorld.PedShootRate = pedShootRate.GetMinMax();
+            
             gswWorld.ScanOnlyDamaged = scanOnlyDamageElement.GetBool();
 
             _logger.MakeLog("GswWorld is inited!");

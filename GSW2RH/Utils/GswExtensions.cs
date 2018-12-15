@@ -26,6 +26,11 @@ namespace GunshotWound2.Utils
             return (float) rand.NextDouble() * (max - min) + min;
         }
 
+        public static float NextMinMax(this Random rand, MinMax minMax)
+        {
+            return rand.NextFloat(minMax.Min, minMax.Max);
+        }
+
         public static void ShowInGsw(this string text, float x, float y, float scale = 1f, Color color = new Color())
         {
             //NativeFunction.Natives.SetTextFont(0);
@@ -74,6 +79,15 @@ namespace GunshotWound2.Utils
                 : node.Attribute(attributeName).Value;
 
             return float.Parse(value, CultureInfo.InvariantCulture);
+        }
+
+        public static MinMax GetMinMax(this XElement node)
+        {
+            return new MinMax
+            {
+                Min = node.GetFloat("Min"),
+                Max = node.GetFloat("Max")
+            };
         }
 
         public static string Name(this Ped ped)

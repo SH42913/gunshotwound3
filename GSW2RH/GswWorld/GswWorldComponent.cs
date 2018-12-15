@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
 
@@ -7,6 +8,11 @@ namespace GunshotWound2.GswWorld
     public class GswWorldComponent : IEcsAutoResetComponent
     {
         public bool PedDetectingEnabled;
+        public bool AnimalDetectingEnabled;
+
+        public MinMax PedHealth;
+        public MinMax PedAccuracy;
+        public MinMax PedShootRate;
 
         public bool ScanOnlyDamaged;
 
@@ -25,6 +31,10 @@ namespace GunshotWound2.GswWorld
         {
             return nameof(GswWorldComponent) + ": " +
                    nameof(PedDetectingEnabled) + " " + PedDetectingEnabled + "; " +
+                   nameof(AnimalDetectingEnabled) + " " + AnimalDetectingEnabled + "; " +
+                   nameof(PedHealth) + " " + PedHealth + "; " +
+                   nameof(PedAccuracy) + " " + PedAccuracy + "; " +
+                   nameof(PedShootRate) + " " + PedShootRate + "; " +
                    nameof(ScanOnlyDamaged) + " " + ScanOnlyDamaged + "; " +
                    nameof(MaxDetectTimeInMs) + " " + MaxDetectTimeInMs;
         }
