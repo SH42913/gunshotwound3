@@ -94,5 +94,20 @@ namespace GunshotWound2.Utils
         {
             return ped.Model.Name;
         }
+
+        public static void SetHealth(this Ped ped, float health)
+        {
+            ped.Health = (int) Math.Floor(health) + 100;
+        }
+
+        public static void SetMaxHealth(this Ped ped, float health)
+        {
+            ped.MaxHealth = (int) Math.Ceiling(health) + 101;
+        }
+
+        public static int GetHealth(this Ped ped)
+        {
+            return ped.Health - 100;
+        }
     }
 }

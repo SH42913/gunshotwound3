@@ -31,7 +31,7 @@ namespace GunshotWound2.HitDetecting
 
 #if DEBUG
                 PedBoneId lastBone = ped.LastDamageBone;
-                _logger.MakeLog("Ped " + ped.Name() + " has damaged " + bodyPart + " with boneId " + lastBone);
+                _logger.MakeLog($"Ped {ped.Name()} has damaged {bodyPart} with boneId {lastBone}");
 
                 var history = _ecsWorld.EnsureComponent<BodyHitHistoryComponent>(entity, out bool newBodyHitHistory);
                 if (newBodyHitHistory)
@@ -69,7 +69,7 @@ namespace GunshotWound2.HitDetecting
             PedBoneId lastBone = target.LastDamageBone;
             if (lastBone == 0)
             {
-                _logger.MakeLog("Ped " + target.Model.Name + " doesn't have damaged bone!");
+                _logger.MakeLog($"Ped {target.Model.Name} doesn\'t have damaged bone!");
                 return BodyParts.NOTHING;
             }
 
@@ -138,8 +138,7 @@ namespace GunshotWound2.HitDetecting
                 case PedBoneId.RightPinky2:
                     return BodyParts.ARM;
                 default:
-                    _logger.MakeLog("Bone " + target.LastDamageBone +
-                                    " for ped " + target.Model.Name + " is unknown!");
+                    _logger.MakeLog($"Bone {target.LastDamageBone} for ped {target.Model.Name} is unknown!");
                     return BodyParts.NOTHING;
             }
         }

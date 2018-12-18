@@ -30,7 +30,7 @@ namespace GunshotWound2.HitDetecting
                 if (!damaged) continue;
 
 #if DEBUG
-                _logger.MakeLog("Ped " + ped.Name() + " has been damaged");
+                _logger.MakeLog($"Ped {ped.Name()} has been damaged");
 #endif
                 _ecsWorld.AddComponent<HasBeenHitMarkComponent>(_peds.Entities[i]);
             }

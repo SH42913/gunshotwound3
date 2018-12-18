@@ -60,7 +60,7 @@ namespace GunshotWound2.Armor
                 if (armor.Armor <= 0)
                 {
 #if DEBUG
-                    _logger.MakeLog("Ped " + ped.Name() + " doesn't have armor");
+                    _logger.MakeLog($"Ped {ped.Name()} doesn\'t have armor");
 #endif
                     ped.Armor = armor.Armor;
                     continue;
@@ -70,7 +70,7 @@ namespace GunshotWound2.Armor
                 if (bodyPart != BodyParts.NECK && bodyPart != BodyParts.UPPER_BODY && bodyPart != BodyParts.LOWER_BODY)
                 {
 #if DEBUG
-                    _logger.MakeLog(bodyPart + " of " + ped.Name() + " is not protected by armor");
+                    _logger.MakeLog($"{bodyPart} of {ped.Name()} is not protected by armor");
 #endif
                     ped.Armor = armor.Armor;
                     continue;
@@ -82,7 +82,7 @@ namespace GunshotWound2.Armor
                 if (weaponStats == null)
                 {
 #if DEBUG
-                    _logger.MakeLog("This weapon doesn't have " + nameof(ArmorWeaponStatsComponent));
+                    _logger.MakeLog($"This weapon doesn\'t have {nameof(ArmorWeaponStatsComponent)}");
 #endif
                     ped.Armor = armor.Armor;
                     continue;
@@ -92,7 +92,7 @@ namespace GunshotWound2.Armor
                 if (armor.Armor <= 0)
                 {
 #if DEBUG
-                    _logger.MakeLog("Armor of " + ped.Name() + " was destroyed");
+                    _logger.MakeLog($"Armor of {ped.Name()} was destroyed");
 #endif
                     ped.Armor = armor.Armor;
                     continue;
@@ -106,7 +106,7 @@ namespace GunshotWound2.Armor
                 if (!weaponStats.CanPenetrateArmor || weaponStats.MinArmorPercentForPenetration < armorPercent)
                 {
 #if DEBUG
-                    _logger.MakeLog("Armor of " + ped.Name() + " was not penetrated");
+                    _logger.MakeLog($"Armor of {ped.Name()} was not penetrated");
 #endif
                     _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(pedEntity);
                     ped.Armor = armor.Armor;
@@ -118,8 +118,7 @@ namespace GunshotWound2.Armor
                 if (!wasPenetrated)
                 {
 #if DEBUG
-                    _logger.MakeLog("Armor of " + ped.Name() + " was not penetrated, when chance was " +
-                                    chanceToPenetrate);
+                    _logger.MakeLog($"Armor of {ped.Name()} was not penetrated, when chance was {chanceToPenetrate}");
 #endif
                     _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(pedEntity);
                     ped.Armor = armor.Armor;
@@ -127,7 +126,7 @@ namespace GunshotWound2.Armor
                 }
 
 #if DEBUG
-                _logger.MakeLog("Armor of " + ped.Name() + " was penetrated, when chance was " + chanceToPenetrate);
+                _logger.MakeLog($"Armor of {ped.Name()} was penetrated, when chance was {chanceToPenetrate}");
 #endif
                 ped.Armor = armor.Armor;
             }

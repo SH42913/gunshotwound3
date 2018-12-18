@@ -83,7 +83,7 @@ namespace GunshotWound2.Weapons
             var hashesComponent = _ecsWorld.AddComponent<WeaponHashesComponent>(entity);
             hashesComponent.Name = hashesElement.Attribute("Name").Value;
 #if DEBUG
-            _logger.MakeLog("Loading Weapon " + hashesComponent.Name);
+            _logger.MakeLog($"Loading Weapon {hashesComponent.Name}");
 #endif
 
             var hashes = new List<uint>();
@@ -95,7 +95,7 @@ namespace GunshotWound2.Weapons
                 }
                 else
                 {
-                    _logger.MakeLog("Wrong weapon hash: " + hashString);
+                    _logger.MakeLog($"Wrong weapon hash: {hashString}");
                 }
             }
 

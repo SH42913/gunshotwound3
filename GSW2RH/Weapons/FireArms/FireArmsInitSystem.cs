@@ -49,12 +49,11 @@ namespace GunshotWound2.Weapons.FireArms
                 };
 
 #if DEBUG
-                _logger.MakeLog(weaponName + " is " + type + ", chances: " +
-                                FireArmsWounds.GRAZE_WOUND + " " + graze + ";" +
-                                FireArmsWounds.FLESH_WOUND + " " + flesh + ";" +
-                                FireArmsWounds.PENETRATING_WOUND + " " + penetrating + ";" +
-                                FireArmsWounds.PERFORATING_WOUND + " " + perforating + ";" +
-                                FireArmsWounds.AVULSIVE_WOUND + " " + avulsive);
+                _logger.MakeLog($"{weaponName} is {type}, chances: {FireArmsWounds.GRAZE_WOUND} {graze}; " +
+                                $"{FireArmsWounds.FLESH_WOUND} {flesh}; " +
+                                $"{FireArmsWounds.PENETRATING_WOUND} {penetrating}; " +
+                                $"{FireArmsWounds.PERFORATING_WOUND} {perforating}; " +
+                                $"{FireArmsWounds.AVULSIVE_WOUND} {avulsive}");
 #endif
             }
         }

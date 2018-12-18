@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using GunshotWound2.GswWorld;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
@@ -18,6 +19,7 @@ namespace GunshotWound2.WoundProcessing.Health
         private EcsFilter<GswPedComponent, HealthComponent> _pedsWithHealth;
 #endif
 
+        private static readonly Random Random = new Random();
         private readonly GswLogger _logger;
 
         public HealthSystem()
@@ -32,28 +34,33 @@ namespace GunshotWound2.WoundProcessing.Health
             
             foreach (int i in _fullyHealed)
             {
-                Ped ped = _damagedPeds.Components1[i].ThisPed;
+                Ped ped = _fullyHealed.Components1[i].ThisPed;
+                if(!ped.Exists()) continue;
+                
                 HealthComponent health = _fullyHealed.Components2[i];
                 health.Health = health.MaxHealth;
-                ped.Health = (int) health.Health;
+                ped.SetHealth(health.Health);
             }
             
             foreach (int i in _damagedPeds)
             {
                 Ped ped = _damagedPeds.Components1[i].ThisPed;
+                if(!ped.Exists()) continue;
+                
                 HealthComponent health = _damagedPeds.Components2[i];
                 float baseDamage = _damagedPeds.Components3[i].Damage;
                 if(baseDamage <= 0) continue;
 
                 float damageWithMult = woundStats.DamageMultiplier * baseDamage;
                 float damageDeviation = damageWithMult * woundStats.DamageDeviation;
+                damageDeviation = Random.NextFloat(-damageDeviation, damageDeviation);
                 float finalDamage = damageWithMult + damageDeviation;
                 health.Health -= finalDamage;
-                ped.Health = (int) health.Health;
+                ped.SetHealth(health.Health);
 #if DEBUG
-                _logger.MakeLog("Base damage is " + baseDamage + 
-                                "; Final damage is " + finalDamage +
-                                "; New health is " + health.Health);
+                _logger.MakeLog($"Base damage is {baseDamage:0.0}; " +
+                                $"Final damage is {finalDamage:0.0}; " +
+                                $"New health is {health.Health:0.0}/{health.MaxHealth:0.0}");
 #endif
             }
 

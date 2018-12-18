@@ -24,11 +24,9 @@ namespace GunshotWound2.WoundProcessing.Health
             {
                 Ped ped = _pedsToCheck.Components1[i].ThisPed;
                 HealthComponent health = _pedsToCheck.Components2[i];
-                if (ped.Health <= health.MaxHealth) continue;
+                int realHealth = ped.GetHealth();
+                if (realHealth <= health.MaxHealth) continue;
                 
-#if DEBUG
-                _logger.MakeLog("Ped " + ped.Name() + " was fully healed with " + ped.Health + "/" + health.MaxHealth);
-#endif
                 _ecsWorld.AddComponent<FullyHealedComponent>(_pedsToCheck.Entities[i]);
             }
         }

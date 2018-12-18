@@ -119,11 +119,9 @@ namespace GunshotWound2.GswWorld
             gswPed.ThisPed = ped;
 
             health.Health = Random.NextMinMax(gswWorld.PedHealth);
-            health.MaxHealth = health.Health + 101;
-
-            ped.Health = 1;
-            ped.MaxHealth = (int) health.MaxHealth;
-            ped.Health = (int) health.Health;
+            health.MaxHealth = (float) Math.Floor(health.Health);
+            ped.SetMaxHealth(health.MaxHealth);
+            ped.SetHealth(health.Health);
 
             if (!gswWorld.PedAccuracy.IsDisabled())
             {
@@ -139,6 +137,16 @@ namespace GunshotWound2.GswWorld
             var armor = _ecsWorld.AddComponent<ArmorComponent>(entity);
             armor.Armor = ped.Armor;
 
+            ped.InjuryHealthThreshold = 0f;
+            ped.FatalInjuryHealthThreshold = 0f;
+            ped.IsHeadIkEnabled = true;
+            ped.IsArmIkEnabled = true;
+            ped.IsLegIkEnabled = true;
+            ped.IsTorsoIkEnabled = true;
+            ped.IsPainAudioEnabled = true;
+            ped.CanBeKnockedOffBikes = true;
+            ped.CanFlyThroughWindshields = true;
+
             gswWorld.PedsToEntityDict.Add(ped, entity);
         }
 
@@ -147,12 +155,18 @@ namespace GunshotWound2.GswWorld
             int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed, out HealthComponent health);
             gswPed.ThisPed = ped;
 
-            health.Health = ped.Health - 1;
-            health.MaxHealth = health.Health + 101;
-
-            ped.Health = 1;
-            ped.MaxHealth = (int) health.MaxHealth;
-            ped.Health = (int) health.Health;
+            health.Health = ped.GetHealth();
+            health.MaxHealth = (float) Math.Floor(health.Health);
+            ped.SetMaxHealth(health.MaxHealth);
+            ped.SetHealth(health.Health);
+            
+            ped.InjuryHealthThreshold = 0f;
+            ped.FatalInjuryHealthThreshold = 0f;
+            ped.IsHeadIkEnabled = true;
+            ped.IsArmIkEnabled = true;
+            ped.IsLegIkEnabled = true;
+            ped.IsTorsoIkEnabled = true;
+            ped.IsPainAudioEnabled = true;
 
             gswWorld.PedsToEntityDict.Add(ped, entity);
         }

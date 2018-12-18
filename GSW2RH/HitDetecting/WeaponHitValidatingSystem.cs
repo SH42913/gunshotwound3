@@ -27,15 +27,14 @@ namespace GunshotWound2.HitDetecting
 
                 if (!_ecsWorld.IsEntityExists(weaponEntity))
                 {
-                    _logger.MakeLog("Weapon Entity with type " + type + " doesn't exist");
+                    _logger.MakeLog($"Weapon Entity with type {type} doesn\'t exist");
                     _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(hitEntity);
                     continue;
                 }
 
                 if (_ecsWorld.GetComponent<BaseWeaponStatsComponent>(weaponEntity) == null)
                 {
-                    _logger.MakeLog("Weapon Entity with type " + type +
-                                    " doesn't have " + nameof(BaseWeaponStatsComponent));
+                    _logger.MakeLog($"Weapon Entity with type {type} doesn\'t have {nameof(BaseWeaponStatsComponent)}");
                     _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(hitEntity);
                     continue;
                 }
