@@ -79,6 +79,8 @@ namespace GunshotWound2.HitDetecting
                     return BodyParts.HEAD;
                 case PedBoneId.Neck:
                     return BodyParts.NECK;
+                case PedBoneId.LeftClavicle:
+                case PedBoneId.RightClavicle:
                 case PedBoneId.Spine2:
                 case PedBoneId.Spine3:
                     return BodyParts.UPPER_BODY;
@@ -98,8 +100,6 @@ namespace GunshotWound2.HitDetecting
                     return BodyParts.LEG;
                 case PedBoneId.LeftUpperArm:
                 case PedBoneId.RightUpperArm:
-                case PedBoneId.LeftClavicle:
-                case PedBoneId.RightClavicle:
                 case PedBoneId.LeftForeArm:
                 case PedBoneId.RightForearm:
                 case PedBoneId.LeftHand:
