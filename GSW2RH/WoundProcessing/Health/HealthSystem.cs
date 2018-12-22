@@ -12,7 +12,7 @@ namespace GunshotWound2.WoundProcessing.Health
     {
         private EcsWorld _ecsWorld;
 
-        private EcsFilter<MainWoundStatsComponent> _woundStats;
+        private EcsFilter<HealthWoundStatsComponent> _woundStats;
         private EcsFilter<GswPedComponent, HealthComponent, FullyHealedComponent> _fullyHealed;
         private EcsFilter<GswPedComponent, HealthComponent, ReceivedDamageComponent> _damagedPeds;
 #if DEBUG
@@ -30,7 +30,7 @@ namespace GunshotWound2.WoundProcessing.Health
         public void Run()
         {
             if(_woundStats.EntitiesCount <= 0) return;
-            MainWoundStatsComponent woundStats = _woundStats.Components1[0];
+            HealthWoundStatsComponent woundStats = _woundStats.Components1[0];
             
             foreach (int i in _fullyHealed)
             {

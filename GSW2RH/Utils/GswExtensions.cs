@@ -48,37 +48,47 @@ namespace GunshotWound2.Utils
             XElement element = root.Element(elementName);
             if (element == null)
             {
-                throw new Exception("Can't find " + elementName);
+                throw new Exception($"Can\'t find element {elementName} in {root.Name}");
             }
 
             return element;
         }
 
+        public static string GetAttributeValue(this XElement node, string attributeName)
+        {
+            XAttribute attribute = node.Attribute(attributeName);
+            if (attribute == null)
+            {
+                throw new Exception($"Can\'t find attribute {attributeName} in {node.Name}");
+            }
+            return attribute.Value;
+        }
+
         public static bool GetBool(this XElement node, string attributeName = "Value")
         {
-            string value = string.IsNullOrEmpty(attributeName)
-                ? node.Value
-                : node.Attribute(attributeName).Value;
+            string valueString = string.IsNullOrEmpty(attributeName) 
+                ? node.Value 
+                : node.GetAttributeValue(attributeName);
 
-            return !string.IsNullOrEmpty(value) && bool.Parse(value);
+            return !string.IsNullOrEmpty(valueString) && bool.Parse(valueString);
         }
 
         public static int GetInt(this XElement node, string attributeName = "Value")
         {
-            string value = string.IsNullOrEmpty(attributeName)
-                ? node.Value
-                : node.Attribute(attributeName).Value;
+            string valueString = string.IsNullOrEmpty(attributeName) 
+                ? node.Value 
+                : node.GetAttributeValue(attributeName);
 
-            return int.Parse(value);
+            return int.Parse(valueString);
         }
 
         public static float GetFloat(this XElement node, string attributeName = "Value")
         {
-            string value = string.IsNullOrEmpty(attributeName)
-                ? node.Value
-                : node.Attribute(attributeName).Value;
+            string valueString = string.IsNullOrEmpty(attributeName) 
+                ? node.Value 
+                : node.GetAttributeValue(attributeName);
 
-            return float.Parse(value, CultureInfo.InvariantCulture);
+            return float.Parse(valueString, CultureInfo.InvariantCulture);
         }
 
         public static MinMax GetMinMax(this XElement node)

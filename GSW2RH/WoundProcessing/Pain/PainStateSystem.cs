@@ -8,7 +8,7 @@ namespace GunshotWound2.WoundProcessing.Pain
     {
         private EcsWorld _ecsWorld;
 
-        private EcsFilter<MainWoundStatsComponent> _woundStats;
+        private EcsFilter<PainWoundStatsComponent> _woundStats;
         private EcsFilter<PainComponent, PainInfoComponent> _entities;
 
         private readonly GswLogger _logger;
@@ -21,7 +21,7 @@ namespace GunshotWound2.WoundProcessing.Pain
         public void Run()
         {
             if(_woundStats.EntitiesCount <= 0) return;
-            MainWoundStatsComponent woundStats = _woundStats.Components1[0];
+            PainWoundStatsComponent woundStats = _woundStats.Components1[0];
             
             foreach (int i in _entities)
             {

@@ -52,6 +52,7 @@
     <Compile Include="Armor\ArmorHitProcessingSystem.cs" />
     <Compile Include="Armor\ArmorWeaponStatsComponent.cs" />
     <Compile Include="Armor\HelmetHitProcessingSystem.cs" />
+    <Compile Include="BaseStatsInitSystem.cs" />
     <Compile Include="GswWorld\GswPedComponent.cs" />
     <Compile Include="GswWorld\GswWorldComponent.cs" />
     <Compile Include="GswWorld\GswWorldInitSystem.cs" />
@@ -71,12 +72,16 @@
     <Compile Include="Weapons\FireArms\FireArmsWounds.cs" />
     <Compile Include="Weapons\WeaponTypes.cs" />
     <Compile Include="WoundProcessing\Bleeding\BleedingComponent.cs" />
+    <Compile Include="WoundProcessing\Bleeding\BleedingCreateSystem.cs" />
+    <Compile Include="WoundProcessing\Bleeding\BleedingWoundStatsComponent.cs" />
     <Compile Include="WoundProcessing\Bleeding\CreateBleedingEvent.cs" />
     <Compile Include="WoundProcessing\Bleeding\PedBleedingInfoComponent.cs" />
+    <Compile Include="WoundProcessing\Health\HealthWoundStatsComponent.cs" />
     <Compile Include="WoundProcessing\Health\FullyHealedComponent.cs" />
     <Compile Include="WoundProcessing\Health\HealDetectSystem.cs" />
     <Compile Include="WoundProcessing\Health\HealthComponent.cs" />
     <Compile Include="WoundProcessing\Health\HealthSystem.cs" />
+    <Compile Include="WoundProcessing\Health\HealthInitSystem.cs" />
     <Compile Include="WoundProcessing\Health\ReceivedDamageComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -91,15 +96,15 @@
     <Compile Include="Weapons\WeaponInitComponent.cs" />
     <Compile Include="Weapons\WeaponInitSystem.cs" />
     <Compile Include="Weapons\WeaponTypeComponent.cs" />
-    <Compile Include="WoundProcessing\MainWoundStatsComponent.cs" />
     <Compile Include="WoundProcessing\Pain\ChangedPainStateComponent.cs" />
     <Compile Include="WoundProcessing\Pain\PainComponent.cs" />
+    <Compile Include="WoundProcessing\Pain\PainInitSystem.cs" />
     <Compile Include="WoundProcessing\Pain\PainStates.cs" />
     <Compile Include="WoundProcessing\Pain\PainStateSystem.cs" />
     <Compile Include="WoundProcessing\Pain\PainSystem.cs" />
+    <Compile Include="WoundProcessing\Pain\PainWoundStatsComponent.cs" />
     <Compile Include="WoundProcessing\Pain\PedPainInfoComponent.cs" />
     <Compile Include="WoundProcessing\Pain\ReceivedPainComponent.cs" />
-    <Compile Include="WoundProcessing\WoundInitSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\leoecs\Leopotam.Ecs.csproj">

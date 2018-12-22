@@ -18,6 +18,11 @@ namespace GunshotWound2
 {
     public class GunshotWound2Script : IDisposable
     {
+        public const string WOUND_CONFIG_PATH = "\\Plugins\\GswConfigs\\GswWoundConfig.xml";
+        public const string WORLD_CONFIG_PATH = "";
+        public const string WEAPON_CONFIG_PATH = "";
+        public static int StatsContainerEntity { get; private set; }
+        
         private EcsWorld _world;
         private EcsSystems _systems;
 
@@ -33,10 +38,12 @@ namespace GunshotWound2
         {
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);
+            StatsContainerEntity = _world.CreateEntity();
 
             _systems
                 .Add(new GswWorldInitSystem())
-                .Add(new WoundInitSystem())
+                .Add(new HealthInitSystem())
+                .Add(new HealthInitSystem())
                 .Add(new WeaponInitSystem())
                 .Add(new FireArmsInitSystem())
                 .Add(new GswWorldSystem())
