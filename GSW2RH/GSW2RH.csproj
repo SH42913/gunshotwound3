@@ -86,6 +86,10 @@
     <Compile Include="Weapons\WeaponInitSystem.cs" />
     <Compile Include="Weapons\WeaponTypeComponent.cs" />
     <Compile Include="WoundProcessing\MainWoundStatsComponent.cs" />
+    <Compile Include="WoundProcessing\Pain\PainComponent.cs" />
+    <Compile Include="WoundProcessing\Pain\PainSystem.cs" />
+    <Compile Include="WoundProcessing\Pain\PedPainInfoComponent.cs" />
+    <Compile Include="WoundProcessing\Pain\ReceivedPainComponent.cs" />
     <Compile Include="WoundProcessing\WoundInitSystem.cs" />
   </ItemGroup>
   <ItemGroup>

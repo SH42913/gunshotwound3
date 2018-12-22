@@ -23,6 +23,8 @@ namespace GunshotWound2.WoundProcessing.Health
             foreach (int i in _pedsToCheck)
             {
                 Ped ped = _pedsToCheck.Components1[i].ThisPed;
+                if(!ped.Exists()) continue;
+                
                 HealthComponent health = _pedsToCheck.Components2[i];
                 int realHealth = ped.GetHealth();
                 if (realHealth <= health.MaxHealth) continue;

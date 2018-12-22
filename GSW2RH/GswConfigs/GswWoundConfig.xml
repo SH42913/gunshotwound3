@@ -5,4 +5,13 @@
 
 	<DamageDeviation Value="0.2"/>
 	<!-- 0.2 mean +-20% random damage -->
+	
+	<PainMultiplier Value="1.0"/>
+	<!-- Overall pain multiplier, 2.0 mean every wound will make x2 pain for ped -->
+
+	<PainDeviation Value="0.2"/>
+	<!-- 0.2 mean +-20% random pain -->
+
+	<DeadlyPainMultiplier Value="2.5"/>
+	<!-- 2.5 mean if Pain Amount will more than (2.5 * UnbearablePain), GSWPed will die -->
 </GswWoundConfig>

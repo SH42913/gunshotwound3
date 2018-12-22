@@ -14,6 +14,9 @@ namespace GunshotWound2.GswWorld
         public MinMax PedAccuracy;
         public MinMax PedShootRate;
 
+        public MinMax PedUnbearablePain;
+        public MinMax PedPainRecoverySpeed;
+
         public bool ScanOnlyDamaged;
 
         public Queue<Ped> NeedToCheckPeds;
@@ -29,14 +32,17 @@ namespace GunshotWound2.GswWorld
 
         public override string ToString()
         {
-            return nameof(GswWorldComponent) + ": " +
-                   nameof(PedDetectingEnabled) + " " + PedDetectingEnabled + "; " +
-                   nameof(AnimalDetectingEnabled) + " " + AnimalDetectingEnabled + "; " +
-                   nameof(PedHealth) + " " + PedHealth + "; " +
-                   nameof(PedAccuracy) + " " + PedAccuracy + "; " +
-                   nameof(PedShootRate) + " " + PedShootRate + "; " +
-                   nameof(ScanOnlyDamaged) + " " + ScanOnlyDamaged + "; " +
-                   nameof(MaxDetectTimeInMs) + " " + MaxDetectTimeInMs;
+            return
+                $"{nameof(GswWorldComponent)}: " +
+                $"{nameof(PedDetectingEnabled)} {PedDetectingEnabled}; " +
+                $"{nameof(AnimalDetectingEnabled)} {AnimalDetectingEnabled}; " +
+                $"{nameof(PedHealth)} {PedHealth}; " +
+                $"{nameof(PedAccuracy)} {PedAccuracy}; " +
+                $"{nameof(PedShootRate)} {PedShootRate}; " +
+                $"{nameof(PedUnbearablePain)} {PedUnbearablePain}; " +
+                $"{nameof(PedPainRecoverySpeed)} {PedPainRecoverySpeed}; " +
+                $"{nameof(ScanOnlyDamaged)} {ScanOnlyDamaged}; " +
+                $"{nameof(MaxDetectTimeInMs)} {MaxDetectTimeInMs}";
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Drawing;
 using GunshotWound2.Armor;
 using GunshotWound2.Utils;
 using GunshotWound2.WoundProcessing.Health;
+using GunshotWound2.WoundProcessing.Pain;
 using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
@@ -137,6 +138,10 @@ namespace GunshotWound2.GswWorld
             var armor = _ecsWorld.AddComponent<ArmorComponent>(entity);
             armor.Armor = ped.Armor;
 
+            var painInfo = _ecsWorld.AddComponent<PainInfoComponent>(entity);
+            painInfo.UnbearablePain = Random.NextMinMax(gswWorld.PedUnbearablePain);
+            painInfo.PainRecoverySpeed = Random.NextMinMax(gswWorld.PedPainRecoverySpeed);
+
             ped.InjuryHealthThreshold = 0f;
             ped.FatalInjuryHealthThreshold = 0f;
             ped.IsHeadIkEnabled = true;
@@ -159,6 +164,11 @@ namespace GunshotWound2.GswWorld
             health.MaxHealth = (float) Math.Floor(health.Health);
             ped.SetMaxHealth(health.MaxHealth);
             ped.SetHealth(health.Health);
+
+            float healthPercent = health.Health / gswWorld.PedHealth.Max;
+            var painInfo = _ecsWorld.AddComponent<PainInfoComponent>(entity);
+            painInfo.UnbearablePain = healthPercent * gswWorld.PedUnbearablePain.Max;
+            painInfo.PainRecoverySpeed = healthPercent * gswWorld.PedPainRecoverySpeed.Max;
             
             ped.InjuryHealthThreshold = 0f;
             ped.FatalInjuryHealthThreshold = 0f;

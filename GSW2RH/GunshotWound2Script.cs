@@ -10,6 +10,7 @@ using GunshotWound2.Weapons;
 using GunshotWound2.Weapons.FireArms;
 using GunshotWound2.WoundProcessing;
 using GunshotWound2.WoundProcessing.Health;
+using GunshotWound2.WoundProcessing.Pain;
 using Leopotam.Ecs;
 using Rage;
 
@@ -51,7 +52,8 @@ namespace GunshotWound2
                 .Add(new ArmorHitProcessingSystem())
                 .Add(new FireArmsWoundSystem())
                 .Add(new HealDetectSystem())
-                .Add(new HealthSystem());
+                .Add(new HealthSystem())
+                .Add(new PainSystem());
             _systems.Initialize();
             GameFiber.Yield();
         }

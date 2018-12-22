@@ -2,6 +2,7 @@
 using GunshotWound2.HitDetecting;
 using GunshotWound2.Utils;
 using GunshotWound2.WoundProcessing.Health;
+using GunshotWound2.WoundProcessing.Pain;
 using Leopotam.Ecs;
 using Rage;
 
@@ -50,40 +51,64 @@ namespace GunshotWound2.Weapons.FireArms
                 FireArmsWounds wound = woundRandomizer.WoundRandomizer.NextWithReplacement();
                 float damageMult = baseStats.DamageMult;
                 float damageAmount;
+
+                float painMult = baseStats.PainMult;
+                float painAmount;
                 
                 _logger.MakeLog($"Ped {ped.Name()} have got {wound}");
                 switch (wound)
                 {
                     case FireArmsWounds.GRAZE_WOUND:
                         damageAmount = 5;
+                        painAmount = 10;
                         break;
                     case FireArmsWounds.FLESH_WOUND:
                         damageAmount = 7;
+                        painAmount = 15;
                         break;
                     case FireArmsWounds.PENETRATING_WOUND:
                         damageAmount = 10;
+                        painAmount = 20;
                         break;
                     case FireArmsWounds.PERFORATING_WOUND:
                         damageAmount = 10;
+                        painAmount = 20;
                         break;
                     case FireArmsWounds.AVULSIVE_WOUND:
                         damageAmount = 15;
+                        painAmount = 30;
                         break;
                     default:
                         continue;
                 }
 
-                var newDamage = _ecsWorld.EnsureComponent<ReceivedDamageComponent>(pedEntity, out var isNew);
-                if (isNew)
+                var newDamage = _ecsWorld.EnsureComponent<ReceivedDamageComponent>(pedEntity, out bool damageIsNew);
+                var damage = damageMult * damageAmount;
+                if (damageIsNew)
                 {
-                    newDamage.Damage = damageMult * damageAmount;
-                    _logger.MakeLog($"Apply to ped {ped.Name()} damage {newDamage.Damage}");
+                    newDamage.Damage = damage;
                 }
                 else
                 {
-                    newDamage.Damage += damageMult * damageAmount;
-                    _logger.MakeLog($"Add to ped {ped.Name()} damage {newDamage.Damage}");
+                    newDamage.Damage += damage;
                 }
+#if DEBUG
+                _logger.MakeLog($"Damage {damage} to ped {ped.Name()}");
+#endif
+
+                var newPain = _ecsWorld.EnsureComponent<ReceivedPainComponent>(pedEntity, out bool painIsNew);
+                var pain = painMult * painAmount;
+                if (painIsNew)
+                {
+                    newPain.Pain = pain;
+                }
+                else
+                {
+                    newPain.Pain += pain;
+                }
+#if DEBUG
+                _logger.MakeLog($"Pain {pain} to ped {ped.Name()}");
+#endif
             }
         }
     }

@@ -37,8 +37,11 @@ namespace GunshotWound2.WoundProcessing
 
         private void FillWithDefaultValues(MainWoundStatsComponent stats)
         {
-            stats.DamageDeviation = 1f;
             stats.DamageMultiplier = 1f;
+            stats.DamageDeviation = 0.2f;
+            stats.PainMultiplier = 1f;
+            stats.PainDeviation = 0.2f;
+            stats.DeadlyPainMultiplier = 2.5f;
         }
 
         private void FillWithConfigValues(MainWoundStatsComponent stats)
@@ -58,9 +61,16 @@ namespace GunshotWound2.WoundProcessing
 
             XElement damMultElement = xmlRoot.GetElement("DamageMultiplier");
             XElement damDevElement = xmlRoot.GetElement("DamageDeviation");
+            XElement painMultElement = xmlRoot.GetElement("PainMultiplier");
+            XElement painDevElement = xmlRoot.GetElement("PainDeviation");
+            XElement deadlyPainElement = xmlRoot.GetElement("DeadlyPainMultiplier");
+
 
             stats.DamageMultiplier = damMultElement.GetFloat();
             stats.DamageDeviation = damDevElement.GetFloat();
+            stats.PainMultiplier = painMultElement.GetFloat();
+            stats.PainDeviation = painDevElement.GetFloat();
+            stats.DeadlyPainMultiplier = deadlyPainElement.GetFloat();
             
 #if DEBUG
             _logger.MakeLog(stats.ToString());

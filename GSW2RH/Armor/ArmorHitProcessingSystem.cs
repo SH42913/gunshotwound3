@@ -3,6 +3,7 @@ using System.Drawing;
 using GunshotWound2.GswWorld;
 using GunshotWound2.HitDetecting;
 using GunshotWound2.Utils;
+using GunshotWound2.WoundProcessing.Pain;
 using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
@@ -89,6 +90,19 @@ namespace GunshotWound2.Armor
                 }
 
                 armor.Armor -= weaponStats.ArmorDamage;
+                var newPain = _ecsWorld.EnsureComponent<ReceivedPainComponent>(pedEntity, out bool painIsNew);
+                if (painIsNew)
+                {
+                    newPain.Pain = weaponStats.ArmorDamage;
+                }
+                else
+                {
+                    newPain.Pain += weaponStats.ArmorDamage;
+                }
+#if DEBUG
+                _logger.MakeLog($"Pain {weaponStats.ArmorDamage} by armor hit for ped {ped.Name()}");
+#endif
+                
                 if (armor.Armor <= 0)
                 {
 #if DEBUG

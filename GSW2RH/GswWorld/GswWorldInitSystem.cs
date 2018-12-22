@@ -59,6 +59,17 @@ namespace GunshotWound2.GswWorld
                 Min = 10,
                 Max = 30
             };
+            
+            gswWorld.PedUnbearablePain = new MinMax
+            {
+                Min = 50,
+                Max = 100
+            };
+            gswWorld.PedPainRecoverySpeed = new MinMax
+            {
+                Min = 1f,
+                Max = 2f
+            };
 
             gswWorld.ScanOnlyDamaged = false;
 
@@ -89,6 +100,9 @@ namespace GunshotWound2.GswWorld
             XElement pedHealth = xmlRoot.GetElement("PedHealth");
             XElement pedAccuracy = xmlRoot.GetElement("PedAccuracy");
             XElement pedShootRate = xmlRoot.GetElement("PedShootRate");
+            
+            XElement pedUnbearablePain = xmlRoot.GetElement("PedUnbearablePain");
+            XElement pedPainRecoverySpeed = xmlRoot.GetElement("PedPainRecoverySpeed");
 
             gswWorld.PedDetectingEnabled = worldElement.GetBool("Peds");
             gswWorld.AnimalDetectingEnabled = worldElement.GetBool("Animals");
@@ -101,6 +115,18 @@ namespace GunshotWound2.GswWorld
 
             gswWorld.PedAccuracy = pedAccuracy.GetMinMax();
             gswWorld.PedShootRate = pedShootRate.GetMinMax();
+
+            var painLimit = pedUnbearablePain.GetMinMax();
+            if (!painLimit.IsDisabled())
+            {
+                gswWorld.PedUnbearablePain = painLimit;
+            }
+            
+            var recoverySpeed = pedPainRecoverySpeed.GetMinMax();
+            if (!recoverySpeed.IsDisabled())
+            {
+                gswWorld.PedPainRecoverySpeed = recoverySpeed;
+            }
             
             gswWorld.ScanOnlyDamaged = scanOnlyDamageElement.GetBool();
 

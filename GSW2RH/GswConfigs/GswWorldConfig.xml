@@ -15,6 +15,14 @@
 	<PedShootRate Min="5" Max="10"/>
 	<!-- Any new GswPed(exclude animals) will get ShootRate between Min and Max.
 	If you want to use default game ped ShootRate - set Min or Max lower 0 -->
+
+	<PedUnbearablePain Min="50" Max="100"/>
+	<!-- Any new GswPed(exclude animals) will get Unbearable Pain Limit between Min and Max.
+	If you will set Min or Max lower 0, will be loaded GSW-Default values(50-100). -->
+
+	<PedPainRecoverySpeed Min="0.5" Max="2.0"/>
+	<!-- Any new GswPed(exclude animals) will get PedPainRecoverySpeed between Min and Max.
+	If you will set Min or Max lower 0, will be loaded GSW-Default values(1-2). -->
 	
 	<ScanOnlyDamaged Value="FALSE"/>
 	<!-- If TRUE, GSW will mark ped/animal as GSWPed only after first damage.

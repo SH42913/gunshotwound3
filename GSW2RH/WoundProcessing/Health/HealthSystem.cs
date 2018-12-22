@@ -68,12 +68,14 @@ namespace GunshotWound2.WoundProcessing.Health
             foreach (int i in _pedsWithHealth)
             {
                 Ped ped = _pedsWithHealth.Components1[i].ThisPed;
+                if(!ped.Exists()) continue;
+                
                 HealthComponent health = _pedsWithHealth.Components2[i];
                 if (health.Health <= 0) continue;
 
                 Vector3 position = ped.AbovePosition + 0.1f * Vector3.WorldUp;
-                Debug.DrawWireBoxDebug(position, ped.Orientation, new Vector3(1.05f, 0.15f, 0.1f), Color.Red);
-                Debug.DrawWireBoxDebug(position, ped.Orientation, new Vector3(health.Health / health.MaxHealth, 0.1f, 0.1f), Color.Yellow);
+                Debug.DrawWireBoxDebug(position, ped.Orientation, new Vector3(1.05f, 0.15f, 0.1f), Color.Gold);
+                Debug.DrawWireBoxDebug(position, ped.Orientation, new Vector3(health.Health / health.MaxHealth, 0.1f, 0.1f), Color.Green);
             }
 #endif
         }
