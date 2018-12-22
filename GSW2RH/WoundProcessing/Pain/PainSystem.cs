@@ -67,7 +67,7 @@ namespace GunshotWound2.WoundProcessing.Pain
                 float painRecoverySpeed = _painToReduce.Components2[i].PainRecoverySpeed;
                 int entity = _painToReduce.Entities[i];
 
-                painComponent.PainAmount -= painRecoverySpeed * (Game.TimeScale * Game.FrameTime);
+                painComponent.PainAmount -= painRecoverySpeed * GswExtensions.GetDeltaTime();
                 if (painComponent.PainAmount <= 0)
                 {
                     _ecsWorld.RemoveComponent<PainComponent>(entity);

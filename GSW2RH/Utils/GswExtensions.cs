@@ -109,5 +109,12 @@ namespace GunshotWound2.Utils
         {
             return ped.Health - 100;
         }
+
+        public static float GetDeltaTime()
+        {
+            return Game.Console.IsOpen 
+                ? 0f 
+                : Game.TimeScale * Game.FrameTime;
+        }
     }
 }

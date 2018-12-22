@@ -4,5 +4,6 @@ namespace GunshotWound2.WoundProcessing.Pain
     {
         public float UnbearablePain;
         public float PainRecoverySpeed;
+        public PainStates CurrentPainState;
     }
 }

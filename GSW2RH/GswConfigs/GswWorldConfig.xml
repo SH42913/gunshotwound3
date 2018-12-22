@@ -20,7 +20,7 @@
 	<!-- Any new GswPed(exclude animals) will get Unbearable Pain Limit between Min and Max.
 	If you will set Min or Max lower 0, will be loaded GSW-Default values(50-100). -->
 
-	<PedPainRecoverySpeed Min="0.5" Max="2.0"/>
+	<PedPainRecoverySpeed Min="0.5" Max="1.0"/>
 	<!-- Any new GswPed(exclude animals) will get PedPainRecoverySpeed between Min and Max.
 	If you will set Min or Max lower 0, will be loaded GSW-Default values(1-2). -->
 	

@@ -53,7 +53,8 @@ namespace GunshotWound2
                 .Add(new FireArmsWoundSystem())
                 .Add(new HealDetectSystem())
                 .Add(new HealthSystem())
-                .Add(new PainSystem());
+                .Add(new PainSystem())
+                .Add(new PainStateSystem());
             _systems.Initialize();
             GameFiber.Yield();
         }
