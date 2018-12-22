@@ -19,15 +19,18 @@ namespace GunshotWound2.GswWorld
 
         public bool ScanOnlyDamaged;
 
-        public Queue<Ped> NeedToCheckPeds;
-        public Dictionary<Ped, int> PedsToEntityDict;
+        [EcsIgnoreNullCheck]
+        public readonly Queue<Ped> NeedToCheckPeds = new Queue<Ped>();
+        
+        [EcsIgnoreNullCheck]
+        public readonly Dictionary<Ped, int> PedsToEntityDict = new Dictionary<Ped, int>();
 
         public int MaxDetectTimeInMs;
 
         public void Reset()
         {
-            NeedToCheckPeds = null;
-            PedsToEntityDict = null;
+            NeedToCheckPeds.Clear();
+            PedsToEntityDict.Clear();
         }
 
         public override string ToString()

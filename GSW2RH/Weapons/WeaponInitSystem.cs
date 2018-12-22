@@ -86,20 +86,18 @@ namespace GunshotWound2.Weapons
             _logger.MakeLog($"Loading Weapon {hashesComponent.Name}");
 #endif
 
-            var hashes = new List<uint>();
             foreach (string hashString in hashesElement.Attribute("Hashes").Value.Split(';'))
             {
                 if (uint.TryParse(hashString, out var hash))
                 {
-                    hashes.Add(hash);
+                    hashesComponent.Hashes.Add(hash);
                 }
                 else
                 {
                     _logger.MakeLog($"Wrong weapon hash: {hashString}");
                 }
             }
-
-            hashesComponent.Hashes = hashes;
+            
 #if DEBUG
             _logger.MakeLog(hashesComponent.ToString());
 #endif

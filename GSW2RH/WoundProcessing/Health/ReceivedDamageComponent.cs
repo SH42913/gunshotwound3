@@ -3,13 +3,8 @@
 namespace GunshotWound2.WoundProcessing.Health
 {
     [EcsOneFrame]
-    public class ReceivedDamageComponent : IEcsAutoResetComponent
+    public class ReceivedDamageComponent
     {
         public float Damage;
-        
-        public void Reset()
-        {
-            Damage = 0;
-        }
     }
 }

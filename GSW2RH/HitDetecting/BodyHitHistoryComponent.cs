@@ -3,13 +3,9 @@ using Rage;
 
 namespace GunshotWound2.HitDetecting
 {
-    public class BodyHitHistoryComponent : IEcsAutoResetComponent
+    public class BodyHitHistoryComponent
     {
-        public PedBoneId?[] LastDamagedBones;
-
-        public void Reset()
-        {
-            LastDamagedBones = null;
-        }
+        [EcsIgnoreNullCheck]
+        public readonly PedBoneId?[] LastDamagedBones = new PedBoneId?[3];
     }
 }

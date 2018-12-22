@@ -5,11 +5,12 @@ namespace GunshotWound2.Weapons.FireArms
 {
     public class FireArmsWoundRandomizerComponent : IEcsAutoResetComponent
     {
-        public StaticWeightedRandomizer<FireArmsWounds> WoundRandomizer;
+        [EcsIgnoreNullCheck]
+        public readonly StaticWeightedRandomizer<FireArmsWounds> WoundRandomizer = new StaticWeightedRandomizer<FireArmsWounds>();
 
         public void Reset()
         {
-            WoundRandomizer = null;
+            WoundRandomizer.Clear();
         }
     }
 }

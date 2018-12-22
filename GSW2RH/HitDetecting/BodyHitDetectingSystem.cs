@@ -34,23 +34,18 @@ namespace GunshotWound2.HitDetecting
                 _logger.MakeLog($"Ped {ped.Name(pedEntity)} has damaged {bodyPart} with boneId {lastBone}");
 
                 var history = _ecsWorld.EnsureComponent<BodyHitHistoryComponent>(pedEntity, out bool newBodyHitHistory);
+                PedBoneId?[] bones = history.LastDamagedBones;
                 if (newBodyHitHistory)
                 {
-                    history.LastDamagedBones = new PedBoneId?[]
-                    {
-                        lastBone,
-                        null,
-                        null
-                    };
+                    bones[0] = lastBone;
+                    bones[1] = null;
+                    bones[2] = null;
                 }
                 else
                 {
-                    history.LastDamagedBones = new[]
-                    {
-                        lastBone,
-                        history.LastDamagedBones[0],
-                        history.LastDamagedBones[1]
-                    };
+                    bones[2] = bones[1];
+                    bones[1] = bones[0];
+                    bones[2] = lastBone;
                 }
 #endif
 

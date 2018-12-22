@@ -73,9 +73,6 @@ namespace GunshotWound2.GswWorld
 
             gswWorld.ScanOnlyDamaged = false;
 
-            gswWorld.PedsToEntityDict = new Dictionary<Ped, int>();
-            gswWorld.NeedToCheckPeds = new Queue<Ped>();
-
             gswWorld.MaxDetectTimeInMs = 5;
         }
 

@@ -6,12 +6,14 @@ namespace GunshotWound2.Weapons
     public class WeaponHashesComponent : IEcsAutoResetComponent
     {
         public string Name;
-        public List<uint> Hashes;
+        
+        [EcsIgnoreNullCheck]
+        public readonly List<uint> Hashes = new List<uint>();
 
         public void Reset()
         {
             Name = null;
-            Hashes = null;
+            Hashes.Clear();
         }
 
         public override string ToString()

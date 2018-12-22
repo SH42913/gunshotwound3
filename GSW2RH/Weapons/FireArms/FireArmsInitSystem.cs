@@ -39,14 +39,11 @@ namespace GunshotWound2.Weapons.FireArms
                 int avulsive = chancesElement.GetInt("Avulsive");
 
                 var chances = _ecsWorld.AddComponent<FireArmsWoundRandomizerComponent>(weaponEntity);
-                chances.WoundRandomizer = new StaticWeightedRandomizer<FireArmsWounds>
-                {
-                    {FireArmsWounds.GRAZE_WOUND, graze},
-                    {FireArmsWounds.FLESH_WOUND, flesh},
-                    {FireArmsWounds.PENETRATING_WOUND, penetrating},
-                    {FireArmsWounds.PERFORATING_WOUND, perforating},
-                    {FireArmsWounds.AVULSIVE_WOUND, avulsive}
-                };
+                chances.WoundRandomizer.Add(FireArmsWounds.GRAZE_WOUND, graze);
+                chances.WoundRandomizer.Add(FireArmsWounds.FLESH_WOUND, flesh);
+                chances.WoundRandomizer.Add(FireArmsWounds.PENETRATING_WOUND, penetrating);
+                chances.WoundRandomizer.Add(FireArmsWounds.PERFORATING_WOUND, perforating);
+                chances.WoundRandomizer.Add(FireArmsWounds.AVULSIVE_WOUND, avulsive);
 
 #if DEBUG
                 _logger.MakeLog($"{weaponName} is {type}, chances: {FireArmsWounds.GRAZE_WOUND} {graze}; " +
