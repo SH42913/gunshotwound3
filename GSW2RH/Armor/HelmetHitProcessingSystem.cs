@@ -28,10 +28,12 @@ namespace GunshotWound2.Armor
                 GswPedComponent gswPed = _damagedPeds.Components1[i];
                 Ped ped = gswPed.ThisPed;
                 if (!ped.Exists()) continue;
+                
+                int pedEntity = _damagedPeds.Entities[i];
                 if (!ped.IsWearingHelmet)
                 {
 #if DEBUG
-                    _logger.MakeLog($"Ped {ped.Name()} doesn\'t have Helmet");
+                    _logger.MakeLog($"Ped {ped.Name(pedEntity)} doesn\'t have Helmet");
 #endif
                     continue;
                 }
@@ -40,13 +42,12 @@ namespace GunshotWound2.Armor
                 if (bodyPart != BodyParts.HEAD)
                 {
 #if DEBUG
-                    _logger.MakeLog($"Helmet of {ped.Name()} doesn\'t protect {bodyPart}");
+                    _logger.MakeLog($"Helmet of {ped.Name(pedEntity)} doesn\'t protect {bodyPart}");
 #endif
                     continue;
                 }
 
                 int weaponEntity = _damagedPeds.Components3[i].WeaponEntity;
-                int pedEntity = _damagedPeds.Entities[i];
                 var weaponStats = _ecsWorld.GetComponent<ArmorWeaponStatsComponent>(weaponEntity);
                 if (weaponStats == null)
                 {
@@ -61,14 +62,14 @@ namespace GunshotWound2.Armor
                 if (!helmetPenetrated)
                 {
 #if DEBUG
-                    _logger.MakeLog($"Helmet of {ped.Name()} was not penetrated, when chance was {chance}");
+                    _logger.MakeLog($"Helmet of {ped.Name(pedEntity)} was not penetrated, when chance was {chance}");
 #endif
                     _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(pedEntity);
                     continue;
                 }
 
 #if DEBUG
-                _logger.MakeLog($"Helmet of {ped.Name()} was penetrated, when chance was {chance}");
+                _logger.MakeLog($"Helmet of {ped.Name(pedEntity)} was penetrated, when chance was {chance}");
 #endif
             }
         }

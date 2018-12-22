@@ -70,6 +70,8 @@
     <Compile Include="HitDetecting\WeaponHitDetectingSystem.cs" />
     <Compile Include="Weapons\FireArms\FireArmsWounds.cs" />
     <Compile Include="Weapons\WeaponTypes.cs" />
+    <Compile Include="WoundProcessing\Bleeding\BleedingComponent.cs" />
+    <Compile Include="WoundProcessing\Bleeding\CreateBleedingEvent.cs" />
     <Compile Include="WoundProcessing\Health\FullyHealedComponent.cs" />
     <Compile Include="WoundProcessing\Health\HealDetectSystem.cs" />
     <Compile Include="WoundProcessing\Health\HealthComponent.cs" />

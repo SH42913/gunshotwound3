@@ -90,9 +90,9 @@ namespace GunshotWound2.Utils
             };
         }
 
-        public static string Name(this Ped ped)
+        public static string Name(this Ped ped, int entity)
         {
-            return ped.Model.Name;
+            return $"{ped.Model.Name}({entity})";
         }
 
         public static void SetHealth(this Ped ped, float health)

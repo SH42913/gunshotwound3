@@ -43,7 +43,7 @@ namespace GunshotWound2.HitDetecting
                     if (!NativeFunction.Natives.HAS_PED_BEEN_DAMAGED_BY_WEAPON<bool>(ped, hash, 0)) continue;
 
 #if DEBUG
-                    _logger.MakeLog($"Ped {ped.Name()} was damaged by {hashesComponent.Name}");
+                    _logger.MakeLog($"Ped {ped.Name(pedEntity)} was damaged by {hashesComponent.Name}");
 #endif
                     var damaged = _ecsWorld.AddComponent<DamagedByWeaponComponent>(pedEntity);
                     damaged.WeaponEntity = _weaponGroups.Entities[i];
@@ -52,7 +52,7 @@ namespace GunshotWound2.HitDetecting
                 }
             }
 
-            _logger.MakeLog($"!!!Ped {ped.Name()} was damaged by UNKNOWN weapon!!!");
+            _logger.MakeLog($"!!!Ped {ped.Name(pedEntity)} was damaged by UNKNOWN weapon!!!");
         }
     }
 }

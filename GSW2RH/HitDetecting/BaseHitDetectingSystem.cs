@@ -29,10 +29,11 @@ namespace GunshotWound2.HitDetecting
                 bool damaged = NativeFunction.Natives.HAS_ENTITY_BEEN_DAMAGED_BY_ANY_PED<bool>(ped);
                 if (!damaged) continue;
 
+                int pedEntity = _peds.Entities[i];
 #if DEBUG
-                _logger.MakeLog($"Ped {ped.Name()} has been damaged");
+                _logger.MakeLog($"Ped {ped.Name(pedEntity)} has been damaged");
 #endif
-                _ecsWorld.AddComponent<HasBeenHitMarkComponent>(_peds.Entities[i]);
+                _ecsWorld.AddComponent<HasBeenHitMarkComponent>(pedEntity);
             }
         }
     }

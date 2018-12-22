@@ -31,7 +31,7 @@ namespace GunshotWound2.Weapons.FireArms
                 Ped ped = _damagedPeds.Components1[i].ThisPed;
                 int weaponEntity = _damagedPeds.Components3[i].WeaponEntity;
                 int pedEntity = _damagedPeds.Entities[i];
-                
+
                 var woundRandomizer = _ecsWorld.GetComponent<FireArmsWoundRandomizerComponent>(weaponEntity);
                 if (woundRandomizer == null)
                 {
@@ -39,7 +39,7 @@ namespace GunshotWound2.Weapons.FireArms
                     _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(pedEntity);
                     continue;
                 }
-                
+
                 var baseStats = _ecsWorld.GetComponent<BaseWeaponStatsComponent>(weaponEntity);
                 if (baseStats == null)
                 {
@@ -54,8 +54,8 @@ namespace GunshotWound2.Weapons.FireArms
 
                 float painMult = baseStats.PainMult;
                 float painAmount;
-                
-                _logger.MakeLog($"Ped {ped.Name()} have got {wound}");
+
+                _logger.MakeLog($"Ped {ped.Name(pedEntity)} have got {wound}");
                 switch (wound)
                 {
                     case FireArmsWounds.GRAZE_WOUND:
@@ -93,7 +93,7 @@ namespace GunshotWound2.Weapons.FireArms
                     newDamage.Damage += damage;
                 }
 #if DEBUG
-                _logger.MakeLog($"Damage {damage} to ped {ped.Name()}");
+                _logger.MakeLog($"Damage {damage} to ped {ped.Name(pedEntity)}");
 #endif
 
                 var newPain = _ecsWorld.EnsureComponent<ReceivedPainComponent>(pedEntity, out bool painIsNew);
@@ -107,7 +107,7 @@ namespace GunshotWound2.Weapons.FireArms
                     newPain.Pain += pain;
                 }
 #if DEBUG
-                _logger.MakeLog($"Pain {pain} to ped {ped.Name()}");
+                _logger.MakeLog($"Pain {pain} to ped {ped.Name(pedEntity)}");
 #endif
             }
         }

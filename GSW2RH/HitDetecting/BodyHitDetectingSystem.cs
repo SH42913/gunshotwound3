@@ -25,18 +25,18 @@ namespace GunshotWound2.HitDetecting
                 Ped ped = _damagedPeds.Components1[i].ThisPed;
                 if (!ped.Exists()) continue;
 
-                int entity = _damagedPeds.Entities[i];
+                int pedEntity = _damagedPeds.Entities[i];
                 BodyParts bodyPart = GetDamagedBodyPart(ped);
                 if (bodyPart == BodyParts.NOTHING) continue;
 
 #if DEBUG
                 PedBoneId lastBone = ped.LastDamageBone;
-                _logger.MakeLog($"Ped {ped.Name()} has damaged {bodyPart} with boneId {lastBone}");
+                _logger.MakeLog($"Ped {ped.Name(pedEntity)} has damaged {bodyPart} with boneId {lastBone}");
 
-                var history = _ecsWorld.EnsureComponent<BodyHitHistoryComponent>(entity, out bool newBodyHitHistory);
+                var history = _ecsWorld.EnsureComponent<BodyHitHistoryComponent>(pedEntity, out bool newBodyHitHistory);
                 if (newBodyHitHistory)
                 {
-                    history.LastDamagedBones = new PedBoneId?[3]
+                    history.LastDamagedBones = new PedBoneId?[]
                     {
                         lastBone,
                         null,
@@ -45,7 +45,7 @@ namespace GunshotWound2.HitDetecting
                 }
                 else
                 {
-                    history.LastDamagedBones = new PedBoneId?[3]
+                    history.LastDamagedBones = new[]
                     {
                         lastBone,
                         history.LastDamagedBones[0],
@@ -54,7 +54,7 @@ namespace GunshotWound2.HitDetecting
                 }
 #endif
 
-                _ecsWorld.AddComponent<DamagedBodyPartComponent>(entity).DamagedBodyPart = bodyPart;
+                _ecsWorld.AddComponent<DamagedBodyPartComponent>(pedEntity).DamagedBodyPart = bodyPart;
                 ped.ClearLastDamageBone();
             }
         }
