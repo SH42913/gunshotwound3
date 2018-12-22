@@ -55,7 +55,8 @@ namespace GunshotWound2.WoundProcessing.Pain
                     painComponent.PainAmount += finalPain;
                 }
 #if DEBUG
-                _logger.MakeLog($"Base pain is {basePain:0.0}; " +
+                int pedEntity = _painToIncrease.Entities[i];
+                _logger.MakeLog($"Entity ({pedEntity}): Base pain is {basePain:0.0}; " +
                                 $"Final pain is {finalPain:0.0}; " +
                                 $"New pain is {painComponent.PainAmount:0.0}/{maxPain:0.0}|{deadlyPain:0.0}");
 #endif

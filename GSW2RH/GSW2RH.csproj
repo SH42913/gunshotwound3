@@ -52,11 +52,14 @@
     <Compile Include="Armor\ArmorHitProcessingSystem.cs" />
     <Compile Include="Armor\ArmorWeaponStatsComponent.cs" />
     <Compile Include="Armor\HelmetHitProcessingSystem.cs" />
+    <Compile Include="Armor\PedArmorInitSystem.cs" />
     <Compile Include="BaseStatsInitSystem.cs" />
+    <Compile Include="GswWorld\AnimalMarkComponent.cs" />
     <Compile Include="GswWorld\GswPedComponent.cs" />
     <Compile Include="GswWorld\GswWorldComponent.cs" />
     <Compile Include="GswWorld\GswWorldInitSystem.cs" />
     <Compile Include="GswWorld\GswWorldSystem.cs" />
+    <Compile Include="GswWorld\NewPedMarkComponent.cs" />
     <Compile Include="GunshotWound2Script.cs" />
     <Compile Include="HitDetecting\BaseHitCleanSystem.cs" />
     <Compile Include="HitDetecting\BaseHitDetectingSystem.cs" />
@@ -82,6 +85,8 @@
     <Compile Include="WoundProcessing\Health\HealthComponent.cs" />
     <Compile Include="WoundProcessing\Health\HealthSystem.cs" />
     <Compile Include="WoundProcessing\Health\HealthInitSystem.cs" />
+    <Compile Include="WoundProcessing\Health\PedHealthInitSystem.cs" />
+    <Compile Include="WoundProcessing\Health\PedHealthStatsComponent.cs" />
     <Compile Include="WoundProcessing\Health\ReceivedDamageComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -104,6 +109,8 @@
     <Compile Include="WoundProcessing\Pain\PainSystem.cs" />
     <Compile Include="WoundProcessing\Pain\PainWoundStatsComponent.cs" />
     <Compile Include="WoundProcessing\Pain\PedPainInfoComponent.cs" />
+    <Compile Include="WoundProcessing\Pain\PedPainInitSystem.cs" />
+    <Compile Include="WoundProcessing\Pain\PedPainStatsComponent.cs" />
     <Compile Include="WoundProcessing\Pain\ReceivedPainComponent.cs" />
   </ItemGroup>
   <ItemGroup>

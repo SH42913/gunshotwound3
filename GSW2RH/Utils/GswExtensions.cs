@@ -91,6 +91,15 @@ namespace GunshotWound2.Utils
             return float.Parse(valueString, CultureInfo.InvariantCulture);
         }
 
+        public static T GetEnum<T>(this XElement node, string attributeName = "Value") where T : Enum
+        {
+            string valueString = string.IsNullOrEmpty(attributeName) 
+                ? node.Value 
+                : node.GetAttributeValue(attributeName);
+
+            return (T) Enum.Parse(typeof(T), valueString);
+        }
+
         public static MinMax GetMinMax(this XElement node)
         {
             return new MinMax
@@ -115,9 +124,9 @@ namespace GunshotWound2.Utils
             ped.MaxHealth = (int) Math.Ceiling(health) + 101;
         }
 
-        public static int GetHealth(this Ped ped)
+        public static float GetHealth(this Ped ped)
         {
-            return ped.Health - 100;
+            return (float) ped.Health - 100;
         }
 
         public static float GetDeltaTime()

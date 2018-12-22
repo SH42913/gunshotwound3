@@ -7,15 +7,11 @@ namespace GunshotWound2.GswWorld
 {
     public class GswWorldComponent : IEcsAutoResetComponent
     {
-        public bool PedDetectingEnabled;
+        public bool HumanDetectingEnabled;
         public bool AnimalDetectingEnabled;
 
-        public MinMax PedHealth;
-        public MinMax PedAccuracy;
-        public MinMax PedShootRate;
-
-        public MinMax PedUnbearablePain;
-        public MinMax PedPainRecoverySpeed;
+        public MinMax HumanAccuracy;
+        public MinMax HumanShootRate;
 
         public bool ScanOnlyDamaged;
 
@@ -35,17 +31,13 @@ namespace GunshotWound2.GswWorld
 
         public override string ToString()
         {
-            return
-                $"{nameof(GswWorldComponent)}: " +
-                $"{nameof(PedDetectingEnabled)} {PedDetectingEnabled}; " +
-                $"{nameof(AnimalDetectingEnabled)} {AnimalDetectingEnabled}; " +
-                $"{nameof(PedHealth)} {PedHealth}; " +
-                $"{nameof(PedAccuracy)} {PedAccuracy}; " +
-                $"{nameof(PedShootRate)} {PedShootRate}; " +
-                $"{nameof(PedUnbearablePain)} {PedUnbearablePain}; " +
-                $"{nameof(PedPainRecoverySpeed)} {PedPainRecoverySpeed}; " +
-                $"{nameof(ScanOnlyDamaged)} {ScanOnlyDamaged}; " +
-                $"{nameof(MaxDetectTimeInMs)} {MaxDetectTimeInMs}";
+            return $"{nameof(GswWorldComponent)}: " +
+                   $"{nameof(HumanDetectingEnabled)} {HumanDetectingEnabled}; " +
+                   $"{nameof(AnimalDetectingEnabled)} {AnimalDetectingEnabled}; " +
+                   $"{nameof(HumanAccuracy)} {HumanAccuracy}; " +
+                   $"{nameof(HumanShootRate)} {HumanShootRate}; " +
+                   $"{nameof(ScanOnlyDamaged)} {ScanOnlyDamaged}; " +
+                   $"{nameof(MaxDetectTimeInMs)} {MaxDetectTimeInMs}";
         }
     }
 }

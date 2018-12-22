@@ -60,8 +60,10 @@ namespace GunshotWound2.WoundProcessing.Pain
         private void CheckState(int entity, PainInfoComponent painInfo, PainStates stateToCheck)
         {
             if(painInfo.CurrentPainState == stateToCheck) return;
-            
-            _logger.MakeLog($"Changed Pain State from {painInfo.CurrentPainState} to {stateToCheck}");
+
+#if DEBUG
+            _logger.MakeLog($"Entity ({entity}): Changed Pain State from {painInfo.CurrentPainState} to {stateToCheck}");
+#endif
             painInfo.CurrentPainState = stateToCheck;
             _ecsWorld.AddComponent<ChangedPainStateComponent>(entity).NewPainState = stateToCheck;
         }

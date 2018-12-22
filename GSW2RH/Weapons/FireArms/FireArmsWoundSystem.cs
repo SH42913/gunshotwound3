@@ -93,7 +93,7 @@ namespace GunshotWound2.Weapons.FireArms
                     newDamage.Damage += damage;
                 }
 #if DEBUG
-                _logger.MakeLog($"Damage {damage} to ped {ped.Name(pedEntity)}");
+                _logger.MakeLog($"Damage {damage:0.0} to ped {ped.Name(pedEntity)}");
 #endif
 
                 var newPain = _ecsWorld.EnsureComponent<ReceivedPainComponent>(pedEntity, out bool painIsNew);
@@ -107,7 +107,7 @@ namespace GunshotWound2.Weapons.FireArms
                     newPain.Pain += pain;
                 }
 #if DEBUG
-                _logger.MakeLog($"Pain {pain} to ped {ped.Name(pedEntity)}");
+                _logger.MakeLog($"Pain {pain:0.0} to ped {ped.Name(pedEntity)}");
 #endif
             }
         }

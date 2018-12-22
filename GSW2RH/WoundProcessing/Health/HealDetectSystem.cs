@@ -26,7 +26,7 @@ namespace GunshotWound2.WoundProcessing.Health
                 if(!ped.Exists()) continue;
                 
                 HealthComponent health = _pedsToCheck.Components2[i];
-                int realHealth = ped.GetHealth();
+                float realHealth = ped.GetHealth();
                 if (realHealth <= health.MaxHealth) continue;
                 
                 _ecsWorld.AddComponent<FullyHealedComponent>(_pedsToCheck.Entities[i]);

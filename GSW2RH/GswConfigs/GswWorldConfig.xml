@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GswWorldConfig>
-	<DetectingTargets Peds="TRUE" Animals="TRUE"/>
-	<!-- If TRUE, GSW will mark other peds and/or animals as GswPed
+	<DetectingTargets Humans="TRUE" Animals="TRUE"/>
+	<!-- If TRUE, GSW will mark other humans and/or animals as GswPed
 	and every GswPed will have realistic damage. You can disable it both for maximal performance. -->
 	
 	<PedHealth Min="50" Max="99"/>

@@ -46,7 +46,7 @@ namespace GunshotWound2.WoundProcessing.Health
             {
                 Ped ped = _damagedPeds.Components1[i].ThisPed;
                 if(!ped.Exists()) continue;
-                
+
                 HealthComponent health = _damagedPeds.Components2[i];
                 float baseDamage = _damagedPeds.Components3[i].Damage;
                 if(baseDamage <= 0) continue;
@@ -58,7 +58,8 @@ namespace GunshotWound2.WoundProcessing.Health
                 health.Health -= finalDamage;
                 ped.SetHealth(health.Health);
 #if DEBUG
-                _logger.MakeLog($"Base damage is {baseDamage:0.0}; " +
+                int pedEntity = _damagedPeds.Entities[i];
+                _logger.MakeLog($"Entity ({pedEntity}):Base damage is {baseDamage:0.0}; " +
                                 $"Final damage is {finalDamage:0.0}; " +
                                 $"New health is {health.Health:0.0}/{health.MaxHealth:0.0}");
 #endif

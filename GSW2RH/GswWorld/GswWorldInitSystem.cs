@@ -3,138 +3,59 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
 using GunshotWound2.Utils;
+using GunshotWound2.WoundProcessing;
 using Leopotam.Ecs;
 using Rage;
 
 namespace GunshotWound2.GswWorld
 {
     [EcsInject]
-    public class GswWorldInitSystem : IEcsPreInitSystem
+    public class GswWorldInitSystem : BaseStatsInitSystem<GswWorldComponent>
     {
-        private EcsWorld _ecsWorld;
-
-        private const string CONFIG_PATH = "\\Plugins\\GswConfigs\\GswWorldConfig.xml";
-        private const string TARGETS_KEY = "DetectingTargets";
-        private const string SCAN_ONLY_DAMAGED_ELEMENT = "ScanOnlyDamaged";
-
-        private readonly GswLogger _logger;
+        protected override string ConfigPath { get; }
+        protected override GswLogger Logger { get; }
 
         public GswWorldInitSystem()
         {
-            _logger = new GswLogger(typeof(GswWorldInitSystem));
+            ConfigPath = GunshotWound2Script.WORLD_CONFIG_PATH;
+            Logger = new GswLogger(typeof(GswWorldInitSystem));
         }
-
-        public void PreInitialize()
+        
+        protected override void FillWithDefaultValues(GswWorldComponent stats)
         {
-            var gswWorld = _ecsWorld.CreateEntityWith<GswWorldComponent>();
-            FillWithDefaultValues(gswWorld);
-            try
-            {
-                FillWithConfigValues(gswWorld);
-            }
-            catch (Exception e)
-            {
-                _logger.MakeLog(e.Message);
-                FillWithDefaultValues(gswWorld);
-            }
-        }
-
-        private void FillWithDefaultValues(GswWorldComponent gswWorld)
-        {
-            gswWorld.PedDetectingEnabled = true;
-            gswWorld.AnimalDetectingEnabled = true;
+            stats.HumanDetectingEnabled = true;
+            stats.AnimalDetectingEnabled = true;
             
-            gswWorld.PedHealth = new MinMax
-            {
-                Min = 50,
-                Max = 100
-            };
-            gswWorld.PedAccuracy = new MinMax
+            stats.HumanAccuracy = new MinMax
             {
                 Min = 10,
                 Max = 30
             };
-            gswWorld.PedShootRate = new MinMax
+            stats.HumanShootRate = new MinMax
             {
                 Min = 10,
                 Max = 30
             };
             
-            gswWorld.PedUnbearablePain = new MinMax
-            {
-                Min = 50,
-                Max = 100
-            };
-            gswWorld.PedPainRecoverySpeed = new MinMax
-            {
-                Min = 1f,
-                Max = 2f
-            };
-
-            gswWorld.ScanOnlyDamaged = false;
-
-            gswWorld.MaxDetectTimeInMs = 5;
+            stats.ScanOnlyDamaged = false;
+            stats.MaxDetectTimeInMs = 5;
         }
 
-        private void FillWithConfigValues(GswWorldComponent gswWorld)
+        protected override void FillWithConfigValues(GswWorldComponent stats, XElement xmlRoot)
         {
-            string fullPath = Environment.CurrentDirectory + CONFIG_PATH;
-            var file = new FileInfo(fullPath);
-            if (!file.Exists)
-            {
-                throw new Exception("Can't find " + fullPath);
-            }
+            XElement worldElement = xmlRoot.GetElement("DetectingTargets");
+            XElement scanOnlyDamageElement = xmlRoot.GetElement("ScanOnlyDamaged");
 
-            XElement xmlRoot = XDocument.Load(file.OpenRead()).Root;
-            if (xmlRoot == null)
-            {
-                throw new Exception("Can't find root in " + CONFIG_PATH);
-            }
-
-            XElement worldElement = xmlRoot.GetElement(TARGETS_KEY);
-            XElement scanOnlyDamageElement = xmlRoot.GetElement(SCAN_ONLY_DAMAGED_ELEMENT);
-
-            XElement pedHealth = xmlRoot.GetElement("PedHealth");
             XElement pedAccuracy = xmlRoot.GetElement("PedAccuracy");
             XElement pedShootRate = xmlRoot.GetElement("PedShootRate");
-            
-            XElement pedUnbearablePain = xmlRoot.GetElement("PedUnbearablePain");
-            XElement pedPainRecoverySpeed = xmlRoot.GetElement("PedPainRecoverySpeed");
 
-            gswWorld.PedDetectingEnabled = worldElement.GetBool("Peds");
-            gswWorld.AnimalDetectingEnabled = worldElement.GetBool("Animals");
+            stats.HumanDetectingEnabled = worldElement.GetBool("Humans");
+            stats.AnimalDetectingEnabled = worldElement.GetBool("Animals");
 
-            var health = pedHealth.GetMinMax();
-            if (!health.IsDisabled())
-            {
-                gswWorld.PedHealth = health;
-            }
+            stats.HumanAccuracy = pedAccuracy.GetMinMax();
+            stats.HumanShootRate = pedShootRate.GetMinMax();
 
-            gswWorld.PedAccuracy = pedAccuracy.GetMinMax();
-            gswWorld.PedShootRate = pedShootRate.GetMinMax();
-
-            var painLimit = pedUnbearablePain.GetMinMax();
-            if (!painLimit.IsDisabled())
-            {
-                gswWorld.PedUnbearablePain = painLimit;
-            }
-            
-            var recoverySpeed = pedPainRecoverySpeed.GetMinMax();
-            if (!recoverySpeed.IsDisabled())
-            {
-                gswWorld.PedPainRecoverySpeed = recoverySpeed;
-            }
-            
-            gswWorld.ScanOnlyDamaged = scanOnlyDamageElement.GetBool();
-
-            _logger.MakeLog("GswWorld is inited!");
-#if DEBUG
-            _logger.MakeLog(gswWorld.ToString());
-#endif
-        }
-
-        public void PreDestroy()
-        {
+            stats.ScanOnlyDamaged = scanOnlyDamageElement.GetBool();
         }
     }
 }

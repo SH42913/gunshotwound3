@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
-using GunshotWound2.Armor;
 using GunshotWound2.Utils;
-using GunshotWound2.WoundProcessing.Health;
-using GunshotWound2.WoundProcessing.Pain;
 using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
-using Debug = Rage.Debug;
 
 namespace GunshotWound2.GswWorld
 {
@@ -34,7 +30,7 @@ namespace GunshotWound2.GswWorld
             if (_world.EntitiesCount <= 0) return;
 
             GswWorldComponent gswWorld = _world.Components1[0];
-            if (!gswWorld.PedDetectingEnabled && !gswWorld.AnimalDetectingEnabled) return;
+            if (!gswWorld.HumanDetectingEnabled && !gswWorld.AnimalDetectingEnabled) return;
 
             _stopwatch.Restart();
             if (gswWorld.NeedToCheckPeds.Count <= 0)
@@ -49,19 +45,19 @@ namespace GunshotWound2.GswWorld
 
             while (!TimeIsOver() && gswWorld.NeedToCheckPeds.Count > 0)
             {
-                Ped pedToCheck = gswWorld.NeedToCheckPeds.Dequeue();
-                if (PedIsNotExistsOrDead(pedToCheck)) continue;
-                if (CheckGswPedAlreadyExist(pedToCheck)) continue;
-                if (CheckNotDamaged(pedToCheck)) continue;
+                Ped ped = gswWorld.NeedToCheckPeds.Dequeue();
+                if (IsNotExistsOrDead(ped)) continue;
+                if (GswPedAlreadyExist(ped)) continue;
+                if (IsNotDamaged(ped)) continue;
 
-                if (pedToCheck.IsHuman && gswWorld.PedDetectingEnabled)
+                if (ped.IsHuman && gswWorld.HumanDetectingEnabled)
                 {
-                    CreateHuman(gswWorld, pedToCheck);
+                    CreateHuman(gswWorld, ped);
                 }
 
-                if (!pedToCheck.IsHuman && gswWorld.AnimalDetectingEnabled)
+                if (!ped.IsHuman && gswWorld.AnimalDetectingEnabled)
                 {
-                    CreateAnimal(gswWorld, pedToCheck);
+                    CreateAnimal(gswWorld, ped);
                 }
             }
 
@@ -80,17 +76,22 @@ namespace GunshotWound2.GswWorld
             return _stopwatch.ElapsedMilliseconds > _world.Components1[0].MaxDetectTimeInMs;
         }
 
-        private bool PedIsNotExistsOrDead(Ped ped)
+        private bool IsNotExistsOrDead(Ped ped)
         {
             return !ped.Exists() || ped.IsDead;
         }
 
-        private bool CheckGswPedAlreadyExist(Ped pedToCheck)
+        private bool IsExistsAndAlive(Ped ped)
+        {
+            return ped.Exists() && ped.IsAlive;
+        }
+
+        private bool GswPedAlreadyExist(Ped pedToCheck)
         {
             return _world.Components1[0].PedsToEntityDict.ContainsKey(pedToCheck);
         }
 
-        private bool CheckNotDamaged(Ped pedToCheck)
+        private bool IsNotDamaged(Ped pedToCheck)
         {
             if (!_world.Components1[0].ScanOnlyDamaged) return false;
 
@@ -107,7 +108,7 @@ namespace GunshotWound2.GswWorld
                 GswPedComponent gswPed = _gswPeds.Components1[i];
 
                 Ped ped = gswPed.ThisPed;
-                if (ped.Exists() && ped.IsAlive) continue;
+                if (IsExistsAndAlive(ped)) continue;
 
                 gswWorld.PedsToEntityDict.Remove(ped);
                 _ecsWorld.RemoveEntity(_gswPeds.Entities[i]);
@@ -116,67 +117,27 @@ namespace GunshotWound2.GswWorld
 
         private void CreateHuman(GswWorldComponent gswWorld, Ped ped)
         {
-            int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed, out HealthComponent health);
+            int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed, out NewPedMarkComponent _);
             gswPed.ThisPed = ped;
 
-            health.Health = Random.NextMinMax(gswWorld.PedHealth);
-            health.MaxHealth = (float) Math.Floor(health.Health);
-            ped.SetMaxHealth(health.MaxHealth);
-            ped.SetHealth(health.Health);
-
-            if (!gswWorld.PedAccuracy.IsDisabled())
+            if (!gswWorld.HumanAccuracy.IsDisabled())
             {
-                ped.Accuracy = (int) Random.NextMinMax(gswWorld.PedAccuracy);
+                ped.Accuracy = (int) Random.NextMinMax(gswWorld.HumanAccuracy);
             }
             
-            if (!gswWorld.PedShootRate.IsDisabled())
+            if (!gswWorld.HumanShootRate.IsDisabled())
             {
-                int rate = (int) Random.NextMinMax(gswWorld.PedShootRate);
+                int rate = (int) Random.NextMinMax(gswWorld.HumanShootRate);
                 NativeFunction.Natives.SET_PED_SHOOT_RATE(ped, rate);
             }
-
-            var armor = _ecsWorld.AddComponent<ArmorComponent>(entity);
-            armor.Armor = ped.Armor;
-
-            var painInfo = _ecsWorld.AddComponent<PainInfoComponent>(entity);
-            painInfo.UnbearablePain = Random.NextMinMax(gswWorld.PedUnbearablePain);
-            painInfo.PainRecoverySpeed = Random.NextMinMax(gswWorld.PedPainRecoverySpeed);
-
-            ped.InjuryHealthThreshold = 0f;
-            ped.FatalInjuryHealthThreshold = 0f;
-            ped.IsHeadIkEnabled = true;
-            ped.IsArmIkEnabled = true;
-            ped.IsLegIkEnabled = true;
-            ped.IsTorsoIkEnabled = true;
-            ped.IsPainAudioEnabled = true;
-            ped.CanBeKnockedOffBikes = true;
-            ped.CanFlyThroughWindshields = true;
 
             gswWorld.PedsToEntityDict.Add(ped, entity);
         }
 
         private void CreateAnimal(GswWorldComponent gswWorld, Ped ped)
         {
-            int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed, out HealthComponent health);
+            int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed, out NewPedMarkComponent _, out AnimalMarkComponent _);
             gswPed.ThisPed = ped;
-
-            health.Health = ped.GetHealth();
-            health.MaxHealth = (float) Math.Floor(health.Health);
-            ped.SetMaxHealth(health.MaxHealth);
-            ped.SetHealth(health.Health);
-
-            float healthPercent = health.Health / gswWorld.PedHealth.Max;
-            var painInfo = _ecsWorld.AddComponent<PainInfoComponent>(entity);
-            painInfo.UnbearablePain = healthPercent * gswWorld.PedUnbearablePain.Max;
-            painInfo.PainRecoverySpeed = healthPercent * gswWorld.PedPainRecoverySpeed.Max;
-            
-            ped.InjuryHealthThreshold = 0f;
-            ped.FatalInjuryHealthThreshold = 0f;
-            ped.IsHeadIkEnabled = true;
-            ped.IsArmIkEnabled = true;
-            ped.IsLegIkEnabled = true;
-            ped.IsTorsoIkEnabled = true;
-            ped.IsPainAudioEnabled = true;
 
             gswWorld.PedsToEntityDict.Add(ped, entity);
         }

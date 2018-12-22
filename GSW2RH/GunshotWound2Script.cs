@@ -19,8 +19,8 @@ namespace GunshotWound2
     public class GunshotWound2Script : IDisposable
     {
         public const string WOUND_CONFIG_PATH = "\\Plugins\\GswConfigs\\GswWoundConfig.xml";
-        public const string WORLD_CONFIG_PATH = "";
-        public const string WEAPON_CONFIG_PATH = "";
+        public const string WORLD_CONFIG_PATH = "\\Plugins\\GswConfigs\\GswWorldConfig.xml";
+        public const string WEAPON_CONFIG_PATH = "\\Plugins\\GswConfigs\\GswWeaponConfig.xml";
         public static int StatsContainerEntity { get; private set; }
         
         private EcsWorld _world;
@@ -42,11 +42,14 @@ namespace GunshotWound2
 
             _systems
                 .Add(new GswWorldInitSystem())
+                .Add(new GswWorldSystem())
                 .Add(new HealthInitSystem())
-                .Add(new HealthInitSystem())
+                .Add(new PedHealthInitSystem())
+                .Add(new PainInitSystem())
+                .Add(new PedPainInitSystem())
+                .Add(new PedArmorInitSystem())
                 .Add(new WeaponInitSystem())
                 .Add(new FireArmsInitSystem())
-                .Add(new GswWorldSystem())
                 .Add(new BaseHitDetectingSystem())
                 .Add(new BodyHitDetectingSystem())
 #if DEBUG
