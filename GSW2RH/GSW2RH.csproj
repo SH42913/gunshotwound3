@@ -76,9 +76,14 @@
     <Compile Include="Weapons\WeaponTypes.cs" />
     <Compile Include="WoundProcessing\Bleeding\BleedingComponent.cs" />
     <Compile Include="WoundProcessing\Bleeding\BleedingCreateSystem.cs" />
+    <Compile Include="WoundProcessing\Bleeding\BleedingHealSystem.cs" />
+    <Compile Include="WoundProcessing\Bleeding\BleedingInitSystem.cs" />
+    <Compile Include="WoundProcessing\Bleeding\BleedingSystem.cs" />
     <Compile Include="WoundProcessing\Bleeding\BleedingWoundStatsComponent.cs" />
     <Compile Include="WoundProcessing\Bleeding\CreateBleedingEvent.cs" />
-    <Compile Include="WoundProcessing\Bleeding\PedBleedingInfoComponent.cs" />
+    <Compile Include="WoundProcessing\Bleeding\BleedingInfoComponent.cs" />
+    <Compile Include="WoundProcessing\Bleeding\PedBleedingInitSystem.cs" />
+    <Compile Include="WoundProcessing\Bleeding\PedBleedingStatsComponent.cs" />
     <Compile Include="WoundProcessing\Health\HealthWoundStatsComponent.cs" />
     <Compile Include="WoundProcessing\Health\FullyHealedComponent.cs" />
     <Compile Include="WoundProcessing\Health\HealDetectSystem.cs" />

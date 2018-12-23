@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using GunshotWound2.Utils;
+using GunshotWound2.WoundProcessing.Bleeding;
 using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
@@ -16,8 +17,8 @@ namespace GunshotWound2.GswWorld
         private EcsFilter<GswWorldComponent> _world;
         private EcsFilter<GswPedComponent> _gswPeds;
 
-        private readonly Stopwatch _stopwatch = new Stopwatch();
         private GswLogger _logger;
+        private readonly Stopwatch _stopwatch = new Stopwatch();
         private static readonly Random Random = new Random();
 
         public GswWorldSystem()
@@ -110,8 +111,18 @@ namespace GunshotWound2.GswWorld
                 Ped ped = gswPed.ThisPed;
                 if (IsExistsAndAlive(ped)) continue;
 
+                int pedEntity = _gswPeds.Entities[i];
+                var bleedingInfo = _ecsWorld.GetComponent<BleedingInfoComponent>(pedEntity);
+                if (bleedingInfo != null)
+                {
+                    foreach (int bleedingEntity in bleedingInfo.BleedingEntities)
+                    {
+                        _ecsWorld.RemoveEntity(bleedingEntity);
+                    }
+                }
+                
                 gswWorld.PedsToEntityDict.Remove(ped);
-                _ecsWorld.RemoveEntity(_gswPeds.Entities[i]);
+                _ecsWorld.RemoveEntity(pedEntity);
             }
         }
 

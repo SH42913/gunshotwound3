@@ -1,6 +1,7 @@
 ﻿using GunshotWound2.GswWorld;
 using GunshotWound2.HitDetecting;
 using GunshotWound2.Utils;
+using GunshotWound2.WoundProcessing.Bleeding;
 using GunshotWound2.WoundProcessing.Health;
 using GunshotWound2.WoundProcessing.Pain;
 using Leopotam.Ecs;
@@ -49,41 +50,49 @@ namespace GunshotWound2.Weapons.FireArms
                 }
 
                 FireArmsWounds wound = woundRandomizer.WoundRandomizer.NextWithReplacement();
+                
                 float damageMult = baseStats.DamageMult;
                 float damageAmount;
 
                 float painMult = baseStats.PainMult;
                 float painAmount;
 
-                _logger.MakeLog($"Ped {ped.Name(pedEntity)} have got {wound}");
+                float bleedingMult = baseStats.BleedingMult;
+                float bleedingAmount;
+                
                 switch (wound)
                 {
                     case FireArmsWounds.GRAZE_WOUND:
                         damageAmount = 5;
                         painAmount = 10;
+                        bleedingAmount = 0.2f;
                         break;
                     case FireArmsWounds.FLESH_WOUND:
                         damageAmount = 7;
                         painAmount = 15;
+                        bleedingAmount = 0.4f;
                         break;
                     case FireArmsWounds.PENETRATING_WOUND:
-                        damageAmount = 10;
-                        painAmount = 20;
+                        damageAmount = 9;
+                        painAmount = 25;
+                        bleedingAmount = 0.6f;
                         break;
                     case FireArmsWounds.PERFORATING_WOUND:
-                        damageAmount = 10;
+                        damageAmount = 9;
                         painAmount = 20;
+                        bleedingAmount = 0.8f;
                         break;
                     case FireArmsWounds.AVULSIVE_WOUND:
-                        damageAmount = 15;
+                        damageAmount = 11;
                         painAmount = 30;
+                        bleedingAmount = 1f;
                         break;
                     default:
                         continue;
                 }
 
                 var newDamage = _ecsWorld.EnsureComponent<ReceivedDamageComponent>(pedEntity, out bool damageIsNew);
-                var damage = damageMult * damageAmount;
+                float damage = damageMult * damageAmount;
                 if (damageIsNew)
                 {
                     newDamage.Damage = damage;
@@ -92,12 +101,9 @@ namespace GunshotWound2.Weapons.FireArms
                 {
                     newDamage.Damage += damage;
                 }
-#if DEBUG
-                _logger.MakeLog($"Damage {damage:0.0} to ped {ped.Name(pedEntity)}");
-#endif
 
                 var newPain = _ecsWorld.EnsureComponent<ReceivedPainComponent>(pedEntity, out bool painIsNew);
-                var pain = painMult * painAmount;
+                float pain = painMult * painAmount;
                 if (painIsNew)
                 {
                     newPain.Pain = pain;
@@ -106,8 +112,16 @@ namespace GunshotWound2.Weapons.FireArms
                 {
                     newPain.Pain += pain;
                 }
+
+                float bleeding = bleedingMult * bleedingAmount;
+                var e = _ecsWorld.EnsureComponent<CreateBleedingEvent>(pedEntity, out _);
+                e.BleedingToCreate.Enqueue(bleeding);
+                
 #if DEBUG
-                _logger.MakeLog($"Pain {pain:0.0} to ped {ped.Name(pedEntity)}");
+                _logger.MakeLog($"Ped {ped.Name(pedEntity)} got {wound} with " +
+                                $"Damage {damage:0.0}; " +
+                                $"Pain {pain:0.0}; " +
+                                $"Bleeding {bleeding:0.0}");
 #endif
             }
         }

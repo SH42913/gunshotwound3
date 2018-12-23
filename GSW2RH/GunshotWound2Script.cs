@@ -9,6 +9,7 @@ using GunshotWound2.Utils;
 using GunshotWound2.Weapons;
 using GunshotWound2.Weapons.FireArms;
 using GunshotWound2.WoundProcessing;
+using GunshotWound2.WoundProcessing.Bleeding;
 using GunshotWound2.WoundProcessing.Health;
 using GunshotWound2.WoundProcessing.Pain;
 using Leopotam.Ecs;
@@ -47,6 +48,8 @@ namespace GunshotWound2
                 .Add(new PedHealthInitSystem())
                 .Add(new PainInitSystem())
                 .Add(new PedPainInitSystem())
+                .Add(new BleedingInitSystem())
+                .Add(new PedBleedingInitSystem())
                 .Add(new PedArmorInitSystem())
                 .Add(new WeaponInitSystem())
                 .Add(new FireArmsInitSystem())
@@ -64,7 +67,10 @@ namespace GunshotWound2
                 .Add(new HealDetectSystem())
                 .Add(new HealthSystem())
                 .Add(new PainSystem())
-                .Add(new PainStateSystem());
+                .Add(new PainStateSystem())
+                .Add(new BleedingHealSystem())
+                .Add(new BleedingCreateSystem())
+                .Add(new BleedingSystem());
             _systems.Initialize();
             GameFiber.Yield();
         }

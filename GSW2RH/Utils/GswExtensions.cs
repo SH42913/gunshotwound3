@@ -31,6 +31,18 @@ namespace GunshotWound2.Utils
             return rand.NextFloat(minMax.Min, minMax.Max);
         }
 
+        public static T NextFromArray<T>(this Random random, T[] array)
+        {
+            int index = random.Next(0, array.Length);
+            return array[index];
+        }
+
+        public static T NextEnum<T>(this Random random) where T : Enum
+        {
+            var array = (T[]) Enum.GetValues(typeof(T));
+            return random.NextFromArray(array);
+        }
+
         public static void ShowInGsw(this string text, float x, float y, float scale = 1f, Color color = new Color())
         {
             //NativeFunction.Natives.SetTextFont(0);

@@ -1,4 +1,5 @@
-﻿using GunshotWound2.GswWorld;
+﻿using System;
+using GunshotWound2.GswWorld;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
@@ -12,6 +13,7 @@ namespace GunshotWound2.HitDetecting
         private EcsFilter<GswPedComponent, HasBeenHitMarkComponent> _damagedPeds;
 
         private readonly GswLogger _logger;
+        private static readonly Random Random = new Random();
 
         public BodyHitDetectingSystem()
         {
@@ -65,7 +67,7 @@ namespace GunshotWound2.HitDetecting
             if (lastBone == 0)
             {
                 _logger.MakeLog($"Ped {target.Model.Name} doesn\'t have damaged bone!");
-                return BodyParts.NOTHING;
+                return Random.NextEnum<BodyParts>();
             }
 
             switch (lastBone)
@@ -134,7 +136,7 @@ namespace GunshotWound2.HitDetecting
                     return BodyParts.ARM;
                 default:
                     _logger.MakeLog($"Bone {target.LastDamageBone} for ped {target.Model.Name} is unknown!");
-                    return BodyParts.NOTHING;
+                    return Random.NextEnum<BodyParts>();
             }
         }
     }

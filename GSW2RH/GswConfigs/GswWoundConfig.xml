@@ -14,4 +14,10 @@
 
 	<DeadlyPainMultiplier Value="2.5"/>
 	<!-- 2.5 mean if Pain Amount will more than (2.5 * UnbearablePain), GSWPed will die -->
+
+	<BleedingMultiplier Value="1.0"/>
+	<!-- Overall bleeding multiplier, 2.0 mean every wound will make x2 bleeding for ped -->
+
+	<BleedingDeviation Value="0.2"/>
+	<!-- 0.2 mean +-20% random bleeding -->
 </GswWoundConfig>
