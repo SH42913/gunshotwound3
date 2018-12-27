@@ -16,6 +16,7 @@ namespace GunshotWound2.GswWorld
 
         private EcsFilter<GswWorldComponent> _world;
         private EcsFilter<GswPedComponent> _gswPeds;
+        private EcsFilter<GswPedComponent, RemovedPedMarkComponent> _pedsToRemove;
 
         private GswLogger _logger;
         private readonly Stopwatch _stopwatch = new Stopwatch();
@@ -36,7 +37,25 @@ namespace GunshotWound2.GswWorld
             _stopwatch.Restart();
             if (gswWorld.NeedToCheckPeds.Count <= 0)
             {
-                CleanWorld();
+                foreach (int i in _pedsToRemove)
+                {
+                    Ped ped = _gswPeds.Components1[i].ThisPed;
+                    int pedEntity = _gswPeds.Entities[i];
+                    
+                    gswWorld.PedsToEntityDict.Remove(ped);
+                    _ecsWorld.RemoveEntity(pedEntity);
+                }
+                
+                foreach (int i in _gswPeds)
+                {
+                    GswPedComponent gswPed = _gswPeds.Components1[i];
+
+                    Ped ped = gswPed.ThisPed;
+                    if (IsExistsAndAlive(ped)) continue;
+
+                    int pedEntity = _gswPeds.Entities[i];
+                    _ecsWorld.AddComponent<RemovedPedMarkComponent>(pedEntity);
+                }
 
                 foreach (Ped ped in World.GetAllPeds())
                 {
@@ -99,33 +118,7 @@ namespace GunshotWound2.GswWorld
             bool damaged = NativeFunction.Natives.HAS_ENTITY_BEEN_DAMAGED_BY_ANY_PED<bool>(pedToCheck);
             return !damaged;
         }
-
-        private void CleanWorld()
-        {
-            GswWorldComponent gswWorld = _world.Components1[0];
-
-            foreach (int i in _gswPeds)
-            {
-                GswPedComponent gswPed = _gswPeds.Components1[i];
-
-                Ped ped = gswPed.ThisPed;
-                if (IsExistsAndAlive(ped)) continue;
-
-                int pedEntity = _gswPeds.Entities[i];
-                var bleedingInfo = _ecsWorld.GetComponent<BleedingInfoComponent>(pedEntity);
-                if (bleedingInfo != null)
-                {
-                    foreach (int bleedingEntity in bleedingInfo.BleedingEntities)
-                    {
-                        _ecsWorld.RemoveEntity(bleedingEntity);
-                    }
-                }
-                
-                gswWorld.PedsToEntityDict.Remove(ped);
-                _ecsWorld.RemoveEntity(pedEntity);
-            }
-        }
-
+        
         private void CreateHuman(GswWorldComponent gswWorld, Ped ped)
         {
             int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed, out NewPedMarkComponent _);

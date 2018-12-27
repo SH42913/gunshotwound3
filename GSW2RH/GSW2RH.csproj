@@ -60,6 +60,7 @@
     <Compile Include="GswWorld\GswWorldInitSystem.cs" />
     <Compile Include="GswWorld\GswWorldSystem.cs" />
     <Compile Include="GswWorld\NewPedMarkComponent.cs" />
+    <Compile Include="GswWorld\RemovedPedMarkComponent.cs" />
     <Compile Include="GunshotWound2Script.cs" />
     <Compile Include="HitDetecting\BaseHitCleanSystem.cs" />
     <Compile Include="HitDetecting\BaseHitDetectingSystem.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="HitDetecting\WeaponHitDetectingSystem.cs" />
     <Compile Include="Weapons\FireArms\FireArmsWounds.cs" />
     <Compile Include="Weapons\WeaponTypes.cs" />
+    <Compile Include="WoundProcessing\Bleeding\BleedingCleanSystem.cs" />
     <Compile Include="WoundProcessing\Bleeding\BleedingComponent.cs" />
     <Compile Include="WoundProcessing\Bleeding\BleedingCreateSystem.cs" />
     <Compile Include="WoundProcessing\Bleeding\BleedingHealSystem.cs" />

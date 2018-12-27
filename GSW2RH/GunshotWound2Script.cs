@@ -68,6 +68,7 @@ namespace GunshotWound2
                 .Add(new HealthSystem())
                 .Add(new PainSystem())
                 .Add(new PainStateSystem())
+                .Add(new BleedingCleanSystem())
                 .Add(new BleedingHealSystem())
                 .Add(new BleedingCreateSystem())
                 .Add(new BleedingSystem());
