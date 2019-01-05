@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Xml.Linq;
+using GunshotWound2.Weapons;
 using Rage;
 using Rage.Native;
 
@@ -73,13 +75,14 @@ namespace GunshotWound2.Utils
             {
                 throw new Exception($"Can\'t find attribute {attributeName} in {node.Name}");
             }
+
             return attribute.Value;
         }
 
         public static bool GetBool(this XElement node, string attributeName = "Value")
         {
-            string valueString = string.IsNullOrEmpty(attributeName) 
-                ? node.Value 
+            string valueString = string.IsNullOrEmpty(attributeName)
+                ? node.Value
                 : node.GetAttributeValue(attributeName);
 
             return !string.IsNullOrEmpty(valueString) && bool.Parse(valueString);
@@ -87,8 +90,8 @@ namespace GunshotWound2.Utils
 
         public static int GetInt(this XElement node, string attributeName = "Value")
         {
-            string valueString = string.IsNullOrEmpty(attributeName) 
-                ? node.Value 
+            string valueString = string.IsNullOrEmpty(attributeName)
+                ? node.Value
                 : node.GetAttributeValue(attributeName);
 
             return int.Parse(valueString);
@@ -96,8 +99,8 @@ namespace GunshotWound2.Utils
 
         public static float GetFloat(this XElement node, string attributeName = "Value")
         {
-            string valueString = string.IsNullOrEmpty(attributeName) 
-                ? node.Value 
+            string valueString = string.IsNullOrEmpty(attributeName)
+                ? node.Value
                 : node.GetAttributeValue(attributeName);
 
             return float.Parse(valueString, CultureInfo.InvariantCulture);
@@ -105,8 +108,8 @@ namespace GunshotWound2.Utils
 
         public static T GetEnum<T>(this XElement node, string attributeName = "Value") where T : Enum
         {
-            string valueString = string.IsNullOrEmpty(attributeName) 
-                ? node.Value 
+            string valueString = string.IsNullOrEmpty(attributeName)
+                ? node.Value
                 : node.GetAttributeValue(attributeName);
 
             return (T) Enum.Parse(typeof(T), valueString);
@@ -119,6 +122,32 @@ namespace GunshotWound2.Utils
                 Min = node.GetFloat("Min"),
                 Max = node.GetFloat("Max")
             };
+        }
+
+        public static void FillHashesComponent(this HashesComponent hashesComponent, XElement hashesRoot,
+            GswLogger logger)
+        {
+            hashesComponent.Name = hashesRoot.GetAttributeValue("Name");
+#if DEBUG
+            logger.MakeLog($"Loading {hashesComponent.Name}");
+#endif
+
+            var hashStrings = hashesRoot.GetAttributeValue("Hashes").Split(';');
+            foreach (string hashString in hashStrings)
+            {
+                if (string.IsNullOrEmpty(hashString)) continue;
+
+                if (uint.TryParse(hashString, out uint hash))
+                {
+                    hashesComponent.Hashes.Add(hash);
+                }
+                else
+                {
+                    logger.MakeLog($"Wrong hash: {hashString}");
+                }
+            }
+
+            logger.MakeLog(hashesComponent.ToString());
         }
 
         public static string Name(this Ped ped, int entity)
@@ -143,8 +172,8 @@ namespace GunshotWound2.Utils
 
         public static float GetDeltaTime()
         {
-            return Game.Console.IsOpen 
-                ? 0f 
+            return Game.Console.IsOpen
+                ? 0f
                 : Game.TimeScale * Game.FrameTime;
         }
     }

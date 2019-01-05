@@ -1,8 +1,7 @@
 ﻿using GunshotWound2.Utils;
-using GunshotWound2.Weapons;
 using Leopotam.Ecs;
 
-namespace GunshotWound2.HitDetecting
+namespace GunshotWound2.Weapons.HitDetecting
 {
     [EcsInject]
     public class WeaponHitValidatingSystem : IEcsRunSystem

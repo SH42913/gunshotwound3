@@ -9,7 +9,7 @@ namespace GunshotWound2.Weapons.FireArms
     public class FireArmsInitSystem : IEcsInitSystem
     {
         private EcsWorld _ecsWorld;
-        private EcsFilter<WeaponTypeComponent, WeaponInitComponent, WeaponHashesComponent> _initWeapons;
+        private EcsFilter<WeaponTypeComponent, InitElementComponent, HashesComponent> _initWeapons;
 
         private const string FIRE_ARMS_CHANCES_KEY = "FireArmsWeightChances";
 
@@ -27,7 +27,7 @@ namespace GunshotWound2.Weapons.FireArms
                 WeaponTypes type = _initWeapons.Components1[i].Type;
                 if (type != WeaponTypes.FIRE_ARMS) continue;
 
-                XElement root = _initWeapons.Components2[i].WeaponRoot;
+                XElement root = _initWeapons.Components2[i].ElementRoot;
                 XElement chancesElement = root.GetElement(FIRE_ARMS_CHANCES_KEY);
                 int weaponEntity = _initWeapons.Entities[i];
                 string weaponName = _initWeapons.Components3[i].Name;

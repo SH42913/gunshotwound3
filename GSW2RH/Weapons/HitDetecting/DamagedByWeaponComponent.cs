@@ -1,7 +1,6 @@
-﻿using GunshotWound2.Weapons;
-using Leopotam.Ecs;
+﻿using Leopotam.Ecs;
 
-namespace GunshotWound2.HitDetecting
+namespace GunshotWound2.Weapons.HitDetecting
 {
     [EcsOneFrame]
     public class DamagedByWeaponComponent

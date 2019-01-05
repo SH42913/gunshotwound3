@@ -1,6 +1,6 @@
 ﻿using Leopotam.Ecs;
 
-namespace GunshotWound2.HitDetecting
+namespace GunshotWound2.BaseHitDetecting
 {
     [EcsOneFrame]
     [EcsIgnoreInFilter]

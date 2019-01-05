@@ -3,7 +3,7 @@ using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
 
-namespace GunshotWound2.HitDetecting
+namespace GunshotWound2.BaseHitDetecting
 {
     [EcsInject]
     public class BaseHitCleanSystem : IEcsRunSystem

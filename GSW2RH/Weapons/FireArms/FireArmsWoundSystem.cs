@@ -1,6 +1,8 @@
-﻿using GunshotWound2.GswWorld;
-using GunshotWound2.HitDetecting;
+﻿using GunshotWound2.BaseHitDetecting;
+using GunshotWound2.Bodies;
+using GunshotWound2.GswWorld;
 using GunshotWound2.Utils;
+using GunshotWound2.Weapons.HitDetecting;
 using GunshotWound2.WoundProcessing.Bleeding;
 using GunshotWound2.WoundProcessing.Health;
 using GunshotWound2.WoundProcessing.Pain;

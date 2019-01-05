@@ -1,7 +1,9 @@
 ﻿using System;
+using GunshotWound2.BaseHitDetecting;
+using GunshotWound2.Bodies;
 using GunshotWound2.GswWorld;
-using GunshotWound2.HitDetecting;
 using GunshotWound2.Utils;
+using GunshotWound2.Weapons.HitDetecting;
 using Leopotam.Ecs;
 using Rage;
 
@@ -38,11 +40,13 @@ namespace GunshotWound2.Armor
                     continue;
                 }
 
-                BodyParts bodyPart = _damagedPeds.Components2[i].DamagedBodyPart;
-                if (bodyPart != BodyParts.HEAD)
+                int bodyPartEntity = _damagedPeds.Components2[i].DamagedBodyPartEntity;
+                var bodyArmor = _ecsWorld.GetComponent<BodyPartArmorComponent>(bodyPartEntity);
+                if (bodyArmor == null || !bodyArmor.ProtectedByHelmet)
                 {
 #if DEBUG
-                    _logger.MakeLog($"Helmet of {ped.Name(pedEntity)} doesn\'t protect {bodyPart}");
+                    string partName = _ecsWorld.GetComponent<HashesComponent>(bodyPartEntity).Name;
+                    _logger.MakeLog($"Helmet of {ped.Name(pedEntity)} doesn\'t protect {partName}");
 #endif
                     continue;
                 }

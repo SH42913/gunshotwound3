@@ -3,11 +3,13 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using GunshotWound2.Armor;
+using GunshotWound2.BaseHitDetecting;
+using GunshotWound2.Bodies;
 using GunshotWound2.GswWorld;
-using GunshotWound2.HitDetecting;
 using GunshotWound2.Utils;
 using GunshotWound2.Weapons;
 using GunshotWound2.Weapons.FireArms;
+using GunshotWound2.Weapons.HitDetecting;
 using GunshotWound2.WoundProcessing;
 using GunshotWound2.WoundProcessing.Bleeding;
 using GunshotWound2.WoundProcessing.Health;
@@ -52,8 +54,11 @@ namespace GunshotWound2
                 .Add(new PedBleedingInitSystem())
                 .Add(new PedArmorInitSystem())
                 .Add(new WeaponInitSystem())
+                .Add(new WeaponArmorInitSystem())
                 .Add(new FireArmsInitSystem())
                 .Add(new BaseHitDetectingSystem())
+                .Add(new BodyPartInitSystem())
+                .Add(new BodyPartArmorInitSystem())
                 .Add(new BodyHitDetectingSystem())
 #if DEBUG
                 .Add(new BodyHitHistoryShowSystem())

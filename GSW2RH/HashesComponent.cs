@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using Leopotam.Ecs;
 
-namespace GunshotWound2.Weapons
+namespace GunshotWound2
 {
-    public class WeaponHashesComponent : IEcsAutoResetComponent
+    public class HashesComponent : IEcsAutoResetComponent
     {
         public string Name;
-        
-        [EcsIgnoreNullCheck]
+
+        [EcsIgnoreNullCheck] 
         public readonly List<uint> Hashes = new List<uint>();
 
         public void Reset()

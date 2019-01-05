@@ -1,10 +1,10 @@
 ﻿using Leopotam.Ecs;
 
-namespace GunshotWound2.HitDetecting
+namespace GunshotWound2.Bodies
 {
     [EcsOneFrame]
     public class DamagedBodyPartComponent
     {
-        public BodyParts DamagedBodyPart;
+        public int DamagedBodyPartEntity;
     }
 }

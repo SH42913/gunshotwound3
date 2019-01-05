@@ -1,18 +1,19 @@
-﻿using GunshotWound2.GswWorld;
+﻿using GunshotWound2.BaseHitDetecting;
+using GunshotWound2.Bodies;
+using GunshotWound2.GswWorld;
 using GunshotWound2.Utils;
-using GunshotWound2.Weapons;
 using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
 
-namespace GunshotWound2.HitDetecting
+namespace GunshotWound2.Weapons.HitDetecting
 {
     [EcsInject]
     public class WeaponHitDetectingSystem : IEcsRunSystem
     {
         private EcsWorld _ecsWorld;
         private EcsFilter<GswPedComponent, HasBeenHitMarkComponent, DamagedBodyPartComponent> _damagedPeds;
-        private EcsFilter<WeaponHashesComponent, WeaponTypeComponent> _weaponGroups;
+        private EcsFilter<HashesComponent, WeaponTypeComponent> _weaponGroups;
 
         private readonly GswLogger _logger;
 
@@ -36,7 +37,7 @@ namespace GunshotWound2.HitDetecting
         {
             foreach (int i in _weaponGroups)
             {
-                WeaponHashesComponent hashesComponent = _weaponGroups.Components1[i];
+                HashesComponent hashesComponent = _weaponGroups.Components1[i];
 
                 foreach (uint hash in hashesComponent.Hashes)
                 {

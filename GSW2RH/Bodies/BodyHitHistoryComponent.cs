@@ -1,7 +1,7 @@
 ﻿using Leopotam.Ecs;
 using Rage;
 
-namespace GunshotWound2.HitDetecting
+namespace GunshotWound2.Bodies
 {
     public class BodyHitHistoryComponent
     {

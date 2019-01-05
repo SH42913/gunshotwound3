@@ -4,7 +4,7 @@ using System.Xml.Linq;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 
-namespace GunshotWound2.WoundProcessing
+namespace GunshotWound2
 {
     [EcsInject]
     public abstract class BaseStatsInitSystem<T> : IEcsPreInitSystem where T : class, new()

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Drawing;
+using GunshotWound2.BaseHitDetecting;
+using GunshotWound2.Bodies;
 using GunshotWound2.GswWorld;
-using GunshotWound2.HitDetecting;
 using GunshotWound2.Utils;
+using GunshotWound2.Weapons.HitDetecting;
 using GunshotWound2.WoundProcessing.Pain;
 using Leopotam.Ecs;
 using Rage;
@@ -68,11 +70,13 @@ namespace GunshotWound2.Armor
                     continue;
                 }
 
-                BodyParts bodyPart = _damagedPedsWithArmor.Components2[i].DamagedBodyPart;
-                if (bodyPart != BodyParts.NECK && bodyPart != BodyParts.UPPER_BODY && bodyPart != BodyParts.LOWER_BODY)
+                int bodyPartEntity = _damagedPedsWithArmor.Components2[i].DamagedBodyPartEntity;
+                var bodyArmor = _ecsWorld.GetComponent<BodyPartArmorComponent>(bodyPartEntity);
+                if (bodyArmor == null || !bodyArmor.ProtectedByBodyArmor)
                 {
 #if DEBUG
-                    _logger.MakeLog($"{bodyPart} of {ped.Name(pedEntity)} is not protected by armor");
+                    string partName = _ecsWorld.GetComponent<HashesComponent>(bodyPartEntity).Name;
+                    _logger.MakeLog($"{partName} of {ped.Name(pedEntity)} is not protected by armor");
 #endif
                     ped.Armor = armor.Armor;
                     continue;
