@@ -1,4 +1,5 @@
 using System;
+using GunshotWound2.Bodies;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 
@@ -10,7 +11,7 @@ namespace GunshotWound2.WoundProcessing.Bleeding
         private EcsWorld _ecsWorld;
 
         private EcsFilter<BleedingWoundStatsComponent> _woundStats;
-        private EcsFilter<BleedingInfoComponent, CreateBleedingEvent> _toCreate;
+        private EcsFilter<BleedingInfoComponent, CreateBleedingEvent, DamagedBodyPartComponent> _toCreate;
 
         private readonly GswLogger _logger;
         private static readonly Random Random = new Random();
@@ -36,9 +37,13 @@ namespace GunshotWound2.WoundProcessing.Bleeding
                     float baseSeverity = e.BleedingToCreate.Dequeue();
                     if (baseSeverity <= 0) continue;
                     
-                    float sevWithMult = stats.BleedingMultiplier * baseSeverity;
+                    int bodyPartEntity = _toCreate.Components3[i].DamagedBodyPartEntity;
+                    float bodyPartBleedingMult = _ecsWorld.GetComponent<BleedingMultComponent>(bodyPartEntity).Multiplier;
+                    float sevWithMult = stats.BleedingMultiplier * bodyPartBleedingMult * baseSeverity;
+                    
                     float sevDeviation = sevWithMult * stats.BleedingDeviation;
                     sevDeviation = Random.NextFloat(-sevDeviation, sevDeviation);
+                    
                     float finalSeverity = sevWithMult + sevDeviation;
                 
                     int bleedingEntity = _ecsWorld.CreateEntityWith(out BleedingComponent bleeding);

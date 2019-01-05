@@ -24,19 +24,10 @@ namespace GunshotWound2.Weapons.HitDetecting
                 int weaponEntity = _hits.Components1[i].WeaponEntity;
                 WeaponTypes type = _hits.Components1[i].WeaponType;
 
-                if (!_ecsWorld.IsEntityExists(weaponEntity))
-                {
-                    _logger.MakeLog($"Weapon Entity with type {type} doesn\'t exist");
-                    _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(hitEntity);
-                    continue;
-                }
-
-                if (_ecsWorld.GetComponent<BaseWeaponStatsComponent>(weaponEntity) == null)
-                {
-                    _logger.MakeLog($"Weapon Entity with type {type} doesn\'t have {nameof(BaseWeaponStatsComponent)}");
-                    _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(hitEntity);
-                    continue;
-                }
+                if (_ecsWorld.IsEntityExists(weaponEntity)) continue;
+                
+                _logger.MakeLog($"Weapon Entity with type {type} doesn\'t exist");
+                _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(hitEntity);
             }
         }
     }

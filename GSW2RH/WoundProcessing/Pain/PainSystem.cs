@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using GunshotWound2.Bodies;
 using GunshotWound2.GswWorld;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
@@ -13,7 +14,7 @@ namespace GunshotWound2.WoundProcessing.Pain
         private EcsWorld _ecsWorld;
         
         private EcsFilter<PainWoundStatsComponent> _woundStats;
-        private EcsFilter<ReceivedPainComponent, PainInfoComponent> _painToIncrease;
+        private EcsFilter<ReceivedPainComponent, PainInfoComponent, DamagedBodyPartComponent> _painToIncrease;
         private EcsFilter<PainComponent, PainInfoComponent> _painToReduce;
 #if DEBUG
         private EcsFilter<GswPedComponent, PainComponent, PainInfoComponent> _pedsWithPain;
@@ -40,9 +41,13 @@ namespace GunshotWound2.WoundProcessing.Pain
                 int entity = _painToIncrease.Entities[i];
                 if(basePain <= 0) continue;
 
-                float painWithMult = woundStats.PainMultiplier * basePain;
+                int bodyPartEntity = _painToIncrease.Components3[i].DamagedBodyPartEntity;
+                float bodyPartPainMult = _ecsWorld.GetComponent<PainMultComponent>(bodyPartEntity).Multiplier;
+                float painWithMult = woundStats.PainMultiplier * bodyPartPainMult * basePain;
+                
                 float painDeviation = painWithMult * woundStats.PainDeviation;
                 painDeviation = Random.NextFloat(-painDeviation, painDeviation);
+                
                 float finalPain = painWithMult + painDeviation;
 
                 var painComponent = _ecsWorld.EnsureComponent<PainComponent>(entity, out bool isNew);

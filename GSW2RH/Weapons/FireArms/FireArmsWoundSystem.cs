@@ -42,23 +42,18 @@ namespace GunshotWound2.Weapons.FireArms
                     continue;
                 }
 
-                var baseStats = _ecsWorld.GetComponent<BaseWeaponStatsComponent>(weaponEntity);
-                if (baseStats == null)
-                {
-                    _logger.MakeLog($"Weapon Entity doesn\'t have {nameof(BaseWeaponStatsComponent)}");
-                    _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(pedEntity);
-                    continue;
-                }
-
                 FireArmsWounds wound = woundRandomizer.WoundRandomizer.NextWithReplacement();
-                
-                float damageMult = baseStats.DamageMult;
+
+                var damageMultComponent = _ecsWorld.GetComponent<DamageMultComponent>(weaponEntity);
+                float damageMult = damageMultComponent?.Multiplier ?? 1f;
                 float damageAmount;
 
-                float painMult = baseStats.PainMult;
+                var painMultComponent = _ecsWorld.GetComponent<BleedingMultComponent>(weaponEntity);
+                float painMult = painMultComponent?.Multiplier ?? 1f;
                 float painAmount;
 
-                float bleedingMult = baseStats.BleedingMult;
+                var bleedingMultComponent = _ecsWorld.GetComponent<BleedingMultComponent>(weaponEntity);
+                float bleedingMult = bleedingMultComponent?.Multiplier ?? 1f;
                 float bleedingAmount;
                 
                 switch (wound)

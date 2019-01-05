@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using GunshotWound2.Bodies;
 using GunshotWound2.GswWorld;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
@@ -14,7 +15,7 @@ namespace GunshotWound2.WoundProcessing.Health
 
         private EcsFilter<HealthWoundStatsComponent> _woundStats;
         private EcsFilter<GswPedComponent, HealthComponent, FullyHealedComponent> _fullyHealed;
-        private EcsFilter<GswPedComponent, HealthComponent, ReceivedDamageComponent> _damagedPeds;
+        private EcsFilter<GswPedComponent, HealthComponent, ReceivedDamageComponent, DamagedBodyPartComponent> _damagedPeds;
 #if DEBUG
         private EcsFilter<GswPedComponent, HealthComponent> _pedsWithHealth;
 #endif
@@ -51,9 +52,13 @@ namespace GunshotWound2.WoundProcessing.Health
                 float baseDamage = _damagedPeds.Components3[i].Damage;
                 if(baseDamage <= 0) continue;
 
-                float damageWithMult = woundStats.DamageMultiplier * baseDamage;
+                int bodyPartEntity = _damagedPeds.Components4[i].DamagedBodyPartEntity;
+                float bodyPartDamageMult = _ecsWorld.GetComponent<DamageMultComponent>(bodyPartEntity).Multiplier;
+                float damageWithMult = woundStats.DamageMultiplier * bodyPartDamageMult * baseDamage;
+                
                 float damageDeviation = damageWithMult * woundStats.DamageDeviation;
                 damageDeviation = Random.NextFloat(-damageDeviation, damageDeviation);
+                
                 float finalDamage = damageWithMult + damageDeviation;
                 health.Health -= finalDamage;
                 ped.SetHealth(health.Health);

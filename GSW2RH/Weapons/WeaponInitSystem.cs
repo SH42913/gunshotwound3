@@ -55,7 +55,6 @@ namespace GunshotWound2.Weapons
         {
             XElement weaponTypeElement = weaponRoot.GetElement("WeaponType");
             XElement hashesElement = weaponRoot.GetElement("WeaponHashes");
-            XElement baseStatsElement = weaponRoot.GetElement("BaseStats");
 
             int entity = _ecsWorld.CreateEntityWith(out WeaponTypeComponent type, out InitElementComponent initComponent);
             initComponent.ElementRoot = weaponRoot;
@@ -63,21 +62,6 @@ namespace GunshotWound2.Weapons
             
             var hashesComponent = _ecsWorld.AddComponent<HashesComponent>(entity);
             hashesComponent.FillHashesComponent(hashesElement, _logger);
-
-            AttachBaseStats(baseStatsElement, entity);
-        }
-
-        private void AttachBaseStats(XElement statsElement, int entity)
-        {
-            var stats = _ecsWorld.AddComponent<BaseWeaponStatsComponent>(entity);
-            stats.DamageMult = statsElement.GetFloat("DamageMult");
-            stats.BleedingMult = statsElement.GetFloat("BleedingMult");
-            stats.PainMult = statsElement.GetFloat("PainMult");
-            stats.CritChance = statsElement.GetFloat("CritChance");
-
-#if DEBUG
-            _logger.MakeLog(stats.ToString());
-#endif
         }
 
         public void PreDestroy()

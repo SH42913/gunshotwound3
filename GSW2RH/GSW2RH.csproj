@@ -88,12 +88,16 @@
     <Compile Include="WoundProcessing\Bleeding\BleedingCreateSystem.cs" />
     <Compile Include="WoundProcessing\Bleeding\BleedingHealSystem.cs" />
     <Compile Include="WoundProcessing\Bleeding\BleedingInitSystem.cs" />
+    <Compile Include="WoundProcessing\Bleeding\BleedingMultComponent.cs" />
+    <Compile Include="WoundProcessing\Bleeding\BleedingMultInitSystem.cs" />
     <Compile Include="WoundProcessing\Bleeding\BleedingSystem.cs" />
     <Compile Include="WoundProcessing\Bleeding\BleedingWoundStatsComponent.cs" />
     <Compile Include="WoundProcessing\Bleeding\CreateBleedingEvent.cs" />
     <Compile Include="WoundProcessing\Bleeding\BleedingInfoComponent.cs" />
     <Compile Include="WoundProcessing\Bleeding\PedBleedingInitSystem.cs" />
     <Compile Include="WoundProcessing\Bleeding\PedBleedingStatsComponent.cs" />
+    <Compile Include="WoundProcessing\Health\DamageMultComponent.cs" />
+    <Compile Include="WoundProcessing\Health\DamageMultInitSystem.cs" />
     <Compile Include="WoundProcessing\Health\HealthWoundStatsComponent.cs" />
     <Compile Include="WoundProcessing\Health\FullyHealedComponent.cs" />
     <Compile Include="WoundProcessing\Health\HealDetectSystem.cs" />
@@ -108,7 +112,6 @@
     <Compile Include="Utils\GswExtensions.cs" />
     <Compile Include="Utils\GswLogger.cs" />
     <Compile Include="Utils\MinMax.cs" />
-    <Compile Include="Weapons\BaseWeaponStatsComponent.cs" />
     <Compile Include="Weapons\FireArms\FireArmsInitSystem.cs" />
     <Compile Include="Weapons\FireArms\FireArmsWoundRandomizerComponent.cs" />
     <Compile Include="Weapons\FireArms\FireArmsWoundSystem.cs" />
@@ -117,6 +120,8 @@
     <Compile Include="WoundProcessing\Pain\ChangedPainStateComponent.cs" />
     <Compile Include="WoundProcessing\Pain\PainComponent.cs" />
     <Compile Include="WoundProcessing\Pain\PainInitSystem.cs" />
+    <Compile Include="WoundProcessing\Pain\PainMultComponent.cs" />
+    <Compile Include="WoundProcessing\Pain\PainMultInitSystem.cs" />
     <Compile Include="WoundProcessing\Pain\PainStates.cs" />
     <Compile Include="WoundProcessing\Pain\PainStateSystem.cs" />
     <Compile Include="WoundProcessing\Pain\PainSystem.cs" />
