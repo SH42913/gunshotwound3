@@ -66,6 +66,7 @@
     <Compile Include="Bodies\DamagedBodyPartComponent.cs" />
     <Compile Include="GswWorld\AnimalMarkComponent.cs" />
     <Compile Include="GswWorld\GswPedComponent.cs" />
+    <Compile Include="GswWorld\GswWorldCleanSystem.cs" />
     <Compile Include="GswWorld\GswWorldComponent.cs" />
     <Compile Include="GswWorld\GswWorldInitSystem.cs" />
     <Compile Include="GswWorld\GswWorldSystem.cs" />

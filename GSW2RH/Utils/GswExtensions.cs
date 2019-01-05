@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Xml.Linq;
-using GunshotWound2.Weapons;
 using Rage;
 using Rage.Native;
 

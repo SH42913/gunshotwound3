@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Drawing;
 using GunshotWound2.Utils;
-using GunshotWound2.WoundProcessing.Bleeding;
 using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
@@ -16,7 +15,6 @@ namespace GunshotWound2.GswWorld
 
         private EcsFilter<GswWorldComponent> _world;
         private EcsFilter<GswPedComponent> _gswPeds;
-        private EcsFilter<GswPedComponent, RemovedPedMarkComponent> _pedsToRemove;
 
         private GswLogger _logger;
         private readonly Stopwatch _stopwatch = new Stopwatch();
@@ -37,15 +35,6 @@ namespace GunshotWound2.GswWorld
             _stopwatch.Restart();
             if (gswWorld.NeedToCheckPeds.Count <= 0)
             {
-                foreach (int i in _pedsToRemove)
-                {
-                    Ped ped = _gswPeds.Components1[i].ThisPed;
-                    int pedEntity = _gswPeds.Entities[i];
-                    
-                    gswWorld.PedsToEntityDict.Remove(ped);
-                    _ecsWorld.RemoveEntity(pedEntity);
-                }
-                
                 foreach (int i in _gswPeds)
                 {
                     GswPedComponent gswPed = _gswPeds.Components1[i];
@@ -118,7 +107,7 @@ namespace GunshotWound2.GswWorld
             bool damaged = NativeFunction.Natives.HAS_ENTITY_BEEN_DAMAGED_BY_ANY_PED<bool>(pedToCheck);
             return !damaged;
         }
-        
+
         private void CreateHuman(GswWorldComponent gswWorld, Ped ped)
         {
             int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed, out NewPedMarkComponent _);
@@ -128,7 +117,7 @@ namespace GunshotWound2.GswWorld
             {
                 ped.Accuracy = (int) Random.NextMinMax(gswWorld.HumanAccuracy);
             }
-            
+
             if (!gswWorld.HumanShootRate.IsDisabled())
             {
                 int rate = (int) Random.NextMinMax(gswWorld.HumanShootRate);
@@ -140,7 +129,8 @@ namespace GunshotWound2.GswWorld
 
         private void CreateAnimal(GswWorldComponent gswWorld, Ped ped)
         {
-            int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed, out NewPedMarkComponent _, out AnimalMarkComponent _);
+            int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed, out NewPedMarkComponent _,
+                out AnimalMarkComponent _);
             gswPed.ThisPed = ped;
 
             gswWorld.PedsToEntityDict.Add(ped, entity);

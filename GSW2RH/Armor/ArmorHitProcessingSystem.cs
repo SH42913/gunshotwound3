@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using GunshotWound2.BaseHitDetecting;
 using GunshotWound2.Bodies;
 using GunshotWound2.GswWorld;
 using GunshotWound2.Utils;

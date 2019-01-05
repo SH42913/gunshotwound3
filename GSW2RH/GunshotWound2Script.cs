@@ -10,7 +10,6 @@ using GunshotWound2.Utils;
 using GunshotWound2.Weapons;
 using GunshotWound2.Weapons.FireArms;
 using GunshotWound2.Weapons.HitDetecting;
-using GunshotWound2.WoundProcessing;
 using GunshotWound2.WoundProcessing.Bleeding;
 using GunshotWound2.WoundProcessing.Health;
 using GunshotWound2.WoundProcessing.Pain;
@@ -25,7 +24,7 @@ namespace GunshotWound2
         public const string WORLD_CONFIG_PATH = "\\Plugins\\GswConfigs\\GswWorldConfig.xml";
         public const string WEAPON_CONFIG_PATH = "\\Plugins\\GswConfigs\\GswWeaponConfig.xml";
         public static int StatsContainerEntity { get; private set; }
-        
+
         private EcsWorld _world;
         private EcsSystems _systems;
 
@@ -45,6 +44,7 @@ namespace GunshotWound2
 
             _systems
                 .Add(new GswWorldInitSystem())
+                .Add(new GswWorldCleanSystem())
                 .Add(new GswWorldSystem())
                 .Add(new HealthInitSystem())
                 .Add(new PedHealthInitSystem())

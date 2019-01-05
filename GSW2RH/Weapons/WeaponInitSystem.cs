@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Xml.Linq;
-using GunshotWound2.Armor;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 

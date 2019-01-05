@@ -1,7 +1,6 @@
 ﻿using System.Xml.Linq;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
-using Weighted_Randomizer;
 
 namespace GunshotWound2.Weapons.FireArms
 {

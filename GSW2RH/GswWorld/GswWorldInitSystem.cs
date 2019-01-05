@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using GunshotWound2.Utils;
-using GunshotWound2.WoundProcessing;
 using Leopotam.Ecs;
-using Rage;
 
 namespace GunshotWound2.GswWorld
 {
