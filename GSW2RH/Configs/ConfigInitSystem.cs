@@ -40,8 +40,6 @@ namespace GunshotWound2.Configs
                 var loadedConfig = _ecsWorld.CreateEntityWith<LoadedConfigComponent>();
                 loadedConfig.Path = fullPath;
                 loadedConfig.ElementRoot = xmlRoot;
-         
-                _logger.MakeLog($"GswConfig loaded! Path: {fullPath}");
             }
         }
 

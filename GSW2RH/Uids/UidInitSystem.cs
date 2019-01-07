@@ -35,10 +35,6 @@ namespace GunshotWound2.Uids
 
                 _ecsWorld.AddComponent<UidComponent>(entity).Uid = uid;
                 dict.UidToEntityDict.Add(uid, entity);
-
-#if DEBUG
-                _logger.MakeLog($"Entity {entity} was marked with Uid {uid}");
-#endif
             }
         }
 

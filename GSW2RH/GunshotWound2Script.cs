@@ -10,6 +10,7 @@ using GunshotWound2.Configs;
 using GunshotWound2.GswWorld.Systems;
 using GunshotWound2.Hashes;
 using GunshotWound2.Health.Systems;
+using GunshotWound2.Localization;
 using GunshotWound2.Pain.Systems;
 using GunshotWound2.Uids;
 using GunshotWound2.Utils;
@@ -54,6 +55,7 @@ namespace GunshotWound2
 
             _systems
                 .Add(new ConfigInitSystem())
+                .Add(new LocalizationInitSystem())
                 .Add(new UidInitSystem())
                 .Add(new HashesInitSystem())
                 .Add(new GswWorldInitSystem())

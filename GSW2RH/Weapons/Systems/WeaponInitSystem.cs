@@ -86,11 +86,6 @@ namespace GunshotWound2.Weapons.Systems
                     
                     int woundWeight = woundElement.GetInt("Weight");
                     randomizer.WoundRandomizer.Add(woundEntity, woundWeight);
-
-#if DEBUG
-                    string name = _ecsWorld.GetComponent<HashesComponent>(weaponEntity).Name;
-                    _logger.MakeLog($"Weapon {name} will use wound {woundEntity} with weight {woundWeight}");
-#endif
                 }
             }
         }

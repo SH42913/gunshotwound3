@@ -30,7 +30,6 @@ namespace GunshotWound2.Hashes
 
                 int entity = _configParts.Entities[i];
                 var hashesComponent = _ecsWorld.AddComponent<HashesComponent>(entity);
-                hashesComponent.Name = hashesElement.GetAttributeValue("Name");
 
                 var hashStrings = hashesElement.GetAttributeValue("Hashes").Split(';');
                 foreach (string hashString in hashStrings)
@@ -47,7 +46,7 @@ namespace GunshotWound2.Hashes
                     }
                 }
 
-                _logger.MakeLog(hashesComponent.ToString());
+                _logger.MakeLog($"{entity.GetEntityName(_ecsWorld)} {hashesComponent}");
             }
         }
 

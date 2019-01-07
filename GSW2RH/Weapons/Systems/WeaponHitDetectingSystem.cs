@@ -48,7 +48,8 @@ namespace GunshotWound2.Weapons.Systems
                     int weaponEntity = _weapons.Entities[i];
                     int woundEntity = _weapons.Components3[i].WoundRandomizer.NextWithReplacement();
 #if DEBUG
-                    _logger.MakeLog($"Ped {ped.Name(pedEntity)} was damaged by {hashesComponent.Name} with wound {woundEntity}");
+                    string weaponName = weaponEntity.GetEntityName(_ecsWorld);
+                    _logger.MakeLog($"Ped {ped.Name(pedEntity)} was damaged by {weaponName} with wound {woundEntity}");
 #endif
                     
                     var damaged = _ecsWorld.AddComponent<DamagedByWeaponComponent>(pedEntity);

@@ -45,7 +45,7 @@ namespace GunshotWound2.Armor.Systems
                 if (bodyArmor == null || !bodyArmor.ProtectedByHelmet)
                 {
 #if DEBUG
-                    string partName = _ecsWorld.GetComponent<HashesComponent>(bodyPartEntity).Name;
+                    var partName = bodyPartEntity.GetEntityName(_ecsWorld);
                     _logger.MakeLog($"Helmet of {ped.Name(pedEntity)} doesn\'t protect {partName}");
 #endif
                     continue;

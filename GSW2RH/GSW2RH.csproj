@@ -98,6 +98,8 @@
     <Compile Include="Health\Systems\HealDetectSystem.cs" />
     <Compile Include="Health\Systems\HealthInitSystem.cs" />
     <Compile Include="Health\Systems\HealthSystem.cs" />
+    <Compile Include="Localization\LocalizationInitSystem.cs" />
+    <Compile Include="Localization\LocalizationKeyComponent.cs" />
     <Compile Include="Pain\AdditionalPainComponent.cs" />
     <Compile Include="Pain\BasePainComponent.cs" />
     <Compile Include="Pain\ChangedPainStateComponent.cs" />

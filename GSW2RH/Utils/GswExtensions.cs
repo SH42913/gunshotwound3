@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Globalization;
 using System.Xml.Linq;
+using GunshotWound2.Localization;
+using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
 
@@ -129,6 +131,15 @@ namespace GunshotWound2.Utils
                 Min = node.GetFloat("Min"),
                 Max = node.GetFloat("Max")
             };
+        }
+
+        public static string GetEntityName(this int entity, EcsWorld ecsWorld)
+        {
+            var localizationKey = ecsWorld.GetComponent<LocalizationKeyComponent>(entity);
+
+            return localizationKey != null 
+                ? localizationKey.Key 
+                : $"Entity #{entity}";
         }
 
         public static string Name(this Ped ped, int entity)

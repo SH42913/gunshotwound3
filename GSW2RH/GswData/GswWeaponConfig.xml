@@ -2,7 +2,8 @@
 <GswWeaponConfig.xml>
     <WeaponList>
         <Weapon>
-            <Hashes Name="Pistol" Hashes="453432689;1593441988;"/>
+            <LocalizationKey Key="Pistol"/>
+            <Hashes Hashes="453432689;1593441988;"/>
             <WeaponArmorStats CanPenetrateArmor="TRUE" ChanceToPenetrateHelmet="0.2" ArmorDamage="1" MinArmorPercentForPenetration="0.3"/>
             <DamageMult Value="1.0"/>
             <PainMult Value="1.0"/>
@@ -13,7 +14,8 @@
             </WeaponWoundList>
         </Weapon>
         <Weapon>
-            <Hashes Name="CarbineRifle" Hashes="2210333304;"/>
+            <LocalizationKey Key="CarbineRifle"/>
+            <Hashes Hashes="2210333304;"/>
             <WeaponArmorStats CanPenetrateArmor="TRUE" ChanceToPenetrateHelmet="1" ArmorDamage="5" MinArmorPercentForPenetration="1"/>
             <DamageMult Value="1.0"/>
             <PainMult Value="1.0"/>

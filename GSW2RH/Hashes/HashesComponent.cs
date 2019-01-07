@@ -5,20 +5,17 @@ namespace GunshotWound2.Hashes
 {
     public class HashesComponent : IEcsAutoResetComponent
     {
-        public string Name;
-
         [EcsIgnoreNullCheck] 
         public readonly List<uint> Hashes = new List<uint>();
 
         public void Reset()
         {
-            Name = null;
             Hashes.Clear();
         }
 
         public override string ToString()
         {
-            string hashes = Name + " hashes: ";
+            string hashes = "Hashes: ";
             if (Hashes == null || Hashes.Count <= 0)
             {
                 hashes += "nothing to see here";
