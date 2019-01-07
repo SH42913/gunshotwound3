@@ -7,10 +7,11 @@
     <ProjectGuid>{4800C22C-681B-4699-B5E6-B037326D22E0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GSW2RH</RootNamespace>
-    <AssemblyName>GSW2RH</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <RootNamespace>GunshotWound2</RootNamespace>
+    <AssemblyName>GunshotWound2</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,19 +32,125 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="RagePluginHook, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\ragehook\RagePluginHookSDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Armor\ArmorComponent.cs" />
+    <Compile Include="Armor\ArmorWeaponStatsComponent.cs" />
+    <Compile Include="Armor\BodyPartArmorComponent.cs" />
+    <Compile Include="Armor\Systems\ArmorHitProcessingSystem.cs" />
+    <Compile Include="Armor\Systems\ArmorInitSystem.cs" />
+    <Compile Include="Armor\Systems\HelmetHitProcessingSystem.cs" />
+    <Compile Include="BaseHitDetecting\Systems\BaseHitCleanSystem.cs" />
+    <Compile Include="BaseHitDetecting\Systems\BaseHitDetectingSystem.cs" />
+    <Compile Include="Bleeding\BaseBleedingComponent.cs" />
+    <Compile Include="Bleeding\BleedingComponent.cs" />
+    <Compile Include="Bleeding\BleedingInfoComponent.cs" />
+    <Compile Include="Bleeding\BleedingMultComponent.cs" />
+    <Compile Include="Bleeding\BleedingStatsComponent.cs" />
+    <Compile Include="Bleeding\PedBleedingStatsComponent.cs" />
+    <Compile Include="Bleeding\Systems\BleedingCleanSystem.cs" />
+    <Compile Include="Bleeding\Systems\BleedingCreateSystem.cs" />
+    <Compile Include="Bleeding\Systems\BleedingHealSystem.cs" />
+    <Compile Include="Bleeding\Systems\BleedingInitSystem.cs" />
+    <Compile Include="Bleeding\Systems\BleedingSystem.cs" />
+    <Compile Include="Bodies\BodyHitHistoryComponent.cs" />
+    <Compile Include="Bodies\BodyPartComponent.cs" />
+    <Compile Include="Bodies\BoneToBodyPartDictComponent.cs" />
+    <Compile Include="Bodies\DamagedBodyPartComponent.cs" />
+    <Compile Include="Bodies\Systems\BodyHitDetectingSystem.cs" />
+    <Compile Include="Bodies\Systems\BodyHitHistoryShowSystem.cs" />
+    <Compile Include="Bodies\Systems\BodyPartInitSystem.cs" />
+    <Compile Include="Configs\ConfigInitSystem.cs" />
+    <Compile Include="Configs\LoadedConfigComponent.cs" />
+    <Compile Include="Configs\LoadedItemConfigComponent.cs" />
+    <Compile Include="GswWorld\AnimalMarkComponent.cs" />
+    <Compile Include="GswWorld\GswPedComponent.cs" />
+    <Compile Include="GswWorld\GswWorldComponent.cs" />
+    <Compile Include="GswWorld\NewPedMarkComponent.cs" />
+    <Compile Include="GswWorld\RemovedPedMarkComponent.cs" />
+    <Compile Include="GswWorld\Systems\GswWorldCleanSystem.cs" />
+    <Compile Include="GswWorld\Systems\GswWorldInitSystem.cs" />
+    <Compile Include="GswWorld\Systems\GswWorldSystem.cs" />
+    <Compile Include="GunshotWound2Script.cs" />
+    <Compile Include="BaseHitDetecting\HasBeenHitMarkComponent.cs" />
+    <Compile Include="Hashes\HashesComponent.cs" />
+    <Compile Include="Hashes\HashesInitSystem.cs" />
+    <Compile Include="Health\BaseDamageComponent.cs" />
+    <Compile Include="Health\DamageMultComponent.cs" />
+    <Compile Include="Health\FullyHealedComponent.cs" />
+    <Compile Include="Health\HealthComponent.cs" />
+    <Compile Include="Health\HealthStatsComponent.cs" />
+    <Compile Include="Health\PedHealthStatsComponent.cs" />
+    <Compile Include="Health\Systems\HealDetectSystem.cs" />
+    <Compile Include="Health\Systems\HealthInitSystem.cs" />
+    <Compile Include="Health\Systems\HealthSystem.cs" />
+    <Compile Include="Localization\LocalizationInitSystem.cs" />
+    <Compile Include="Localization\LocalizationKeyComponent.cs" />
+    <Compile Include="Pain\AdditionalPainComponent.cs" />
+    <Compile Include="Pain\BasePainComponent.cs" />
+    <Compile Include="Pain\ChangedPainStateComponent.cs" />
+    <Compile Include="Pain\PainComponent.cs" />
+    <Compile Include="Pain\PainMultComponent.cs" />
+    <Compile Include="Pain\PainStates.cs" />
+    <Compile Include="Pain\PainStatsComponent.cs" />
+    <Compile Include="Pain\PedPainInfoComponent.cs" />
+    <Compile Include="Pain\PedPainStatsComponent.cs" />
+    <Compile Include="Pain\Systems\PainInitSystem.cs" />
+    <Compile Include="Pain\Systems\PainStateSystem.cs" />
+    <Compile Include="Pain\Systems\PainSystem.cs" />
+    <Compile Include="StatsContainerComponent.cs" />
+    <Compile Include="Uids\UidComponent.cs" />
+    <Compile Include="Uids\UidInitSystem.cs" />
+    <Compile Include="Uids\UidToEntityDictComponent.cs" />
+    <Compile Include="Weapons\DamagedByWeaponComponent.cs" />
+    <Compile Include="Weapons\WoundRandomizerComponent.cs" />
+    <Compile Include="Weapons\Systems\WeaponHitDetectingSystem.cs" />
+    <Compile Include="Weapons\Systems\WeaponInitSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\GswExtensions.cs" />
+    <Compile Include="Utils\GswLogger.cs" />
+    <Compile Include="Utils\MinMax.cs" />
+    <Compile Include="Weapons\WeaponComponent.cs" />
+    <Compile Include="Wounds\WoundedComponent.cs" />
+    <Compile Include="Wounds\WoundComponent.cs" />
+    <Compile Include="Wounds\WoundInitSystem.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\leoecs\Leopotam.Ecs.csproj">
+      <Project>{AC2CA173-E1A9-4EBB-B738-9CAFEA6163C8}</Project>
+      <Name>Leopotam.Ecs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\weightrandom\Weighted Randomizer\Weighted Randomizer.csproj">
+      <Project>{1245BC96-2F42-404C-9F11-65A4326299D6}</Project>
+      <Name>Weighted Randomizer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configs\OldGSW2Config.xml" />
+    <Content Include="GswData\GswWeaponConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GswData\GswWorldConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GswData\GswWoundConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

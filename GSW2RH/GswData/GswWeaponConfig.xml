@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GswWeaponConfig.xml>
+    <WeaponList>
+        <Weapon>
+            <LocalizationKey Key="Pistol"/>
+            <Hashes Hashes="453432689;1593441988;"/>
+            <WeaponArmorStats CanPenetrateArmor="TRUE" ChanceToPenetrateHelmet="0.2" ArmorDamage="1" MinArmorPercentForPenetration="0.3"/>
+            <DamageMult Value="1.0"/>
+            <PainMult Value="1.0"/>
+            <BleedingMult Value="1.0"/>
+            <WeaponWoundList>
+                <WeaponWound Uid="1" Weight="2"/>
+                <WeaponWound Uid="2" Weight="1"/>
+            </WeaponWoundList>
+        </Weapon>
+        <Weapon>
+            <LocalizationKey Key="CarbineRifle"/>
+            <Hashes Hashes="2210333304;"/>
+            <WeaponArmorStats CanPenetrateArmor="TRUE" ChanceToPenetrateHelmet="1" ArmorDamage="5" MinArmorPercentForPenetration="1"/>
+            <DamageMult Value="1.0"/>
+            <PainMult Value="1.0"/>
+            <BleedingMult Value="1.0"/>
+            <WeaponWoundList>
+                <WeaponWound Uid="1" Weight="1"/>
+                <WeaponWound Uid="2" Weight="2"/>
+            </WeaponWoundList>
+        </Weapon>
+    </WeaponList>
+</GswWeaponConfig.xml>

@@ -13680,6 +13680,17 @@ Gets the address of the native function with the specified name.
             <param name="name">The name of the native function.</param>
             <returns>If the native function exists, returns a <see cref="T:System.IntPtr" /> representing the address of the native function; otherwise, returns <see cref="F:System.IntPtr.Zero" />.</returns>
         </member>
+        <member name="M:Rage.Game.ExecuteWithTls(System.Action)">
+            <summary>
+                <para>Executes the specified method with the game's main thread TLS (Thread Local Storage).</para>
+                <para>This is required when calling most internal game functions.</para>
+            </summary>
+            <param name="action">The method to call with TLS.</param>
+            <remarks>
+                <para>This method can only be called from fibers, and suspending the fiber is not allowed inside this call.</para>
+                <para>It is illegal to call this method within an existing call to this method; as such, you should make sure to only wrap direct game function calls and not call other methods that may invoke this method.</para>
+            </remarks>
+        </member>
         <member name="M:Rage.Game.FreeMemory(System.IntPtr)">
             <summary>
 Frees the memory previously allocated by <see cref="M:Rage.Game.AllocateMemory(System.Int64)" />, using VirtualFree.
@@ -13890,7 +13901,7 @@ Gets a value indicating whether a gamepad is connected.
 Gets or sets a value indicating whether this plugin will still receive key events even if input focus is set to an active form.
 </summary>
             <value>
-                <c>true</c> if events should be still received otherwise, <c>false</c>.</value>
+                <c>true</c> if events should still be received otherwise, <c>false</c>.</value>
         </member>
         <member name="P:Rage.Game.IsLoading">
             <summary>
