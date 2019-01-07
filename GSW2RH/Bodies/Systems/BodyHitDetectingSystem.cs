@@ -1,7 +1,6 @@
 ﻿using System;
 using GunshotWound2.BaseHitDetecting;
 using GunshotWound2.GswWorld;
-using GunshotWound2.Hashes;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;

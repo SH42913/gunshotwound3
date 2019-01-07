@@ -28,13 +28,13 @@ namespace GunshotWound2.Configs
                 var file = new FileInfo(fullPath);
                 if (!file.Exists)
                 {
-                    throw new Exception($"Can\'t find {fullPath}");
+                    throw new Exception($"Can't find {fullPath}");
                 }
 
                 XElement xmlRoot = XDocument.Load(file.OpenRead()).Root;
                 if (xmlRoot == null)
                 {
-                    throw new Exception($"Can\'t find XML-root in {fullPath}");
+                    throw new Exception($"Can't find XML-root in {fullPath}");
                 }
 
                 var loadedConfig = _ecsWorld.CreateEntityWith<LoadedConfigComponent>();

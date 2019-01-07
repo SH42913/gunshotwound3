@@ -1,7 +1,6 @@
 ﻿using System;
 using GunshotWound2.Bodies;
 using GunshotWound2.GswWorld;
-using GunshotWound2.Hashes;
 using GunshotWound2.Utils;
 using GunshotWound2.Weapons;
 using Leopotam.Ecs;
@@ -35,7 +34,7 @@ namespace GunshotWound2.Armor.Systems
                 if (!ped.IsWearingHelmet)
                 {
 #if DEBUG
-                    _logger.MakeLog($"Ped {ped.Name(pedEntity)} doesn\'t have Helmet");
+                    _logger.MakeLog($"Ped {ped.Name(pedEntity)} doesn't have Helmet");
 #endif
                     continue;
                 }
@@ -46,7 +45,7 @@ namespace GunshotWound2.Armor.Systems
                 {
 #if DEBUG
                     var partName = bodyPartEntity.GetEntityName(_ecsWorld);
-                    _logger.MakeLog($"Helmet of {ped.Name(pedEntity)} doesn\'t protect {partName}");
+                    _logger.MakeLog($"Helmet of {ped.Name(pedEntity)} doesn't protect {partName}");
 #endif
                     continue;
                 }
@@ -56,7 +55,7 @@ namespace GunshotWound2.Armor.Systems
                 if (weaponStats == null)
                 {
 #if DEBUG
-                    _logger.MakeLog($"This weapon doesn\'t have {nameof(ArmorWeaponStatsComponent)}");
+                    _logger.MakeLog($"This weapon doesn't have {nameof(ArmorWeaponStatsComponent)}");
 #endif
                     continue;
                 }
@@ -69,6 +68,7 @@ namespace GunshotWound2.Armor.Systems
                     _logger.MakeLog($"Helmet of {ped.Name(pedEntity)} was not penetrated, when chance was {chance}");
 #endif
                     _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(pedEntity);
+                    _ecsWorld.RemoveComponent<DamagedBodyPartComponent>(pedEntity);
                     continue;
                 }
 

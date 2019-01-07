@@ -62,7 +62,7 @@ namespace GunshotWound2.Utils
             XElement element = root.Element(elementName);
             if (element == null)
             {
-                throw new Exception($"Can\'t find element {elementName} in {root.Name}");
+                throw new Exception($"Can't find element {elementName} in {root.Parent?.Name}/{root.Name.LocalName}");
             }
 
             return element;
@@ -73,7 +73,7 @@ namespace GunshotWound2.Utils
             XAttribute attribute = node.Attribute(attributeName);
             if (attribute == null)
             {
-                throw new Exception($"Can\'t find attribute {attributeName} in {node.Name}");
+                throw new Exception($"Can't find attribute {attributeName} in {node.Parent?.Name}/{node.Name.LocalName}");
             }
 
             return attribute.Value;
