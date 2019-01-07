@@ -3,10 +3,10 @@ using Weighted_Randomizer;
 
 namespace GunshotWound2.Weapons
 {
-    public class FireArmsWoundRandomizerComponent : IEcsAutoResetComponent
+    public class WoundRandomizerComponent : IEcsAutoResetComponent
     {
         [EcsIgnoreNullCheck]
-        public readonly StaticWeightedRandomizer<FireArmsWounds> WoundRandomizer = new StaticWeightedRandomizer<FireArmsWounds>();
+        public readonly StaticWeightedRandomizer<int> WoundRandomizer = new StaticWeightedRandomizer<int>();
 
         public void Reset()
         {

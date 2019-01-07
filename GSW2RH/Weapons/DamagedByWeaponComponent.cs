@@ -6,6 +6,6 @@ namespace GunshotWound2.Weapons
     public class DamagedByWeaponComponent
     {
         public int WeaponEntity;
-        public WeaponTypes WeaponType;
+        public int WoundEntity;
     }
 }

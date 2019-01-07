@@ -1,6 +1,6 @@
 namespace GunshotWound2.Pain
 {
-    public class PainWoundStatsComponent
+    public class PainStatsComponent
     {
         public float PainMultiplier;
         public float PainDeviation;
@@ -9,7 +9,7 @@ namespace GunshotWound2.Pain
         public override string ToString()
         {
             return
-                $"{nameof(PainWoundStatsComponent)}: " +
+                $"{nameof(PainStatsComponent)}: " +
                 $"{nameof(PainMultiplier)} {PainMultiplier}; " +
                 $"{nameof(PainDeviation)} {PainDeviation}; " +
                 $"{nameof(DeadlyPainMultiplier)} {DeadlyPainMultiplier}; ";

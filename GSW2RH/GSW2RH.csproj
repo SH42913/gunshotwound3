@@ -56,26 +56,27 @@
     <Compile Include="Armor\Systems\HelmetHitProcessingSystem.cs" />
     <Compile Include="BaseHitDetecting\Systems\BaseHitCleanSystem.cs" />
     <Compile Include="BaseHitDetecting\Systems\BaseHitDetectingSystem.cs" />
-    <Compile Include="BaseStatsInitSystem.cs" />
+    <Compile Include="Bleeding\BaseBleedingComponent.cs" />
     <Compile Include="Bleeding\BleedingComponent.cs" />
     <Compile Include="Bleeding\BleedingInfoComponent.cs" />
     <Compile Include="Bleeding\BleedingMultComponent.cs" />
-    <Compile Include="Bleeding\BleedingWoundStatsComponent.cs" />
-    <Compile Include="Bleeding\CreateBleedingEvent.cs" />
+    <Compile Include="Bleeding\BleedingStatsComponent.cs" />
     <Compile Include="Bleeding\PedBleedingStatsComponent.cs" />
     <Compile Include="Bleeding\Systems\BleedingCleanSystem.cs" />
     <Compile Include="Bleeding\Systems\BleedingCreateSystem.cs" />
     <Compile Include="Bleeding\Systems\BleedingHealSystem.cs" />
     <Compile Include="Bleeding\Systems\BleedingInitSystem.cs" />
     <Compile Include="Bleeding\Systems\BleedingSystem.cs" />
-    <Compile Include="Bleeding\Systems\PedBleedingInitSystem.cs" />
     <Compile Include="Bodies\BodyHitHistoryComponent.cs" />
     <Compile Include="Bodies\BodyPartComponent.cs" />
-    <Compile Include="Bodies\BodyPartListComponent.cs" />
+    <Compile Include="Bodies\BoneToBodyPartDictComponent.cs" />
     <Compile Include="Bodies\DamagedBodyPartComponent.cs" />
     <Compile Include="Bodies\Systems\BodyHitDetectingSystem.cs" />
     <Compile Include="Bodies\Systems\BodyHitHistoryShowSystem.cs" />
     <Compile Include="Bodies\Systems\BodyPartInitSystem.cs" />
+    <Compile Include="Configs\ConfigInitSystem.cs" />
+    <Compile Include="Configs\LoadedConfigComponent.cs" />
+    <Compile Include="Configs\LoadedItemConfigComponent.cs" />
     <Compile Include="GswWorld\AnimalMarkComponent.cs" />
     <Compile Include="GswWorld\GswPedComponent.cs" />
     <Compile Include="GswWorld\GswWorldComponent.cs" />
@@ -86,45 +87,46 @@
     <Compile Include="GswWorld\Systems\GswWorldSystem.cs" />
     <Compile Include="GunshotWound2Script.cs" />
     <Compile Include="BaseHitDetecting\HasBeenHitMarkComponent.cs" />
-    <Compile Include="HashesComponent.cs" />
+    <Compile Include="Hashes\HashesComponent.cs" />
+    <Compile Include="Hashes\HashesInitSystem.cs" />
+    <Compile Include="Health\BaseDamageComponent.cs" />
     <Compile Include="Health\DamageMultComponent.cs" />
     <Compile Include="Health\FullyHealedComponent.cs" />
     <Compile Include="Health\HealthComponent.cs" />
-    <Compile Include="Health\HealthWoundStatsComponent.cs" />
+    <Compile Include="Health\HealthStatsComponent.cs" />
     <Compile Include="Health\PedHealthStatsComponent.cs" />
-    <Compile Include="Health\ReceivedDamageComponent.cs" />
     <Compile Include="Health\Systems\HealDetectSystem.cs" />
     <Compile Include="Health\Systems\HealthInitSystem.cs" />
     <Compile Include="Health\Systems\HealthSystem.cs" />
-    <Compile Include="Health\Systems\PedHealthInitSystem.cs" />
-    <Compile Include="InitElementComponent.cs" />
+    <Compile Include="Pain\AdditionalPainComponent.cs" />
+    <Compile Include="Pain\BasePainComponent.cs" />
     <Compile Include="Pain\ChangedPainStateComponent.cs" />
     <Compile Include="Pain\PainComponent.cs" />
     <Compile Include="Pain\PainMultComponent.cs" />
     <Compile Include="Pain\PainStates.cs" />
-    <Compile Include="Pain\PainWoundStatsComponent.cs" />
+    <Compile Include="Pain\PainStatsComponent.cs" />
     <Compile Include="Pain\PedPainInfoComponent.cs" />
     <Compile Include="Pain\PedPainStatsComponent.cs" />
-    <Compile Include="Pain\ReceivedPainComponent.cs" />
     <Compile Include="Pain\Systems\PainInitSystem.cs" />
     <Compile Include="Pain\Systems\PainStateSystem.cs" />
     <Compile Include="Pain\Systems\PainSystem.cs" />
-    <Compile Include="Pain\Systems\PedPainInitSystem.cs" />
+    <Compile Include="StatsContainerComponent.cs" />
+    <Compile Include="Uids\UidComponent.cs" />
+    <Compile Include="Uids\UidInitSystem.cs" />
+    <Compile Include="Uids\UidToEntityDictComponent.cs" />
     <Compile Include="Weapons\DamagedByWeaponComponent.cs" />
-    <Compile Include="Weapons\FireArmsWoundRandomizerComponent.cs" />
-    <Compile Include="Weapons\FireArmsWounds.cs" />
-    <Compile Include="Weapons\Systems\FireArmsInitSystem.cs" />
-    <Compile Include="Weapons\Systems\FireArmsWoundSystem.cs" />
+    <Compile Include="Weapons\WoundRandomizerComponent.cs" />
     <Compile Include="Weapons\Systems\WeaponHitDetectingSystem.cs" />
-    <Compile Include="Weapons\Systems\WeaponHitValidatingSystem.cs" />
     <Compile Include="Weapons\Systems\WeaponInitSystem.cs" />
-    <Compile Include="Weapons\WeaponTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\GswExtensions.cs" />
     <Compile Include="Utils\GswLogger.cs" />
     <Compile Include="Utils\MinMax.cs" />
-    <Compile Include="Weapons\WeaponTypeComponent.cs" />
+    <Compile Include="Weapons\WeaponComponent.cs" />
+    <Compile Include="Wounds\WoundedComponent.cs" />
+    <Compile Include="Wounds\WoundComponent.cs" />
+    <Compile Include="Wounds\WoundInitSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\leoecs\Leopotam.Ecs.csproj">
@@ -137,14 +139,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GswConfigs\GswWoundConfig.xml">
+    <Content Include="Configs\OldGSW2Config.xml" />
+    <Content Include="GswData\GswWeaponConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="GswConfigs\OldGSW2Config.xml" />
-    <Content Include="GswConfigs\GswWeaponConfig.xml">
+    <Content Include="GswData\GswWorldConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="GswConfigs\GswWorldConfig.xml">
+    <Content Include="GswData\GswWoundConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

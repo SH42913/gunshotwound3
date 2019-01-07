@@ -6,11 +6,15 @@ using GunshotWound2.Armor.Systems;
 using GunshotWound2.BaseHitDetecting.Systems;
 using GunshotWound2.Bleeding.Systems;
 using GunshotWound2.Bodies.Systems;
+using GunshotWound2.Configs;
 using GunshotWound2.GswWorld.Systems;
+using GunshotWound2.Hashes;
 using GunshotWound2.Health.Systems;
 using GunshotWound2.Pain.Systems;
+using GunshotWound2.Uids;
 using GunshotWound2.Utils;
 using GunshotWound2.Weapons.Systems;
+using GunshotWound2.Wounds;
 using Leopotam.Ecs;
 using Rage;
 
@@ -18,9 +22,17 @@ namespace GunshotWound2
 {
     public class GunshotWound2Script : IDisposable
     {
-        public const string WOUND_CONFIG_PATH = "\\Plugins\\GswConfigs\\GswWoundConfig.xml";
-        public const string WORLD_CONFIG_PATH = "\\Plugins\\GswConfigs\\GswWorldConfig.xml";
-        public const string WEAPON_CONFIG_PATH = "\\Plugins\\GswConfigs\\GswWeaponConfig.xml";
+        public const string WORLD_CONFIG_NAME = "GswWorldConfig.xml";
+        public const string WEAPON_CONFIG_NAME = "GswWeaponConfig.xml";
+        public const string WOUND_CONFIG_NAME = "GswWoundConfig.xml";
+        
+        public static readonly string[] CONFIG_NAMES =
+        {
+            WORLD_CONFIG_NAME,
+            WEAPON_CONFIG_NAME,
+            WOUND_CONFIG_NAME
+        };
+
         public static int StatsContainerEntity { get; private set; }
 
         private EcsWorld _world;
@@ -38,21 +50,21 @@ namespace GunshotWound2
         {
             _world = new EcsWorld();
             _systems = new EcsSystems(_world);
-            StatsContainerEntity = _world.CreateEntity();
+            StatsContainerEntity = _world.CreateEntityWith(out StatsContainerComponent _);
 
             _systems
+                .Add(new ConfigInitSystem())
+                .Add(new UidInitSystem())
+                .Add(new HashesInitSystem())
                 .Add(new GswWorldInitSystem())
                 .Add(new GswWorldCleanSystem())
                 .Add(new GswWorldSystem())
+                .Add(new WoundInitSystem())
                 .Add(new HealthInitSystem())
-                .Add(new PedHealthInitSystem())
                 .Add(new PainInitSystem())
-                .Add(new PedPainInitSystem())
                 .Add(new BleedingInitSystem())
-                .Add(new PedBleedingInitSystem())
                 .Add(new WeaponInitSystem())
                 .Add(new ArmorInitSystem())
-                .Add(new FireArmsInitSystem())
                 .Add(new BaseHitDetectingSystem())
                 .Add(new BodyPartInitSystem())
                 .Add(new BodyHitDetectingSystem())
@@ -60,11 +72,9 @@ namespace GunshotWound2
                 .Add(new BodyHitHistoryShowSystem())
 #endif
                 .Add(new WeaponHitDetectingSystem())
-                .Add(new WeaponHitValidatingSystem())
                 .Add(new BaseHitCleanSystem())
                 .Add(new HelmetHitProcessingSystem())
                 .Add(new ArmorHitProcessingSystem())
-                .Add(new FireArmsWoundSystem())
                 .Add(new HealDetectSystem())
                 .Add(new HealthSystem())
                 .Add(new PainSystem())

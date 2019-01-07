@@ -8,7 +8,7 @@ namespace GunshotWound2.Pain.Systems
     {
         private EcsWorld _ecsWorld;
 
-        private EcsFilter<PainWoundStatsComponent> _woundStats;
+        private EcsFilter<PainStatsComponent> _woundStats;
         private EcsFilter<PainComponent, PainInfoComponent> _entities;
 
         private readonly GswLogger _logger;
@@ -21,7 +21,7 @@ namespace GunshotWound2.Pain.Systems
         public void Run()
         {
             if(_woundStats.EntitiesCount <= 0) return;
-            PainWoundStatsComponent woundStats = _woundStats.Components1[0];
+            PainStatsComponent stats = _woundStats.Components1[0];
             
             foreach (int i in _entities)
             {
@@ -30,7 +30,7 @@ namespace GunshotWound2.Pain.Systems
                 int entity = _entities.Entities[i];
                 
                 float painPercent = pain.PainAmount / painInfo.UnbearablePain;
-                if (painPercent > woundStats.DeadlyPainMultiplier)
+                if (painPercent > stats.DeadlyPainMultiplier)
                 {
                     CheckState(entity, painInfo, PainStates.DEADLY);
                 }

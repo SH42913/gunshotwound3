@@ -95,6 +95,15 @@ namespace GunshotWound2.Utils
             return int.Parse(valueString);
         }
 
+        public static long GetLong(this XElement node, string attributeName = "Value")
+        {
+            string valueString = string.IsNullOrEmpty(attributeName)
+                ? node.Value
+                : node.GetAttributeValue(attributeName);
+
+            return long.Parse(valueString);
+        }
+
         public static float GetFloat(this XElement node, string attributeName = "Value")
         {
             string valueString = string.IsNullOrEmpty(attributeName)
@@ -120,32 +129,6 @@ namespace GunshotWound2.Utils
                 Min = node.GetFloat("Min"),
                 Max = node.GetFloat("Max")
             };
-        }
-
-        public static void FillHashesComponent(this HashesComponent hashesComponent, XElement hashesRoot,
-            GswLogger logger)
-        {
-            hashesComponent.Name = hashesRoot.GetAttributeValue("Name");
-#if DEBUG
-            logger.MakeLog($"Loading {hashesComponent.Name}");
-#endif
-
-            var hashStrings = hashesRoot.GetAttributeValue("Hashes").Split(';');
-            foreach (string hashString in hashStrings)
-            {
-                if (string.IsNullOrEmpty(hashString)) continue;
-
-                if (uint.TryParse(hashString, out uint hash))
-                {
-                    hashesComponent.Hashes.Add(hash);
-                }
-                else
-                {
-                    logger.MakeLog($"Wrong hash: {hashString}");
-                }
-            }
-
-            logger.MakeLog(hashesComponent.ToString());
         }
 
         public static string Name(this Ped ped, int entity)

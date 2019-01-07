@@ -1,7 +1,9 @@
 ﻿using GunshotWound2.BaseHitDetecting;
 using GunshotWound2.Bodies;
 using GunshotWound2.GswWorld;
+using GunshotWound2.Hashes;
 using GunshotWound2.Utils;
+using GunshotWound2.Wounds;
 using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
@@ -13,7 +15,7 @@ namespace GunshotWound2.Weapons.Systems
     {
         private EcsWorld _ecsWorld;
         private EcsFilter<GswPedComponent, HasBeenHitMarkComponent, DamagedBodyPartComponent> _damagedPeds;
-        private EcsFilter<HashesComponent, WeaponTypeComponent> _weaponGroups;
+        private EcsFilter<HashesComponent, WeaponComponent, WoundRandomizerComponent> _weapons;
 
         private readonly GswLogger _logger;
 
@@ -35,25 +37,31 @@ namespace GunshotWound2.Weapons.Systems
 
         private void DetectWeaponHash(Ped ped, int pedEntity)
         {
-            foreach (int i in _weaponGroups)
+            foreach (int i in _weapons)
             {
-                HashesComponent hashesComponent = _weaponGroups.Components1[i];
+                HashesComponent hashesComponent = _weapons.Components1[i];
 
                 foreach (uint hash in hashesComponent.Hashes)
                 {
                     if (!NativeFunction.Natives.HAS_PED_BEEN_DAMAGED_BY_WEAPON<bool>(ped, hash, 0)) continue;
 
+                    int weaponEntity = _weapons.Entities[i];
+                    int woundEntity = _weapons.Components3[i].WoundRandomizer.NextWithReplacement();
 #if DEBUG
-                    _logger.MakeLog($"Ped {ped.Name(pedEntity)} was damaged by {hashesComponent.Name}");
+                    _logger.MakeLog($"Ped {ped.Name(pedEntity)} was damaged by {hashesComponent.Name} with wound {woundEntity}");
 #endif
+                    
                     var damaged = _ecsWorld.AddComponent<DamagedByWeaponComponent>(pedEntity);
-                    damaged.WeaponEntity = _weaponGroups.Entities[i];
-                    damaged.WeaponType = _weaponGroups.Components2[i].Type;
+                    damaged.WeaponEntity = weaponEntity;
+                    damaged.WoundEntity = woundEntity;
+
+                    var wounded = _ecsWorld.EnsureComponent<WoundedComponent>(pedEntity, out bool _);
+                    wounded.WoundEntities.Add(woundEntity);
                     return;
                 }
             }
 
-            _logger.MakeLog($"!!!Ped {ped.Name(pedEntity)} was damaged by UNKNOWN weapon!!!");
+            _logger.MakeLog($"!!!Ped {ped.Name(pedEntity)} was damaged by UNKNOWN weapon");
         }
     }
 }

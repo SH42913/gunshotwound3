@@ -1,5 +1,6 @@
 using System.Xml.Linq;
 using GunshotWound2.Bodies;
+using GunshotWound2.Configs;
 using GunshotWound2.GswWorld;
 using GunshotWound2.Utils;
 using GunshotWound2.Weapons;
@@ -13,8 +14,8 @@ namespace GunshotWound2.Armor.Systems
     {
         private EcsWorld _ecsWorld;
 
-        private EcsFilter<WeaponTypeComponent, InitElementComponent, HashesComponent> _initWeapons;
-        private EcsFilter<BodyPartComponent, InitElementComponent, HashesComponent> _initParts;
+        private EcsFilter<LoadedItemConfigComponent, WeaponComponent> _initWeapons;
+        private EcsFilter<LoadedItemConfigComponent, BodyPartComponent> _initParts;
 
         private EcsFilter<GswPedComponent, NewPedMarkComponent>.Exclude<AnimalMarkComponent> _newPeds;
 
@@ -29,8 +30,8 @@ namespace GunshotWound2.Armor.Systems
         {
             foreach (int i in _initWeapons)
             {
-                XElement weaponRoot = _initWeapons.Components2[i].ElementRoot;
-                XElement statsElement = weaponRoot.GetElement("ArmorStats");
+                XElement weaponRoot = _initWeapons.Components1[i].ElementRoot;
+                XElement statsElement = weaponRoot.GetElement("WeaponArmorStats");
                 int weaponEntity = _initWeapons.Entities[i];
 
                 var stats = _ecsWorld.AddComponent<ArmorWeaponStatsComponent>(weaponEntity);
@@ -38,27 +39,17 @@ namespace GunshotWound2.Armor.Systems
                 stats.ChanceToPenetrateHelmet = statsElement.GetFloat("ChanceToPenetrateHelmet");
                 stats.ArmorDamage = statsElement.GetInt("ArmorDamage");
                 stats.MinArmorPercentForPenetration = statsElement.GetFloat("MinArmorPercentForPenetration");
-
-#if DEBUG
-                string name = _initWeapons.Components3[i].Name;
-                _logger.MakeLog($"Weapon {name} got {stats}");
-#endif
             }
             
             foreach (int i in _initParts)
             {
                 int entity = _initParts.Entities[i];
-                XElement partRoot = _initParts.Components2[i].ElementRoot;
+                XElement partRoot = _initParts.Components1[i].ElementRoot;
                 XElement protection = partRoot.Element("Protection");
 
                 var bodyArmor = _ecsWorld.AddComponent<BodyPartArmorComponent>(entity);
                 bodyArmor.ProtectedByHelmet = protection.GetBool("ByHelmet");
                 bodyArmor.ProtectedByBodyArmor = protection.GetBool("ByArmor");
-
-#if DEBUG
-                string partName = _initParts.Components3[i].Name;
-                _logger.MakeLog($"BodyPart {partName} got {bodyArmor}");
-#endif
             }
         }
         

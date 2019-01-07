@@ -2,6 +2,7 @@
 using System.Drawing;
 using GunshotWound2.Bodies;
 using GunshotWound2.GswWorld;
+using GunshotWound2.Hashes;
 using GunshotWound2.Pain;
 using GunshotWound2.Utils;
 using GunshotWound2.Weapons;
@@ -93,17 +94,10 @@ namespace GunshotWound2.Armor.Systems
                 }
 
                 armor.Armor -= weaponStats.ArmorDamage;
-                var newPain = _ecsWorld.EnsureComponent<ReceivedPainComponent>(pedEntity, out bool painIsNew);
-                if (painIsNew)
-                {
-                    newPain.Pain = weaponStats.ArmorDamage;
-                }
-                else
-                {
-                    newPain.Pain += weaponStats.ArmorDamage;
-                }
+                var newPain = _ecsWorld.EnsureComponent<AdditionalPainComponent>(pedEntity, out bool _);
+                newPain.AdditionalPain = weaponStats.ArmorDamage;
 #if DEBUG
-                _logger.MakeLog($"Pain {weaponStats.ArmorDamage} by armor hit for ped {ped.Name(pedEntity)}");
+                _logger.MakeLog($"Pain {newPain.AdditionalPain} by armor hit for ped {ped.Name(pedEntity)}");
 #endif
                 
                 if (armor.Armor <= 0)

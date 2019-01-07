@@ -1,17 +1,20 @@
-using System;
-using System.IO;
 using System.Xml.Linq;
+using GunshotWound2.Configs;
+using GunshotWound2.Hashes;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 
 namespace GunshotWound2.Bodies.Systems
 {
     [EcsInject]
-    public class BodyPartInitSystem : IEcsPreInitSystem
+    public class BodyPartInitSystem : IEcsPreInitSystem, IEcsInitSystem
     {
         private EcsWorld _ecsWorld;
+        private EcsFilter<LoadedConfigComponent> _loadedConfigs;
+        private EcsFilter<HashesComponent, BodyPartComponent> _partsWithHashes;
 
         private readonly GswLogger _logger;
+        private const string BODY_PART_LIST = "BodyPartList";
 
         public BodyPartInitSystem()
         {
@@ -20,61 +23,52 @@ namespace GunshotWound2.Bodies.Systems
 
         public void PreInitialize()
         {
-            try
+            _logger.MakeLog("BodyPart list is loading!");
+
+            foreach (int i in _loadedConfigs)
             {
-                GenerateBodyParts();
+                LoadedConfigComponent config = _loadedConfigs.Components1[i];
+                XElement xmlRoot = config.ElementRoot;
+
+                var listElement = xmlRoot.Element(BODY_PART_LIST);
+                if (listElement == null) continue;
+                
+                foreach (XElement bodyPartRoot in listElement.Elements("BodyPart"))
+                {
+                    CreateBodyPart(bodyPartRoot);
+                }
             }
-            catch (Exception e)
-            {
-                _logger.MakeLog(e.Message);
-            }
+
+            _logger.MakeLog("BodyPart list loaded!");
         }
 
-        private void GenerateBodyParts()
+        private void CreateBodyPart(XElement bodyPartRoot)
         {
-            string fullPath = Environment.CurrentDirectory + GunshotWound2Script.WOUND_CONFIG_PATH;
-            var file = new FileInfo(fullPath);
-            if (!file.Exists)
-            {
-                throw new Exception($"Can\'t find {fullPath}");
-            }
-
-            XElement xmlRoot = XDocument.Load(file.OpenRead()).Root;
-            if (xmlRoot == null)
-            {
-                throw new Exception($"Can\'t find root in {fullPath}");
-            }
-
-            XElement bodyPartList = xmlRoot.Element("BodyPartList");
-            if (bodyPartList == null)
-            {
-                throw new Exception($"Can\'t find BodyPartList in {fullPath}");
-            }
-
-            var listComponent = _ecsWorld.CreateEntityWith<BodyPartListComponent>();
-            foreach (XElement bodyPart in bodyPartList.Elements("BodyPart"))
-            {
-                CreateBodyPart(bodyPart, listComponent);
-            }
-        }
-
-        private void CreateBodyPart(XElement bodyPartRoot, BodyPartListComponent listComponent)
-        {
-            XElement hashesElement = bodyPartRoot.GetElement("BoneHashes");
-
-            int entity = _ecsWorld.CreateEntityWith(out BodyPartComponent _, out InitElementComponent initComponent);
+            _ecsWorld.CreateEntityWith(out BodyPartComponent _, out LoadedItemConfigComponent initComponent);
             initComponent.ElementRoot = bodyPartRoot;
+        }
 
-            var hashesComponent = _ecsWorld.AddComponent<HashesComponent>(entity);
-            hashesComponent.FillHashesComponent(hashesElement, _logger);
+        public void Initialize()
+        {
+            var listComponent = _ecsWorld.CreateEntityWith<BoneToBodyPartDictComponent>();
 
-            foreach (uint hash in hashesComponent.Hashes)
+            foreach (int i in _partsWithHashes)
             {
-                listComponent.BoneIdToBodyPartEntity.Add(hash, entity);
+                HashesComponent hashesComponent = _partsWithHashes.Components1[i];
+                int entity = _partsWithHashes.Entities[i];
+                
+                foreach (uint hash in hashesComponent.Hashes)
+                {
+                    listComponent.BoneIdToBodyPartEntity.Add(hash, entity);
+                }
             }
         }
 
         public void PreDestroy()
+        {
+        }
+
+        public void Destroy()
         {
         }
     }

@@ -3,7 +3,7 @@ using Leopotam.Ecs;
 
 namespace GunshotWound2.Bodies
 {
-    public class BodyPartListComponent : IEcsAutoResetComponent
+    public class BoneToBodyPartDictComponent : IEcsAutoResetComponent
     {
         [EcsIgnoreNullCheck]
         public readonly Dictionary<uint, int> BoneIdToBodyPartEntity = new Dictionary<uint, int>();

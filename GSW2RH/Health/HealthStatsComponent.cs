@@ -1,6 +1,6 @@
 namespace GunshotWound2.Health
 {
-    public class HealthWoundStatsComponent
+    public class HealthStatsComponent
     {
         public float DamageMultiplier;
         public float DamageDeviation;
@@ -8,7 +8,7 @@ namespace GunshotWound2.Health
         public override string ToString()
         {
             return
-                $"{nameof(HealthWoundStatsComponent)}: " +
+                $"{nameof(HealthStatsComponent)}: " +
                 $"{nameof(DamageMultiplier)} {DamageMultiplier}; " +
                 $"{nameof(DamageDeviation)} {DamageDeviation}; ";
         }

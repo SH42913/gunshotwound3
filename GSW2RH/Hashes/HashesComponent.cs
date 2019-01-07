@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Leopotam.Ecs;
 
-namespace GunshotWound2
+namespace GunshotWound2.Hashes
 {
     public class HashesComponent : IEcsAutoResetComponent
     {

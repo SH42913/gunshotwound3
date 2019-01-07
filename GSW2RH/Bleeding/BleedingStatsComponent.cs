@@ -1,13 +1,13 @@
 namespace GunshotWound2.Bleeding
 {
-    public class BleedingWoundStatsComponent
+    public class BleedingStatsComponent
     {
         public float BleedingMultiplier;
         public float BleedingDeviation;
 
         public override string ToString()
         {
-            return $"{nameof(BleedingWoundStatsComponent)}: " +
+            return $"{nameof(BleedingStatsComponent)}: " +
                    $"{nameof(BleedingMultiplier)} {BleedingMultiplier}; " +
                    $"{nameof(BleedingDeviation)} {BleedingDeviation}; ";
         }

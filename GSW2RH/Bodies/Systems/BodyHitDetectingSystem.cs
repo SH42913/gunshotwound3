@@ -1,6 +1,7 @@
 ﻿using System;
 using GunshotWound2.BaseHitDetecting;
 using GunshotWound2.GswWorld;
+using GunshotWound2.Hashes;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
@@ -13,7 +14,7 @@ namespace GunshotWound2.Bodies.Systems
         private EcsWorld _ecsWorld;
         private EcsFilter<GswPedComponent, HasBeenHitMarkComponent> _damagedPeds;
         private EcsFilter<BodyPartComponent> _bodyParts;
-        private EcsFilter<BodyPartListComponent> _bodyPartList;
+        private EcsFilter<BoneToBodyPartDictComponent> _bodyPartList;
 
         private readonly GswLogger _logger;
         private static readonly Random Random = new Random();
@@ -63,11 +64,6 @@ namespace GunshotWound2.Bodies.Systems
         private int GetDamagedBodyPart(Ped target)
         {
             var lastBone = (uint) target.LastDamageBone;
-            if (lastBone == 0)
-            {
-                _logger.MakeLog($"!!! Ped {target.Model.Name} doesn\'t have damaged bone! Bone was select by random!");
-                return GetRandomBodyPartEntity();
-            }
 
             var bodyPartDict = _bodyPartList.Components1[0].BoneIdToBodyPartEntity;
             if (bodyPartDict.ContainsKey(lastBone))
@@ -75,7 +71,7 @@ namespace GunshotWound2.Bodies.Systems
                 return bodyPartDict[lastBone];
             }
 
-            _logger.MakeLog($"!!! Bone {lastBone} for ped {target.Model.Name} is unknown!");
+            _logger.MakeLog($"!!! Bone {lastBone} for ped {target.Model.Name} is unknown! Bone was select by random!");
             return GetRandomBodyPartEntity();
         }
 

@@ -1,30 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<GswWoundConfig>
-	<DamageMultiplier Value="1.0"/>
+<GswWoundConfig.xml>
+	<OverallDamageMultiplier Value="1.0"/>
 	<!-- Overall damage multiplier, 2.0 mean every wound will make x2 damage for ped -->
 
-	<DamageDeviation Value="0.2"/>
+	<OverallDamageDeviation Value="0.2"/>
 	<!-- 0.2 mean +-20% random damage -->
 	
-	<PainMultiplier Value="1.0"/>
+	<OverallPainMultiplier Value="1.0"/>
 	<!-- Overall pain multiplier, 2.0 mean every wound will make x2 pain for ped -->
 
-	<PainDeviation Value="0.2"/>
+	<OverallPainDeviation Value="0.2"/>
 	<!-- 0.2 mean +-20% random pain -->
 
 	<DeadlyPainMultiplier Value="2.5"/>
 	<!-- 2.5 mean if Pain Amount will more than (2.5 * UnbearablePain), GSWPed will die -->
 
-	<BleedingMultiplier Value="1.0"/>
+	<OverallBleedingMultiplier Value="1.0"/>
 	<!-- Overall bleeding multiplier, 2.0 mean every wound will make x2 bleeding for ped -->
 
-	<BleedingDeviation Value="0.2"/>
+	<OverallBleedingDeviation Value="0.2"/>
 	<!-- 0.2 mean +-20% random bleeding -->
 	
 	<BodyPartList>
 		<BodyPart>
 			<!-- Head; -->
-			<BoneHashes Name="HEAD" Hashes="31086;"/>
+			<Hashes Name="HEAD" Hashes="31086;"/>
 			<Protection ByHelmet="TRUE" ByArmor="FALSE"/>
 			<DamageMult Value="2.0"/>
 			<PainMult Value="2.0"/>
@@ -32,7 +32,7 @@
 		</BodyPart>
 		<BodyPart>
 			<!-- Neck; -->
-			<BoneHashes Name="NECK" Hashes="39317;"/>
+			<Hashes Name="NECK" Hashes="39317;"/>
 			<Protection ByHelmet="FALSE" ByArmor="TRUE"/>
 			<DamageMult Value="1.0"/>
 			<PainMult Value="1.0"/>
@@ -40,15 +40,15 @@
 		</BodyPart>
 		<BodyPart>
 			<!-- LeftClavicle;RightClavicle;Spine2;Spine3; -->
-			<BoneHashes Name="UPPER_BODY" Hashes="64729;10706;24817;24818;"/>
+			<Hashes Name="UPPER_BODY" Hashes="64729;10706;24817;24818;"/>
 			<Protection ByHelmet="FALSE" ByArmor="TRUE"/>
 			<DamageMult Value="1.0"/>
 			<PainMult Value="1.0"/>
 			<BleedingMult Value="1.0"/>
 		</BodyPart>
 		<BodyPart>
-			<!-- SpineRoot;Spine;Spine1;Pelvis; -->
-			<BoneHashes Name="LOWER_BODY" Hashes="57597;23553;24816;11816;"/>
+			<!-- SKEL_ROOT;SpineRoot;Spine;Spine1;Pelvis; -->
+			<Hashes Name="LOWER_BODY" Hashes="0;57597;23553;24816;11816;"/>
 			<Protection ByHelmet="FALSE" ByArmor="TRUE"/>
 			<DamageMult Value="1.0"/>
 			<PainMult Value="1.0"/>
@@ -56,7 +56,7 @@
 		</BodyPart>
 		<BodyPart>
 			<!-- LeftThigh;LeftFoot;LeftPhFoot;LeftCalf; -->
-			<BoneHashes Name="LEFT_LEG" Hashes="58271;14201;57717;63931;"/>
+			<Hashes Name="LEFT_LEG" Hashes="58271;14201;57717;63931;"/>
 			<Protection ByHelmet="FALSE" ByArmor="FALSE"/>
 			<DamageMult Value="0.7"/>
 			<PainMult Value="1.0"/>
@@ -64,7 +64,7 @@
 		</BodyPart>
 		<BodyPart>
 			<!-- RightThigh;RightFoot;RightPhFoot;RightCalf; -->
-			<BoneHashes Name="RIGHT_LEG" Hashes="51826;52301;24806;36864;"/>
+			<Hashes Name="RIGHT_LEG" Hashes="51826;52301;24806;36864;"/>
 			<Protection ByHelmet="FALSE" ByArmor="FALSE"/>
 			<DamageMult Value="0.7"/>
 			<PainMult Value="1.0"/>
@@ -72,7 +72,7 @@
 		</BodyPart>
 		<BodyPart>
 			<!-- LeftUpperArm;LeftForeArm;LeftHand;LeftPhHand; -->
-			<BoneHashes Name="LEFT_ARM" Hashes="45509;61163;18905;60309;"/>
+			<Hashes Name="LEFT_ARM" Hashes="45509;61163;18905;60309;"/>
 			<Protection ByHelmet="FALSE" ByArmor="FALSE"/>
 			<DamageMult Value="0.7"/>
 			<PainMult Value="1.0"/>
@@ -80,11 +80,26 @@
 		</BodyPart>
 		<BodyPart>
 			<!-- RightUpperArm;RightForearm;RightHand;RightPhHand; -->
-			<BoneHashes Name="RIGHT_ARM" Hashes="40269;28252;57005;28422;"/>
+			<Hashes Name="RIGHT_ARM" Hashes="40269;28252;57005;28422;"/>
 			<Protection ByHelmet="FALSE" ByArmor="FALSE"/>
 			<DamageMult Value="0.7"/>
 			<PainMult Value="1.0"/>
 			<BleedingMult Value="1.2"/>
 		</BodyPart>
 	</BodyPartList>
-</GswWoundConfig>
+	
+	<WoundList>
+		<Wound>
+			<Uid Value="1"/>
+			<BaseDamage Value="9"/>
+			<BasePain Value="25"/>
+			<BaseBleeding Value="0.6"/>
+		</Wound>
+		<Wound>
+			<Uid Value="2"/>
+			<BaseDamage Value="11"/>
+			<BasePain Value="30"/>
+			<BaseBleeding Value="1.0"/>
+		</Wound>
+	</WoundList>
+</GswWoundConfig.xml>

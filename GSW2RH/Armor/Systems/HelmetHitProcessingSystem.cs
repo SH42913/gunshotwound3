@@ -1,6 +1,7 @@
 ﻿using System;
 using GunshotWound2.Bodies;
 using GunshotWound2.GswWorld;
+using GunshotWound2.Hashes;
 using GunshotWound2.Utils;
 using GunshotWound2.Weapons;
 using Leopotam.Ecs;
