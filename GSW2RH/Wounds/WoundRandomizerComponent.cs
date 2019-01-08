@@ -1,7 +1,7 @@
 ﻿using Leopotam.Ecs;
 using Weighted_Randomizer;
 
-namespace GunshotWound2.Weapons
+namespace GunshotWound2.Wounds
 {
     public class WoundRandomizerComponent : IEcsAutoResetComponent
     {

@@ -7,6 +7,7 @@ using GunshotWound2.BaseHitDetecting.Systems;
 using GunshotWound2.Bleeding.Systems;
 using GunshotWound2.Bodies.Systems;
 using GunshotWound2.Configs;
+using GunshotWound2.Crits;
 using GunshotWound2.GswWorld.Systems;
 using GunshotWound2.Hashes;
 using GunshotWound2.Health.Systems;
@@ -67,6 +68,7 @@ namespace GunshotWound2
                 .Add(new BleedingInitSystem())
                 .Add(new WeaponInitSystem())
                 .Add(new ArmorInitSystem())
+                .Add(new CritInitSystem())
                 .Add(new BaseHitDetectingSystem())
                 .Add(new BodyPartInitSystem())
                 .Add(new BodyHitDetectingSystem())
@@ -77,6 +79,7 @@ namespace GunshotWound2
                 .Add(new BaseHitCleanSystem())
                 .Add(new HelmetHitProcessingSystem())
                 .Add(new ArmorHitProcessingSystem())
+                .Add(new CritSystem())
                 .Add(new HealDetectSystem())
                 .Add(new HealthSystem())
                 .Add(new PainSystem())

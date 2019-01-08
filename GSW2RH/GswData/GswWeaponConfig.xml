@@ -8,7 +8,9 @@
             <DamageMult Value="1.0"/>
             <PainMult Value="1.0"/>
             <BleedingMult Value="1.0"/>
+            <CritChance Value="0.5"/>
             <WeaponWoundList>
+                <WeaponWound Uid="0" Weight="3"/>
                 <WeaponWound Uid="1" Weight="2"/>
                 <WeaponWound Uid="2" Weight="1"/>
             </WeaponWoundList>
@@ -20,6 +22,7 @@
             <DamageMult Value="1.0"/>
             <PainMult Value="1.0"/>
             <BleedingMult Value="1.0"/>
+            <CritChance Value="1.0"/>
             <WeaponWoundList>
                 <WeaponWound Uid="1" Weight="1"/>
                 <WeaponWound Uid="2" Weight="2"/>

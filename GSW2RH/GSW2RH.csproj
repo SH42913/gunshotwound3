@@ -77,6 +77,10 @@
     <Compile Include="Configs\ConfigInitSystem.cs" />
     <Compile Include="Configs\LoadedConfigComponent.cs" />
     <Compile Include="Configs\LoadedItemConfigComponent.cs" />
+    <Compile Include="Crits\CritChanceComponent.cs" />
+    <Compile Include="Crits\CritInitSystem.cs" />
+    <Compile Include="Crits\CritListComponent.cs" />
+    <Compile Include="Crits\CritSystem.cs" />
     <Compile Include="GswWorld\AnimalMarkComponent.cs" />
     <Compile Include="GswWorld\GswPedComponent.cs" />
     <Compile Include="GswWorld\GswWorldComponent.cs" />
@@ -117,7 +121,6 @@
     <Compile Include="Uids\UidInitSystem.cs" />
     <Compile Include="Uids\UidToEntityDictComponent.cs" />
     <Compile Include="Weapons\DamagedByWeaponComponent.cs" />
-    <Compile Include="Weapons\WoundRandomizerComponent.cs" />
     <Compile Include="Weapons\Systems\WeaponHitDetectingSystem.cs" />
     <Compile Include="Weapons\Systems\WeaponInitSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -129,6 +132,7 @@
     <Compile Include="Wounds\WoundedComponent.cs" />
     <Compile Include="Wounds\WoundComponent.cs" />
     <Compile Include="Wounds\WoundInitSystem.cs" />
+    <Compile Include="Wounds\WoundRandomizerComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\leoecs\Leopotam.Ecs.csproj">

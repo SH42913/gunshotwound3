@@ -30,6 +30,9 @@
 			<DamageMult Value="2.0"/>
 			<PainMult Value="2.0"/>
 			<BleedingMult Value="1.0"/>
+			<CritChance Value="1.0"/>
+			<CritWoundList>
+			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
 			<LocalizationKey Key="NECK"/>
@@ -39,6 +42,9 @@
 			<DamageMult Value="1.0"/>
 			<PainMult Value="1.0"/>
 			<BleedingMult Value="2.0"/>
+			<CritChance Value="0.7"/>
+			<CritWoundList>
+			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
 			<!-- LeftClavicle;RightClavicle;Spine2;Spine3; -->
@@ -48,6 +54,10 @@
 			<DamageMult Value="1.0"/>
 			<PainMult Value="1.0"/>
 			<BleedingMult Value="1.0"/>
+			<CritChance Value="1.0"/>
+			<CritWoundList>
+				<CritWound Uid="4" Weight="1"/>
+			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
 			<LocalizationKey Key="LOWER_BODY"/>
@@ -57,6 +67,9 @@
 			<DamageMult Value="1.0"/>
 			<PainMult Value="1.0"/>
 			<BleedingMult Value="1.0"/>
+			<CritChance Value="0.4"/>
+			<CritWoundList>
+			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
 			<LocalizationKey Key="LEFT_LEG"/>
@@ -66,6 +79,9 @@
 			<DamageMult Value="0.7"/>
 			<PainMult Value="1.0"/>
 			<BleedingMult Value="1.2"/>
+			<CritChance Value="0.4"/>
+			<CritWoundList>
+			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
 			<LocalizationKey Key="RIGHT_LEG"/>
@@ -75,6 +91,9 @@
 			<DamageMult Value="0.7"/>
 			<PainMult Value="1.0"/>
 			<BleedingMult Value="1.2"/>
+			<CritChance Value="0.4"/>
+			<CritWoundList>
+			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
 			<LocalizationKey Key="LEFT_ARM"/>
@@ -84,6 +103,10 @@
 			<DamageMult Value="0.7"/>
 			<PainMult Value="1.0"/>
 			<BleedingMult Value="1.2"/>
+			<CritChance Value="0.4"/>
+			<CritWoundList>
+				<CritWound Uid="3" Weight="1"/>
+			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
 			<LocalizationKey Key="RIGHT_ARM"/>
@@ -93,16 +116,29 @@
 			<DamageMult Value="0.7"/>
 			<PainMult Value="1.0"/>
 			<BleedingMult Value="1.2"/>
+			<CritChance Value="0.4"/>
+			<CritWoundList>
+				<CritWound Uid="3" Weight="1"/>
+			</CritWoundList>
 		</BodyPart>
 	</BodyPartList>
 	
 	<WoundList>
+		<Wound>
+			<Uid Value="0"/>
+			<LocalizationKey Key="FLESH"/>
+			<BaseDamage Value="5"/>
+			<BasePain Value="15"/>
+			<BaseBleeding Value="0.2"/>
+			<CritChance Value="0"/>
+		</Wound>
 		<Wound>
 			<Uid Value="1"/>
 			<LocalizationKey Key="PERFORATING"/>
 			<BaseDamage Value="9"/>
 			<BasePain Value="25"/>
 			<BaseBleeding Value="0.6"/>
+			<CritChance Value="0.5"/>
 		</Wound>
 		<Wound>
 			<Uid Value="2"/>
@@ -110,6 +146,21 @@
 			<BaseDamage Value="11"/>
 			<BasePain Value="30"/>
 			<BaseBleeding Value="1.0"/>
+			<CritChance Value="1.0"/>
+		</Wound>
+		<Wound>
+			<Uid Value="3"/>
+			<LocalizationKey Key="ARM_BONE_BROKEN"/>
+			<BaseDamage Value="5"/>
+			<BasePain Value="30"/>
+			<BaseBleeding Value="0.4"/>
+		</Wound>
+		<Wound>
+			<Uid Value="4"/>
+			<LocalizationKey Key="LUNGS_COLLAPSED"/>
+			<BaseDamage Value="10"/>
+			<BasePain Value="15"/>
+			<BaseBleeding Value="1.5"/>
 		</Wound>
 	</WoundList>
 </GswWoundConfig.xml>
