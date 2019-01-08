@@ -125,6 +125,14 @@
 	
 	<WoundList>
 		<Wound>
+			<Uid Value="0"/>
+			<LocalizationKey Key="FLESH"/>
+			<BaseDamage Value="5"/>
+			<BasePain Value="15"/>
+			<BaseBleeding Value="0.2"/>
+			<CritChance Value="0"/>
+		</Wound>
+		<Wound>
 			<Uid Value="1"/>
 			<LocalizationKey Key="PERFORATING"/>
 			<BaseDamage Value="9"/>

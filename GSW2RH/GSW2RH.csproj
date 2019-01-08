@@ -79,6 +79,7 @@
     <Compile Include="Configs\LoadedItemConfigComponent.cs" />
     <Compile Include="Crits\CritChanceComponent.cs" />
     <Compile Include="Crits\CritInitSystem.cs" />
+    <Compile Include="Crits\CritListComponent.cs" />
     <Compile Include="Crits\CritSystem.cs" />
     <Compile Include="GswWorld\AnimalMarkComponent.cs" />
     <Compile Include="GswWorld\GswPedComponent.cs" />

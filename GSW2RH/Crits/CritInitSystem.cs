@@ -1,15 +1,17 @@
 using System.Xml.Linq;
 using GunshotWound2.Configs;
+using GunshotWound2.GswWorld;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 
 namespace GunshotWound2.Crits
 {
     [EcsInject]
-    public class CritInitSystem : IEcsInitSystem
+    public class CritInitSystem : IEcsInitSystem, IEcsRunSystem
     {
         private EcsWorld _ecsWorld;
         private EcsFilter<LoadedItemConfigComponent> _loadedItems;
+        private EcsFilter<NewPedMarkComponent> _newPeds;
 
         private readonly GswLogger _logger;
 
@@ -36,6 +38,15 @@ namespace GunshotWound2.Crits
 
         public void Destroy()
         {
+        }
+
+        public void Run()
+        {
+            foreach (int i in _newPeds)
+            {
+                int pedEntity = _newPeds.Entities[i];
+                _ecsWorld.AddComponent<CritListComponent>(pedEntity);
+            }
         }
     }
 }

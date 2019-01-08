@@ -1,5 +1,6 @@
 using System;
 using GunshotWound2.Bodies;
+using GunshotWound2.Health;
 using GunshotWound2.Utils;
 using GunshotWound2.Weapons;
 using GunshotWound2.Wounds;
@@ -11,7 +12,8 @@ namespace GunshotWound2.Crits
     public class CritSystem : IEcsRunSystem
     {
         private EcsWorld _ecsWorld;
-        private EcsFilter<DamagedByWeaponComponent, DamagedBodyPartComponent, WoundedComponent> _woundedPeds;
+        private EcsFilter<DamagedByWeaponComponent, DamagedBodyPartComponent, WoundedComponent, CritListComponent> _woundedPeds;
+        private EcsFilter<FullyHealedComponent, CritListComponent> _healedPeds;
 
         private readonly GswLogger _logger;
         private static readonly Random Random = new Random();
@@ -23,10 +25,16 @@ namespace GunshotWound2.Crits
 
         public void Run()
         {
+            foreach (int i in _healedPeds)
+            {
+                _healedPeds.Components2[i].CritList.Clear();
+            }
+            
             foreach (int i in _woundedPeds)
             {
                 DamagedByWeaponComponent damagedByWeapon = _woundedPeds.Components1[i];
                 WoundedComponent wounded = _woundedPeds.Components3[i];
+                CritListComponent critList = _woundedPeds.Components4[i];
                 int pedEntity = _woundedPeds.Entities[i];
 
                 int bodyPartEntity = _woundedPeds.Components2[i].DamagedBodyPartEntity;
@@ -54,7 +62,8 @@ namespace GunshotWound2.Crits
                 if (weaponChance <= 0 || woundChance <= 0 || bodyPartChance <= 0)
                 {
 #if DEBUG
-                    _logger.MakeLog($"One of CritChances below 0! WP{weaponChance}/WO{woundChance}/BP{bodyPartChance}");
+                    _logger.MakeLog("One of CritChances below 0! " +
+                                    $"(WP {weaponChance:0.00}/WO {woundChance:0.00}/BP {bodyPartChance:0.00})");
 #endif
                     continue;
                 }
@@ -62,13 +71,14 @@ namespace GunshotWound2.Crits
                 float finalChance = weaponChance * woundChance * bodyPartChance;
                 bool critSuccess = Random.IsTrueWithProbability(finalChance);
 #if DEBUG
-                _logger.MakeLog($"Entity ({pedEntity}) crit check is {critSuccess}, when chance was {finalChance}" +
-                                $"(WP{weaponChance}/WO{woundChance}/BP{bodyPartChance})");
+                _logger.MakeLog($"Entity ({pedEntity}) crit check is {critSuccess}, when chance was {finalChance:0.000}" +
+                                $"(WP {weaponChance:0.00}/WO {woundChance:0.00}/BP {bodyPartChance:0.00})");
 #endif
                 if(!critSuccess) continue;
 
                 int critEntity = bodyPartCrits.WoundRandomizer.NextWithReplacement();
                 wounded.WoundEntities.Add(critEntity);
+                critList.CritList.Add(critEntity);
 #if DEBUG
                 _logger.MakeLog($"Entity ({pedEntity}) have got crit {critEntity.GetEntityName(_ecsWorld)}");
 #endif
