@@ -16,6 +16,8 @@ namespace GunshotWound2.GswWorld.Systems
         private EcsFilter<GswWorldComponent> _world;
         private EcsFilter<GswPedComponent> _gswPeds;
 
+        private EcsFilter<ForceCreateGswPedEvent> _forceCreateEvents;
+
         private GswLogger _logger;
         private readonly Stopwatch _stopwatch = new Stopwatch();
         private static readonly Random Random = new Random();
@@ -27,14 +29,24 @@ namespace GunshotWound2.GswWorld.Systems
 
         public void Run()
         {
-            if (_world.EntitiesCount <= 0) return;
+            if (_world.EntitiesCount <= 0)
+            {
+                throw new Exception("World was not init!");
+            }
 
             GswWorldComponent gswWorld = _world.Components1[0];
-            if (!gswWorld.HumanDetectingEnabled && !gswWorld.AnimalDetectingEnabled) return;
+            bool detectingEnabled = gswWorld.HumanDetectingEnabled || gswWorld.AnimalDetectingEnabled;
 
             _stopwatch.Restart();
             if (gswWorld.NeedToCheckPeds.Count <= 0)
             {
+                foreach (int i in _forceCreateEvents)
+                {
+                    Ped targetPed = _forceCreateEvents.Components1[i].TargetPed;
+                    gswWorld.NeedToCheckPeds.Enqueue(targetPed);
+                    gswWorld.ForceCreatePeds.Add(targetPed);
+                }
+                
                 foreach (int i in _gswPeds)
                 {
                     GswPedComponent gswPed = _gswPeds.Components1[i];
@@ -46,9 +58,12 @@ namespace GunshotWound2.GswWorld.Systems
                     _ecsWorld.AddComponent<RemovedPedMarkComponent>(pedEntity);
                 }
 
-                foreach (Ped ped in World.GetAllPeds())
+                if (detectingEnabled)
                 {
-                    gswWorld.NeedToCheckPeds.Enqueue(ped);
+                    foreach (Ped ped in World.GetAllPeds())
+                    {
+                        gswWorld.NeedToCheckPeds.Enqueue(ped);
+                    }
                 }
             }
 
@@ -57,17 +72,30 @@ namespace GunshotWound2.GswWorld.Systems
                 Ped ped = gswWorld.NeedToCheckPeds.Dequeue();
                 if (IsNotExistsOrDead(ped)) continue;
                 if (GswPedAlreadyExist(ped)) continue;
-                if (IsNotDamaged(ped)) continue;
 
-                if (ped.IsHuman && gswWorld.HumanDetectingEnabled)
+                bool forceCreatePed = gswWorld.ForceCreatePeds.Contains(ped);
+                if (!forceCreatePed && IsNotDamaged(ped)) continue;
+
+                int entity;
+                if (ped.IsHuman && (forceCreatePed || gswWorld.HumanDetectingEnabled))
                 {
-                    CreateHuman(gswWorld, ped);
+                    entity = CreateHuman(gswWorld, ped);
+                }
+                else if (!ped.IsHuman && (forceCreatePed || gswWorld.AnimalDetectingEnabled))
+                {
+                    entity = CreateAnimal(gswWorld, ped);
+                }
+                else
+                {
+                    entity = -1;
                 }
 
-                if (!ped.IsHuman && gswWorld.AnimalDetectingEnabled)
-                {
-                    CreateAnimal(gswWorld, ped);
-                }
+                if (!forceCreatePed) continue;
+                
+#if DEBUG
+                _logger.MakeLog($"Ped {ped.Name(entity)} was force created");
+#endif
+                gswWorld.ForceCreatePeds.Remove(ped);
             }
 
 #if DEBUG
@@ -108,7 +136,7 @@ namespace GunshotWound2.GswWorld.Systems
             return !damaged;
         }
 
-        private void CreateHuman(GswWorldComponent gswWorld, Ped ped)
+        private int CreateHuman(GswWorldComponent gswWorld, Ped ped)
         {
             int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed, out NewPedMarkComponent _);
             gswPed.ThisPed = ped;
@@ -125,15 +153,19 @@ namespace GunshotWound2.GswWorld.Systems
             }
 
             gswWorld.PedsToEntityDict.Add(ped, entity);
+            return entity;
         }
 
-        private void CreateAnimal(GswWorldComponent gswWorld, Ped ped)
+        private int CreateAnimal(GswWorldComponent gswWorld, Ped ped)
         {
-            int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed, out NewPedMarkComponent _,
+            int entity = _ecsWorld.CreateEntityWith(
+                out GswPedComponent gswPed, 
+                out NewPedMarkComponent _,
                 out AnimalMarkComponent _);
             gswPed.ThisPed = ped;
 
             gswWorld.PedsToEntityDict.Add(ped, entity);
+            return entity;
         }
     }
 }

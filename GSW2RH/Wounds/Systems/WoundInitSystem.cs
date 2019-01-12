@@ -5,7 +5,7 @@ using GunshotWound2.Uids;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 
-namespace GunshotWound2.Wounds
+namespace GunshotWound2.Wounds.Systems
 {
     [EcsInject]
     public class WoundInitSystem : IEcsPreInitSystem, IEcsInitSystem

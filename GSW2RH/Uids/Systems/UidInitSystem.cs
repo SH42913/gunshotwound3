@@ -3,7 +3,7 @@ using GunshotWound2.Configs;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 
-namespace GunshotWound2.Uids
+namespace GunshotWound2.Uids.Systems
 {
     [EcsInject]
     public class UidInitSystem : IEcsInitSystem

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GswPlayerConfig.xml>
+	<PlayerEnabled Value="TRUE"/>
+	
+	<PlayerHealth Value="100"/>
+
+	<PlayerUnbearablePain Value="100"/>
+	
+	<PlayerPainRecoverySpeed Value="1.0"/>
+
+	<PlayerBleedingHealRate Value="1.0"/>
+</GswPlayerConfig.xml>

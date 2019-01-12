@@ -19,6 +19,9 @@ namespace GunshotWound2.GswWorld
         public readonly Queue<Ped> NeedToCheckPeds = new Queue<Ped>();
         
         [EcsIgnoreNullCheck]
+        public readonly HashSet<Ped> ForceCreatePeds = new HashSet<Ped>();
+
+        [EcsIgnoreNullCheck]
         public readonly Dictionary<Ped, int> PedsToEntityDict = new Dictionary<Ped, int>();
 
         public int MaxDetectTimeInMs;
@@ -26,6 +29,7 @@ namespace GunshotWound2.GswWorld
         public void Reset()
         {
             NeedToCheckPeds.Clear();
+            ForceCreatePeds.Clear();
             PedsToEntityDict.Clear();
         }
 

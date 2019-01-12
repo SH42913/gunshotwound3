@@ -144,7 +144,10 @@ namespace GunshotWound2.Utils
 
         public static string Name(this Ped ped, int entity)
         {
-            return $"{ped.Model.Name}({entity})";
+            string name = ped.Exists() 
+                ? ped.Model.Name 
+                : "NOT_EXISTS";
+            return $"{name}({entity})";
         }
 
         public static void SetHealth(this Ped ped, float health)

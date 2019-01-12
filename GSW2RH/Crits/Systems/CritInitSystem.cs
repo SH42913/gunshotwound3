@@ -4,7 +4,7 @@ using GunshotWound2.GswWorld;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 
-namespace GunshotWound2.Crits
+namespace GunshotWound2.Crits.Systems
 {
     [EcsInject]
     public class CritInitSystem : IEcsInitSystem, IEcsRunSystem
