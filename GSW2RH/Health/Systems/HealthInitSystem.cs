@@ -2,6 +2,7 @@ using System;
 using System.Xml.Linq;
 using GunshotWound2.Configs;
 using GunshotWound2.GswWorld;
+using GunshotWound2.Player;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
@@ -37,6 +38,7 @@ namespace GunshotWound2.Health.Systems
             stats.DamageDeviation = 0.2f;
 
             var pedStats = _ecsWorld.AddComponent<PedHealthStatsComponent>(GunshotWound2Script.StatsContainerEntity);
+            pedStats.PlayerHealth = 100f;
             pedStats.PedHealth = new MinMax
             {
                 Min = 50,
@@ -61,12 +63,19 @@ namespace GunshotWound2.Health.Systems
                 }
 
                 XElement pedElement = xmlRoot.Element("PedHealth");
-                if (pedElement == null) continue;
-
-                var health = pedElement.GetMinMax();
-                if (!health.IsDisabled())
+                if (pedElement != null)
                 {
-                    pedStats.PedHealth = health;
+                    var health = pedElement.GetMinMax();
+                    if (!health.IsDisabled())
+                    {
+                        pedStats.PedHealth = health;
+                    }
+                }
+
+                XElement playerElement = xmlRoot.Element("PlayerHealth");
+                if (playerElement != null)
+                {
+                    pedStats.PlayerHealth = playerElement.GetFloat();
                 }
             }
 
@@ -111,8 +120,15 @@ namespace GunshotWound2.Health.Systems
                 Ped ped = _newHumans.Components1[i].ThisPed;
                 int humanEntity = _newHumans.Entities[i];
 
+                bool isPlayer = _ecsWorld.GetComponent<PlayerMarkComponent>(humanEntity) != null;
+
+                float healthAmount = isPlayer
+                    ? stats.PlayerHealth
+                    : Random.NextMinMax(stats.PedHealth);
+                
                 var health = _ecsWorld.AddComponent<HealthComponent>(humanEntity);
-                health.Health = Random.NextMinMax(stats.PedHealth);
+                health.MinHealth = 0;
+                health.Health = health.MinHealth + healthAmount;
                 health.MaxHealth = (float) Math.Floor(health.Health);
 
                 ped.SetMaxHealth(health.MaxHealth);
@@ -125,8 +141,10 @@ namespace GunshotWound2.Health.Systems
                 int animalEntity = _newAnimals.Entities[i];
 
                 var health = _ecsWorld.AddComponent<HealthComponent>(animalEntity);
-                health.Health = ped.GetHealth();
+                health.MinHealth = 0;
+                health.Health = health.MinHealth + ped.GetHealth();
                 health.MaxHealth = (float) Math.Floor(health.Health);
+                
                 ped.SetMaxHealth(health.MaxHealth);
                 ped.SetHealth(health.Health);
             }

@@ -4,11 +4,11 @@
 	<!-- If TRUE, GSW will mark other humans and/or animals as GswPed
 	and every GswPed will have realistic damage. You can disable it both for maximal performance. -->
 
-	<PedAccuracy Min="5" Max="10"/>
+	<PedAccuracy Min="5" Max="50"/>
 	<!-- Any new GswPed(exclude animals) will get Accuracy between Min and Max.
 	If you want to use default game ped Accuracy - set Min or Max lower 0 -->
 
-	<PedShootRate Min="5" Max="10"/>
+	<PedShootRate Min="5" Max="50"/>
 	<!-- Any new GswPed(exclude animals) will get ShootRate between Min and Max.
 	If you want to use default game ped ShootRate - set Min or Max lower 0 -->
 
@@ -21,7 +21,7 @@
 	<!-- Any new GswPed(exclude animals) will get Health between Min and Max.
 	If you will set Min or Max lower 0, will be loaded GSW-Default values(50-99). -->
 
-	<PedUnbearablePain Min="100" Max="100"/>
+	<PedUnbearablePain Min="50" Max="100"/>
 	<!-- Any new GswPed(exclude animals) will get Unbearable Pain Limit between Min and Max.
 	If you will set Min or Max lower 0, will be loaded GSW-Default values(50-100). -->
 

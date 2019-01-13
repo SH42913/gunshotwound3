@@ -16,7 +16,7 @@ namespace GunshotWound2.Health.Systems
 
         private EcsFilter<HealthStatsComponent> _healthStats;
         private EcsFilter<GswPedComponent, HealthComponent, FullyHealedComponent> _fullyHealedPeds;
-        private EcsFilter<GswPedComponent, HealthComponent, WoundedComponent, DamagedBodyPartComponent> _woundedPeds;
+        private EcsFilter<GswPedComponent, HealthComponent, WoundedComponent, DamagedBodyPartComponent>.Exclude<FullyHealedComponent> _woundedPeds;
 #if DEBUG
         private EcsFilter<GswPedComponent, HealthComponent> _pedsWithHealth;
 #endif

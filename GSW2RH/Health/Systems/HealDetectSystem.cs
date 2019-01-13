@@ -28,8 +28,12 @@ namespace GunshotWound2.Health.Systems
                 HealthComponent health = _pedsToCheck.Components2[i];
                 float realHealth = ped.GetHealth();
                 if (realHealth <= health.MaxHealth) continue;
-                
-                _ecsWorld.AddComponent<FullyHealedComponent>(_pedsToCheck.Entities[i]);
+
+                int entity = _pedsToCheck.Entities[i];
+                _ecsWorld.AddComponent<FullyHealedComponent>(entity);
+#if DEBUG
+                _logger.MakeLog($"Ped {ped.Name(entity)} was fully healed!");
+#endif
             }
         }
     }

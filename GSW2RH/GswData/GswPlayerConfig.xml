@@ -2,7 +2,7 @@
 <GswPlayerConfig.xml>
 	<PlayerEnabled Value="TRUE"/>
 	
-	<PlayerHealth Value="100"/>
+	<PlayerHealth Value="99"/>
 
 	<PlayerUnbearablePain Value="100"/>
 	

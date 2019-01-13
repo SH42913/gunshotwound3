@@ -5,6 +5,7 @@ using GunshotWound2.GswWorld;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
+using Rage.Native;
 
 namespace GunshotWound2.Player.Systems
 {
@@ -79,6 +80,7 @@ namespace GunshotWound2.Player.Systems
                 if (config.PlayerEnabled)
                 {
                     _ecsWorld.AddComponent<PlayerMarkComponent>(entity);
+                    NativeFunction.Natives.SET_PLAYER_HEALTH_RECHARGE_MULTIPLIER(Game.LocalPlayer, 0f);
 #if DEBUG
                     _logger.MakeLog($"Ped {ped.Name(entity)} was marked as player");
 #endif
@@ -93,7 +95,7 @@ namespace GunshotWound2.Player.Systems
             }
 
             _ecsWorld.ProcessDelayedUpdates();
-            if (_playerPeds.EntitiesCount <= 0)
+            if (config.PlayerEnabled && _playerPeds.EntitiesCount <= 0)
             {
                 _ecsWorld.CreateEntityWith<ForceCreateGswPedEvent>().TargetPed = Game.LocalPlayer.Character;
             }

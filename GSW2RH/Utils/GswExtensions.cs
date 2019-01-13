@@ -152,7 +152,8 @@ namespace GunshotWound2.Utils
 
         public static void SetHealth(this Ped ped, float health)
         {
-            ped.Health = (int) Math.Floor(health) + 100;
+            int finalHealth = (int) Math.Floor(health) + 100;
+            ped.Health = finalHealth;
         }
 
         public static void SetMaxHealth(this Ped ped, float health)
