@@ -45,6 +45,7 @@ namespace GunshotWound2.GswWorld.Systems
                     Ped targetPed = _forceCreateEvents.Components1[i].TargetPed;
                     gswWorld.NeedToCheckPeds.Enqueue(targetPed);
                     gswWorld.ForceCreatePeds.Add(targetPed);
+                    _ecsWorld.RemoveEntity(_forceCreateEvents.Entities[i]);
                 }
                 
                 foreach (int i in _gswPeds)
