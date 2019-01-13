@@ -3,6 +3,7 @@ using System.Xml.Linq;
 using GunshotWound2.Configs;
 using GunshotWound2.GswWorld;
 using GunshotWound2.Health;
+using GunshotWound2.Player;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
@@ -40,6 +41,8 @@ namespace GunshotWound2.Pain.Systems
             stats.DeadlyPainMultiplier = 2.5f;
 
             var pedStats = _ecsWorld.AddComponent<PedPainStatsComponent>(GunshotWound2Script.StatsContainerEntity);
+            pedStats.PlayerUnbearablePain = 100f;
+            pedStats.PlayerPainRecoverySpeed = 1f;
             pedStats.PedUnbearablePain = new MinMax
             {
                 Min = 50,
@@ -93,6 +96,18 @@ namespace GunshotWound2.Pain.Systems
                         pedStats.PedPainRecoverySpeed = speed;
                     }
                 }
+
+                XElement playerPainElement = xmlRoot.Element("PlayerUnbearablePain");
+                if (playerPainElement != null)
+                {
+                    pedStats.PlayerUnbearablePain = playerPainElement.GetFloat();
+                }
+
+                XElement playerSpeedElement = xmlRoot.Element("PlayerPainRecoverySpeed");
+                if (playerSpeedElement != null)
+                {
+                    pedStats.PlayerPainRecoverySpeed = playerSpeedElement.GetFloat();
+                }
             }
 
             _logger.MakeLog(stats.ToString());
@@ -134,10 +149,16 @@ namespace GunshotWound2.Pain.Systems
             foreach (int i in _newHumans)
             {
                 int humanEntity = _newHumans.Entities[i];
+                
+                bool isPlayer = _ecsWorld.GetComponent<PlayerMarkComponent>(humanEntity) != null;
 
                 var painInfo = _ecsWorld.AddComponent<PainInfoComponent>(humanEntity);
-                painInfo.UnbearablePain = Random.NextMinMax(stats.PedUnbearablePain);
-                painInfo.PainRecoverySpeed = Random.NextMinMax(stats.PedPainRecoverySpeed);
+                painInfo.UnbearablePain = isPlayer 
+                    ? stats.PlayerUnbearablePain 
+                    : Random.NextMinMax(stats.PedUnbearablePain);
+                painInfo.PainRecoverySpeed = isPlayer 
+                    ? stats.PlayerPainRecoverySpeed 
+                    : Random.NextMinMax(stats.PedPainRecoverySpeed);
                 painInfo.CurrentPainState = PainStates.NONE;
             }
 

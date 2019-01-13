@@ -4,7 +4,7 @@
 	
 	<PlayerHealth Value="99"/>
 
-	<PlayerUnbearablePain Value="100"/>
+	<PlayerUnbearablePain Value="90"/>
 	
 	<PlayerPainRecoverySpeed Value="1.0"/>
 

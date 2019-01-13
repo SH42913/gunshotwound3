@@ -6,12 +6,16 @@ namespace GunshotWound2.Pain
     {
         public MinMax PedUnbearablePain;
         public MinMax PedPainRecoverySpeed;
+        public float PlayerUnbearablePain;
+        public float PlayerPainRecoverySpeed;
 
         public override string ToString()
         {
             return $"{nameof(PedPainStatsComponent)}: " +
                    $"{nameof(PedUnbearablePain)} {PedUnbearablePain}; " +
-                   $"{nameof(PedPainRecoverySpeed)} {PedPainRecoverySpeed}; ";
+                   $"{nameof(PedPainRecoverySpeed)} {PedPainRecoverySpeed}; " +
+                   $"{nameof(PlayerUnbearablePain)} {PlayerUnbearablePain}; " +
+                   $"{nameof(PlayerPainRecoverySpeed)} {PlayerPainRecoverySpeed}; ";
         }
     }
 }
