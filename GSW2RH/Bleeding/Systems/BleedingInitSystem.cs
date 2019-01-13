@@ -3,6 +3,7 @@ using System.Xml.Linq;
 using GunshotWound2.Configs;
 using GunshotWound2.GswWorld;
 using GunshotWound2.Health;
+using GunshotWound2.Player;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
@@ -63,12 +64,19 @@ namespace GunshotWound2.Bleeding.Systems
                 }
 
                 XElement pedElement = xmlRoot.Element("PedBleedingHealRate");
-                if (pedElement == null) continue;
-
-                var bleeding = pedElement.GetMinMax();
-                if (!bleeding.IsDisabled())
+                if (pedElement != null)
                 {
-                    pedStats.PedBleedingHealRate = bleeding;
+                    var bleeding = pedElement.GetMinMax();
+                    if (!bleeding.IsDisabled())
+                    {
+                        pedStats.PedBleedingHealRate = bleeding;
+                    }
+                }
+
+                XElement playerElement = xmlRoot.Element("PlayerBleedingHealRate");
+                if (playerElement != null)
+                {
+                    pedStats.PlayerBleedingHealRate = playerElement.GetFloat();
                 }
             }
 
@@ -111,8 +119,12 @@ namespace GunshotWound2.Bleeding.Systems
             foreach (int i in _newHumans)
             {
                 int humanEntity = _newHumans.Entities[i];
+                bool isPlayer = _ecsWorld.GetComponent<PlayerMarkComponent>(humanEntity) != null;
+                
                 var info = _ecsWorld.AddComponent<BleedingInfoComponent>(humanEntity);
-                info.BleedingHealRate = Random.NextMinMax(stats.PedBleedingHealRate);
+                info.BleedingHealRate = isPlayer 
+                    ? stats.PlayerBleedingHealRate 
+                    : Random.NextMinMax(stats.PedBleedingHealRate);
             }
 
             if (_healthStats.EntitiesCount <= 0)
