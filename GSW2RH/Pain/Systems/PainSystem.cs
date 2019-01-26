@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using GunshotWound2.Bodies;
 using GunshotWound2.GswWorld;
+using GunshotWound2.Health;
 using GunshotWound2.Utils;
 using GunshotWound2.Wounds;
 using Leopotam.Ecs;
@@ -17,6 +18,8 @@ namespace GunshotWound2.Pain.Systems
         private EcsFilter<PainStatsComponent> _painStats;
         private EcsFilter<WoundedComponent, PainInfoComponent, DamagedBodyPartComponent> _woundedPeds;
         private EcsFilter<PainComponent, PainInfoComponent> _painToReduce;
+        private EcsFilter<FullyHealedComponent, PainComponent> _healedEntities;
+        private EcsFilter<PainIsGoneComponent> _entitiesToClean;
 #if DEBUG
         private EcsFilter<GswPedComponent, PainComponent, PainInfoComponent> _pedsWithPain;
 #endif
@@ -31,19 +34,25 @@ namespace GunshotWound2.Pain.Systems
 
         public void Run()
         {
+            foreach (int i in _entitiesToClean)
+            {
+                int entity = _entitiesToClean.Entities[i];
+                _ecsWorld.RemoveComponent<PainIsGoneComponent>(entity);
+            }
+            
             if (_painStats.EntitiesCount <= 0)
             {
                 throw new Exception("PainSystem was not init!");
             }
+
             PainStatsComponent stats = _painStats.Components1[0];
 
             foreach (int i in _woundedPeds)
             {
                 WoundedComponent wounded = _woundedPeds.Components1[i];
                 PainInfoComponent painInfo = _woundedPeds.Components2[i];
-                
+
                 float maxPain = painInfo.UnbearablePain;
-                float deadlyPain = stats.DeadlyPainMultiplier * maxPain;
                 int entity = _woundedPeds.Entities[i];
 
                 float basePain = 0;
@@ -53,6 +62,9 @@ namespace GunshotWound2.Pain.Systems
                     if (pain == null) continue;
 
                     basePain += pain.BasePain;
+#if DEBUG
+                    _logger.MakeLog($"{woundEntity.GetEntityName(_ecsWorld)} increase pain for {pain.BasePain}");
+#endif
                 }
 
                 var additionalPain = _ecsWorld.GetComponent<AdditionalPainComponent>(entity);
@@ -60,6 +72,7 @@ namespace GunshotWound2.Pain.Systems
                 {
                     basePain += additionalPain.AdditionalPain;
                 }
+
                 if (basePain <= 0) continue;
 
                 int bodyPartEntity = _woundedPeds.Components3[i].DamagedBodyPartEntity;
@@ -82,9 +95,10 @@ namespace GunshotWound2.Pain.Systems
                 }
 #if DEBUG
                 int pedEntity = _woundedPeds.Entities[i];
+                float painPercent = painComponent.PainAmount / maxPain * 100f;
                 _logger.MakeLog($"Entity ({pedEntity}): Base pain is {basePain:0.0}; " +
                                 $"Final pain is {finalPain:0.0}; " +
-                                $"New pain is {painComponent.PainAmount:0.0}/{maxPain:0.0}|{deadlyPain:0.0}");
+                                $"Pain percent is {painPercent:0.0}");
 #endif
             }
 
@@ -95,10 +109,17 @@ namespace GunshotWound2.Pain.Systems
                 int entity = _painToReduce.Entities[i];
 
                 painComponent.PainAmount -= painRecoverySpeed * GswExtensions.GetDeltaTime();
-                if (painComponent.PainAmount <= 0)
-                {
-                    _ecsWorld.RemoveComponent<PainComponent>(entity);
-                }
+                if (painComponent.PainAmount > 0) continue;
+                
+                _ecsWorld.AddComponent<PainIsGoneComponent>(entity);
+                _ecsWorld.RemoveComponent<PainComponent>(entity);
+            }
+
+            foreach (int i in _healedEntities)
+            {
+                int entity = _healedEntities.Entities[i];
+                _ecsWorld.AddComponent<PainIsGoneComponent>(entity);
+                _ecsWorld.RemoveComponent<PainComponent>(entity);
             }
 
 #if DEBUG
@@ -107,15 +128,11 @@ namespace GunshotWound2.Pain.Systems
                 Ped ped = _pedsWithPain.Components1[i].ThisPed;
                 float pain = _pedsWithPain.Components2[i].PainAmount;
                 float maxPain = _pedsWithPain.Components3[i].UnbearablePain;
-                float deadlyPain = stats.DeadlyPainMultiplier * maxPain;
                 if (!ped.Exists() || pain <= 0) continue;
 
                 Vector3 position = ped.AbovePosition + 0.2f * Vector3.WorldUp;
                 Debug.DrawWireBoxDebug(position, ped.Orientation, new Vector3(1.05f, 0.15f, 0.1f), Color.Orange);
-                Debug.DrawWireBoxDebug(position, ped.Orientation, new Vector3(maxPain / deadlyPain, 0.15f, 0.1f),
-                    Color.Yellow);
-                Debug.DrawWireBoxDebug(position, ped.Orientation, new Vector3(pain / deadlyPain, 0.1f, 0.1f),
-                    Color.Red);
+                Debug.DrawWireBoxDebug(position, ped.Orientation, new Vector3(pain / maxPain, 0.1f, 0.1f), Color.Red);
             }
 #endif
         }

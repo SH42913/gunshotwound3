@@ -35,9 +35,9 @@ namespace GunshotWound2.Wounds.Systems
                 XElement listElement = xmlRoot.Element(WOUND_LIST);
                 if (listElement == null) continue;
 
-                foreach (XElement weaponRoot in listElement.Elements("Wound"))
+                foreach (XElement woundRoot in listElement.Elements("Wound"))
                 {
-                    CreateWound(weaponRoot);
+                    CreateWound(woundRoot);
                 }
             }
 

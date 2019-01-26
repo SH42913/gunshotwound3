@@ -57,7 +57,7 @@ namespace GunshotWound2.Weapons.Systems
                     damaged.WeaponEntity = weaponEntity;
                     damaged.WoundEntity = woundEntity;
 
-                    var wounded = _ecsWorld.EnsureComponent<WoundedComponent>(pedEntity, out bool _);
+                    var wounded = _ecsWorld.EnsureComponent<WoundedComponent>(pedEntity, out _);
                     wounded.WoundEntities.Add(woundEntity);
                     return;
                 }

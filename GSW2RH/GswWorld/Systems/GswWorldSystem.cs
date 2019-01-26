@@ -18,7 +18,7 @@ namespace GunshotWound2.GswWorld.Systems
 
         private EcsFilter<ForceCreateGswPedEvent> _forceCreateEvents;
 
-        private GswLogger _logger;
+        private readonly GswLogger _logger;
         private readonly Stopwatch _stopwatch = new Stopwatch();
         private static readonly Random Random = new Random();
 

@@ -13,6 +13,7 @@ using GunshotWound2.Hashes.Systems;
 using GunshotWound2.Health.Systems;
 using GunshotWound2.Localization.Systems;
 using GunshotWound2.Pain.Systems;
+using GunshotWound2.PainStates.Systems;
 using GunshotWound2.Player.Systems;
 using GunshotWound2.Uids.Systems;
 using GunshotWound2.Weapons.Systems;
@@ -29,7 +30,7 @@ namespace GunshotWound2
         public const string WEAPON_CONFIG_NAME = "GswWeaponConfig.xml";
         public const string WOUND_CONFIG_NAME = "GswWoundConfig.xml";
         public const string PLAYER_CONFIG_NAME = "GswPlayerConfig.xml";
-        
+
         public static readonly string[] CONFIG_NAMES =
         {
             WORLD_CONFIG_NAME,
@@ -73,6 +74,8 @@ namespace GunshotWound2
                 .Add(new WeaponInitSystem())
                 .Add(new ArmorInitSystem())
                 .Add(new CritInitSystem())
+                .Add(new PainStateInitSystem())
+                .Add(new PainStateSystem())
                 .Add(new BaseHitDetectingSystem())
                 .Add(new BodyPartInitSystem())
                 .Add(new BodyHitDetectingSystem())
@@ -84,10 +87,10 @@ namespace GunshotWound2
                 .Add(new HelmetHitProcessingSystem())
                 .Add(new ArmorHitProcessingSystem())
                 .Add(new CritSystem())
+                .Add(new WoundSystem())
                 .Add(new HealDetectSystem())
                 .Add(new HealthSystem())
                 .Add(new PainSystem())
-                .Add(new PainStateSystem())
                 .Add(new BleedingCleanSystem())
                 .Add(new BleedingHealSystem())
                 .Add(new BleedingCreateSystem())

@@ -16,7 +16,8 @@ namespace GunshotWound2.Health.Systems
 
         private EcsFilter<HealthStatsComponent> _healthStats;
         private EcsFilter<GswPedComponent, HealthComponent, FullyHealedComponent> _fullyHealedPeds;
-        private EcsFilter<GswPedComponent, HealthComponent, WoundedComponent, DamagedBodyPartComponent>.Exclude<FullyHealedComponent> _woundedPeds;
+        private EcsFilter<GswPedComponent, HealthComponent, WoundedComponent, DamagedBodyPartComponent>
+            .Exclude<FullyHealedComponent> _woundedPeds;
 #if DEBUG
         private EcsFilter<GswPedComponent, HealthComponent> _pedsWithHealth;
 #endif
@@ -35,6 +36,7 @@ namespace GunshotWound2.Health.Systems
             {
                 throw new Exception("HealthSystem was not init!");
             }
+
             HealthStatsComponent stats = _healthStats.Components1[0];
 
             foreach (int i in _fullyHealedPeds)
@@ -58,7 +60,7 @@ namespace GunshotWound2.Health.Systems
 
                 HealthComponent health = _woundedPeds.Components2[i];
                 WoundedComponent wounded = _woundedPeds.Components3[i];
-                
+
                 float baseDamage = 0;
                 foreach (int woundEntity in wounded.WoundEntities)
                 {
@@ -66,7 +68,11 @@ namespace GunshotWound2.Health.Systems
                     if (damage == null) continue;
 
                     baseDamage += damage.BaseDamage;
+#if DEBUG
+                    _logger.MakeLog($"{woundEntity.GetEntityName(_ecsWorld)} increase damage for {damage.BaseDamage}");
+#endif
                 }
+
                 if (baseDamage <= 0) continue;
 
                 int bodyPartEntity = _woundedPeds.Components4[i].DamagedBodyPartEntity;
