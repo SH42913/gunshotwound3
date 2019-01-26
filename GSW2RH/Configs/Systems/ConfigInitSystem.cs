@@ -4,7 +4,7 @@ using System.Xml.Linq;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 
-namespace GunshotWound2.Configs
+namespace GunshotWound2.Configs.Systems
 {
     [EcsInject]
     public class ConfigInitSystem : IEcsPreInitSystem

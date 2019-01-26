@@ -6,17 +6,19 @@ using GunshotWound2.Armor.Systems;
 using GunshotWound2.BaseHitDetecting.Systems;
 using GunshotWound2.Bleeding.Systems;
 using GunshotWound2.Bodies.Systems;
-using GunshotWound2.Configs;
-using GunshotWound2.Crits;
+using GunshotWound2.Configs.Systems;
+using GunshotWound2.Crits.Systems;
 using GunshotWound2.GswWorld.Systems;
-using GunshotWound2.Hashes;
+using GunshotWound2.Hashes.Systems;
 using GunshotWound2.Health.Systems;
-using GunshotWound2.Localization;
+using GunshotWound2.Localization.Systems;
 using GunshotWound2.Pain.Systems;
-using GunshotWound2.Uids;
-using GunshotWound2.Utils;
+using GunshotWound2.PainStates.Systems;
+using GunshotWound2.Player.Systems;
+using GunshotWound2.Uids.Systems;
 using GunshotWound2.Weapons.Systems;
-using GunshotWound2.Wounds;
+using GunshotWound2.Wounds.Systems;
+using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
 
@@ -27,12 +29,14 @@ namespace GunshotWound2
         public const string WORLD_CONFIG_NAME = "GswWorldConfig.xml";
         public const string WEAPON_CONFIG_NAME = "GswWeaponConfig.xml";
         public const string WOUND_CONFIG_NAME = "GswWoundConfig.xml";
-        
+        public const string PLAYER_CONFIG_NAME = "GswPlayerConfig.xml";
+
         public static readonly string[] CONFIG_NAMES =
         {
             WORLD_CONFIG_NAME,
             WEAPON_CONFIG_NAME,
-            WOUND_CONFIG_NAME
+            WOUND_CONFIG_NAME,
+            PLAYER_CONFIG_NAME
         };
 
         public static int StatsContainerEntity { get; private set; }
@@ -62,6 +66,7 @@ namespace GunshotWound2
                 .Add(new GswWorldInitSystem())
                 .Add(new GswWorldCleanSystem())
                 .Add(new GswWorldSystem())
+                .Add(new PlayerInitSystem())
                 .Add(new WoundInitSystem())
                 .Add(new HealthInitSystem())
                 .Add(new PainInitSystem())
@@ -69,6 +74,8 @@ namespace GunshotWound2
                 .Add(new WeaponInitSystem())
                 .Add(new ArmorInitSystem())
                 .Add(new CritInitSystem())
+                .Add(new PainStateInitSystem())
+                .Add(new PainStateSystem())
                 .Add(new BaseHitDetectingSystem())
                 .Add(new BodyPartInitSystem())
                 .Add(new BodyHitDetectingSystem())
@@ -80,10 +87,10 @@ namespace GunshotWound2
                 .Add(new HelmetHitProcessingSystem())
                 .Add(new ArmorHitProcessingSystem())
                 .Add(new CritSystem())
+                .Add(new WoundSystem())
                 .Add(new HealDetectSystem())
                 .Add(new HealthSystem())
                 .Add(new PainSystem())
-                .Add(new PainStateSystem())
                 .Add(new BleedingCleanSystem())
                 .Add(new BleedingHealSystem())
                 .Add(new BleedingCreateSystem())

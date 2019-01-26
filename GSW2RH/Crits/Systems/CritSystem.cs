@@ -6,7 +6,7 @@ using GunshotWound2.Weapons;
 using GunshotWound2.Wounds;
 using Leopotam.Ecs;
 
-namespace GunshotWound2.Crits
+namespace GunshotWound2.Crits.Systems
 {
     [EcsInject]
     public class CritSystem : IEcsRunSystem

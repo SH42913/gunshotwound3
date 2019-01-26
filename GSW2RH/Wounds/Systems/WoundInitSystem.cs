@@ -5,7 +5,7 @@ using GunshotWound2.Uids;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 
-namespace GunshotWound2.Wounds
+namespace GunshotWound2.Wounds.Systems
 {
     [EcsInject]
     public class WoundInitSystem : IEcsPreInitSystem, IEcsInitSystem
@@ -35,9 +35,9 @@ namespace GunshotWound2.Wounds
                 XElement listElement = xmlRoot.Element(WOUND_LIST);
                 if (listElement == null) continue;
 
-                foreach (XElement weaponRoot in listElement.Elements("Wound"))
+                foreach (XElement woundRoot in listElement.Elements("Wound"))
                 {
-                    CreateWound(weaponRoot);
+                    CreateWound(woundRoot);
                 }
             }
 

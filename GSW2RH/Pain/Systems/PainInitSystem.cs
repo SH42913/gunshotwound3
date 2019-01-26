@@ -3,6 +3,7 @@ using System.Xml.Linq;
 using GunshotWound2.Configs;
 using GunshotWound2.GswWorld;
 using GunshotWound2.Health;
+using GunshotWound2.Player;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
@@ -37,9 +38,10 @@ namespace GunshotWound2.Pain.Systems
             var stats = _ecsWorld.AddComponent<PainStatsComponent>(GunshotWound2Script.StatsContainerEntity);
             stats.PainMultiplier = 1f;
             stats.PainDeviation = 0.2f;
-            stats.DeadlyPainMultiplier = 2.5f;
 
             var pedStats = _ecsWorld.AddComponent<PedPainStatsComponent>(GunshotWound2Script.StatsContainerEntity);
+            pedStats.PlayerUnbearablePain = 100f;
+            pedStats.PlayerPainRecoverySpeed = 1f;
             pedStats.PedUnbearablePain = new MinMax
             {
                 Min = 50,
@@ -68,12 +70,6 @@ namespace GunshotWound2.Pain.Systems
                     stats.PainDeviation = devElement.GetFloat();
                 }
 
-                XElement deadlyMultElement = xmlRoot.Element("DeadlyPainMultiplier");
-                if (deadlyMultElement != null)
-                {
-                    stats.DeadlyPainMultiplier = deadlyMultElement.GetFloat();
-                }
-
                 XElement pedPainElement = xmlRoot.Element("PedUnbearablePain");
                 if (pedPainElement != null)
                 {
@@ -92,6 +88,18 @@ namespace GunshotWound2.Pain.Systems
                     {
                         pedStats.PedPainRecoverySpeed = speed;
                     }
+                }
+
+                XElement playerPainElement = xmlRoot.Element("PlayerUnbearablePain");
+                if (playerPainElement != null)
+                {
+                    pedStats.PlayerUnbearablePain = playerPainElement.GetFloat();
+                }
+
+                XElement playerSpeedElement = xmlRoot.Element("PlayerPainRecoverySpeed");
+                if (playerSpeedElement != null)
+                {
+                    pedStats.PlayerPainRecoverySpeed = playerSpeedElement.GetFloat();
                 }
             }
 
@@ -134,11 +142,16 @@ namespace GunshotWound2.Pain.Systems
             foreach (int i in _newHumans)
             {
                 int humanEntity = _newHumans.Entities[i];
+                
+                bool isPlayer = _ecsWorld.GetComponent<PlayerMarkComponent>(humanEntity) != null;
 
                 var painInfo = _ecsWorld.AddComponent<PainInfoComponent>(humanEntity);
-                painInfo.UnbearablePain = Random.NextMinMax(stats.PedUnbearablePain);
-                painInfo.PainRecoverySpeed = Random.NextMinMax(stats.PedPainRecoverySpeed);
-                painInfo.CurrentPainState = PainStates.NONE;
+                painInfo.UnbearablePain = isPlayer 
+                    ? stats.PlayerUnbearablePain 
+                    : Random.NextMinMax(stats.PedUnbearablePain);
+                painInfo.PainRecoverySpeed = isPlayer 
+                    ? stats.PlayerPainRecoverySpeed 
+                    : Random.NextMinMax(stats.PedPainRecoverySpeed);
             }
 
             if (_healthStats.EntitiesCount <= 0)
@@ -156,7 +169,6 @@ namespace GunshotWound2.Pain.Systems
                 var painInfo = _ecsWorld.AddComponent<PainInfoComponent>(animalEntity);
                 painInfo.UnbearablePain = healthPercent * stats.PedUnbearablePain.Max;
                 painInfo.PainRecoverySpeed = healthPercent * stats.PedPainRecoverySpeed.Max;
-                painInfo.CurrentPainState = PainStates.NONE;
             }
         }
 

@@ -3,7 +3,7 @@ using GunshotWound2.Configs;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 
-namespace GunshotWound2.Localization
+namespace GunshotWound2.Localization.Systems
 {
     [EcsInject]
     public class LocalizationInitSystem : IEcsInitSystem

@@ -74,14 +74,15 @@
     <Compile Include="Bodies\Systems\BodyHitDetectingSystem.cs" />
     <Compile Include="Bodies\Systems\BodyHitHistoryShowSystem.cs" />
     <Compile Include="Bodies\Systems\BodyPartInitSystem.cs" />
-    <Compile Include="Configs\ConfigInitSystem.cs" />
     <Compile Include="Configs\LoadedConfigComponent.cs" />
     <Compile Include="Configs\LoadedItemConfigComponent.cs" />
+    <Compile Include="Configs\Systems\ConfigInitSystem.cs" />
     <Compile Include="Crits\CritChanceComponent.cs" />
-    <Compile Include="Crits\CritInitSystem.cs" />
     <Compile Include="Crits\CritListComponent.cs" />
-    <Compile Include="Crits\CritSystem.cs" />
+    <Compile Include="Crits\Systems\CritInitSystem.cs" />
+    <Compile Include="Crits\Systems\CritSystem.cs" />
     <Compile Include="GswWorld\AnimalMarkComponent.cs" />
+    <Compile Include="GswWorld\ForceCreateGswPedEvent.cs" />
     <Compile Include="GswWorld\GswPedComponent.cs" />
     <Compile Include="GswWorld\GswWorldComponent.cs" />
     <Compile Include="GswWorld\NewPedMarkComponent.cs" />
@@ -92,7 +93,7 @@
     <Compile Include="GunshotWound2Script.cs" />
     <Compile Include="BaseHitDetecting\HasBeenHitMarkComponent.cs" />
     <Compile Include="Hashes\HashesComponent.cs" />
-    <Compile Include="Hashes\HashesInitSystem.cs" />
+    <Compile Include="Hashes\Systems\HashesInitSystem.cs" />
     <Compile Include="Health\BaseDamageComponent.cs" />
     <Compile Include="Health\DamageMultComponent.cs" />
     <Compile Include="Health\FullyHealedComponent.cs" />
@@ -102,23 +103,29 @@
     <Compile Include="Health\Systems\HealDetectSystem.cs" />
     <Compile Include="Health\Systems\HealthInitSystem.cs" />
     <Compile Include="Health\Systems\HealthSystem.cs" />
-    <Compile Include="Localization\LocalizationInitSystem.cs" />
     <Compile Include="Localization\LocalizationKeyComponent.cs" />
+    <Compile Include="Localization\Systems\LocalizationInitSystem.cs" />
+    <Compile Include="PainStates\PainStateComponent.cs" />
+    <Compile Include="PainStates\PainStateListComponent.cs" />
+    <Compile Include="PainStates\CurrentPainStateComponent.cs" />
+    <Compile Include="PainStates\Systems\PainStateInitSystem.cs" />
+    <Compile Include="PainStates\Systems\PainStateSystem.cs" />
     <Compile Include="Pain\AdditionalPainComponent.cs" />
     <Compile Include="Pain\BasePainComponent.cs" />
-    <Compile Include="Pain\ChangedPainStateComponent.cs" />
     <Compile Include="Pain\PainComponent.cs" />
+    <Compile Include="Pain\PainIsGoneComponent.cs" />
     <Compile Include="Pain\PainMultComponent.cs" />
-    <Compile Include="Pain\PainStates.cs" />
     <Compile Include="Pain\PainStatsComponent.cs" />
     <Compile Include="Pain\PedPainInfoComponent.cs" />
     <Compile Include="Pain\PedPainStatsComponent.cs" />
     <Compile Include="Pain\Systems\PainInitSystem.cs" />
-    <Compile Include="Pain\Systems\PainStateSystem.cs" />
     <Compile Include="Pain\Systems\PainSystem.cs" />
+    <Compile Include="Player\PlayerConfigComponent.cs" />
+    <Compile Include="Player\PlayerMarkComponent.cs" />
+    <Compile Include="Player\Systems\PlayerInitSystem.cs" />
     <Compile Include="StatsContainerComponent.cs" />
+    <Compile Include="Uids\Systems\UidInitSystem.cs" />
     <Compile Include="Uids\UidComponent.cs" />
-    <Compile Include="Uids\UidInitSystem.cs" />
     <Compile Include="Uids\UidToEntityDictComponent.cs" />
     <Compile Include="Weapons\DamagedByWeaponComponent.cs" />
     <Compile Include="Weapons\Systems\WeaponHitDetectingSystem.cs" />
@@ -129,9 +136,10 @@
     <Compile Include="Utils\GswLogger.cs" />
     <Compile Include="Utils\MinMax.cs" />
     <Compile Include="Weapons\WeaponComponent.cs" />
+    <Compile Include="Wounds\Systems\WoundInitSystem.cs" />
+    <Compile Include="Wounds\Systems\WoundSystem.cs" />
     <Compile Include="Wounds\WoundedComponent.cs" />
     <Compile Include="Wounds\WoundComponent.cs" />
-    <Compile Include="Wounds\WoundInitSystem.cs" />
     <Compile Include="Wounds\WoundRandomizerComponent.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +154,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configs\OldGSW2Config.xml" />
+    <Content Include="GswData\GswPlayerConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GswData\GswWeaponConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

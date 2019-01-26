@@ -3,7 +3,7 @@ using GunshotWound2.Configs;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 
-namespace GunshotWound2.Hashes
+namespace GunshotWound2.Hashes.Systems
 {
     [EcsInject]
     public class HashesInitSystem : IEcsInitSystem

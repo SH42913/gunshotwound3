@@ -82,7 +82,7 @@ namespace GunshotWound2.GswWorld.Systems
             };
             
             stats.ScanOnlyDamaged = false;
-            
+
             stats.MaxDetectTimeInMs = 5;
         }
 

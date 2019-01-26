@@ -12,14 +12,29 @@
 	<OverallPainDeviation Value="0.2"/>
 	<!-- 0.2 mean +-20% random pain -->
 
-	<DeadlyPainMultiplier Value="2.5"/>
-	<!-- 2.5 mean if Pain Amount will more than (2.5 * UnbearablePain), GSWPed will die -->
-
 	<OverallBleedingMultiplier Value="1.0"/>
 	<!-- Overall bleeding multiplier, 2.0 mean every wound will make x2 bleeding for ped -->
 
 	<OverallBleedingDeviation Value="0.2"/>
 	<!-- 0.2 mean +-20% random bleeding -->
+	
+	<PainStateList>
+		<PainState PainPercent="0">
+			<LocalizationKey Key="MILD"/>
+		</PainState>
+        <PainState PainPercent="0.3">
+            <LocalizationKey Key="AVERAGE"/>
+        </PainState>
+        <PainState PainPercent="0.7">
+            <LocalizationKey Key="INTENSE"/>
+        </PainState>
+        <PainState PainPercent="1">
+            <LocalizationKey Key="UNBEARABLE"/>
+        </PainState>
+		<PainState PainPercent="2.5">
+			<LocalizationKey Key="DEADLY"/>
+		</PainState>
+	</PainStateList>
 	
 	<BodyPartList>
 		<BodyPart>
