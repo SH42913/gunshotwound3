@@ -13,6 +13,7 @@ namespace GunshotWound2.Effects.Ragdoll.Systems
     {
         private EcsWorld _ecsWorld;
         private EcsFilter<GswPedComponent, WoundedComponent> _woundedPeds;
+        private EcsFilter<GswPedComponent, NewPedMarkComponent>.Exclude<WoundedComponent> _newPeds;
         private EcsFilter<GswPedComponent, CreatePermanentRagdollComponent> _needRagdollPeds;
         private EcsFilter<GswPedComponent, PermanentRagdollComponent, FullyHealedComponent> _healedPeds;
 
@@ -36,6 +37,14 @@ namespace GunshotWound2.Effects.Ragdoll.Systems
 #if DEBUG
                 _logger.MakeLog($"{ped.Name(pedEntity)} was restored from permanent ragdoll");
 #endif
+            }
+
+            foreach (int i in _newPeds)
+            {
+                Ped ped = _newPeds.Components1[i].ThisPed;
+                if (!ped.Exists() && !ped.IsRagdoll) continue;
+
+                NativeFunction.Natives.SET_PED_TO_RAGDOLL(ped, 1, 1, 1, 0, 0, 0);
             }
 
             foreach (int i in _needRagdollPeds)
