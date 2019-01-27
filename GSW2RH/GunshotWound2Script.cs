@@ -5,23 +5,22 @@ using System.Windows.Forms;
 using GunshotWound2.Armor.Systems;
 using GunshotWound2.BaseHitDetecting.Systems;
 using GunshotWound2.Bleeding.Systems;
-using GunshotWound2.Bodies.Systems;
+using GunshotWound2.BodyParts.Systems;
 using GunshotWound2.Configs.Systems;
 using GunshotWound2.Crits.Systems;
+using GunshotWound2.Effects.NaturalMotion.Systems;
+using GunshotWound2.Effects.Ragdoll.Systems;
 using GunshotWound2.GswWorld.Systems;
 using GunshotWound2.Hashes.Systems;
 using GunshotWound2.Health.Systems;
 using GunshotWound2.Localization.Systems;
-using GunshotWound2.NaturalMotion.Systems;
 using GunshotWound2.Pain.Systems;
 using GunshotWound2.PainStates.Systems;
 using GunshotWound2.Player.Systems;
-using GunshotWound2.Ragdoll.Systems;
 using GunshotWound2.Uids.Systems;
 using GunshotWound2.Weapons.Systems;
 using GunshotWound2.Wounds.Systems;
 using GunshotWound2.Utils;
-using GunshotWound2.Wounds;
 using Leopotam.Ecs;
 using Rage;
 
@@ -114,9 +113,6 @@ namespace GunshotWound2
                 _stopwatch.Restart();
                 if (Game.IsKeyDown(Keys.End))
                 {
-                    Game.Console.Print("DO IT!");
-                    _world.EnsureComponent<WoundedComponent>(2, out _).WoundEntities.Add(12);
-
                     _maxFrameTime = 0;
                 }
 #endif

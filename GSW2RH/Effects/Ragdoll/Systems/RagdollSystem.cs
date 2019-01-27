@@ -6,7 +6,7 @@ using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
 
-namespace GunshotWound2.Ragdoll.Systems
+namespace GunshotWound2.Effects.Ragdoll.Systems
 {
     [EcsInject]
     public class RagdollSystem : IEcsRunSystem

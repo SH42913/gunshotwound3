@@ -1,4 +1,4 @@
-namespace GunshotWound2.Ragdoll
+namespace GunshotWound2.Effects.Ragdoll
 {
     public class PermanentRagdollComponent
     {

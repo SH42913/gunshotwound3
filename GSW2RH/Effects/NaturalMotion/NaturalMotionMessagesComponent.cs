@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Leopotam.Ecs;
 
-namespace GunshotWound2.NaturalMotion
+namespace GunshotWound2.Effects.NaturalMotion
 {
     public class NaturalMotionMessagesComponent : IEcsAutoResetComponent
     {

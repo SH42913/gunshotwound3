@@ -5,7 +5,7 @@ using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
 
-namespace GunshotWound2.Bodies.Systems
+namespace GunshotWound2.BodyParts.Systems
 {
     [EcsInject]
     public class BodyHitDetectingSystem : IEcsRunSystem

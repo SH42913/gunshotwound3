@@ -1,6 +1,6 @@
 using Leopotam.Ecs;
 
-namespace GunshotWound2.Bodies
+namespace GunshotWound2.BodyParts
 {
     [EcsIgnoreInFilter]
     public class BodyPartComponent

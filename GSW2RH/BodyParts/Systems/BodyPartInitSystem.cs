@@ -4,7 +4,7 @@ using GunshotWound2.Hashes;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 
-namespace GunshotWound2.Bodies.Systems
+namespace GunshotWound2.BodyParts.Systems
 {
     [EcsInject]
     public class BodyPartInitSystem : IEcsPreInitSystem, IEcsInitSystem

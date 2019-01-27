@@ -3,7 +3,7 @@ using GunshotWound2.GswWorld;
 using Leopotam.Ecs;
 using Rage;
 
-namespace GunshotWound2.Bodies.Systems
+namespace GunshotWound2.BodyParts.Systems
 {
     [EcsInject]
     public class BodyHitHistoryShowSystem : IEcsRunSystem

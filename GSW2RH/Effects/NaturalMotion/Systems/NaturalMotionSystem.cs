@@ -5,7 +5,7 @@ using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
 
-namespace GunshotWound2.NaturalMotion.Systems
+namespace GunshotWound2.Effects.NaturalMotion.Systems
 {
     [EcsInject]
     public class NaturalMotionSystem : IEcsRunSystem

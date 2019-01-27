@@ -1,5 +1,5 @@
 using System;
-using GunshotWound2.Bodies;
+using GunshotWound2.BodyParts;
 using GunshotWound2.Utils;
 using GunshotWound2.Wounds;
 using Leopotam.Ecs;
