@@ -1,5 +1,4 @@
 using System.Xml.Linq;
-using GunshotWound2.Bleeding;
 using GunshotWound2.Configs;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;

@@ -53,7 +53,7 @@ namespace GunshotWound2.Health.Systems
             {
                 int pedEntity = _woundedPeds.Entities[i];
 #if DEBUG
-                _logger.MakeLog($"Entity ({pedEntity}) was wounded");
+                _logger.MakeLog($"{pedEntity.GetEntityName(_ecsWorld)} was wounded");
 #endif
                 Ped ped = _woundedPeds.Components1[i].ThisPed;
                 if (!ped.Exists()) continue;
@@ -86,7 +86,7 @@ namespace GunshotWound2.Health.Systems
                 health.Health -= finalDamage;
                 ped.SetHealth(health.Health);
 #if DEBUG
-                _logger.MakeLog($"Entity ({pedEntity}):Base damage is {baseDamage:0.0}; " +
+                _logger.MakeLog($"{pedEntity.GetEntityName(_ecsWorld)}:Base damage is {baseDamage:0.0}; " +
                                 $"Final damage is {finalDamage:0.0}; " +
                                 $"New health is {health.Health:0.0}/{health.MaxHealth:0.0}");
 #endif

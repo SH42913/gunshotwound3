@@ -88,9 +88,9 @@
 			<DamageMult Value="1.0"/>
 			<PainMult Value="1.0"/>
 			<BleedingMult Value="1.0"/>
-			<CritChance Value="0.4"/>
+			<CritChance Value="1.0"/>
 			<CritWoundList>
-				<CritWound Uid="6" Weight="1"/>
+				<CritWound Uid="7" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -199,6 +199,15 @@
 			<Uid Value="6"/>
 			<LocalizationKey Key="NERVES_DAMAGED"/>
 			<EnableRagdoll LengthInMs="-1" Type="0" Permanent="TRUE" DisableOnlyOnHeal="TRUE"/>
+		</Wound>
+		<Wound>
+			<Uid Value="7"/>
+			<LocalizationKey Key="GUTS_DAMAGED"/>
+			<BaseDamage Value="15"/>
+			<BasePain Value="30"/>
+			<BaseBleeding Value="1"/>
+			<EnableRagdoll LengthInMs="5000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
+			<NaturalMotionMessages List="1151;372;"/>
 		</Wound>
 	</WoundList>
 </GswWoundConfig.xml>

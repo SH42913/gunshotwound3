@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Globalization;
 using System.Xml.Linq;
+using GunshotWound2.GswWorld;
 using GunshotWound2.Localization;
 using Leopotam.Ecs;
 using Rage;
@@ -73,7 +74,8 @@ namespace GunshotWound2.Utils
             XAttribute attribute = node.Attribute(attributeName);
             if (attribute == null)
             {
-                throw new Exception($"Can't find attribute {attributeName} in {node.Parent?.Name}/{node.Name.LocalName}");
+                throw new Exception(
+                    $"Can't find attribute {attributeName} in {node.Parent?.Name}/{node.Name.LocalName}");
             }
 
             return attribute.Value;
@@ -136,16 +138,18 @@ namespace GunshotWound2.Utils
         public static string GetEntityName(this int entity, EcsWorld ecsWorld)
         {
             var localizationKey = ecsWorld.GetComponent<LocalizationKeyComponent>(entity);
+            if (localizationKey != null) return $"{localizationKey.Key}({entity})";
 
-            return localizationKey != null 
-                ? localizationKey.Key 
-                : $"Entity #{entity}";
+            var gswPed = ecsWorld.GetComponent<GswPedComponent>(entity);
+            if (gswPed != null) return gswPed.ThisPed.Name(entity);
+            
+            return $"Entity #{entity}";
         }
 
         public static string Name(this Ped ped, int entity)
         {
-            string name = ped.Exists() 
-                ? ped.Model.Name 
+            string name = ped.Exists()
+                ? ped.Model.Name
                 : "NOT_EXISTS";
             return $"{name}({entity})";
         }

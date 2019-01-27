@@ -12,6 +12,7 @@ using GunshotWound2.GswWorld.Systems;
 using GunshotWound2.Hashes.Systems;
 using GunshotWound2.Health.Systems;
 using GunshotWound2.Localization.Systems;
+using GunshotWound2.NaturalMotion.Systems;
 using GunshotWound2.Pain.Systems;
 using GunshotWound2.PainStates.Systems;
 using GunshotWound2.Player.Systems;
@@ -20,6 +21,7 @@ using GunshotWound2.Uids.Systems;
 using GunshotWound2.Weapons.Systems;
 using GunshotWound2.Wounds.Systems;
 using GunshotWound2.Utils;
+using GunshotWound2.Wounds;
 using Leopotam.Ecs;
 using Rage;
 
@@ -77,9 +79,10 @@ namespace GunshotWound2
                 .Add(new CritInitSystem())
                 .Add(new RagdollInitSystem())
                 .Add(new PainStateInitSystem())
+                .Add(new BodyPartInitSystem())
+                .Add(new NaturalMotionInitSystem())
                 .Add(new PainStateSystem())
                 .Add(new BaseHitDetectingSystem())
-                .Add(new BodyPartInitSystem())
                 .Add(new BodyHitDetectingSystem())
 #if DEBUG
                 .Add(new BodyHitHistoryShowSystem())
@@ -88,16 +91,17 @@ namespace GunshotWound2
                 .Add(new BaseHitCleanSystem())
                 .Add(new HelmetHitProcessingSystem())
                 .Add(new ArmorHitProcessingSystem())
+                .Add(new HealDetectSystem())
                 .Add(new CritSystem())
                 .Add(new WoundSystem())
-                .Add(new HealDetectSystem())
                 .Add(new HealthSystem())
                 .Add(new PainSystem())
                 .Add(new BleedingCleanSystem())
                 .Add(new BleedingHealSystem())
                 .Add(new BleedingCreateSystem())
                 .Add(new BleedingSystem())
-                .Add(new RagdollSystem());
+                .Add(new RagdollSystem())
+                .Add(new NaturalMotionSystem());
             _systems.Initialize();
             GameFiber.Yield();
         }
@@ -110,6 +114,9 @@ namespace GunshotWound2
                 _stopwatch.Restart();
                 if (Game.IsKeyDown(Keys.End))
                 {
+                    Game.Console.Print("DO IT!");
+                    _world.EnsureComponent<WoundedComponent>(2, out _).WoundEntities.Add(12);
+
                     _maxFrameTime = 0;
                 }
 #endif

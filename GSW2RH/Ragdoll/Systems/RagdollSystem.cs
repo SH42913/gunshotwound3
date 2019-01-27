@@ -1,4 +1,3 @@
-using System;
 using GunshotWound2.GswWorld;
 using GunshotWound2.Health;
 using GunshotWound2.Utils;
@@ -85,11 +84,12 @@ namespace GunshotWound2.Ragdoll.Systems
                         }
                         else
                         {
+                            int length = enable.LengthInMs;
                             NativeFunction
                                 .Natives
-                                .SET_PED_TO_RAGDOLL(ped, enable.LengthInMs, enable.LengthInMs, enable.Type, 0, 0, 0);
+                                .SET_PED_TO_RAGDOLL(ped, length, length, enable.Type, 0, 0, 0);
 #if DEBUG
-                            _logger.MakeLog($"{ped.Name(pedEntity)} got ragdoll for {enable.LengthInMs} ms");
+                            _logger.MakeLog($"{ped.Name(pedEntity)} got ragdoll for {length} ms");
 #endif
                         }
                     }

@@ -30,7 +30,7 @@ namespace GunshotWound2.Wounds.Systems
                     woundList += $"{woundEntity.GetEntityName(_ecsWorld)}, ";
                 }
 
-                _logger.MakeLog($"Entity {woundedEntity} {woundList}");
+                _logger.MakeLog($"{woundedEntity.GetEntityName(_ecsWorld)} {woundList}");
             }
 #endif
         }

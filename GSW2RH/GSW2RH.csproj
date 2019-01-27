@@ -105,6 +105,9 @@
     <Compile Include="Health\Systems\HealthSystem.cs" />
     <Compile Include="Localization\LocalizationKeyComponent.cs" />
     <Compile Include="Localization\Systems\LocalizationInitSystem.cs" />
+    <Compile Include="NaturalMotion\NaturalMotionMessagesComponent.cs" />
+    <Compile Include="NaturalMotion\Systems\NaturalMotionInitSystem.cs" />
+    <Compile Include="NaturalMotion\Systems\NaturalMotionSystem.cs" />
     <Compile Include="PainStates\PainStateComponent.cs" />
     <Compile Include="PainStates\PainStateListComponent.cs" />
     <Compile Include="PainStates\CurrentPainStateComponent.cs" />
