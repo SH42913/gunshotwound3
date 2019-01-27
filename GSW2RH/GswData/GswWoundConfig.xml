@@ -6,7 +6,7 @@
 	<OverallDamageDeviation Value="0.2"/>
 	<!-- 0.2 mean +-20% random damage -->
 	
-	<OverallPainMultiplier Value="1.0"/>
+	<OverallPainMultiplier Value="2.0"/>
 	<!-- Overall pain multiplier, 2.0 mean every wound will make x2 pain for ped -->
 
 	<OverallPainDeviation Value="0.2"/>
@@ -21,15 +21,19 @@
 	<PainStateList>
 		<PainState PainPercent="0">
 			<LocalizationKey Key="MILD"/>
+			<DisablePermanentRagdoll/>
 		</PainState>
         <PainState PainPercent="0.3">
             <LocalizationKey Key="AVERAGE"/>
+			<DisablePermanentRagdoll/>
         </PainState>
         <PainState PainPercent="0.7">
             <LocalizationKey Key="INTENSE"/>
+			<DisablePermanentRagdoll/>
         </PainState>
         <PainState PainPercent="1">
             <LocalizationKey Key="UNBEARABLE"/>
+			<EnableRagdoll LengthInMs="-1" Type="0" Permanent="TRUE" DisableOnlyOnHeal="FALSE"/>
         </PainState>
 		<PainState PainPercent="2.5">
 			<LocalizationKey Key="DEADLY"/>
@@ -59,6 +63,7 @@
 			<BleedingMult Value="2.0"/>
 			<CritChance Value="0.7"/>
 			<CritWoundList>
+				<CritWound Uid="6" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -71,7 +76,8 @@
 			<BleedingMult Value="1.0"/>
 			<CritChance Value="1.0"/>
 			<CritWoundList>
-				<CritWound Uid="4" Weight="1"/>
+				<CritWound Uid="5" Weight="1"/>
+				<CritWound Uid="6" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -84,6 +90,7 @@
 			<BleedingMult Value="1.0"/>
 			<CritChance Value="0.4"/>
 			<CritWoundList>
+				<CritWound Uid="6" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -96,6 +103,7 @@
 			<BleedingMult Value="1.2"/>
 			<CritChance Value="0.4"/>
 			<CritWoundList>
+				<CritWound Uid="4" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -108,6 +116,7 @@
 			<BleedingMult Value="1.2"/>
 			<CritChance Value="0.4"/>
 			<CritWoundList>
+				<CritWound Uid="4" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -169,13 +178,27 @@
 			<BaseDamage Value="5"/>
 			<BasePain Value="30"/>
 			<BaseBleeding Value="0.4"/>
+			<EnableRagdoll LengthInMs="5000" Type="0" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
 		</Wound>
 		<Wound>
 			<Uid Value="4"/>
+			<LocalizationKey Key="LEG_BONE_BROKEN"/>
+			<BaseDamage Value="5"/>
+			<BasePain Value="30"/>
+			<BaseBleeding Value="0.4"/>
+			<EnableRagdoll LengthInMs="5000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
+		</Wound>
+		<Wound>
+			<Uid Value="5"/>
 			<LocalizationKey Key="LUNGS_COLLAPSED"/>
 			<BaseDamage Value="10"/>
 			<BasePain Value="15"/>
 			<BaseBleeding Value="1.5"/>
+		</Wound>
+		<Wound>
+			<Uid Value="6"/>
+			<LocalizationKey Key="NERVES_DAMAGED"/>
+			<EnableRagdoll LengthInMs="-1" Type="0" Permanent="TRUE" DisableOnlyOnHeal="TRUE"/>
 		</Wound>
 	</WoundList>
 </GswWoundConfig.xml>

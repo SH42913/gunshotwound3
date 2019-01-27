@@ -123,6 +123,12 @@
     <Compile Include="Player\PlayerConfigComponent.cs" />
     <Compile Include="Player\PlayerMarkComponent.cs" />
     <Compile Include="Player\Systems\PlayerInitSystem.cs" />
+    <Compile Include="Ragdoll\DisablePermanentRagdollComponent.cs" />
+    <Compile Include="Ragdoll\EnableRagdollComponent.cs" />
+    <Compile Include="Ragdoll\CreatePermanentRagdollComponent.cs" />
+    <Compile Include="Ragdoll\PermanentRagdollComponent.cs" />
+    <Compile Include="Ragdoll\Systems\RagdollInitSystem.cs" />
+    <Compile Include="Ragdoll\Systems\RagdollSystem.cs" />
     <Compile Include="StatsContainerComponent.cs" />
     <Compile Include="Uids\Systems\UidInitSystem.cs" />
     <Compile Include="Uids\UidComponent.cs" />

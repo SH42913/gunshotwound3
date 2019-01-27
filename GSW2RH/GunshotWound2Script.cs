@@ -15,6 +15,7 @@ using GunshotWound2.Localization.Systems;
 using GunshotWound2.Pain.Systems;
 using GunshotWound2.PainStates.Systems;
 using GunshotWound2.Player.Systems;
+using GunshotWound2.Ragdoll.Systems;
 using GunshotWound2.Uids.Systems;
 using GunshotWound2.Weapons.Systems;
 using GunshotWound2.Wounds.Systems;
@@ -74,6 +75,7 @@ namespace GunshotWound2
                 .Add(new WeaponInitSystem())
                 .Add(new ArmorInitSystem())
                 .Add(new CritInitSystem())
+                .Add(new RagdollInitSystem())
                 .Add(new PainStateInitSystem())
                 .Add(new PainStateSystem())
                 .Add(new BaseHitDetectingSystem())
@@ -94,7 +96,8 @@ namespace GunshotWound2
                 .Add(new BleedingCleanSystem())
                 .Add(new BleedingHealSystem())
                 .Add(new BleedingCreateSystem())
-                .Add(new BleedingSystem());
+                .Add(new BleedingSystem())
+                .Add(new RagdollSystem());
             _systems.Initialize();
             GameFiber.Yield();
         }
