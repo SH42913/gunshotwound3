@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GswPainStateConfig.xml>
+	<PainStateList>
+		<PainState PainPercent="0">
+			<LocalizationKey Key="MILD"/>
+			<DisablePermanentRagdoll/>
+			<DisableFacialAnimation/>
+		</PainState>
+        <PainState PainPercent="0.3">
+            <LocalizationKey Key="AVERAGE"/>
+			<DisablePermanentRagdoll/>
+			<DisableFacialAnimation/>
+        </PainState>
+        <PainState PainPercent="0.7">
+            <LocalizationKey Key="INTENSE"/>
+			<EnableFacialAnimation Animations="mood_injured_1;" MaleDict="facials@gen_male@base" FemaleDict="facials@gen_female@base" Permanent="TRUE"/>
+        </PainState>
+        <PainState PainPercent="1">
+            <LocalizationKey Key="UNBEARABLE"/>
+			<EnableRagdoll LengthInMs="-1" Type="0" Permanent="TRUE" DisableOnlyOnHeal="FALSE"/>
+			<EnableFacialAnimation Animations="dead_1;dead_2;" MaleDict="facials@gen_male@base" FemaleDict="facials@gen_female@base" Permanent="TRUE"/>
+        </PainState>
+		<PainState PainPercent="2.5">
+			<LocalizationKey Key="DEADLY"/>
+		</PainState>
+	</PainStateList>
+</GswPainStateConfig.xml>

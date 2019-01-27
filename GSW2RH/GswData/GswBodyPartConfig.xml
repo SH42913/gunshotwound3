@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GswBodyPartConfig.xml>
+	<BodyPartList>
+		<BodyPart>
+			<LocalizationKey Key="HEAD"/>
+			<!-- Head; -->
+			<Hashes Hashes="31086;"/>
+			<Protection ByHelmet="TRUE" ByArmor="FALSE"/>
+			<DamageMult Value="2.0"/>
+			<PainMult Value="2.0"/>
+			<BleedingMult Value="1.0"/>
+			<CritChance Value="1.0"/>
+			<CritWoundList>
+			</CritWoundList>
+		</BodyPart>
+		<BodyPart>
+			<LocalizationKey Key="NECK"/>
+			<!-- Neck; -->
+			<Hashes Hashes="39317;"/>
+			<Protection ByHelmet="FALSE" ByArmor="TRUE"/>
+			<DamageMult Value="1.0"/>
+			<PainMult Value="1.0"/>
+			<BleedingMult Value="2.0"/>
+			<CritChance Value="0.7"/>
+			<CritWoundList>
+				<CritWound Uid="6" Weight="1"/>
+			</CritWoundList>
+		</BodyPart>
+		<BodyPart>
+			<!-- LeftClavicle;RightClavicle;Spine2;Spine3; -->
+			<LocalizationKey Key="UPPER_BODY"/>
+			<Hashes Hashes="64729;10706;24817;24818;"/>
+			<Protection ByHelmet="FALSE" ByArmor="TRUE"/>
+			<DamageMult Value="1.0"/>
+			<PainMult Value="1.0"/>
+			<BleedingMult Value="1.0"/>
+			<CritChance Value="1.0"/>
+			<CritWoundList>
+				<CritWound Uid="8" Weight="1"/>
+			</CritWoundList>
+		</BodyPart>
+		<BodyPart>
+			<LocalizationKey Key="LOWER_BODY"/>
+			<!-- SKEL_ROOT;SpineRoot;Spine;Spine1;Pelvis; -->
+			<Hashes Hashes="0;57597;23553;24816;11816;"/>
+			<Protection ByHelmet="FALSE" ByArmor="TRUE"/>
+			<DamageMult Value="1.0"/>
+			<PainMult Value="1.0"/>
+			<BleedingMult Value="1.0"/>
+			<CritChance Value="1.0"/>
+			<CritWoundList>
+				<CritWound Uid="7" Weight="1"/>
+			</CritWoundList>
+		</BodyPart>
+		<BodyPart>
+			<LocalizationKey Key="LEFT_LEG"/>
+			<!-- LeftThigh;LeftFoot;LeftPhFoot;LeftCalf; -->
+			<Hashes Hashes="58271;14201;57717;63931;"/>
+			<Protection ByHelmet="FALSE" ByArmor="FALSE"/>
+			<DamageMult Value="0.7"/>
+			<PainMult Value="1.0"/>
+			<BleedingMult Value="1.2"/>
+			<CritChance Value="0.4"/>
+			<CritWoundList>
+				<CritWound Uid="4" Weight="1"/>
+			</CritWoundList>
+		</BodyPart>
+		<BodyPart>
+			<LocalizationKey Key="RIGHT_LEG"/>
+			<!-- RightThigh;RightFoot;RightPhFoot;RightCalf; -->
+			<Hashes Hashes="51826;52301;24806;36864;"/>
+			<Protection ByHelmet="FALSE" ByArmor="FALSE"/>
+			<DamageMult Value="0.7"/>
+			<PainMult Value="1.0"/>
+			<BleedingMult Value="1.2"/>
+			<CritChance Value="0.4"/>
+			<CritWoundList>
+				<CritWound Uid="4" Weight="1"/>
+			</CritWoundList>
+		</BodyPart>
+		<BodyPart>
+			<LocalizationKey Key="LEFT_ARM"/>
+			<!-- LeftUpperArm;LeftForeArm;LeftHand;LeftPhHand; -->
+			<Hashes Hashes="45509;61163;18905;60309;"/>
+			<Protection ByHelmet="FALSE" ByArmor="FALSE"/>
+			<DamageMult Value="0.7"/>
+			<PainMult Value="1.0"/>
+			<BleedingMult Value="1.2"/>
+			<CritChance Value="0.4"/>
+			<CritWoundList>
+				<CritWound Uid="3" Weight="1"/>
+			</CritWoundList>
+		</BodyPart>
+		<BodyPart>
+			<LocalizationKey Key="RIGHT_ARM"/>
+			<!-- RightUpperArm;RightForearm;RightHand;RightPhHand; -->
+			<Hashes Hashes="40269;28252;57005;28422;"/>
+			<Protection ByHelmet="FALSE" ByArmor="FALSE"/>
+			<DamageMult Value="0.7"/>
+			<PainMult Value="1.0"/>
+			<BleedingMult Value="1.2"/>
+			<CritChance Value="0.4"/>
+			<CritWoundList>
+				<CritWound Uid="3" Weight="1"/>
+			</CritWoundList>
+		</BodyPart>
+	</BodyPartList>
+</GswBodyPartConfig.xml>
