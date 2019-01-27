@@ -6,7 +6,7 @@
 	<OverallDamageDeviation Value="0.2"/>
 	<!-- 0.2 mean +-20% random damage -->
 	
-	<OverallPainMultiplier Value="2.0"/>
+	<OverallPainMultiplier Value="1.4"/>
 	<!-- Overall pain multiplier, 2.0 mean every wound will make x2 pain for ped -->
 
 	<OverallPainDeviation Value="0.2"/>
@@ -22,18 +22,21 @@
 		<PainState PainPercent="0">
 			<LocalizationKey Key="MILD"/>
 			<DisablePermanentRagdoll/>
+			<DisableFacialAnimation/>
 		</PainState>
         <PainState PainPercent="0.3">
             <LocalizationKey Key="AVERAGE"/>
 			<DisablePermanentRagdoll/>
+			<DisableFacialAnimation/>
         </PainState>
         <PainState PainPercent="0.7">
             <LocalizationKey Key="INTENSE"/>
-			<DisablePermanentRagdoll/>
+			<EnableFacialAnimation Animations="mood_injured_1;" MaleDict="facials@gen_male@base" FemaleDict="facials@gen_female@base" Permanent="TRUE"/>
         </PainState>
         <PainState PainPercent="1">
             <LocalizationKey Key="UNBEARABLE"/>
 			<EnableRagdoll LengthInMs="-1" Type="0" Permanent="TRUE" DisableOnlyOnHeal="FALSE"/>
+			<EnableFacialAnimation Animations="dead_1;dead_2;" MaleDict="facials@gen_male@base" FemaleDict="facials@gen_female@base" Permanent="TRUE"/>
         </PainState>
 		<PainState PainPercent="2.5">
 			<LocalizationKey Key="DEADLY"/>
@@ -76,8 +79,7 @@
 			<BleedingMult Value="1.0"/>
 			<CritChance Value="1.0"/>
 			<CritWoundList>
-				<CritWound Uid="5" Weight="1"/>
-				<CritWound Uid="6" Weight="1"/>
+				<CritWound Uid="8" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -186,7 +188,8 @@
 			<BaseDamage Value="5"/>
 			<BasePain Value="30"/>
 			<BaseBleeding Value="0.4"/>
-			<EnableRagdoll LengthInMs="5000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
+			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
+			<NaturalMotionMessages List="1025;169;"/>
 		</Wound>
 		<Wound>
 			<Uid Value="5"/>
@@ -206,8 +209,17 @@
 			<BaseDamage Value="15"/>
 			<BasePain Value="30"/>
 			<BaseBleeding Value="1"/>
-			<EnableRagdoll LengthInMs="5000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
-			<NaturalMotionMessages List="1151;372;"/>
+			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
+			<NaturalMotionMessages List="1151;1119;"/>
+		</Wound>
+		<Wound>
+			<Uid Value="8"/>
+			<LocalizationKey Key="HEART_DAMAGED"/>
+			<BaseDamage Value="20"/>
+			<BasePain Value="20"/>
+			<BaseBleeding Value="2"/>
+			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
+			<NaturalMotionMessages List="1151;1083;"/>
 		</Wound>
 	</WoundList>
 </GswWoundConfig.xml>

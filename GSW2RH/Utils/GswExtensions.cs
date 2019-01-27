@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Xml.Linq;
@@ -38,6 +39,12 @@ namespace GunshotWound2.Utils
         {
             int index = random.Next(0, array.Length);
             return array[index];
+        }
+
+        public static T NextFromList<T>(this Random random, List<T> list)
+        {
+            int index = random.Next(0, list.Count);
+            return list[index];
         }
 
         public static T NextEnum<T>(this Random random) where T : Enum

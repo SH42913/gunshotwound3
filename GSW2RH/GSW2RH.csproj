@@ -82,6 +82,11 @@
     <Compile Include="Crits\Systems\CritInitSystem.cs" />
     <Compile Include="Crits\Systems\CritSystem.cs" />
     <Compile Include="Effects\BaseEffectInitSystem.cs" />
+    <Compile Include="Effects\FacialAnimation\DisableFacialAnimationComponent.cs" />
+    <Compile Include="Effects\FacialAnimation\PermanentFacialAnimationComponent.cs" />
+    <Compile Include="Effects\FacialAnimation\EnableFacialAnimationComponent.cs" />
+    <Compile Include="Effects\FacialAnimation\Systems\FacialAnimationInitSystem.cs" />
+    <Compile Include="Effects\FacialAnimation\Systems\FacialAnimationSystem.cs" />
     <Compile Include="Effects\NaturalMotion\NaturalMotionMessagesComponent.cs" />
     <Compile Include="Effects\NaturalMotion\Systems\NaturalMotionInitSystem.cs" />
     <Compile Include="Effects\NaturalMotion\Systems\NaturalMotionSystem.cs" />

@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using GunshotWound2.GswWorld;
+using GunshotWound2.Player;
 using Leopotam.Ecs;
 using Rage;
 
@@ -8,7 +9,7 @@ namespace GunshotWound2.BodyParts.Systems
     [EcsInject]
     public class BodyHitHistoryShowSystem : IEcsRunSystem
     {
-        private EcsFilter<GswPedComponent, BodyHitHistoryComponent> _peds;
+        private EcsFilter<GswPedComponent, BodyHitHistoryComponent>.Exclude<PlayerMarkComponent> _peds;
 
         public void Run()
         {

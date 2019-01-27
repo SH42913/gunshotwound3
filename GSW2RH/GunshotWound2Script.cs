@@ -8,6 +8,7 @@ using GunshotWound2.Bleeding.Systems;
 using GunshotWound2.BodyParts.Systems;
 using GunshotWound2.Configs.Systems;
 using GunshotWound2.Crits.Systems;
+using GunshotWound2.Effects.FacialAnimation.Systems;
 using GunshotWound2.Effects.NaturalMotion.Systems;
 using GunshotWound2.Effects.Ragdoll.Systems;
 using GunshotWound2.GswWorld.Systems;
@@ -80,6 +81,7 @@ namespace GunshotWound2
                 .Add(new PainStateInitSystem())
                 .Add(new BodyPartInitSystem())
                 .Add(new NaturalMotionInitSystem())
+                .Add(new FacialAnimationInitSystem())
                 .Add(new PainStateSystem())
                 .Add(new BaseHitDetectingSystem())
                 .Add(new BodyHitDetectingSystem())
@@ -100,7 +102,8 @@ namespace GunshotWound2
                 .Add(new BleedingCreateSystem())
                 .Add(new BleedingSystem())
                 .Add(new RagdollSystem())
-                .Add(new NaturalMotionSystem());
+                .Add(new NaturalMotionSystem())
+                .Add(new FacialAnimationSystem());
             _systems.Initialize();
             GameFiber.Yield();
         }
