@@ -87,7 +87,12 @@
     <Compile Include="Effects\FacialAnimation\EnableFacialAnimationComponent.cs" />
     <Compile Include="Effects\FacialAnimation\Systems\FacialAnimationInitSystem.cs" />
     <Compile Include="Effects\FacialAnimation\Systems\FacialAnimationSystem.cs" />
+    <Compile Include="Effects\NaturalMotion\Arguments\NmArgument.cs" />
+    <Compile Include="Effects\NaturalMotion\Arguments\RandomFloatArgument.cs" />
+    <Compile Include="Effects\NaturalMotion\Arguments\RandomIntArgument.cs" />
+    <Compile Include="Effects\NaturalMotion\NaturalMotionMessage.cs" />
     <Compile Include="Effects\NaturalMotion\NaturalMotionMessagesComponent.cs" />
+    <Compile Include="Effects\NaturalMotion\NaturalMotionMessagesDictComponent.cs" />
     <Compile Include="Effects\NaturalMotion\Systems\NaturalMotionInitSystem.cs" />
     <Compile Include="Effects\NaturalMotion\Systems\NaturalMotionSystem.cs" />
     <Compile Include="Effects\Ragdoll\CreatePermanentRagdollComponent.cs" />
@@ -142,6 +147,7 @@
     <Compile Include="Uids\Systems\UidInitSystem.cs" />
     <Compile Include="Uids\UidComponent.cs" />
     <Compile Include="Uids\UidToEntityDictComponent.cs" />
+    <Compile Include="Utils\MinMaxInt.cs" />
     <Compile Include="Weapons\DamagedByWeaponComponent.cs" />
     <Compile Include="Weapons\Systems\WeaponHitDetectingSystem.cs" />
     <Compile Include="Weapons\Systems\WeaponInitSystem.cs" />
@@ -170,6 +176,9 @@
   <ItemGroup>
     <Content Include="Configs\OldGSW2Config.xml" />
     <Content Include="GswData\GswBodyPartConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GswData\GswNaturalMotionConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GswData\GswPainStateConfig.xml">

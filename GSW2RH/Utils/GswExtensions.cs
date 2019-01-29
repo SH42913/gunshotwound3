@@ -35,6 +35,11 @@ namespace GunshotWound2.Utils
             return rand.NextFloat(minMax.Min, minMax.Max);
         }
 
+        public static int NextMinMax(this Random rand, MinMaxInt minMax)
+        {
+            return rand.Next(minMax.Min, minMax.Max);
+        }
+
         public static T NextFromArray<T>(this Random random, T[] array)
         {
             int index = random.Next(0, array.Length);
@@ -139,6 +144,15 @@ namespace GunshotWound2.Utils
             {
                 Min = node.GetFloat("Min"),
                 Max = node.GetFloat("Max")
+            };
+        }
+
+        public static MinMaxInt GetMinMaxInt(this XElement node)
+        {
+            return new MinMaxInt
+            {
+                Min = node.GetInt("Min"),
+                Max = node.GetInt("Max")
             };
         }
 

@@ -40,7 +40,7 @@
 			<BasePain Value="30"/>
 			<BaseBleeding Value="0.4"/>
 			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
-			<NaturalMotionMessages List="1025;169;"/>
+			<NaturalMotionMessages List="KneeShot;"/>
 		</Wound>
 		<Wound>
 			<Uid Value="5"/>
@@ -61,7 +61,7 @@
 			<BasePain Value="30"/>
 			<BaseBleeding Value="1"/>
 			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
-			<NaturalMotionMessages List="1151;1119;"/>
+			<NaturalMotionMessages List="GutsWound;"/>
 		</Wound>
 		<Wound>
 			<Uid Value="8"/>
@@ -70,7 +70,6 @@
 			<BasePain Value="20"/>
 			<BaseBleeding Value="2"/>
 			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
-			<NaturalMotionMessages List="1151;1083;"/>
 		</Wound>
 	</WoundList>
 </GswWoundConfig.xml>

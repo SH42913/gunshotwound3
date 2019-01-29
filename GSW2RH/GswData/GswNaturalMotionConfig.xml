@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GswNaturalMotionConfig.xml>
+	<NaturalMotionMessageList>
+		<NaturalMotionMessage Name="BasicWindmill">
+			<MessageName Value="armsWindmillAdaptive"/>
+			<FloatArgument Name="angSpeed" Value="10.0"/>
+			<RandomFloatArgument Name="amplitude" Min="1.0" Max="3.0"/>
+			<IntArgument Name="armDirection" Value="0"/>
+			<BoolArgument Name="disableOnImpact" Value="FALSE"/>
+		</NaturalMotionMessage>
+		<NaturalMotionMessage Name="GutsWound">
+			<MessageName Value="shotInGuts"/>
+			<BoolArgument Name="shotInGuts" Value="TRUE"/>
+			<RandomFloatArgument Name="sigSpineAmount" Min="0.0" Max="10.0"/>
+			<RandomFloatArgument Name="sigKneeAmount" Min="0.0" Max="1.0"/>
+			<RandomFloatArgument Name="sigPeriod" Min="1.0" Max="10.0"/>
+			<RandomFloatArgument Name="sigForceBalancePeriod" Min="1.0" Max="10.0"/>
+			<RandomFloatArgument Name="sigKneesOnset" Min="1.0" Max="10.0"/>
+		</NaturalMotionMessage>
+		<NaturalMotionMessage Name="KneeShot">
+			<MessageName Value="shotFallToKnees"/>
+			<BoolArgument Name="fallToKnees" Value="TRUE"/>
+			<RandomFloatArgument Name="ftkBalanceTime" Min="0.0" Max="5.0"/>
+			<RandomFloatArgument Name="ftkBendRate" Min="0.0" Max="4.0"/>
+			<RandomIntArgument Name="ftkOnKneesArmType" Min="0" Max="2"/>
+			<BoolArgument Name="ftkReleasePointGun" Value="TRUE"/>
+		</NaturalMotionMessage>
+	</NaturalMotionMessageList>
+</GswNaturalMotionConfig.xml>

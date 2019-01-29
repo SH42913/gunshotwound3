@@ -32,7 +32,7 @@ namespace GunshotWound2
         public const string BASE_CONFIG_NAME = "GswBaseConfig.xml";
         public const string BODY_PART_CONFIG_NAME = "GswBodyPartConfig.xml";
         public const string NM_CONFIG_NAME = "GswNaturalMotionConfig.xml";
-        public const string PAIN_STATE_CONFIG_NAME = "GswPlayerConfig.xml";
+        public const string PAIN_STATE_CONFIG_NAME = "GswPainStateConfig.xml";
         public const string PLAYER_CONFIG_NAME = "GswPlayerConfig.xml";
         public const string WEAPON_CONFIG_NAME = "GswWeaponConfig.xml";
         public const string WORLD_CONFIG_NAME = "GswWorldConfig.xml";

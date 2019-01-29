@@ -5,7 +5,8 @@ namespace GunshotWound2.Effects.NaturalMotion
 {
     public class NaturalMotionMessagesComponent : IEcsAutoResetComponent
     {
-        [EcsIgnoreNullCheck] public readonly List<int> MessageList = new List<int>();
+        [EcsIgnoreNullCheck] 
+        public readonly List<string> MessageList = new List<string>();
 
         public void Reset()
         {
@@ -16,7 +17,7 @@ namespace GunshotWound2.Effects.NaturalMotion
         {
             string messages = nameof(MessageList);
 
-            foreach (int i in MessageList)
+            foreach (string i in MessageList)
             {
                 messages += $" {i};";
             }

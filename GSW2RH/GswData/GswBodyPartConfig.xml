@@ -60,7 +60,7 @@
 			<DamageMult Value="0.7"/>
 			<PainMult Value="1.0"/>
 			<BleedingMult Value="1.2"/>
-			<CritChance Value="0.4"/>
+			<CritChance Value="1.0"/>
 			<CritWoundList>
 				<CritWound Uid="4" Weight="1"/>
 			</CritWoundList>
@@ -73,7 +73,7 @@
 			<DamageMult Value="0.7"/>
 			<PainMult Value="1.0"/>
 			<BleedingMult Value="1.2"/>
-			<CritChance Value="0.4"/>
+			<CritChance Value="1.0"/>
 			<CritWoundList>
 				<CritWound Uid="4" Weight="1"/>
 			</CritWoundList>
