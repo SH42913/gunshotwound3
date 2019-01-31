@@ -9,6 +9,7 @@ using GunshotWound2.BodyParts.Systems;
 using GunshotWound2.Configs.Systems;
 using GunshotWound2.Crits.Systems;
 using GunshotWound2.Effects.FacialAnimation.Systems;
+using GunshotWound2.Effects.InstantKill.Systems;
 using GunshotWound2.Effects.NaturalMotion.Systems;
 using GunshotWound2.Effects.Ragdoll.Systems;
 using GunshotWound2.GswWorld.Systems;
@@ -37,7 +38,7 @@ namespace GunshotWound2
         public const string WEAPON_CONFIG_NAME = "GswWeaponConfig.xml";
         public const string WORLD_CONFIG_NAME = "GswWorldConfig.xml";
         public const string WOUND_CONFIG_NAME = "GswWoundConfig.xml";
-        
+
 
         public static readonly string[] CONFIG_NAMES =
         {
@@ -91,6 +92,7 @@ namespace GunshotWound2
                 .Add(new BodyPartInitSystem())
                 .Add(new NaturalMotionInitSystem())
                 .Add(new FacialAnimationInitSystem())
+                .Add(new InstantKillInitSystem())
                 .Add(new PainStateSystem())
                 .Add(new BaseHitDetectingSystem())
                 .Add(new BodyHitDetectingSystem())
@@ -112,7 +114,8 @@ namespace GunshotWound2
                 .Add(new BleedingSystem())
                 .Add(new RagdollSystem())
                 .Add(new NaturalMotionSystem())
-                .Add(new FacialAnimationSystem());
+                .Add(new FacialAnimationSystem())
+                .Add(new InstantKillSystem());
             _systems.Initialize();
             GameFiber.Yield();
         }

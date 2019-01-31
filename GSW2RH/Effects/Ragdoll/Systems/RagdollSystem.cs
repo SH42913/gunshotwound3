@@ -9,22 +9,52 @@ using Rage.Native;
 namespace GunshotWound2.Effects.Ragdoll.Systems
 {
     [EcsInject]
-    public class RagdollSystem : IEcsRunSystem
+    public class RagdollSystem : BaseEffectSystem
     {
-        private EcsWorld _ecsWorld;
-        private EcsFilter<GswPedComponent, WoundedComponent> _woundedPeds;
         private EcsFilter<GswPedComponent, NewPedMarkComponent>.Exclude<WoundedComponent> _newPeds;
         private EcsFilter<GswPedComponent, CreatePermanentRagdollComponent> _needRagdollPeds;
         private EcsFilter<GswPedComponent, PermanentRagdollComponent, FullyHealedComponent> _healedPeds;
 
-        private readonly GswLogger _logger;
-
-        public RagdollSystem()
+        public RagdollSystem() : base(new GswLogger(typeof(RagdollSystem)))
         {
-            _logger = new GswLogger(typeof(RagdollSystem));
         }
 
-        public void Run()
+        protected override void ProcessWound(Ped ped, int pedEntity, int woundEntity)
+        {
+            var permanent = EcsWorld.GetComponent<PermanentRagdollComponent>(pedEntity);
+            var enable = EcsWorld.GetComponent<EnableRagdollComponent>(woundEntity);
+            if (permanent == null && enable != null)
+            {
+                if (enable.Permanent)
+                {
+                    var create = EcsWorld.EnsureComponent<CreatePermanentRagdollComponent>(pedEntity, out _);
+                    create.DisableOnlyOnHeal = enable.DisableOnlyOnHeal;
+                    create.Type = enable.Type;
+                }
+                else
+                {
+                    int length = enable.LengthInMs;
+                    NativeFunction
+                        .Natives
+                        .SET_PED_TO_RAGDOLL(ped, length, length, enable.Type, 0, 0, 0);
+#if DEBUG
+                    Logger.MakeLog($"{ped.Name(pedEntity)} got ragdoll for {length} ms");
+#endif
+                }
+            }
+
+            var disable = EcsWorld.GetComponent<DisablePermanentRagdollComponent>(woundEntity);
+            if (permanent != null && !permanent.DisableOnlyOnHeal && disable != null)
+            {
+                NativeFunction.Natives.SET_PED_TO_RAGDOLL(ped, 1, 1, 1, 0, 0, 0);
+                EcsWorld.RemoveComponent<PermanentRagdollComponent>(pedEntity);
+#if DEBUG
+                Logger.MakeLog($"{ped.Name(pedEntity)} was restored from permanent ragdoll");
+#endif
+            }
+        }
+
+        protected override void PrepareRunActions()
         {
             foreach (int i in _healedPeds)
             {
@@ -33,9 +63,9 @@ namespace GunshotWound2.Effects.Ragdoll.Systems
 
                 int pedEntity = _healedPeds.Entities[i];
                 NativeFunction.Natives.SET_PED_TO_RAGDOLL(ped, 1, 1, 1, 0, 0, 0);
-                _ecsWorld.RemoveComponent<PermanentRagdollComponent>(pedEntity);
+                EcsWorld.RemoveComponent<PermanentRagdollComponent>(pedEntity);
 #if DEBUG
-                _logger.MakeLog($"{ped.Name(pedEntity)} was restored from permanent ragdoll");
+                Logger.MakeLog($"{ped.Name(pedEntity)} was restored from permanent ragdoll");
 #endif
             }
 
@@ -51,9 +81,9 @@ namespace GunshotWound2.Effects.Ragdoll.Systems
             {
                 Ped ped = _needRagdollPeds.Components1[i].ThisPed;
                 int pedEntity = _needRagdollPeds.Entities[i];
-                if (!ped.Exists() || _ecsWorld.GetComponent<PermanentRagdollComponent>(pedEntity) != null)
+                if (!ped.Exists() || EcsWorld.GetComponent<PermanentRagdollComponent>(pedEntity) != null)
                 {
-                    _ecsWorld.RemoveComponent<CreatePermanentRagdollComponent>(pedEntity);
+                    EcsWorld.RemoveComponent<CreatePermanentRagdollComponent>(pedEntity);
                     continue;
                 }
 
@@ -62,57 +92,13 @@ namespace GunshotWound2.Effects.Ragdoll.Systems
                 CreatePermanentRagdollComponent createRagdoll = _needRagdollPeds.Components2[i];
                 NativeFunction.Natives.SET_PED_TO_RAGDOLL(ped, -1, -1, createRagdoll.Type, 0, 0, 0);
 
-                _ecsWorld
+                EcsWorld
                     .EnsureComponent<PermanentRagdollComponent>(pedEntity, out _)
                     .DisableOnlyOnHeal = createRagdoll.DisableOnlyOnHeal;
-                _ecsWorld.RemoveComponent<CreatePermanentRagdollComponent>(pedEntity);
+                EcsWorld.RemoveComponent<CreatePermanentRagdollComponent>(pedEntity);
 #if DEBUG
-                _logger.MakeLog($"{ped.Name(pedEntity)} got permanent ragdoll");
+                Logger.MakeLog($"{ped.Name(pedEntity)} got permanent ragdoll");
 #endif
-            }
-
-            foreach (int pedIndex in _woundedPeds)
-            {
-                Ped ped = _woundedPeds.Components1[pedIndex].ThisPed;
-                if (!ped.Exists()) continue;
-
-                int pedEntity = _woundedPeds.Entities[pedIndex];
-                WoundedComponent wounded = _woundedPeds.Components2[pedIndex];
-
-                foreach (int woundEntity in wounded.WoundEntities)
-                {
-                    var permanent = _ecsWorld.GetComponent<PermanentRagdollComponent>(pedEntity);
-                    var enable = _ecsWorld.GetComponent<EnableRagdollComponent>(woundEntity);
-                    if (permanent == null && enable != null)
-                    {
-                        if (enable.Permanent)
-                        {
-                            var create = _ecsWorld.EnsureComponent<CreatePermanentRagdollComponent>(pedEntity, out _);
-                            create.DisableOnlyOnHeal = enable.DisableOnlyOnHeal;
-                            create.Type = enable.Type;
-                        }
-                        else
-                        {
-                            int length = enable.LengthInMs;
-                            NativeFunction
-                                .Natives
-                                .SET_PED_TO_RAGDOLL(ped, length, length, enable.Type, 0, 0, 0);
-#if DEBUG
-                            _logger.MakeLog($"{ped.Name(pedEntity)} got ragdoll for {length} ms");
-#endif
-                        }
-                    }
-
-                    var disable = _ecsWorld.GetComponent<DisablePermanentRagdollComponent>(woundEntity);
-                    if (permanent != null && !permanent.DisableOnlyOnHeal && disable != null)
-                    {
-                        NativeFunction.Natives.SET_PED_TO_RAGDOLL(ped, 1, 1, 1, 0, 0, 0);
-                        _ecsWorld.RemoveComponent<PermanentRagdollComponent>(pedEntity);
-#if DEBUG
-                        _logger.MakeLog($"{ped.Name(pedEntity)} was restored from permanent ragdoll");
-#endif
-                    }
-                }
             }
         }
     }

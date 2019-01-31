@@ -22,6 +22,7 @@
         </PainState>
 		<PainState PainPercent="2.5">
 			<LocalizationKey Key="DEADLY"/>
+			<InstantKill ReasonKey="PAIN_SHOCK"/>
 		</PainState>
 	</PainStateList>
 </GswPainStateConfig.xml>

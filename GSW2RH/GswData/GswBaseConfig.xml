@@ -6,7 +6,7 @@
 	<OverallDamageDeviation Value="0.2"/>
 	<!-- 0.2 mean +-20% random damage -->
 	
-	<OverallPainMultiplier Value="1.4"/>
+	<OverallPainMultiplier Value="1.0"/>
 	<!-- Overall pain multiplier, 2.0 mean every wound will make x2 pain for ped -->
 
 	<OverallPainDeviation Value="0.2"/>
