@@ -61,6 +61,11 @@ namespace GunshotWound2.Effects.NaturalMotion.Systems
                         {
                             message.SetArgument(argument.Name, Random.NextMinMax(argument.Value));
                         }
+
+                        foreach (RandomIntArgument argument in nmMessage.RandomIntArguments)
+                        {
+                            message.SetArgument(argument.Name, Random.NextMinMax(argument.Value));
+                        }
                         
                         message.SendTo(ped);
                     }
