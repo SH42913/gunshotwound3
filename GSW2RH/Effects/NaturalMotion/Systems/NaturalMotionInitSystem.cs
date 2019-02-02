@@ -94,13 +94,14 @@ namespace GunshotWound2.Effects.NaturalMotion.Systems
             XElement listElement = partRoot.Element("NaturalMotionMessages");
             if (listElement == null) return;
 
+            Dictionary<string, NaturalMotionMessage> dict = _dict.Components1[0].MessageDict;
             var messages = EcsWorld.AddComponent<NaturalMotionMessagesComponent>(partEntity);
             var messageStrings = listElement.GetAttributeValue("List").Split(';');
             foreach (string messageString in messageStrings)
             {
                 if (string.IsNullOrEmpty(messageString)) continue;
 
-                if (!_dict.Components1[0].MessageDict.ContainsKey(messageString))
+                if (!dict.ContainsKey(messageString))
                 {
                     throw new Exception($"NaturalMotionMessage {messageString} doesn't exist!");
                 }

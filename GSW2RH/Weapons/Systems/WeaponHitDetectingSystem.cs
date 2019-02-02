@@ -3,7 +3,6 @@ using GunshotWound2.BodyParts;
 using GunshotWound2.GswWorld;
 using GunshotWound2.Hashes;
 using GunshotWound2.Utils;
-using GunshotWound2.Wounds;
 using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
@@ -15,7 +14,7 @@ namespace GunshotWound2.Weapons.Systems
     {
         private EcsWorld _ecsWorld;
         private EcsFilter<GswPedComponent, HasBeenHitMarkComponent, DamagedBodyPartComponent> _damagedPeds;
-        private EcsFilter<HashesComponent, WeaponComponent, WoundRandomizerComponent> _weapons;
+        private EcsFilter<HashesComponent, WeaponComponent> _weapons;
 
         private readonly GswLogger _logger;
 
@@ -46,19 +45,13 @@ namespace GunshotWound2.Weapons.Systems
                     if (!NativeFunction.Natives.HAS_PED_BEEN_DAMAGED_BY_WEAPON<bool>(ped, hash, 0)) continue;
 
                     int weaponEntity = _weapons.Entities[i];
-                    int woundEntity = _weapons.Components3[i].WoundRandomizer.NextWithReplacement();
 #if DEBUG
                     string weaponName = weaponEntity.GetEntityName(_ecsWorld);
-                    string woundName = woundEntity.GetEntityName(_ecsWorld);
-                    _logger.MakeLog($"Ped {ped.Name(pedEntity)} was damaged by {weaponName} with wound {woundName}");
+                    _logger.MakeLog($"Ped {ped.Name(pedEntity)} was damaged by {weaponName}");
 #endif
-                    
+
                     var damaged = _ecsWorld.AddComponent<DamagedByWeaponComponent>(pedEntity);
                     damaged.WeaponEntity = weaponEntity;
-                    damaged.WoundEntity = woundEntity;
-
-                    var wounded = _ecsWorld.EnsureComponent<WoundedComponent>(pedEntity, out _);
-                    wounded.WoundEntities.Add(woundEntity);
                     return;
                 }
             }

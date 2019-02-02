@@ -1,4 +1,5 @@
 using GunshotWound2.Utils;
+using GunshotWound2.Weapons;
 using Leopotam.Ecs;
 
 namespace GunshotWound2.Wounds.Systems
@@ -7,7 +8,7 @@ namespace GunshotWound2.Wounds.Systems
     public class WoundSystem : IEcsRunSystem
     {
         private EcsWorld _ecsWorld;
-        private EcsFilter<WoundedComponent> _woundedPeds;
+        private EcsFilter<DamagedByWeaponComponent> _damagedPeds;
 
         private readonly GswLogger _logger;
 
@@ -18,21 +19,32 @@ namespace GunshotWound2.Wounds.Systems
 
         public void Run()
         {
-#if DEBUG
-            foreach (int i in _woundedPeds)
+            foreach (int i in _damagedPeds)
             {
-                WoundedComponent wounded = _woundedPeds.Components1[i];
-                int woundedEntity = _woundedPeds.Entities[i];
+                DamagedByWeaponComponent damagedComponent = _damagedPeds.Components1[i];
+                int weaponEntity = damagedComponent.WeaponEntity;
+                int pedEntity = _damagedPeds.Entities[i];
 
-                string woundList = "Wounds: ";
-                foreach (int woundEntity in wounded.WoundEntities)
+                var woundRandomizer = _ecsWorld.GetComponent<WoundRandomizerComponent>(weaponEntity);
+                if (woundRandomizer == null || woundRandomizer.WoundRandomizer.Count <= 0)
                 {
-                    woundList += $"{woundEntity.GetEntityName(_ecsWorld)}, ";
+                    _logger.MakeLog($"Weapon {weaponEntity.GetEntityName(_ecsWorld)} " +
+                                    $"doesn't have {nameof(WoundRandomizerComponent)}");
+                    _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(pedEntity);
+                    continue;
                 }
 
-                _logger.MakeLog($"{woundedEntity.GetEntityName(_ecsWorld)} {woundList}");
-            }
+                int woundEntity = woundRandomizer.WoundRandomizer.NextWithReplacement();
+                damagedComponent.WoundEntity = woundEntity;
+
+                var wounded = _ecsWorld.EnsureComponent<WoundedComponent>(pedEntity, out _);
+                wounded.WoundEntities.Add(woundEntity);
+
+#if DEBUG
+                string woundName = woundEntity.GetEntityName(_ecsWorld);
+                _logger.MakeLog($"{pedEntity.GetEntityName(_ecsWorld)} have got wound {woundName}");
 #endif
+            }
         }
     }
 }

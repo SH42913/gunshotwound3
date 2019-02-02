@@ -2,7 +2,6 @@ using System;
 using GunshotWound2.GswWorld;
 using GunshotWound2.Health;
 using GunshotWound2.Utils;
-using GunshotWound2.Wounds;
 using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
