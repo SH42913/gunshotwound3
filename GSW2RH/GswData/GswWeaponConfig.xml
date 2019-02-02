@@ -10,9 +10,9 @@
             <BleedingMult Value="1.0"/>
             <CritChance Value="0.5"/>
             <WeaponWoundList>
-                <WeaponWound Uid="0" Weight="3"/>
-                <WeaponWound Uid="1" Weight="2"/>
-                <WeaponWound Uid="2" Weight="1"/>
+                <WeaponWound Uid="FLESH_WOUND" Weight="3"/>
+                <WeaponWound Uid="PERFORATING_WOUND" Weight="2"/>
+                <WeaponWound Uid="AVULSIVE_WOUND" Weight="1"/>
             </WeaponWoundList>
         </Weapon>
         <Weapon>
@@ -24,8 +24,8 @@
             <BleedingMult Value="1.0"/>
             <CritChance Value="1.0"/>
             <WeaponWoundList>
-                <WeaponWound Uid="1" Weight="1"/>
-                <WeaponWound Uid="2" Weight="2"/>
+                <WeaponWound Uid="PERFORATING_WOUND" Weight="1"/>
+                <WeaponWound Uid="AVULSIVE_WOUND" Weight="2"/>
             </WeaponWoundList>
         </Weapon>
     </WeaponList>

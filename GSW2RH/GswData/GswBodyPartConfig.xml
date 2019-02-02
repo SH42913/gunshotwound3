@@ -23,12 +23,12 @@
 			<BleedingMult Value="2.0"/>
 			<CritChance Value="0.7"/>
 			<CritWoundList>
-				<CritWound Uid="6" Weight="1"/>
+				<CritWound Uid="NERVES_CRIT" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
-			<!-- LeftClavicle;RightClavicle;Spine2;Spine3; -->
 			<LocalizationKey Key="UPPER_BODY"/>
+			<!-- LeftClavicle;RightClavicle;Spine2;Spine3; -->
 			<Hashes Hashes="64729;10706;24817;24818;"/>
 			<Protection ByHelmet="FALSE" ByArmor="TRUE"/>
 			<DamageMult Value="1.0"/>
@@ -36,7 +36,9 @@
 			<BleedingMult Value="1.0"/>
 			<CritChance Value="1.0"/>
 			<CritWoundList>
-				<CritWound Uid="8" Weight="1"/>
+				<CritWound Uid="NERVES_CRIT" Weight="1"/>
+				<CritWound Uid="HEART_CRIT" Weight="1"/>
+				<CritWound Uid="LUNGS_CRIT" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -49,7 +51,8 @@
 			<BleedingMult Value="1.0"/>
 			<CritChance Value="1.0"/>
 			<CritWoundList>
-				<CritWound Uid="7" Weight="1"/>
+				<CritWound Uid="NERVES_CRIT" Weight="1"/>
+				<CritWound Uid="GUTS_CRIT" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -62,7 +65,7 @@
 			<BleedingMult Value="1.2"/>
 			<CritChance Value="1.0"/>
 			<CritWoundList>
-				<CritWound Uid="4" Weight="1"/>
+				<CritWound Uid="LEG_CRIT" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -75,7 +78,7 @@
 			<BleedingMult Value="1.2"/>
 			<CritChance Value="1.0"/>
 			<CritWoundList>
-				<CritWound Uid="4" Weight="1"/>
+				<CritWound Uid="LEG_CRIT" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -88,7 +91,7 @@
 			<BleedingMult Value="1.2"/>
 			<CritChance Value="0.4"/>
 			<CritWoundList>
-				<CritWound Uid="3" Weight="1"/>
+				<CritWound Uid="ARM_CRIT" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -101,7 +104,7 @@
 			<BleedingMult Value="1.2"/>
 			<CritChance Value="0.4"/>
 			<CritWoundList>
-				<CritWound Uid="3" Weight="1"/>
+				<CritWound Uid="ARM_CRIT" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 	</BodyPartList>

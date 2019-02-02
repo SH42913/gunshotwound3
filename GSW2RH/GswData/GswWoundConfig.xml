@@ -2,7 +2,7 @@
 <GswWoundConfig.xml>
 	<WoundList>
 		<Wound>
-			<Uid Value="0"/>
+			<Uid Value="FLESH_WOUND"/>
 			<LocalizationKey Key="FLESH"/>
 			<BaseDamage Value="5"/>
 			<BasePain Value="15"/>
@@ -10,7 +10,7 @@
 			<CritChance Value="0"/>
 		</Wound>
 		<Wound>
-			<Uid Value="1"/>
+			<Uid Value="PERFORATING_WOUND"/>
 			<LocalizationKey Key="PERFORATING"/>
 			<BaseDamage Value="9"/>
 			<BasePain Value="25"/>
@@ -18,7 +18,7 @@
 			<CritChance Value="0.5"/>
 		</Wound>
 		<Wound>
-			<Uid Value="2"/>
+			<Uid Value="AVULSIVE_WOUND"/>
 			<LocalizationKey Key="AVULSIVE"/>
 			<BaseDamage Value="11"/>
 			<BasePain Value="30"/>
@@ -26,7 +26,7 @@
 			<CritChance Value="1.0"/>
 		</Wound>
 		<Wound>
-			<Uid Value="3"/>
+			<Uid Value="ARM_CRIT"/>
 			<LocalizationKey Key="ARM_BONE_BROKEN"/>
 			<BaseDamage Value="5"/>
 			<BasePain Value="30"/>
@@ -34,7 +34,7 @@
 			<EnableRagdoll LengthInMs="5000" Type="0" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
 		</Wound>
 		<Wound>
-			<Uid Value="4"/>
+			<Uid Value="LEG_CRIT"/>
 			<LocalizationKey Key="LEG_BONE_BROKEN"/>
 			<BaseDamage Value="5"/>
 			<BasePain Value="30"/>
@@ -43,19 +43,19 @@
 			<NaturalMotionMessages List="KneeShot;"/>
 		</Wound>
 		<Wound>
-			<Uid Value="5"/>
+			<Uid Value="LUNGS_CRIT"/>
 			<LocalizationKey Key="LUNGS_COLLAPSED"/>
 			<BaseDamage Value="10"/>
 			<BasePain Value="15"/>
 			<BaseBleeding Value="1.5"/>
 		</Wound>
 		<Wound>
-			<Uid Value="6"/>
+			<Uid Value="NERVES_CRIT"/>
 			<LocalizationKey Key="NERVES_DAMAGED"/>
 			<EnableRagdoll LengthInMs="-1" Type="0" Permanent="TRUE" DisableOnlyOnHeal="TRUE"/>
 		</Wound>
 		<Wound>
-			<Uid Value="7"/>
+			<Uid Value="GUTS_CRIT"/>
 			<LocalizationKey Key="GUTS_DAMAGED"/>
 			<BaseDamage Value="15"/>
 			<BasePain Value="30"/>
@@ -64,7 +64,7 @@
 			<NaturalMotionMessages List="GutsWound;"/>
 		</Wound>
 		<Wound>
-			<Uid Value="8"/>
+			<Uid Value="HEART_CRIT"/>
 			<LocalizationKey Key="HEART_DAMAGED"/>
 			<BaseDamage Value="20"/>
 			<BasePain Value="20"/>

@@ -31,7 +31,7 @@ namespace GunshotWound2.Uids.Systems
                 if (uidElement == null) continue;
 
                 int entity = _items.Entities[i];
-                long uid = uidElement.GetLong();
+                string uid = uidElement.GetAttributeValue("Value");
 
                 _ecsWorld.AddComponent<UidComponent>(entity).Uid = uid;
                 dict.UidToEntityDict.Add(uid, entity);

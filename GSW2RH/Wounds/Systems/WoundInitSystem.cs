@@ -82,7 +82,7 @@ namespace GunshotWound2.Wounds.Systems
                 var randomizer = _ecsWorld.AddComponent<WoundRandomizerComponent>(itemEntity);
                 foreach (XElement woundElement in woundListElement.Elements(woundElementName))
                 {
-                    long woundUid = woundElement.GetLong("Uid");
+                    string woundUid = woundElement.GetAttributeValue("Uid");
                     if (!uidDict.ContainsKey(woundUid))
                     {
                         throw new Exception($"Entity with Uid {woundUid} not found!");
