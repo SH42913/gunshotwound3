@@ -105,6 +105,10 @@
     <Compile Include="Effects\Ragdoll\PermanentRagdollComponent.cs" />
     <Compile Include="Effects\Ragdoll\Systems\RagdollInitSystem.cs" />
     <Compile Include="Effects\Ragdoll\Systems\RagdollSystem.cs" />
+    <Compile Include="Effects\WeaponDrop\Systems\WeaponDropInitSystem.cs" />
+    <Compile Include="Effects\WeaponDrop\Systems\WeaponDropSystem.cs" />
+    <Compile Include="Effects\WeaponDrop\WeaponDropComponent.cs" />
+    <Compile Include="Effects\WeaponDrop\WeaponDropStatsComponent.cs" />
     <Compile Include="GswWorld\AnimalMarkComponent.cs" />
     <Compile Include="GswWorld\ForceCreateGswPedEvent.cs" />
     <Compile Include="GswWorld\GswPedComponent.cs" />

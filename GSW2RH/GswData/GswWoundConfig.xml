@@ -31,7 +31,7 @@
 			<BaseDamage Value="5"/>
 			<BasePain Value="30"/>
 			<BaseBleeding Value="0.4"/>
-			<EnableRagdoll LengthInMs="5000" Type="0" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
+			<DropWeapon/>
 		</Wound>
 		<Wound>
 			<Uid Value="LEG_CRIT"/>
@@ -53,6 +53,7 @@
 			<Uid Value="NERVES_CRIT"/>
 			<LocalizationKey Key="NERVES_DAMAGED"/>
 			<EnableRagdoll LengthInMs="-1" Type="0" Permanent="TRUE" DisableOnlyOnHeal="TRUE"/>
+			<DropWeapon/>
 		</Wound>
 		<Wound>
 			<Uid Value="GUTS_CRIT"/>
