@@ -25,7 +25,7 @@ namespace GunshotWound2.WoundEffects.Movement.Systems
                 NativeFunction.Natives.SET_PED_MOVE_RATE_OVERRIDE(ped, 1.0f);
                 EcsWorld.RemoveComponent<PermanentMovementRateComponent>(pedEntity);
 #if DEBUG
-                Logger.MakeLog($"Permanent move rate for {pedEntity.GetEntityName(EcsWorld)} was reset");
+                Logger.MakeLog($"Permanent move rate for {pedEntity.GetEntityName()} was reset");
 #endif
             }
 
@@ -77,7 +77,7 @@ namespace GunshotWound2.WoundEffects.Movement.Systems
                         EcsWorld.AddComponent<PermanentDisabledSprintComponent>(pedEntity);
                     }
 #if DEBUG
-                    Logger.MakeLog($"Move rate for {pedEntity.GetEntityName(EcsWorld)} " +
+                    Logger.MakeLog($"Move rate for {pedEntity.GetEntityName()} " +
                                    $"was changed to {newRate.Rate}, permanent = {newRate.Permanent}");
 #endif
                 }
@@ -87,7 +87,7 @@ namespace GunshotWound2.WoundEffects.Movement.Systems
                 {
                     NativeFunction.Natives.SET_PED_MOVE_RATE_OVERRIDE(ped, 1.0f);
 #if DEBUG
-                    Logger.MakeLog($"Move rate for {pedEntity.GetEntityName(EcsWorld)} was restored");
+                    Logger.MakeLog($"Move rate for {pedEntity.GetEntityName()} was restored");
 #endif
                 }
             }

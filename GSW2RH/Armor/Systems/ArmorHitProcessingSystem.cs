@@ -74,7 +74,7 @@ namespace GunshotWound2.Armor.Systems
                 if (bodyArmor == null || !bodyArmor.ProtectedByBodyArmor)
                 {
 #if DEBUG
-                    var partName = bodyPartEntity.GetEntityName(_ecsWorld);
+                    var partName = bodyPartEntity.GetEntityName();
                     _logger.MakeLog($"{partName} of {ped.Name(pedEntity)} is not protected by armor");
 #endif
                     ped.Armor = armor.Armor;

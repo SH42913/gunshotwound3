@@ -69,7 +69,7 @@ namespace GunshotWound2.PainStates.Systems
                 component.PainStateEntities.Add(pair.Value);
                 component.PainStatePercents.Add(pair.Key);
 #if DEBUG
-                _logger.MakeLog($"PainState {pair.Value.GetEntityName(_ecsWorld)} got {pair.Key} percent");
+                _logger.MakeLog($"PainState {pair.Value.GetEntityName()} got {pair.Key} percent");
 #endif
             }
         }

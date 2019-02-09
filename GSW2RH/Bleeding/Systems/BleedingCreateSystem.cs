@@ -58,7 +58,7 @@ namespace GunshotWound2.Bleeding.Systems
                     bleeding.Severity = finalSeverity;
 #if DEBUG
                     _logger.MakeLog(
-                        $"Created bleeding {woundEntity.GetEntityName(_ecsWorld)} for Entity ({pedEntity}). " +
+                        $"Created bleeding {woundEntity.GetEntityName()} for Entity ({pedEntity}). " +
                         $"Base severity {baseSeverity:0.00}; final severity {finalSeverity:0.00}");
 #endif
                     info.BleedingEntities.Add(bleedingEntity);

@@ -22,7 +22,7 @@ namespace GunshotWound2.WoundEffects.MovementClipset.Systems
             component.PedFemale = clipset.GetAttributeValue("PedFemale");
 
 #if DEBUG
-            Logger.MakeLog($"{partEntity.GetEntityName(EcsWorld)} got {component}");
+            Logger.MakeLog($"{partEntity.GetEntityName()} got {component}");
 #endif
         }
     }

@@ -41,12 +41,12 @@ namespace GunshotWound2.PainStates.Systems
 
 #if DEBUG
                 string currentState = oldState >= 0
-                    ? stateList.PainStateEntities[oldState].GetEntityName(_ecsWorld)
+                    ? stateList.PainStateEntities[oldState].GetEntityName()
                     : "NO PAIN";
                 string newState = newStateIndex >= 0
-                    ? stateList.PainStateEntities[newStateIndex].GetEntityName(_ecsWorld)
+                    ? stateList.PainStateEntities[newStateIndex].GetEntityName()
                     : "NO PAIN";
-                _logger.MakeLog($"{pedEntity.GetEntityName(_ecsWorld)}: Changed Pain State from {currentState} to {newState}");
+                _logger.MakeLog($"{pedEntity.GetEntityName()}: Changed Pain State from {currentState} to {newState}");
 #endif
             }
 
@@ -79,7 +79,7 @@ namespace GunshotWound2.PainStates.Systems
                     {
                         int newStateEntity = stateList.PainStateEntities[i];
 #if DEBUG
-                        _logger.MakeLog($"Added {newStateEntity.GetEntityName(_ecsWorld)} PainState");
+                        _logger.MakeLog($"Added {newStateEntity.GetEntityName()} PainState");
 #endif
                         wounded.WoundEntities.Add(newStateEntity);
                     }
@@ -92,7 +92,7 @@ namespace GunshotWound2.PainStates.Systems
 
                         int newStateEntity = stateList.PainStateEntities[i];
 #if DEBUG
-                        _logger.MakeLog($"Added {newStateEntity.GetEntityName(_ecsWorld)} PainState");
+                        _logger.MakeLog($"Added {newStateEntity.GetEntityName()} PainState");
 #endif
                         wounded.WoundEntities.Add(newStateEntity);
                     }
@@ -101,12 +101,12 @@ namespace GunshotWound2.PainStates.Systems
                 currentStateComponent.CurrentPainStateIndex = newStateIndex;
 #if DEBUG
                 string currentState = currentStateIndex >= 0
-                    ? stateList.PainStateEntities[currentStateIndex].GetEntityName(_ecsWorld)
+                    ? stateList.PainStateEntities[currentStateIndex].GetEntityName()
                     : "NO PAIN";
                 string newState = newStateIndex >= 0
-                    ? stateList.PainStateEntities[newStateIndex].GetEntityName(_ecsWorld)
+                    ? stateList.PainStateEntities[newStateIndex].GetEntityName()
                     : "NO PAIN";
-                _logger.MakeLog($"{pedEntity.GetEntityName(_ecsWorld)}: Changed Pain State from {currentState} to {newState}");
+                _logger.MakeLog($"{pedEntity.GetEntityName()}: Changed Pain State from {currentState} to {newState}");
 #endif
             }
         }

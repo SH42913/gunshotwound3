@@ -36,7 +36,7 @@ namespace GunshotWound2.BodyParts.Systems
 
 #if DEBUG
                 PedBoneId lastBone = ped.LastDamageBone;
-                var partName = bodyPartEntity.GetEntityName(_ecsWorld);
+                var partName = bodyPartEntity.GetEntityName();
                 _logger.MakeLog($"Ped {ped.Name(pedEntity)} has damaged {partName} with boneId {(uint) lastBone}");
 
                 var history = _ecsWorld.EnsureComponent<BodyHitHistoryComponent>(pedEntity, out bool newBodyHitHistory);

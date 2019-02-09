@@ -23,7 +23,7 @@ namespace GunshotWound2.WoundEffects.Ragdoll.Systems
                 component.DisableOnlyOnHeal = ragdoll.GetBool("DisableOnlyOnHeal");
 
 #if DEBUG
-                Logger.MakeLog($"{partEntity.GetEntityName(EcsWorld)} got {component}");
+                Logger.MakeLog($"{partEntity.GetEntityName()} got {component}");
 #endif
             }
 

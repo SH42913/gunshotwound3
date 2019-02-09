@@ -109,7 +109,7 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
                 messages.MessageList.Add(messageString);
             }
 
-            Logger.MakeLog($"{partEntity.GetEntityName(EcsWorld)} have {messages}");
+            Logger.MakeLog($"{partEntity.GetEntityName()} have {messages}");
         }
 
         public void PreDestroy()

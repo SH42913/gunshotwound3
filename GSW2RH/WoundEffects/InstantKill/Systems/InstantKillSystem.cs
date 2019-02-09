@@ -29,7 +29,7 @@ namespace GunshotWound2.WoundEffects.InstantKill.Systems
             int newHealth = (int) health.MinHealth - 2;
             ped.SetHealth(newHealth);
 #if DEBUG
-            Logger.MakeLog($"{pedEntity.GetEntityName(EcsWorld)} was killed due {ikComponent.ReasonKey}!");
+            Logger.MakeLog($"{pedEntity.GetEntityName()} was killed due {ikComponent.ReasonKey}!");
 #endif
         }
     }

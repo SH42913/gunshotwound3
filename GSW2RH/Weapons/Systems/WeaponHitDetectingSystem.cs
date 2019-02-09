@@ -46,7 +46,7 @@ namespace GunshotWound2.Weapons.Systems
 
                     int weaponEntity = _weapons.Entities[i];
 #if DEBUG
-                    string weaponName = weaponEntity.GetEntityName(_ecsWorld);
+                    string weaponName = weaponEntity.GetEntityName();
                     _logger.MakeLog($"Ped {ped.Name(pedEntity)} was damaged by {weaponName}");
 #endif
 

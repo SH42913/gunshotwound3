@@ -46,7 +46,7 @@ namespace GunshotWound2.Hashes.Systems
                     }
                 }
 
-                _logger.MakeLog($"{entity.GetEntityName(_ecsWorld)} {hashesComponent}");
+                _logger.MakeLog($"{entity.GetEntityName()} {hashesComponent}");
             }
         }
 

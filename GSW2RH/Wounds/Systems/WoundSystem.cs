@@ -28,7 +28,7 @@ namespace GunshotWound2.Wounds.Systems
                 var woundRandomizer = _ecsWorld.GetComponent<WoundRandomizerComponent>(weaponEntity);
                 if (woundRandomizer == null || woundRandomizer.WoundRandomizer.Count <= 0)
                 {
-                    _logger.MakeLog($"Weapon {weaponEntity.GetEntityName(_ecsWorld)} " +
+                    _logger.MakeLog($"Weapon {weaponEntity.GetEntityName()} " +
                                     $"doesn't have {nameof(WoundRandomizerComponent)}");
                     _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(pedEntity);
                     continue;
@@ -41,8 +41,8 @@ namespace GunshotWound2.Wounds.Systems
                 wounded.WoundEntities.Add(woundEntity);
 
 #if DEBUG
-                string woundName = woundEntity.GetEntityName(_ecsWorld);
-                _logger.MakeLog($"{pedEntity.GetEntityName(_ecsWorld)} have got wound {woundName}");
+                string woundName = woundEntity.GetEntityName();
+                _logger.MakeLog($"{pedEntity.GetEntityName()} have got wound {woundName}");
 #endif
             }
         }

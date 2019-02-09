@@ -86,8 +86,8 @@ namespace GunshotWound2.Utils
             XAttribute attribute = node.Attribute(attributeName);
             if (attribute == null)
             {
-                throw new Exception(
-                    $"Can't find attribute {attributeName} in {node.Parent?.Name}/{node.Name.LocalName}");
+                throw new Exception($"Can't find attribute {attributeName} in " +
+                                    $"{node.Parent?.Name}/{node.Name.LocalName}");
             }
 
             return attribute.Value;
@@ -156,14 +156,15 @@ namespace GunshotWound2.Utils
             };
         }
 
-        public static string GetEntityName(this int entity, EcsWorld ecsWorld)
+        public static string GetEntityName(this int entity)
         {
+            var ecsWorld = EcsWorld.Active;
             var localizationKey = ecsWorld.GetComponent<LocalizationKeyComponent>(entity);
             if (localizationKey != null) return $"{localizationKey.Key}({entity})";
 
             var gswPed = ecsWorld.GetComponent<GswPedComponent>(entity);
             if (gswPed != null) return gswPed.ThisPed.Name(entity);
-            
+
             return $"Entity #{entity}";
         }
 

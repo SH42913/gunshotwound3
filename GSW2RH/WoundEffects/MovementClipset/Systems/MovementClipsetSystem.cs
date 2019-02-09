@@ -64,7 +64,7 @@ namespace GunshotWound2.WoundEffects.MovementClipset.Systems
 
             NativeFunction.Natives.SET_PED_MOVEMENT_CLIPSET(ped, clipset, 1.0f);
 #if DEBUG
-            Logger.MakeLog($"{pedEntity.GetEntityName(EcsWorld)} changed movement clipset to {clipset}");
+            Logger.MakeLog($"{pedEntity.GetEntityName()} changed movement clipset to {clipset}");
 #endif
         }
     }

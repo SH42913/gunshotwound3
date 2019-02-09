@@ -63,7 +63,7 @@ namespace GunshotWound2.Pain.Systems
 
                     basePain += pain.BasePain;
 #if DEBUG
-                    _logger.MakeLog($"{woundEntity.GetEntityName(_ecsWorld)} increase pain for {pain.BasePain}");
+                    _logger.MakeLog($"{woundEntity.GetEntityName()} increase pain for {pain.BasePain}");
 #endif
                 }
 
@@ -96,7 +96,7 @@ namespace GunshotWound2.Pain.Systems
 #if DEBUG
                 int pedEntity = _woundedPeds.Entities[i];
                 float painPercent = painComponent.PainAmount / maxPain * 100f;
-                _logger.MakeLog($"{pedEntity.GetEntityName(_ecsWorld)}: Base pain is {basePain:0.0}; " +
+                _logger.MakeLog($"{pedEntity.GetEntityName()}: Base pain is {basePain:0.0}; " +
                                 $"Final pain is {finalPain:0.0}; " +
                                 $"Pain percent is {painPercent:0.0}");
 #endif
