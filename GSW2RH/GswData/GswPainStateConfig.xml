@@ -3,17 +3,20 @@
 	<PainStateList>
 		<PainState PainPercent="0">
 			<LocalizationKey Key="MILD"/>
-			<DisablePermanentRagdoll/>
-			<DisableFacialAnimation/>
+			<RestoreMovementRate/>
 		</PainState>
         <PainState PainPercent="0.3">
             <LocalizationKey Key="AVERAGE"/>
 			<DisablePermanentRagdoll/>
 			<DisableFacialAnimation/>
-        </PainState>
+			<MovementRate Value="0.9" Permanent="FALSE"/>
+			<EnableSprint/>
+		</PainState>
         <PainState PainPercent="0.7">
             <LocalizationKey Key="INTENSE"/>
 			<EnableFacialAnimation Animations="mood_injured_1;" MaleDict="facials@gen_male@base" FemaleDict="facials@gen_female@base" Permanent="TRUE"/>
+			<MovementRate Value="0.8" Permanent="FALSE"/>
+			<DisableSprint Permanent="FALSE"/>
         </PainState>
         <PainState PainPercent="1">
             <LocalizationKey Key="UNBEARABLE"/>

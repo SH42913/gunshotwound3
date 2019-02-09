@@ -1,6 +1,5 @@
 using System;
 using GunshotWound2.GswWorld;
-using GunshotWound2.Health;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
@@ -12,7 +11,6 @@ namespace GunshotWound2.Effects.FacialAnimation.Systems
     public class FacialAnimationSystem : BaseEffectSystem
     {
         private EcsFilter<GswPedComponent, PermanentFacialAnimationComponent> _permanentAnimPeds;
-        private EcsFilter<GswPedComponent, PermanentFacialAnimationComponent, FullyHealedComponent> _healedPeds;
 
         private static readonly Random Random = new Random();
 
@@ -30,15 +28,14 @@ namespace GunshotWound2.Effects.FacialAnimation.Systems
                 PermanentFacialAnimationComponent animation = _permanentAnimPeds.Components2[i];
                 NativeFunction.Natives.PLAY_FACIAL_ANIM(ped, animation.Name, animation.Dict);
             }
+        }
 
-            foreach (int i in _healedPeds)
-            {
-                Ped ped = _healedPeds.Components1[i].ThisPed;
-                if (!ped.Exists()) continue;
+        protected override void ResetEffect(Ped ped, int pedEntity)
+        {
+            var permanent = EcsWorld.GetComponent<PermanentFacialAnimationComponent>(pedEntity);
+            if (permanent == null) return;
 
-                int pedEntity = _healedPeds.Entities[i];
-                EcsWorld.RemoveComponent<PermanentFacialAnimationComponent>(pedEntity, true);
-            }
+            EcsWorld.RemoveComponent<PermanentFacialAnimationComponent>(pedEntity);
         }
 
         protected override void ProcessWound(Ped ped, int pedEntity, int woundEntity)

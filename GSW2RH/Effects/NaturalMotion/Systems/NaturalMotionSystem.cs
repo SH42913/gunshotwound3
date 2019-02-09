@@ -27,6 +27,10 @@ namespace GunshotWound2.Effects.NaturalMotion.Systems
             }
         }
 
+        protected override void ResetEffect(Ped ped, int pedEntity)
+        {
+        }
+
         protected override void ProcessWound(Ped ped, int pedEntity, int woundEntity)
         {
             var dict = _dict.Components1[0];

@@ -10,12 +10,16 @@ namespace GunshotWound2.Effects.WeaponDrop.Systems
     public class WeaponDropSystem : BaseEffectSystem
     {
         private EcsFilter<WeaponDropStatsComponent> _stats;
-        
+
         public WeaponDropSystem() : base(new GswLogger(typeof(WeaponDropSystem)))
         {
         }
 
         protected override void PrepareRunActions()
+        {
+        }
+
+        protected override void ResetEffect(Ped ped, int pedEntity)
         {
         }
 
@@ -28,8 +32,8 @@ namespace GunshotWound2.Effects.WeaponDrop.Systems
 
             WeaponDropStatsComponent stats = _stats.Components1[0];
             bool isPlayer = EcsWorld.GetComponent<PlayerMarkComponent>(pedEntity) != null;
-            if(isPlayer && !stats.PlayerCanDropWeapon) return;
-            
+            if (isPlayer && !stats.PlayerCanDropWeapon) return;
+
             ped.Inventory.EquippedWeapon?.Drop();
         }
     }

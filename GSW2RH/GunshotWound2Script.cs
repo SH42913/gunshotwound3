@@ -10,6 +10,7 @@ using GunshotWound2.Configs.Systems;
 using GunshotWound2.Crits.Systems;
 using GunshotWound2.Effects.FacialAnimation.Systems;
 using GunshotWound2.Effects.InstantKill.Systems;
+using GunshotWound2.Effects.Movement.Systems;
 using GunshotWound2.Effects.NaturalMotion.Systems;
 using GunshotWound2.Effects.Ragdoll.Systems;
 using GunshotWound2.Effects.WeaponDrop.Systems;
@@ -95,6 +96,7 @@ namespace GunshotWound2
                 .Add(new FacialAnimationInitSystem())
                 .Add(new InstantKillInitSystem())
                 .Add(new WeaponDropInitSystem())
+                .Add(new MovementInitSystem())
                 .Add(new PainStateSystem())
                 .Add(new BaseHitDetectingSystem())
                 .Add(new BodyHitDetectingSystem())
@@ -118,7 +120,8 @@ namespace GunshotWound2
                 .Add(new NaturalMotionSystem())
                 .Add(new FacialAnimationSystem())
                 .Add(new InstantKillSystem())
-                .Add(new WeaponDropSystem());
+                .Add(new WeaponDropSystem())
+                .Add(new MovementSystem());
             _systems.Initialize();
             GameFiber.Yield();
         }

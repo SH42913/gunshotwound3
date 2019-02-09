@@ -16,6 +16,10 @@ namespace GunshotWound2.Effects.InstantKill.Systems
         {
         }
 
+        protected override void ResetEffect(Ped ped, int pedEntity)
+        {
+        }
+
         protected override void ProcessWound(Ped ped, int pedEntity, int woundEntity)
         {
             var ikComponent = EcsWorld.GetComponent<InstantKillComponent>(woundEntity);

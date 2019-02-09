@@ -1,4 +1,5 @@
 using GunshotWound2.GswWorld;
+using GunshotWound2.Health;
 using GunshotWound2.Utils;
 using GunshotWound2.Wounds;
 using Leopotam.Ecs;
@@ -11,6 +12,8 @@ namespace GunshotWound2.Effects
     {
         protected EcsWorld EcsWorld;
         protected EcsFilter<GswPedComponent, WoundedComponent> WoundedPeds;
+        protected EcsFilter<GswPedComponent, NewPedMarkComponent>.Exclude<WoundedComponent> NewPeds;
+        protected EcsFilter<GswPedComponent, FullyHealedComponent> HealedPeds;
 
         protected readonly GswLogger Logger;
 
@@ -22,6 +25,24 @@ namespace GunshotWound2.Effects
         public void Run()
         {
             PrepareRunActions();
+
+            foreach (int i in NewPeds)
+            {
+                Ped ped = NewPeds.Components1[i].ThisPed;
+                if (!ped.Exists()) continue;
+
+                int pedEntity = NewPeds.Entities[i];
+                ResetEffect(ped, pedEntity);
+            }
+
+            foreach (int i in HealedPeds)
+            {
+                Ped ped = HealedPeds.Components1[i].ThisPed;
+                if (!ped.Exists()) continue;
+
+                int pedEntity = HealedPeds.Entities[i];
+                ResetEffect(ped, pedEntity);
+            }
 
             foreach (int pedIndex in WoundedPeds)
             {
@@ -39,6 +60,8 @@ namespace GunshotWound2.Effects
         }
 
         protected abstract void PrepareRunActions();
+
+        protected abstract void ResetEffect(Ped ped, int pedEntity);
 
         protected abstract void ProcessWound(Ped ped, int pedEntity, int woundEntity);
     }
