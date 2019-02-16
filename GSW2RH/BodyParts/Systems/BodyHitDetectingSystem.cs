@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GunshotWound2.BaseHitDetecting;
 using GunshotWound2.GswWorld;
 using GunshotWound2.Utils;
@@ -10,10 +11,11 @@ namespace GunshotWound2.BodyParts.Systems
     [EcsInject]
     public class BodyHitDetectingSystem : IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
-        private EcsFilter<GswPedComponent, HasBeenHitMarkComponent> _damagedPeds;
-        private EcsFilter<BodyPartComponent> _bodyParts;
-        private EcsFilter<BoneToBodyPartDictComponent> _bodyPartList;
+        private readonly EcsWorld _ecsWorld = null;
+
+        private readonly EcsFilter<GswPedComponent, HasBeenHitMarkComponent> _damagedPeds = null;
+        private readonly EcsFilter<BodyPartComponent> _bodyParts = null;
+        private readonly EcsFilter<BoneToBodyPartDictComponent> _bodyPartList = null;
 
         private readonly GswLogger _logger;
         private static readonly Random Random = new Random();
@@ -36,12 +38,12 @@ namespace GunshotWound2.BodyParts.Systems
 
 #if DEBUG
                 PedBoneId lastBone = ped.LastDamageBone;
-                var partName = bodyPartEntity.GetEntityName();
-                _logger.MakeLog($"Ped {ped.Name(pedEntity)} has damaged {partName} with boneId {(uint) lastBone}");
+                string partName = bodyPartEntity.GetEntityName();
+                _logger.MakeLog($"{pedEntity.GetEntityName()} has damaged {partName} with boneId {(uint) lastBone}");
 
-                var history = _ecsWorld.EnsureComponent<BodyHitHistoryComponent>(pedEntity, out bool newBodyHitHistory);
+                var history = _ecsWorld.EnsureComponent<BodyHitHistoryComponent>(pedEntity, out bool isNew);
                 PedBoneId?[] bones = history.LastDamagedBones;
-                if (newBodyHitHistory)
+                if (isNew)
                 {
                     bones[0] = lastBone;
                     bones[1] = null;
@@ -63,20 +65,20 @@ namespace GunshotWound2.BodyParts.Systems
         private int GetDamagedBodyPart(Ped target)
         {
             var lastBone = (uint) target.LastDamageBone;
-
-            var bodyPartDict = _bodyPartList.Components1[0].BoneIdToBodyPartEntity;
+            Dictionary<uint, int> bodyPartDict = _bodyPartList.Components1[0].BoneIdToBodyPartEntity;
             if (bodyPartDict.ContainsKey(lastBone))
             {
                 return bodyPartDict[lastBone];
             }
 
-            _logger.MakeLog($"!!! Bone {lastBone} for ped {target.Model.Name} is unknown! Bone was select by random!");
+            _logger.MakeLog($"WARNING! Bone {lastBone} for ped {target.Model.Name} is unknown! " +
+                            "Bone will select by random!");
             return GetRandomBodyPartEntity();
         }
 
         private int GetRandomBodyPartEntity()
         {
-            return _bodyParts.Entities[Random.Next(0, _bodyParts.EntitiesCount)];
+            return _bodyParts.Entities[Random.Next(0, _bodyParts.GetEnumerator().GetCount())];
         }
     }
 }

@@ -7,8 +7,8 @@ namespace GunshotWound2.Bleeding.Systems
     [EcsInject]
     public class BleedingHealSystem : IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
-        private EcsFilter<BleedingInfoComponent, FullyHealedComponent> _healedEntities;
+        private readonly EcsWorld _ecsWorld = null;
+        private readonly EcsFilter<BleedingInfoComponent, FullyHealedComponent> _healedEntities = null;
 
         private readonly GswLogger _logger;
 
@@ -16,7 +16,7 @@ namespace GunshotWound2.Bleeding.Systems
         {
             _logger = new GswLogger(typeof(BleedingHealSystem));
         }
-        
+
         public void Run()
         {
             foreach (int i in _healedEntities)
@@ -25,8 +25,8 @@ namespace GunshotWound2.Bleeding.Systems
 
                 foreach (int bleedingEntity in info.BleedingEntities)
                 {
-                    if(!_ecsWorld.IsEntityExists(bleedingEntity)) continue;
-                    
+                    if (!_ecsWorld.IsEntityExists(bleedingEntity)) continue;
+
                     _ecsWorld.RemoveEntity(bleedingEntity);
                 }
             }

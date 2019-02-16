@@ -23,16 +23,25 @@ namespace GunshotWound2.WoundEffects.FacialAnimation.Systems
 
                 foreach (string animation in enable.GetAttributeValue("Animations").Split(';'))
                 {
-                    if(string.IsNullOrEmpty(animation)) continue;
-                    
-                    component.Animations.Add(animation);
+                    if (!string.IsNullOrEmpty(animation))
+                    {
+                        component.Animations.Add(animation);
+                    }
                 }
+
+#if DEBUG
+                Logger.MakeLog($"{partEntity.GetEntityName()} have got {component}");
+#endif
             }
 
             XElement disable = partRoot.Element("DisableFacialAnimation");
             if (disable != null)
             {
                 EcsWorld.AddComponent<DisableFacialAnimationComponent>(partEntity);
+
+#if DEBUG
+                Logger.MakeLog($"{partEntity.GetEntityName()} will disable facial animation");
+#endif
             }
         }
     }

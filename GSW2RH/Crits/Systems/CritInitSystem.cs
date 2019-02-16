@@ -9,9 +9,9 @@ namespace GunshotWound2.Crits.Systems
     [EcsInject]
     public class CritInitSystem : IEcsInitSystem, IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
-        private EcsFilter<LoadedItemConfigComponent> _loadedItems;
-        private EcsFilter<NewPedMarkComponent> _newPeds;
+        private readonly EcsWorld _ecsWorld = null;
+        private readonly EcsFilter<LoadedItemConfigComponent> _loadedItems = null;
+        private readonly EcsFilter<NewPedMarkComponent> _newPeds = null;
 
         private readonly GswLogger _logger;
 

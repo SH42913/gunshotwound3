@@ -158,7 +158,7 @@ namespace GunshotWound2.Utils
 
         public static string GetEntityName(this int entity)
         {
-            var ecsWorld = EcsWorld.Active;
+            EcsWorld ecsWorld = EcsWorld.Active;
             var localizationKey = ecsWorld.GetComponent<LocalizationKeyComponent>(entity);
             if (localizationKey != null) return $"{localizationKey.Key}({entity})";
 

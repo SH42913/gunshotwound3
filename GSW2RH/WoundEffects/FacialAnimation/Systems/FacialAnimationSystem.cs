@@ -10,8 +10,7 @@ namespace GunshotWound2.WoundEffects.FacialAnimation.Systems
     [EcsInject]
     public class FacialAnimationSystem : BaseEffectSystem
     {
-        private EcsFilter<GswPedComponent, PermanentFacialAnimationComponent> _permanentAnimPeds;
-
+        private readonly EcsFilter<GswPedComponent, PermanentFacialAnimationComponent> _permanentAnimPeds = null;
         private static readonly Random Random = new Random();
 
         public FacialAnimationSystem() : base(new GswLogger(typeof(FacialAnimationSystem)))
@@ -54,14 +53,14 @@ namespace GunshotWound2.WoundEffects.FacialAnimation.Systems
                     permanent.Name = animationName;
                     permanent.Dict = dict;
 #if DEBUG
-                    Logger.MakeLog($"{ped.Name(pedEntity)} got permanent facial animation {animationName}");
+                    Logger.MakeLog($"{pedEntity.GetEntityName()} got permanent facial animation {animationName}");
 #endif
                 }
                 else
                 {
                     NativeFunction.Natives.PLAY_FACIAL_ANIM(ped, animationName, dict);
 #if DEBUG
-                    Logger.MakeLog($"{ped.Name(pedEntity)} got short facial animation {animationName}");
+                    Logger.MakeLog($"{pedEntity.GetEntityName()} got short facial animation {animationName}");
 #endif
                 }
             }
@@ -70,6 +69,9 @@ namespace GunshotWound2.WoundEffects.FacialAnimation.Systems
             if (disable != null)
             {
                 EcsWorld.RemoveComponent<PermanentFacialAnimationComponent>(pedEntity, true);
+#if DEBUG
+                Logger.MakeLog($"{pedEntity.GetEntityName()} clean facial animation");
+#endif
             }
         }
     }

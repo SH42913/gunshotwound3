@@ -8,7 +8,7 @@ namespace GunshotWound2.BaseHitDetecting.Systems
     [EcsInject]
     public class BaseHitCleanSystem : IEcsRunSystem
     {
-        private EcsFilter<GswPedComponent, HasBeenHitMarkComponent> _hitPeds;
+        private readonly EcsFilter<GswPedComponent, HasBeenHitMarkComponent> _hitPeds = null;
 
         public void Run()
         {

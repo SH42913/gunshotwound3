@@ -14,12 +14,17 @@ namespace GunshotWound2.Armor.Systems
     [EcsInject]
     public class ArmorHitProcessingSystem : IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
-        private EcsFilter<GswPedComponent, ArmorComponent> _pedsWithArmor;
-        private EcsFilter<GswPedComponent, DamagedBodyPartComponent, DamagedByWeaponComponent, ArmorComponent> _damagedPedsWithArmor;
+        private readonly EcsWorld _ecsWorld = null;
+        private readonly EcsFilter<GswPedComponent, ArmorComponent> _pedsWithArmor = null;
 
-        private static readonly Random Random = new Random();
+        private readonly EcsFilter<
+            GswPedComponent,
+            DamagedBodyPartComponent,
+            DamagedByWeaponComponent,
+            ArmorComponent> _damagedPedsWithArmor = null;
+
         private readonly GswLogger _logger;
+        private static readonly Random Random = new Random();
 
         public ArmorHitProcessingSystem()
         {
@@ -32,7 +37,7 @@ namespace GunshotWound2.Armor.Systems
             {
                 GswPedComponent gswPed = _pedsWithArmor.Components1[i];
                 ArmorComponent armor = _pedsWithArmor.Components2[i];
-                
+
                 Ped ped = gswPed.ThisPed;
                 if (!ped.Exists()) continue;
 
@@ -63,7 +68,7 @@ namespace GunshotWound2.Armor.Systems
                 if (armor.Armor <= 0)
                 {
 #if DEBUG
-                    _logger.MakeLog($"Ped {ped.Name(pedEntity)} doesn't have armor");
+                    _logger.MakeLog($"{pedEntity.GetEntityName()} doesn't have armor");
 #endif
                     ped.Armor = armor.Armor;
                     continue;
@@ -75,7 +80,7 @@ namespace GunshotWound2.Armor.Systems
                 {
 #if DEBUG
                     var partName = bodyPartEntity.GetEntityName();
-                    _logger.MakeLog($"{partName} of {ped.Name(pedEntity)} is not protected by armor");
+                    _logger.MakeLog($"{partName} of {pedEntity.GetEntityName()} is not protected by armor");
 #endif
                     ped.Armor = armor.Armor;
                     continue;
@@ -86,7 +91,8 @@ namespace GunshotWound2.Armor.Systems
                 if (weaponStats == null)
                 {
 #if DEBUG
-                    _logger.MakeLog($"This weapon doesn't have {nameof(ArmorWeaponStatsComponent)}");
+                    _logger.MakeLog($"Weapon {weaponEntity.GetEntityName()} " +
+                                    $"doesn't have {nameof(ArmorWeaponStatsComponent)}");
 #endif
                     ped.Armor = armor.Armor;
                     continue;
@@ -96,13 +102,14 @@ namespace GunshotWound2.Armor.Systems
                 var newPain = _ecsWorld.EnsureComponent<AdditionalPainComponent>(pedEntity, out bool _);
                 newPain.AdditionalPain = weaponStats.ArmorDamage;
 #if DEBUG
-                _logger.MakeLog($"Pain {newPain.AdditionalPain} by armor hit for ped {ped.Name(pedEntity)}");
+                _logger.MakeLog($"Added pain {newPain.AdditionalPain:0.00} " +
+                                $"by armor hit for {pedEntity.GetEntityName()}");
 #endif
-                
+
                 if (armor.Armor <= 0)
                 {
 #if DEBUG
-                    _logger.MakeLog($"Armor of {ped.Name(pedEntity)} was destroyed");
+                    _logger.MakeLog($"Armor of {pedEntity.GetEntityName()} was destroyed");
 #endif
                     ped.Armor = armor.Armor;
                     continue;
@@ -116,7 +123,7 @@ namespace GunshotWound2.Armor.Systems
                 if (!weaponStats.CanPenetrateArmor || weaponStats.MinArmorPercentForPenetration < armorPercent)
                 {
 #if DEBUG
-                    _logger.MakeLog($"Armor of {ped.Name(pedEntity)} was not penetrated");
+                    _logger.MakeLog($"Armor of {pedEntity.GetEntityName()} was not penetrated");
 #endif
                     _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(pedEntity);
                     _ecsWorld.RemoveComponent<DamagedBodyPartComponent>(pedEntity);
@@ -129,7 +136,8 @@ namespace GunshotWound2.Armor.Systems
                 if (!wasPenetrated)
                 {
 #if DEBUG
-                    _logger.MakeLog($"Armor of {ped.Name(pedEntity)} was not penetrated, when chance was {chanceToPenetrate}");
+                    _logger.MakeLog($"Armor of {pedEntity.GetEntityName()} was not penetrated, " +
+                                    $"when chance was {chanceToPenetrate:0.00}");
 #endif
                     _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(pedEntity);
                     _ecsWorld.RemoveComponent<DamagedBodyPartComponent>(pedEntity);
@@ -138,7 +146,8 @@ namespace GunshotWound2.Armor.Systems
                 }
 
 #if DEBUG
-                _logger.MakeLog($"Armor of {ped.Name(pedEntity)} was penetrated, when chance was {chanceToPenetrate}");
+                _logger.MakeLog($"Armor of {pedEntity.GetEntityName()} was penetrated, " +
+                                $"when chance was {chanceToPenetrate:0.00}");
 #endif
                 ped.Armor = armor.Armor;
             }

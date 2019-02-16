@@ -17,6 +17,10 @@ namespace GunshotWound2.WoundEffects.InstantKill.Systems
             EcsWorld
                 .AddComponent<InstantKillComponent>(partEntity)
                 .ReasonKey = element.GetAttributeValue("ReasonKey");
+
+#if DEBUG
+            Logger.MakeLog($"{partEntity.GetEntityName()} will instant kill");
+#endif
         }
     }
 }

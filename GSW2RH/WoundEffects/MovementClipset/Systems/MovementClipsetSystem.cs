@@ -11,7 +11,7 @@ namespace GunshotWound2.WoundEffects.MovementClipset.Systems
     [EcsInject]
     public class MovementClipsetSystem : BaseEffectSystem
     {
-        private EcsFilter<GswPedComponent, PainIsGoneComponent> _pedsWithoutPain;
+        private readonly EcsFilter<GswPedComponent, PainIsGoneComponent> _pedsWithoutPain = null;
 
         public MovementClipsetSystem() : base(new GswLogger(typeof(MovementClipsetSystem)))
         {

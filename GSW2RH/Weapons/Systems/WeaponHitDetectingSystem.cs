@@ -12,9 +12,9 @@ namespace GunshotWound2.Weapons.Systems
     [EcsInject]
     public class WeaponHitDetectingSystem : IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
-        private EcsFilter<GswPedComponent, HasBeenHitMarkComponent, DamagedBodyPartComponent> _damagedPeds;
-        private EcsFilter<HashesComponent, WeaponComponent> _weapons;
+        private readonly EcsWorld _ecsWorld = null;
+        private readonly EcsFilter<GswPedComponent, HasBeenHitMarkComponent, DamagedBodyPartComponent> _damaged = null;
+        private readonly EcsFilter<HashesComponent, WeaponComponent> _weapons = null;
 
         private readonly GswLogger _logger;
 
@@ -25,12 +25,12 @@ namespace GunshotWound2.Weapons.Systems
 
         public void Run()
         {
-            foreach (int i in _damagedPeds)
+            foreach (int i in _damaged)
             {
-                Ped ped = _damagedPeds.Components1[i].ThisPed;
+                Ped ped = _damaged.Components1[i].ThisPed;
                 if (!ped.Exists()) continue;
 
-                DetectWeaponHash(ped, _damagedPeds.Entities[i]);
+                DetectWeaponHash(ped, _damaged.Entities[i]);
             }
         }
 
@@ -46,8 +46,7 @@ namespace GunshotWound2.Weapons.Systems
 
                     int weaponEntity = _weapons.Entities[i];
 #if DEBUG
-                    string weaponName = weaponEntity.GetEntityName();
-                    _logger.MakeLog($"Ped {ped.Name(pedEntity)} was damaged by {weaponName}");
+                    _logger.MakeLog($"{pedEntity.GetEntityName()} was damaged by {weaponEntity.GetEntityName()}");
 #endif
 
                     var damaged = _ecsWorld.AddComponent<DamagedByWeaponComponent>(pedEntity);
@@ -56,7 +55,7 @@ namespace GunshotWound2.Weapons.Systems
                 }
             }
 
-            _logger.MakeLog($"!!!Ped {ped.Name(pedEntity)} was damaged by UNKNOWN weapon");
+            _logger.MakeLog($"WARNING! {pedEntity.GetEntityName()} was damaged by UNKNOWN weapon");
         }
     }
 }

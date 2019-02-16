@@ -9,7 +9,7 @@ namespace GunshotWound2.BodyParts.Systems
     [EcsInject]
     public class BodyHitHistoryShowSystem : IEcsRunSystem
     {
-        private EcsFilter<GswPedComponent, BodyHitHistoryComponent>.Exclude<PlayerMarkComponent> _peds;
+        private readonly EcsFilter<GswPedComponent, BodyHitHistoryComponent>.Exclude<PlayerMarkComponent> _peds = null;
 
         public void Run()
         {

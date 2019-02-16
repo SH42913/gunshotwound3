@@ -1,3 +1,4 @@
+using System;
 using Leopotam.Ecs;
 using Rage;
 
@@ -6,16 +7,19 @@ namespace GunshotWound2.GswWorld.Systems
     [EcsInject]
     public class GswWorldCleanSystem : IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
+        private readonly EcsWorld _ecsWorld = null;
 
-        private EcsFilter<GswWorldComponent> _world;
-        private EcsFilter<GswPedComponent, RemovedPedMarkComponent> _pedsToRemove;
+        private readonly EcsFilter<GswWorldComponent> _world = null;
+        private readonly EcsFilter<GswPedComponent, RemovedPedMarkComponent> _pedsToRemove = null;
 
         public void Run()
         {
-            if (_world.EntitiesCount <= 0) return;
+            if (_world.IsEmpty())
+            {
+                throw new Exception("GswWorld was not init!");
+            }
+            
             GswWorldComponent gswWorld = _world.Components1[0];
-
             foreach (int i in _pedsToRemove)
             {
                 Ped ped = _pedsToRemove.Components1[i].ThisPed;

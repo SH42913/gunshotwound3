@@ -8,9 +8,9 @@ namespace GunshotWound2.Hashes.Systems
     [EcsInject]
     public class HashesInitSystem : IEcsInitSystem
     {
-        private EcsWorld _ecsWorld;
+        private readonly EcsWorld _ecsWorld = null;
 
-        private EcsFilter<LoadedItemConfigComponent> _configParts;
+        private readonly EcsFilter<LoadedItemConfigComponent> _configParts = null;
 
         private readonly GswLogger _logger;
         private const string HASHES = "Hashes";
@@ -19,19 +19,19 @@ namespace GunshotWound2.Hashes.Systems
         {
             _logger = new GswLogger(typeof(HashesInitSystem));
         }
-        
+
         public void Initialize()
         {
             foreach (int i in _configParts)
             {
                 XElement root = _configParts.Components1[i].ElementRoot;
-                var hashesElement = root.Element(HASHES);
-                if(hashesElement == null) continue;
+                XElement hashesElement = root.Element(HASHES);
+                if (hashesElement == null) continue;
 
                 int entity = _configParts.Entities[i];
                 var hashesComponent = _ecsWorld.AddComponent<HashesComponent>(entity);
 
-                var hashStrings = hashesElement.GetAttributeValue("Hashes").Split(';');
+                string[] hashStrings = hashesElement.GetAttributeValue("Hashes").Split(';');
                 foreach (string hashString in hashStrings)
                 {
                     if (string.IsNullOrEmpty(hashString)) continue;
@@ -42,11 +42,13 @@ namespace GunshotWound2.Hashes.Systems
                     }
                     else
                     {
-                        _logger.MakeLog($"Wrong hash: {hashString}");
+                        _logger.MakeLog($"WARNING! Wrong hash: {hashString}");
                     }
                 }
 
-                _logger.MakeLog($"{entity.GetEntityName()} {hashesComponent}");
+#if DEBUG
+                _logger.MakeLog($"{entity.GetEntityName()} have got {hashesComponent}");
+#endif
             }
         }
 

@@ -11,8 +11,7 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
     [EcsInject]
     public class NaturalMotionSystem : BaseEffectSystem
     {
-        private EcsFilter<NaturalMotionMessagesDictComponent> _dict;
-
+        private readonly EcsFilter<NaturalMotionMessagesDictComponent> _dict = null;
         private static readonly Random Random = new Random();
 
         public NaturalMotionSystem() : base(new GswLogger(typeof(NaturalMotionSystem)))
@@ -21,7 +20,7 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
 
         protected override void PrepareRunActions()
         {
-            if (_dict.EntitiesCount <= 0)
+            if (_dict.IsEmpty())
             {
                 throw new Exception("NaturalMotionSystem was not init");
             }
@@ -33,7 +32,7 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
 
         protected override void ProcessWound(Ped ped, int pedEntity, int woundEntity)
         {
-            var dict = _dict.Components1[0];
+            NaturalMotionMessagesDictComponent dict = _dict.Components1[0];
 
             var nmMessages = EcsWorld.GetComponent<NaturalMotionMessagesComponent>(woundEntity);
             if (nmMessages == null || nmMessages.MessageList.Count <= 0) return;
@@ -63,7 +62,7 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
                 message.SendTo(ped);
             }
 #if DEBUG
-            Logger.MakeLog($"{ped.Name(pedEntity)} got {nmMessages}");
+            Logger.MakeLog($"{pedEntity.GetEntityName()} have got {nmMessages}");
 #endif
         }
     }

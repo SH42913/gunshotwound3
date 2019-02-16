@@ -9,11 +9,11 @@ namespace GunshotWound2.PainStates.Systems
     [EcsInject]
     public class PainStateSystem : IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
+        private readonly EcsWorld _ecsWorld = null;
 
-        private EcsFilter<PainComponent, PainInfoComponent, CurrentPainStateComponent> _entities;
-        private EcsFilter<PainIsGoneComponent, CurrentPainStateComponent> _painIsGone;
-        private EcsFilter<PainStateListComponent> _painStates;
+        private readonly EcsFilter<PainComponent, PainInfoComponent, CurrentPainStateComponent> _entities = null;
+        private readonly EcsFilter<PainIsGoneComponent, CurrentPainStateComponent> _painIsGone = null;
+        private readonly EcsFilter<PainStateListComponent> _painStates = null;
 
         private readonly GswLogger _logger;
 
@@ -24,7 +24,7 @@ namespace GunshotWound2.PainStates.Systems
 
         public void Run()
         {
-            if (_painStates.EntitiesCount <= 0)
+            if (_painStates.IsEmpty())
             {
                 throw new Exception("PainState list was not init!");
             }

@@ -8,15 +8,11 @@ namespace GunshotWound2.GswWorld.Systems
     [EcsInject]
     public class GswWorldInitSystem : IEcsPreInitSystem
     {
-        private EcsWorld _ecsWorld;
-        private EcsFilter<LoadedConfigComponent> _loadedConfigs;
+        private readonly EcsWorld _ecsWorld = null;
+
+        private readonly EcsFilter<LoadedConfigComponent> _loadedConfigs = null;
 
         private readonly GswLogger _logger;
-
-        private const string DETECTING_TARGETS = "DetectingTargets";
-        private const string ACCURACY = "PedAccuracy";
-        private const string SHOOT_RATE = "PedShootRate";
-        private const string SCAN_ONLY_DAMAGED = "ScanOnlyDamaged";
 
         public GswWorldInitSystem()
         {
@@ -25,65 +21,57 @@ namespace GunshotWound2.GswWorld.Systems
 
         public void PreInitialize()
         {
-            _logger.MakeLog("GswWorld is loading!");
-            
             var world = _ecsWorld.AddComponent<GswWorldComponent>(GunshotWound2Script.StatsContainerEntity);
-            FillWithDefaultValues(world);
-            
+            world.HumanDetectingEnabled = true;
+            world.AnimalDetectingEnabled = true;
+            world.HumanAccuracy = new MinMax
+            {
+                Min = 10,
+                Max = 30
+            };
+            world.HumanShootRate = new MinMax
+            {
+                Min = 10,
+                Max = 30
+            };
+            world.ScanOnlyDamaged = false;
+            world.MaxDetectTimeInMs = 5;
+
             foreach (int i in _loadedConfigs)
             {
                 LoadedConfigComponent config = _loadedConfigs.Components1[i];
                 XElement xmlRoot = config.ElementRoot;
 
-                XElement targetsElement = xmlRoot.Element(DETECTING_TARGETS);
+                XElement targetsElement = xmlRoot.Element("DetectingTargets");
                 if (targetsElement != null)
                 {
                     world.HumanDetectingEnabled = targetsElement.GetBool("Humans");
                     world.AnimalDetectingEnabled = targetsElement.GetBool("Animals");
                 }
 
-                XElement accuracyElement = xmlRoot.Element(ACCURACY);
+                XElement accuracyElement = xmlRoot.Element("PedAccuracy");
                 if (accuracyElement != null)
                 {
                     world.HumanAccuracy = accuracyElement.GetMinMax();
                 }
 
-                XElement shootRateElement = xmlRoot.Element(SHOOT_RATE);
+                XElement shootRateElement = xmlRoot.Element("PedShootRate");
                 if (shootRateElement != null)
                 {
                     world.HumanShootRate = shootRateElement.GetMinMax();
                 }
 
-                XElement onlyDamagedElement = xmlRoot.Element(SCAN_ONLY_DAMAGED);
+                XElement onlyDamagedElement = xmlRoot.Element("ScanOnlyDamaged");
                 if (onlyDamagedElement != null)
                 {
                     world.ScanOnlyDamaged = onlyDamagedElement.GetBool();
                 }
             }
-            
+
+#if DEBUG
             _logger.MakeLog(world.ToString());
+#endif
             _logger.MakeLog("GswWorld loaded!");
-        }
-
-        private void FillWithDefaultValues(GswWorldComponent stats)
-        {
-            stats.HumanDetectingEnabled = true;
-            stats.AnimalDetectingEnabled = true;
-            
-            stats.HumanAccuracy = new MinMax
-            {
-                Min = 10,
-                Max = 30
-            };
-            stats.HumanShootRate = new MinMax
-            {
-                Min = 10,
-                Max = 30
-            };
-            
-            stats.ScanOnlyDamaged = false;
-
-            stats.MaxDetectTimeInMs = 5;
         }
 
         public void PreDestroy()

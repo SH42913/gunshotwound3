@@ -9,7 +9,7 @@ namespace GunshotWound2.WoundEffects.Ragdoll.Systems
     [EcsInject]
     public class RagdollSystem : BaseEffectSystem
     {
-        private EcsFilter<GswPedComponent, CreatePermanentRagdollComponent> _needRagdollPeds;
+        private readonly EcsFilter<GswPedComponent, CreatePermanentRagdollComponent> _needRagdollPeds = null;
 
         public RagdollSystem() : base(new GswLogger(typeof(RagdollSystem)))
         {
@@ -37,7 +37,7 @@ namespace GunshotWound2.WoundEffects.Ragdoll.Systems
                     .DisableOnlyOnHeal = createRagdoll.DisableOnlyOnHeal;
                 EcsWorld.RemoveComponent<CreatePermanentRagdollComponent>(pedEntity);
 #if DEBUG
-                Logger.MakeLog($"{ped.Name(pedEntity)} got permanent ragdoll");
+                Logger.MakeLog($"{pedEntity.GetEntityName()} have got permanent ragdoll");
 #endif
             }
         }
@@ -48,7 +48,7 @@ namespace GunshotWound2.WoundEffects.Ragdoll.Systems
 
             NativeFunction.Natives.SET_PED_TO_RAGDOLL(ped, 1, 1, 1, 0, 0, 0);
 #if DEBUG
-            Logger.MakeLog($"{ped.Name(pedEntity)} was restored from ragdoll");
+            Logger.MakeLog($"{pedEntity.GetEntityName()} was restored from ragdoll");
 #endif
 
             var permanent = EcsWorld.GetComponent<PermanentRagdollComponent>(pedEntity);
@@ -56,7 +56,7 @@ namespace GunshotWound2.WoundEffects.Ragdoll.Systems
 
             EcsWorld.RemoveComponent<PermanentRagdollComponent>(pedEntity);
 #if DEBUG
-            Logger.MakeLog($"{ped.Name(pedEntity)} was restored from permanent ragdoll");
+            Logger.MakeLog($"{pedEntity.GetEntityName()} was restored from permanent ragdoll");
 #endif
         }
 
@@ -79,7 +79,7 @@ namespace GunshotWound2.WoundEffects.Ragdoll.Systems
                         .Natives
                         .SET_PED_TO_RAGDOLL(ped, length, length, enable.Type, 0, 0, 0);
 #if DEBUG
-                    Logger.MakeLog($"{ped.Name(pedEntity)} got ragdoll for {length} ms");
+                    Logger.MakeLog($"{pedEntity.GetEntityName()} got ragdoll for {length} ms");
 #endif
                 }
             }
@@ -90,7 +90,7 @@ namespace GunshotWound2.WoundEffects.Ragdoll.Systems
                 NativeFunction.Natives.SET_PED_TO_RAGDOLL(ped, 1, 1, 1, 0, 0, 0);
                 EcsWorld.RemoveComponent<PermanentRagdollComponent>(pedEntity);
 #if DEBUG
-                Logger.MakeLog($"{ped.Name(pedEntity)} was restored from permanent ragdoll");
+                Logger.MakeLog($"{pedEntity.GetEntityName()} was restored from permanent ragdoll");
 #endif
             }
         }

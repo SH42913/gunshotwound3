@@ -12,18 +12,22 @@ namespace GunshotWound2.Health.Systems
     [EcsInject]
     public class HealthSystem : IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
+        private readonly EcsWorld _ecsWorld = null;
 
-        private EcsFilter<HealthStatsComponent> _healthStats;
-        private EcsFilter<GswPedComponent, HealthComponent, FullyHealedComponent> _fullyHealedPeds;
-        private EcsFilter<GswPedComponent, HealthComponent, WoundedComponent, DamagedBodyPartComponent>
-            .Exclude<FullyHealedComponent> _woundedPeds;
+        private readonly EcsFilter<HealthStatsComponent> _healthStats = null;
+        private readonly EcsFilter<GswPedComponent, HealthComponent, FullyHealedComponent> _fullyHealedPeds = null;
+        private readonly EcsFilter<
+                GswPedComponent,
+                HealthComponent,
+                WoundedComponent,
+                DamagedBodyPartComponent>
+            .Exclude<FullyHealedComponent> _woundedPeds = null;
 #if DEBUG
-        private EcsFilter<GswPedComponent, HealthComponent> _pedsWithHealth;
+        private readonly EcsFilter<GswPedComponent, HealthComponent> _pedsWithHealth = null;
 #endif
 
-        private static readonly Random Random = new Random();
         private readonly GswLogger _logger;
+        private static readonly Random Random = new Random();
 
         public HealthSystem()
         {
@@ -32,13 +36,7 @@ namespace GunshotWound2.Health.Systems
 
         public void Run()
         {
-            if (_healthStats.EntitiesCount <= 0)
-            {
-                throw new Exception("HealthSystem was not init!");
-            }
-
             HealthStatsComponent stats = _healthStats.Components1[0];
-
             foreach (int i in _fullyHealedPeds)
             {
                 Ped ped = _fullyHealedPeds.Components1[i].ThisPed;
@@ -69,12 +67,11 @@ namespace GunshotWound2.Health.Systems
 
                     baseDamage += damage.BaseDamage;
 #if DEBUG
-                    _logger.MakeLog($"{woundEntity.GetEntityName()} increase damage for {damage.BaseDamage}");
+                    _logger.MakeLog($"{woundEntity.GetEntityName()} increase damage for {damage.BaseDamage:0.00}");
 #endif
                 }
 
                 if (baseDamage <= 0) continue;
-
                 int bodyPartEntity = _woundedPeds.Components4[i].DamagedBodyPartEntity;
                 float bodyPartDamageMult = _ecsWorld.GetComponent<DamageMultComponent>(bodyPartEntity).Multiplier;
                 float damageWithMult = stats.DamageMultiplier * bodyPartDamageMult * baseDamage;
@@ -86,9 +83,10 @@ namespace GunshotWound2.Health.Systems
                 health.Health -= finalDamage;
                 ped.SetHealth(health.Health);
 #if DEBUG
-                _logger.MakeLog($"{pedEntity.GetEntityName()}:Base damage is {baseDamage:0.0}; " +
-                                $"Final damage is {finalDamage:0.0}; " +
-                                $"New health is {health.Health:0.0}/{health.MaxHealth:0.0}");
+                _logger.MakeLog($"{pedEntity.GetEntityName()}:" +
+                                $"Base damage is {baseDamage:0.00}; " +
+                                $"Final damage is {finalDamage:0.00}; " +
+                                $"New health is {health.Health:0.00}/{health.MaxHealth:0.00}");
 #endif
             }
 

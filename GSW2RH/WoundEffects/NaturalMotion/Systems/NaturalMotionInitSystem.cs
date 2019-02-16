@@ -11,8 +11,8 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
     [EcsInject]
     public class NaturalMotionInitSystem : BaseEffectInitSystem, IEcsPreInitSystem
     {
-        private EcsFilter<LoadedConfigComponent> _loadedConfig;
-        private EcsFilter<NaturalMotionMessagesDictComponent> _dict;
+        private readonly EcsFilter<LoadedConfigComponent> _loadedConfig = null;
+        private readonly EcsFilter<NaturalMotionMessagesDictComponent> _dict = null;
 
         public NaturalMotionInitSystem() : base(new GswLogger(typeof(NaturalMotionInitSystem)))
         {
@@ -20,13 +20,12 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
 
         public void PreInitialize()
         {
-            var dict = EcsWorld.AddComponent<NaturalMotionMessagesDictComponent>(GunshotWound2Script.StatsContainerEntity);
-
+            int statsEntity = GunshotWound2Script.StatsContainerEntity;
+            var dict = EcsWorld.AddComponent<NaturalMotionMessagesDictComponent>(statsEntity);
             foreach (int i in _loadedConfig)
             {
                 XElement root = _loadedConfig.Components1[i].ElementRoot;
-
-                var list = root.Element("NaturalMotionMessageList");
+                XElement list = root.Element("NaturalMotionMessageList");
                 if (list == null) continue;
 
                 foreach (XElement element in list.Elements("NaturalMotionMessage"))
@@ -96,7 +95,7 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
 
             Dictionary<string, NaturalMotionMessage> dict = _dict.Components1[0].MessageDict;
             var messages = EcsWorld.AddComponent<NaturalMotionMessagesComponent>(partEntity);
-            var messageStrings = listElement.GetAttributeValue("List").Split(';');
+            string[] messageStrings = listElement.GetAttributeValue("List").Split(';');
             foreach (string messageString in messageStrings)
             {
                 if (string.IsNullOrEmpty(messageString)) continue;
@@ -109,7 +108,7 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
                 messages.MessageList.Add(messageString);
             }
 
-            Logger.MakeLog($"{partEntity.GetEntityName()} have {messages}");
+            Logger.MakeLog($"{partEntity.GetEntityName()} have got {messages}");
         }
 
         public void PreDestroy()

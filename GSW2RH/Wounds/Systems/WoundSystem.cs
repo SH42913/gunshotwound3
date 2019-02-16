@@ -7,8 +7,8 @@ namespace GunshotWound2.Wounds.Systems
     [EcsInject]
     public class WoundSystem : IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
-        private EcsFilter<DamagedByWeaponComponent> _damagedPeds;
+        private readonly EcsWorld _ecsWorld = null;
+        private readonly EcsFilter<DamagedByWeaponComponent> _damagedPeds = null;
 
         private readonly GswLogger _logger;
 
@@ -41,8 +41,7 @@ namespace GunshotWound2.Wounds.Systems
                 wounded.WoundEntities.Add(woundEntity);
 
 #if DEBUG
-                string woundName = woundEntity.GetEntityName();
-                _logger.MakeLog($"{pedEntity.GetEntityName()} have got wound {woundName}");
+                _logger.MakeLog($"{pedEntity.GetEntityName()} have got wound {woundEntity.GetEntityName()}");
 #endif
             }
         }

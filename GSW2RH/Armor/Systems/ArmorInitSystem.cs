@@ -10,14 +10,13 @@ using Rage;
 namespace GunshotWound2.Armor.Systems
 {
     [EcsInject]
-    public class ArmorInitSystem : IEcsInitSystem,  IEcsRunSystem
+    public class ArmorInitSystem : IEcsInitSystem, IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
+        private readonly EcsWorld _ecsWorld = null;
 
-        private EcsFilter<LoadedItemConfigComponent, WeaponComponent> _initWeapons;
-        private EcsFilter<LoadedItemConfigComponent, BodyPartComponent> _initParts;
-
-        private EcsFilter<GswPedComponent, NewPedMarkComponent>.Exclude<AnimalMarkComponent> _newPeds;
+        private readonly EcsFilter<LoadedItemConfigComponent, WeaponComponent> _initWeapons = null;
+        private readonly EcsFilter<LoadedItemConfigComponent, BodyPartComponent> _initParts = null;
+        private readonly EcsFilter<GswPedComponent, NewPedMarkComponent>.Exclude<AnimalMarkComponent> _newPeds = null;
 
         private readonly GswLogger _logger;
 
@@ -40,7 +39,7 @@ namespace GunshotWound2.Armor.Systems
                 stats.ArmorDamage = statsElement.GetInt("ArmorDamage");
                 stats.MinArmorPercentForPenetration = statsElement.GetFloat("MinArmorPercentForPenetration");
             }
-            
+
             foreach (int i in _initParts)
             {
                 int entity = _initParts.Entities[i];
@@ -52,7 +51,7 @@ namespace GunshotWound2.Armor.Systems
                 bodyArmor.ProtectedByBodyArmor = protection.GetBool("ByArmor");
             }
         }
-        
+
         public void Run()
         {
             foreach (int i in _newPeds)

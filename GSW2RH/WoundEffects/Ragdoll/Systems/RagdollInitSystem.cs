@@ -23,7 +23,7 @@ namespace GunshotWound2.WoundEffects.Ragdoll.Systems
                 component.DisableOnlyOnHeal = ragdoll.GetBool("DisableOnlyOnHeal");
 
 #if DEBUG
-                Logger.MakeLog($"{partEntity.GetEntityName()} got {component}");
+                Logger.MakeLog($"{partEntity.GetEntityName()} have got {component}");
 #endif
             }
 
@@ -31,6 +31,10 @@ namespace GunshotWound2.WoundEffects.Ragdoll.Systems
             if (disable != null)
             {
                 EcsWorld.AddComponent<DisablePermanentRagdollComponent>(partEntity);
+
+#if DEBUG
+                Logger.MakeLog($"{partEntity.GetEntityName()} will disable permanent ragdoll");
+#endif
             }
         }
     }

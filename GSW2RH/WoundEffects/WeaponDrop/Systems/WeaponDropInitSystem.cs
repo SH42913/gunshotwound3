@@ -8,8 +8,8 @@ namespace GunshotWound2.WoundEffects.WeaponDrop.Systems
     [EcsInject]
     public class WeaponDropInitSystem : BaseEffectInitSystem, IEcsPreInitSystem
     {
-        private EcsFilter<LoadedConfigComponent> _loadedConfigs;
-        
+        private readonly EcsFilter<LoadedConfigComponent> _loadedConfigs = null;
+
         public WeaponDropInitSystem() : base(new GswLogger(typeof(WeaponDropInitSystem)))
         {
         }
@@ -17,7 +17,7 @@ namespace GunshotWound2.WoundEffects.WeaponDrop.Systems
         protected override void CheckPart(XElement partRoot, int partEntity)
         {
             var dropElement = partRoot.Element("DropWeapon");
-            if(dropElement == null) return;
+            if (dropElement == null) return;
 
             EcsWorld.AddComponent<WeaponDropComponent>(partEntity);
         }
@@ -31,7 +31,7 @@ namespace GunshotWound2.WoundEffects.WeaponDrop.Systems
             {
                 LoadedConfigComponent config = _loadedConfigs.Components1[i];
                 XElement xmlRoot = config.ElementRoot;
-                
+
                 XElement playerCanDrop = xmlRoot.Element("PlayerCanDropWeapon");
                 if (playerCanDrop != null)
                 {

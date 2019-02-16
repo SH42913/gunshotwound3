@@ -9,7 +9,7 @@ namespace GunshotWound2.Configs.Systems
     [EcsInject]
     public class ConfigInitSystem : IEcsPreInitSystem
     {
-        private EcsWorld _ecsWorld;
+        private readonly EcsWorld _ecsWorld = null;
 
         private readonly GswLogger _logger;
 
@@ -19,7 +19,7 @@ namespace GunshotWound2.Configs.Systems
         {
             _logger = new GswLogger(typeof(ConfigInitSystem));
         }
-        
+
         public void PreInitialize()
         {
             foreach (string path in GunshotWound2Script.CONFIG_NAMES)
