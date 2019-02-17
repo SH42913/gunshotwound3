@@ -33,28 +33,6 @@ namespace GunshotWound2
 {
     public class GunshotWound2Script : IDisposable
     {
-        public const string BASE_CONFIG_NAME = "GswBaseConfig.xml";
-        public const string BODY_PART_CONFIG_NAME = "GswBodyPartConfig.xml";
-        public const string NM_CONFIG_NAME = "GswNaturalMotionConfig.xml";
-        public const string PAIN_STATE_CONFIG_NAME = "GswPainStateConfig.xml";
-        public const string PLAYER_CONFIG_NAME = "GswPlayerConfig.xml";
-        public const string WEAPON_CONFIG_NAME = "GswWeaponConfig.xml";
-        public const string WORLD_CONFIG_NAME = "GswWorldConfig.xml";
-        public const string WOUND_CONFIG_NAME = "GswWoundConfig.xml";
-
-
-        public static readonly string[] CONFIG_NAMES =
-        {
-            BASE_CONFIG_NAME,
-            BODY_PART_CONFIG_NAME,
-            NM_CONFIG_NAME,
-            PAIN_STATE_CONFIG_NAME,
-            PLAYER_CONFIG_NAME,
-            WEAPON_CONFIG_NAME,
-            WORLD_CONFIG_NAME,
-            WOUND_CONFIG_NAME,
-        };
-
         public static int StatsContainerEntity { get; private set; }
 
         private EcsWorld _world;

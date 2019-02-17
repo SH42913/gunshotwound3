@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml.Linq;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
+using Rage;
 
 namespace GunshotWound2.Configs.Systems
 {
@@ -13,6 +14,7 @@ namespace GunshotWound2.Configs.Systems
 
         private readonly GswLogger _logger;
 
+        private const string BASE_CONFIG_NAME = "GswBaseConfig.xml";
         private const string DATA_FOLDER_PATH = "\\Plugins\\GswData\\";
 
         public ConfigInitSystem()
@@ -22,29 +24,39 @@ namespace GunshotWound2.Configs.Systems
 
         public void PreInitialize()
         {
-            foreach (string path in GunshotWound2Script.CONFIG_NAMES)
+            XElement baseRoot = LoadConfig(BASE_CONFIG_NAME);
+            XElement configList = baseRoot.GetElement("ConfigFiles");
+            foreach (XElement config in configList.Elements("Config"))
             {
-                string fullPath = Environment.CurrentDirectory + DATA_FOLDER_PATH + path;
-                var file = new FileInfo(fullPath);
-                if (!file.Exists)
-                {
-                    throw new Exception($"Can't find {fullPath}");
-                }
-
-                XElement xmlRoot = XDocument.Load(file.OpenRead()).Root;
-                if (xmlRoot == null)
-                {
-                    throw new Exception($"Can't find XML-root in {fullPath}");
-                }
-
-                var loadedConfig = _ecsWorld.CreateEntityWith<LoadedConfigComponent>();
-                loadedConfig.Path = fullPath;
-                loadedConfig.ElementRoot = xmlRoot;
+                string configPath = config.GetAttributeValue("Path");
+                LoadConfig(configPath);
             }
         }
 
         public void PreDestroy()
         {
+        }
+
+        private XElement LoadConfig(string path)
+        {
+            string fullPath = Environment.CurrentDirectory + DATA_FOLDER_PATH + path;
+            var file = new FileInfo(fullPath);
+            if (!file.Exists)
+            {
+                throw new Exception($"Can't find {fullPath}");
+            }
+
+            XElement xmlRoot = XDocument.Load(file.OpenRead()).Root;
+            if (xmlRoot == null)
+            {
+                throw new Exception($"Can't find XML-root in {fullPath}");
+            }
+
+            var loadedConfig = _ecsWorld.CreateEntityWith<LoadedConfigComponent>();
+            loadedConfig.Path = fullPath;
+            loadedConfig.ElementRoot = xmlRoot;
+
+            return xmlRoot;
         }
     }
 }

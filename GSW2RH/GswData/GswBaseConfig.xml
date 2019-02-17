@@ -17,4 +17,14 @@
 
 	<OverallBleedingDeviation Value="0.2"/>
 	<!-- 0.2 mean +-20% random bleeding -->
+	
+	<ConfigFiles>
+		<Config Path="GswWorldConfig.xml"/>
+		<Config Path="GswPlayerConfig.xml"/>
+		<Config Path="GswWeaponConfig.xml"/>
+		<Config Path="GswBodyPartConfig.xml"/>
+		<Config Path="GswWoundConfig.xml"/>
+		<Config Path="GswNaturalMotionConfig.xml"/>
+		<Config Path="GswPainStateConfig.xml"/>
+	</ConfigFiles>
 </GswBaseConfig.xml>
