@@ -1,12 +1,15 @@
 using System;
-using System.Drawing;
 using GunshotWound2.BodyParts;
-using GunshotWound2.GswWorld;
 using GunshotWound2.Health;
 using GunshotWound2.Utils;
 using GunshotWound2.Wounds;
 using Leopotam.Ecs;
+
+#if DEBUG
 using Rage;
+using System.Drawing;
+using GunshotWound2.GswWorld;
+#endif
 
 namespace GunshotWound2.Pain.Systems
 {

@@ -67,12 +67,10 @@
     <Compile Include="Bleeding\Systems\BleedingHealSystem.cs" />
     <Compile Include="Bleeding\Systems\BleedingInitSystem.cs" />
     <Compile Include="Bleeding\Systems\BleedingSystem.cs" />
-    <Compile Include="BodyParts\BodyHitHistoryComponent.cs" />
     <Compile Include="BodyParts\BodyPartComponent.cs" />
     <Compile Include="BodyParts\BoneToBodyPartDictComponent.cs" />
     <Compile Include="BodyParts\DamagedBodyPartComponent.cs" />
     <Compile Include="BodyParts\Systems\BodyHitDetectingSystem.cs" />
-    <Compile Include="BodyParts\Systems\BodyHitHistoryShowSystem.cs" />
     <Compile Include="BodyParts\Systems\BodyPartInitSystem.cs" />
     <Compile Include="Configs\LoadedConfigComponent.cs" />
     <Compile Include="Configs\LoadedItemConfigComponent.cs" />
@@ -81,6 +79,13 @@
     <Compile Include="Crits\CritListComponent.cs" />
     <Compile Include="Crits\Systems\CritInitSystem.cs" />
     <Compile Include="Crits\Systems\CritSystem.cs" />
+    <Compile Include="DebugSystems\DamagedBonesHistory\DamagedBoneHistoryComponent.cs" />
+    <Compile Include="DebugSystems\DamagedBonesHistory\Systems\DamagedBoneHistorySystem.cs" />
+    <Compile Include="DebugSystems\DebugText\DebugTextComponent.cs" />
+    <Compile Include="DebugSystems\DebugText\Systems\DebugTextSystem.cs" />
+    <Compile Include="DebugSystems\FrameTime\FrameTimeComponent.cs" />
+    <Compile Include="DebugSystems\FrameTime\Systems\FrameTimeStartSystem.cs" />
+    <Compile Include="DebugSystems\FrameTime\Systems\FrameTimeStopSystem.cs" />
     <Compile Include="WoundEffects\BaseEffectInitSystem.cs" />
     <Compile Include="WoundEffects\BaseEffectSystem.cs" />
     <Compile Include="WoundEffects\FacialAnimation\DisableFacialAnimationComponent.cs" />

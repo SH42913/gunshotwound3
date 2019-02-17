@@ -6,6 +6,10 @@ using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
 
+#if DEBUG
+using GunshotWound2.DebugSystems.DamagedBonesHistory;
+#endif
+
 namespace GunshotWound2.BodyParts.Systems
 {
     [EcsInject]
@@ -41,7 +45,7 @@ namespace GunshotWound2.BodyParts.Systems
                 string partName = bodyPartEntity.GetEntityName();
                 _logger.MakeLog($"{pedEntity.GetEntityName()} has damaged {partName} with boneId {(uint) lastBone}");
 
-                var history = _ecsWorld.EnsureComponent<BodyHitHistoryComponent>(pedEntity, out bool isNew);
+                var history = _ecsWorld.EnsureComponent<DamagedBoneHistoryComponent>(pedEntity, out bool isNew);
                 PedBoneId?[] bones = history.LastDamagedBones;
                 if (isNew)
                 {

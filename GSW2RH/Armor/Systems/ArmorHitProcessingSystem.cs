@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using GunshotWound2.BodyParts;
 using GunshotWound2.GswWorld;
 using GunshotWound2.Pain;
@@ -8,6 +7,10 @@ using GunshotWound2.Weapons;
 using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
+
+#if DEBUG
+using System.Drawing;
+#endif
 
 namespace GunshotWound2.Armor.Systems
 {
@@ -53,7 +56,8 @@ namespace GunshotWound2.Armor.Systems
                     ? NativeFunction.Natives.GET_PLAYER_MAX_ARMOUR<int>(Game.LocalPlayer)
                     : 100;
                 Debug.DrawWireBoxDebug(position, ped.Orientation, new Vector3(1.05f, 0.15f, 0.1f), Color.LightSkyBlue);
-                Debug.DrawWireBoxDebug(position, ped.Orientation, new Vector3(armor.Armor / maxArmor, 0.1f, 0.1f), Color.MediumBlue);
+                Debug.DrawWireBoxDebug(position, ped.Orientation, new Vector3(armor.Armor / maxArmor, 0.1f, 0.1f),
+                    Color.MediumBlue);
 #endif
             }
 

@@ -90,8 +90,11 @@ namespace GunshotWound2.Player.Systems
             }
 
             _ecsWorld.ProcessDelayedUpdates();
-            if (config.PlayerEnabled && _playerPeds.IsEmpty())
+            if (config.PlayerEnabled && _playerPeds.IsEmpty() && !Game.IsPaused && !Game.IsLoading)
             {
+#if DEBUG
+                _logger.MakeLog("No players found! PlayerPed will force create!");
+#endif
                 _ecsWorld.CreateEntityWith<ForceCreateGswPedEvent>().TargetPed = Game.LocalPlayer.Character;
             }
         }

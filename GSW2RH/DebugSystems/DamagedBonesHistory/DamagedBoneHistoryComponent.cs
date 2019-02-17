@@ -1,9 +1,9 @@
 ﻿using Leopotam.Ecs;
 using Rage;
 
-namespace GunshotWound2.BodyParts
+namespace GunshotWound2.DebugSystems.DamagedBonesHistory
 {
-    public class BodyHitHistoryComponent
+    public class DamagedBoneHistoryComponent
     {
         [EcsIgnoreNullCheck]
         public readonly PedBoneId?[] LastDamagedBones = new PedBoneId?[3];

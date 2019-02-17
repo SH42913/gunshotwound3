@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Drawing;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
+#if DEBUG
+using GunshotWound2.DebugSystems.DebugText;
+
+#endif
 
 namespace GunshotWound2.GswWorld.Systems
 {
@@ -16,6 +19,9 @@ namespace GunshotWound2.GswWorld.Systems
         private readonly EcsFilter<GswWorldComponent> _world = null;
         private readonly EcsFilter<GswPedComponent> _gswPeds = null;
         private readonly EcsFilter<ForceCreateGswPedEvent> _forceCreateEvents = null;
+#if DEBUG
+        private readonly EcsFilter<DebugTextComponent> _debugText = null;
+#endif
 
         private readonly GswLogger _logger;
         private readonly Stopwatch _stopwatch = new Stopwatch();
@@ -37,8 +43,10 @@ namespace GunshotWound2.GswWorld.Systems
                 foreach (int i in _forceCreateEvents)
                 {
                     Ped targetPed = _forceCreateEvents.Components1[i].TargetPed;
-                    gswWorld.NeedToCheckPeds.Enqueue(targetPed);
+                    if (gswWorld.ForceCreatePeds.Contains(targetPed)) continue;
+
                     gswWorld.ForceCreatePeds.Add(targetPed);
+                    gswWorld.NeedToCheckPeds.Enqueue(targetPed);
                     _ecsWorld.RemoveEntity(_forceCreateEvents.Entities[i]);
                 }
 
@@ -95,8 +103,10 @@ namespace GunshotWound2.GswWorld.Systems
             }
 
 #if DEBUG
-            string pedCounter = "Peds: " + _gswPeds.GetEnumerator().GetCount();
-            pedCounter.ShowInGsw(0.165f, 0.94f, 0.25f, Color.White);
+            if (!_debugText.IsEmpty())
+            {
+                _debugText.Components1[0].UpdateDebugText("Peds", _gswPeds.GetEnumerator().GetCount().ToString());
+            }
 #endif
             _stopwatch.Stop();
         }

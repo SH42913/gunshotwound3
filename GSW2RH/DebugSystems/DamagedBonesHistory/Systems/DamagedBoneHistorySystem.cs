@@ -4,12 +4,15 @@ using GunshotWound2.Player;
 using Leopotam.Ecs;
 using Rage;
 
-namespace GunshotWound2.BodyParts.Systems
+namespace GunshotWound2.DebugSystems.DamagedBonesHistory.Systems
 {
     [EcsInject]
-    public class BodyHitHistoryShowSystem : IEcsRunSystem
+    public class DamagedBoneHistorySystem : IEcsRunSystem
     {
-        private readonly EcsFilter<GswPedComponent, BodyHitHistoryComponent>.Exclude<PlayerMarkComponent> _peds = null;
+        private readonly EcsFilter<
+                GswPedComponent,
+                DamagedBoneHistoryComponent>
+            .Exclude<PlayerMarkComponent> _peds = null;
 
         public void Run()
         {

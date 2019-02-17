@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Drawing;
-using System.Windows.Forms;
 using GunshotWound2.Armor.Systems;
 using GunshotWound2.BaseHitDetecting.Systems;
 using GunshotWound2.Bleeding.Systems;
@@ -18,7 +15,6 @@ using GunshotWound2.Player.Systems;
 using GunshotWound2.Uids.Systems;
 using GunshotWound2.Weapons.Systems;
 using GunshotWound2.Wounds.Systems;
-using GunshotWound2.Utils;
 using GunshotWound2.WoundEffects.FacialAnimation.Systems;
 using GunshotWound2.WoundEffects.InstantKill.Systems;
 using GunshotWound2.WoundEffects.Movement.Systems;
@@ -28,6 +24,12 @@ using GunshotWound2.WoundEffects.Ragdoll.Systems;
 using GunshotWound2.WoundEffects.WeaponDrop.Systems;
 using Leopotam.Ecs;
 using Rage;
+#if DEBUG
+using GunshotWound2.DebugSystems.DamagedBonesHistory.Systems;
+using GunshotWound2.DebugSystems.DebugText.Systems;
+using GunshotWound2.DebugSystems.FrameTime.Systems;
+
+#endif
 
 namespace GunshotWound2
 {
@@ -41,11 +43,6 @@ namespace GunshotWound2
         public bool IsRunning { get; set; }
         public bool IsPaused { get; set; }
 
-#if DEBUG
-        private readonly Stopwatch _stopwatch = new Stopwatch();
-        private long _maxFrameTime;
-#endif
-
         public void Init()
         {
             _world = new EcsWorld();
@@ -53,6 +50,9 @@ namespace GunshotWound2
             StatsContainerEntity = _world.CreateEntityWith(out StatsContainerComponent _);
 
             _systems
+#if DEBUG
+                .Add(new FrameTimeStartSystem())
+#endif
                 .Add(new ConfigInitSystem())
                 .Add(new LocalizationInitSystem())
                 .Add(new UidInitSystem())
@@ -80,9 +80,6 @@ namespace GunshotWound2
                 .Add(new PainStateSystem())
                 .Add(new BaseHitDetectingSystem())
                 .Add(new BodyHitDetectingSystem())
-#if DEBUG
-                .Add(new BodyHitHistoryShowSystem())
-#endif
                 .Add(new WeaponHitDetectingSystem())
                 .Add(new BaseHitCleanSystem())
                 .Add(new HelmetHitProcessingSystem())
@@ -102,7 +99,13 @@ namespace GunshotWound2
                 .Add(new InstantKillSystem())
                 .Add(new WeaponDropSystem())
                 .Add(new MovementSystem())
-                .Add(new MovementClipsetSystem());
+                .Add(new MovementClipsetSystem())
+#if DEBUG
+                .Add(new DamagedBoneHistorySystem())
+                .Add(new FrameTimeStopSystem())
+                .Add(new DebugTextSystem())
+#endif
+                ;
             _systems.Initialize();
             GameFiber.Yield();
         }
@@ -111,13 +114,6 @@ namespace GunshotWound2
         {
             while (IsRunning)
             {
-#if DEBUG
-                _stopwatch.Restart();
-                if (Game.IsKeyDown(Keys.End))
-                {
-                    _maxFrameTime = 0;
-                }
-#endif
                 if (IsPaused)
                 {
                     GameFiber.Yield();
@@ -126,18 +122,6 @@ namespace GunshotWound2
 
                 _systems.Run();
                 _world.RemoveOneFrameComponents();
-#if DEBUG
-                _stopwatch.Stop();
-                long elapsed = _stopwatch.ElapsedMilliseconds;
-                if (elapsed > _maxFrameTime)
-                {
-                    _maxFrameTime = elapsed;
-                }
-
-                string worldTime = "Total/Max Time: " + elapsed + "/" + _maxFrameTime;
-                worldTime.ShowInGsw(0.165f, 0.97f, 0.25f, Color.White);
-#endif
-
                 GameFiber.Yield();
             }
         }
