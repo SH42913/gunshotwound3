@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Drawing;
+using GunshotWound2.Pause;
+using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
 
@@ -10,6 +12,7 @@ namespace GunshotWound2.DebugSystems.DebugText.Systems
     {
         private readonly EcsWorld _ecsWorld = null;
         private readonly EcsFilter<DebugTextComponent> _debugText = null;
+        private readonly EcsFilter<PauseStateComponent> _pause = null;
 
         private const float SCREEN_HEIGHT_PERCENT = 0.8f;
         private const float SCREEN_WIDTH_PERCENT = 0.17f;
@@ -48,7 +51,7 @@ namespace GunshotWound2.DebugSystems.DebugText.Systems
 
         private void GameOnRawFrameRender(object sender, GraphicsEventArgs e)
         {
-            if (string.IsNullOrEmpty(_textToShow) || Game.IsPaused || Game.IsLoading) return;
+            if (string.IsNullOrEmpty(_textToShow) || _pause.GameIsPaused()) return;
 
             var textPosition = new PointF
             {

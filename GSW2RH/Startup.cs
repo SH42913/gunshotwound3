@@ -4,7 +4,8 @@ using System.Threading;
 [assembly: Rage.Attributes.Plugin(
     "GunShot Wound 2",
     Description = "GunShot Wound 2 will bring most realistic damage system to GTAV.",
-    Author = "SH42913")]
+    Author = "SH42913",
+    ShouldTickInPauseMenu = true)]
 
 namespace GunshotWound2
 {

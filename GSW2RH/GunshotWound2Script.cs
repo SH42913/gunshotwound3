@@ -11,6 +11,7 @@ using GunshotWound2.Health.Systems;
 using GunshotWound2.Localization.Systems;
 using GunshotWound2.Pain.Systems;
 using GunshotWound2.PainStates.Systems;
+using GunshotWound2.Pause.Systems;
 using GunshotWound2.Player.Systems;
 using GunshotWound2.Uids.Systems;
 using GunshotWound2.Weapons.Systems;
@@ -50,6 +51,7 @@ namespace GunshotWound2
             StatsContainerEntity = _world.CreateEntityWith(out StatsContainerComponent _);
 
             _systems
+                .Add(new PauseDetectingSystem())
 #if DEBUG
                 .Add(new FrameTimeStartSystem())
 #endif

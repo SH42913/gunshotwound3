@@ -86,6 +86,8 @@
     <Compile Include="DebugSystems\FrameTime\FrameTimeComponent.cs" />
     <Compile Include="DebugSystems\FrameTime\Systems\FrameTimeStartSystem.cs" />
     <Compile Include="DebugSystems\FrameTime\Systems\FrameTimeStopSystem.cs" />
+    <Compile Include="Pause\PauseStateComponent.cs" />
+    <Compile Include="Pause\Systems\PauseDetectingSystem.cs" />
     <Compile Include="WoundEffects\BaseEffectInitSystem.cs" />
     <Compile Include="WoundEffects\BaseEffectSystem.cs" />
     <Compile Include="WoundEffects\FacialAnimation\DisableFacialAnimationComponent.cs" />

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using GunshotWound2.GswWorld;
+using GunshotWound2.Pause;
+using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
 
@@ -10,6 +12,7 @@ namespace GunshotWound2.DebugSystems.DamagedBonesHistory.Systems
     public class DamagedBoneHistorySystem : IEcsPreInitSystem, IEcsRunSystem
     {
         private readonly EcsFilter<GswPedComponent, DamagedBoneHistoryComponent> _peds = null;
+        private readonly EcsFilter<PauseStateComponent> _pause = null;
 
         private const float MAXIMAL_RANGE = 50f;
 
@@ -92,7 +95,7 @@ namespace GunshotWound2.DebugSystems.DamagedBonesHistory.Systems
         private void GameOnRawFrameRender(object sender, GraphicsEventArgs e)
         {
             if (_screenPositionList == null || _screenPositionList.Count <= 0 ||
-                Game.IsPaused || Game.IsLoading) return;
+                _pause.GameIsPaused()) return;
 
             for (int i = 0; i < _screenPositionList.Count; i++)
             {

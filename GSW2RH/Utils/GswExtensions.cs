@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Xml.Linq;
 using GunshotWound2.GswWorld;
 using GunshotWound2.Localization;
+using GunshotWound2.Pause;
 using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
@@ -197,6 +198,11 @@ namespace GunshotWound2.Utils
             return Game.Console.IsOpen
                 ? 0f
                 : Game.TimeScale * Game.FrameTime;
+        }
+
+        public static bool GameIsPaused(this EcsFilter<PauseStateComponent> filter)
+        {
+            return !filter.IsEmpty();
         }
     }
 }
