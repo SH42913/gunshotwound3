@@ -57,7 +57,7 @@ namespace GunshotWound2.BodyParts.Systems
                 {
                     bones[2] = bones[1];
                     bones[1] = bones[0];
-                    bones[2] = lastBone;
+                    bones[0] = lastBone;
                 }
 #endif
 
