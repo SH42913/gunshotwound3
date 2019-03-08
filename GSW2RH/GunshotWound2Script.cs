@@ -17,6 +17,7 @@ using GunshotWound2.Uids.Systems;
 using GunshotWound2.Weapons.Systems;
 using GunshotWound2.Wounds.Systems;
 using GunshotWound2.WoundEffects.FacialAnimation.Systems;
+using GunshotWound2.WoundEffects.Flash.Systems;
 using GunshotWound2.WoundEffects.InstantKill.Systems;
 using GunshotWound2.WoundEffects.Movement.Systems;
 using GunshotWound2.WoundEffects.MovementClipset.Systems;
@@ -79,6 +80,7 @@ namespace GunshotWound2
                 .Add(new WeaponDropInitSystem())
                 .Add(new MovementInitSystem())
                 .Add(new MovementClipsetInitSystem())
+                .Add(new FlashInitSystem())
                 .Add(new PainStateSystem())
                 .Add(new BaseHitDetectingSystem())
                 .Add(new BodyHitDetectingSystem())
@@ -102,6 +104,7 @@ namespace GunshotWound2
                 .Add(new WeaponDropSystem())
                 .Add(new MovementSystem())
                 .Add(new MovementClipsetSystem())
+                .Add(new FlashSystem())
 #if DEBUG
                 .Add(new DamagedBoneHistorySystem())
                 .Add(new FrameTimeStopSystem())

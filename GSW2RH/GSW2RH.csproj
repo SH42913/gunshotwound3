@@ -95,6 +95,9 @@
     <Compile Include="WoundEffects\FacialAnimation\EnableFacialAnimationComponent.cs" />
     <Compile Include="WoundEffects\FacialAnimation\Systems\FacialAnimationInitSystem.cs" />
     <Compile Include="WoundEffects\FacialAnimation\Systems\FacialAnimationSystem.cs" />
+    <Compile Include="WoundEffects\Flash\CreateFlashComponent.cs" />
+    <Compile Include="WoundEffects\Flash\Systems\FlashInitSystem.cs" />
+    <Compile Include="WoundEffects\Flash\Systems\FlashSystem.cs" />
     <Compile Include="WoundEffects\InstantKill\InstantKillComponent.cs" />
     <Compile Include="WoundEffects\InstantKill\Systems\InstantKillInitSystem.cs" />
     <Compile Include="WoundEffects\InstantKill\Systems\InstantKillSystem.cs" />
