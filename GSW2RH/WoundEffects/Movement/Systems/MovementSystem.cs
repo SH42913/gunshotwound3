@@ -46,12 +46,12 @@ namespace GunshotWound2.WoundEffects.Movement.Systems
                 if (disable != null)
                 {
                     NativeFunction.Natives.SET_PLAYER_SPRINT(Game.LocalPlayer, false);
-                    if (disable.Permanent)
+                    if (disable.RestoreOnlyOnHeal)
                     {
                         EcsWorld.AddComponent<PermanentDisabledSprintComponent>(pedEntity);
                     }
 #if DEBUG
-                    Logger.MakeLog($"Sprint disabled for player, permanent = {disable.Permanent}");
+                    Logger.MakeLog($"Sprint disabled for player, permanent = {disable.RestoreOnlyOnHeal}");
 #endif
                 }
 
@@ -72,13 +72,13 @@ namespace GunshotWound2.WoundEffects.Movement.Systems
                 if (newRate != null)
                 {
                     NativeFunction.Natives.SET_PED_MOVE_RATE_OVERRIDE(ped, newRate.Rate);
-                    if (newRate.Permanent)
+                    if (newRate.RestoreOnlyOnHeal)
                     {
                         EcsWorld.AddComponent<PermanentDisabledSprintComponent>(pedEntity);
                     }
 #if DEBUG
                     Logger.MakeLog($"Move rate for {pedEntity.GetEntityName()} " +
-                                   $"was changed to {newRate.Rate}, permanent = {newRate.Permanent}");
+                                   $"was changed to {newRate.Rate}, permanent = {newRate.RestoreOnlyOnHeal}");
 #endif
                 }
 

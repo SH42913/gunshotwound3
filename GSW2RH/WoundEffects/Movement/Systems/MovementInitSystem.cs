@@ -17,7 +17,7 @@ namespace GunshotWound2.WoundEffects.Movement.Systems
             if (disable != null)
             {
                 var component = EcsWorld.AddComponent<DisableSprintComponent>(partEntity);
-                component.Permanent = disable.GetBool("Permanent");
+                component.RestoreOnlyOnHeal = disable.GetBool("RestoreOnlyOnHeal");
             }
 
             XElement enable = partRoot.Element("EnableSprint");
@@ -31,7 +31,7 @@ namespace GunshotWound2.WoundEffects.Movement.Systems
             {
                 var component = EcsWorld.AddComponent<NewMovementRateComponent>(partEntity);
                 component.Rate = newRate.GetFloat();
-                component.Permanent = newRate.GetBool("Permanent");
+                component.RestoreOnlyOnHeal = newRate.GetBool("RestoreOnlyOnHeal");
             }
 
             XElement restore = partRoot.Element("RestoreMovementRate");

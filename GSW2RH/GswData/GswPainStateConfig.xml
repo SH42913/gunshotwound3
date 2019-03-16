@@ -12,7 +12,7 @@
 			<DisablePermanentRagdoll/>
 			<DisableFacialAnimation/>
 			<MovementClipset Player="move_m@drunk@moderatedrunk" PedMale="" PedFemale=""/>
-			<MovementRate Value="0.9" Permanent="FALSE"/>
+			<MovementRate Value="0.9" RestoreOnlyOnHeal="FALSE"/>
 			<EnableSprint/>
 			<CameraShake OneTime="FALSE" DisableOnlyOnHeal="FALSE" ShakeName="HAND_SHAKE" Intensity="1.0" Priority="1"/>
 		</PainState>
@@ -20,8 +20,8 @@
             <LocalizationKey Key="INTENSE"/>
 			<EnableFacialAnimation Animations="mood_injured_1;" MaleDict="facials@gen_male@base" FemaleDict="facials@gen_female@base" Permanent="TRUE"/>
 			<MovementClipset Player="move_m@drunk@verydrunk" PedMale="" PedFemale=""/>
-			<MovementRate Value="0.8" Permanent="FALSE"/>
-			<DisableSprint Permanent="FALSE"/>
+			<MovementRate Value="0.8" RestoreOnlyOnHeal="FALSE"/>
+			<DisableSprint RestoreOnlyOnHeal="FALSE"/>
 			<CameraShake OneTime="FALSE" DisableOnlyOnHeal="FALSE" ShakeName="HAND_SHAKE" Intensity="2.0" Priority="1"/>
         </PainState>
         <PainState PainPercent="1">

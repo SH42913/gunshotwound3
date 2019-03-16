@@ -44,8 +44,8 @@
 			<BaseBleeding Value="0.4"/>
 			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
 			<NaturalMotionMessages List="KneeShot;"/>
-			<MovementRate Value="0.7" Permanent="TRUE"/>
-			<DisableSprint Permanent="TRUE"/>
+			<MovementRate Value="0.7" RestoreOnlyOnHeal="TRUE"/>
+			<DisableSprint RestoreOnlyOnHeal="TRUE"/>
 		</Wound>
 		<Wound>
 			<Uid Value="LUNGS_CRIT"/>
@@ -53,8 +53,8 @@
 			<BaseDamage Value="10"/>
 			<BasePain Value="15"/>
 			<BaseBleeding Value="1.5"/>
-			<MovementRate Value="0.7" Permanent="TRUE"/>
-			<DisableSprint Permanent="TRUE"/>
+			<MovementRate Value="0.7" RestoreOnlyOnHeal="TRUE"/>
+			<DisableSprint RestoreOnlyOnHeal="TRUE"/>
 		</Wound>
 		<Wound>
 			<Uid Value="NERVES_CRIT"/>
@@ -78,8 +78,8 @@
 			<BasePain Value="20"/>
 			<BaseBleeding Value="2"/>
 			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
-			<MovementRate Value="0.7" Permanent="TRUE"/>
-			<DisableSprint Permanent="TRUE"/>
+			<MovementRate Value="0.7" RestoreOnlyOnHeal="TRUE"/>
+			<DisableSprint RestoreOnlyOnHeal="TRUE"/>
 		</Wound>
 	</WoundList>
 </GswWoundConfig.xml>
