@@ -16,7 +16,10 @@ namespace GunshotWound2.WoundEffects.Flash.Systems
             XElement flash = partRoot.Element("CreateFlash");
             if(flash == null) return;
 
-            EcsWorld.AddComponent<CreateFlashComponent>(partEntity);
+            var component = EcsWorld.AddComponent<CreateFlashComponent>(partEntity);
+            component.FadeIn = flash.GetFloat("FadeIn");
+            component.FadeOut = flash.GetFloat("FadeOut");
+            component.Duration = component.FadeIn + component.FadeOut;
         }
     }
 }

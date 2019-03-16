@@ -16,7 +16,7 @@
 			<BasePain Value="25"/>
 			<BaseBleeding Value="0.6"/>
 			<CritChance Value="0.5"/>
-			<CreateFlash/>
+			<CreateFlash FadeIn="500" FadeOut="500"/>
 		</Wound>
 		<Wound>
 			<Uid Value="AVULSIVE_WOUND"/>
@@ -25,7 +25,7 @@
 			<BasePain Value="30"/>
 			<BaseBleeding Value="1.0"/>
 			<CritChance Value="1.0"/>
-			<CreateFlash/>
+			<CreateFlash FadeIn="1000" FadeOut="1000"/>
 		</Wound>
 		<Wound>
 			<Uid Value="ARM_CRIT"/>

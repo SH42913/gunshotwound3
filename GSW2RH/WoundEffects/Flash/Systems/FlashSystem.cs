@@ -22,10 +22,13 @@ namespace GunshotWound2.WoundEffects.Flash.Systems
             bool isPlayer = EcsWorld.GetComponent<PlayerMarkComponent>(pedEntity) != null;
             if (!isPlayer) return;
 
-            bool createFlash = EcsWorld.GetComponent<CreateFlashComponent>(woundEntity) != null;
-            if (!createFlash) return;
+            var createFlash = EcsWorld.GetComponent<CreateFlashComponent>(woundEntity);
+            if (createFlash == null) return;
 
-            NativeFunction.Natives.SET_FLASH(1, 1, 250, 500, 250);
+            NativeFunction.Natives.SET_FLASH(1, 1, createFlash.FadeIn, createFlash.Duration, createFlash.FadeOut);
+#if DEBUG
+            Logger.MakeLog($"Create flash with {createFlash.Duration} duration");
+#endif
         }
 
         protected override void ResetEffect(Ped ped, int pedEntity)
