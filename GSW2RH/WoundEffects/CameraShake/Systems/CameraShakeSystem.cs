@@ -15,7 +15,7 @@ namespace GunshotWound2.WoundEffects.CameraShake.Systems
         {
         }
 
-        protected override void PrepareRunActions()
+        protected override void PreExecuteActions()
         {
             if (_permanentCameraShake.IsEmpty() || NativeFunction.Natives.IS_GAMEPLAY_CAM_SHAKING<bool>()) return;
 

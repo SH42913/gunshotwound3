@@ -55,6 +55,7 @@
 			<BaseBleeding Value="1.5"/>
 			<MovementRate Value="0.7" RestoreOnlyOnHeal="TRUE"/>
 			<DisableSprint RestoreOnlyOnHeal="TRUE"/>
+			<StartScreenEffect Name="DeathFailOut" Duration="10000" Loop="TRUE" Main="TRUE"/>
 		</Wound>
 		<Wound>
 			<Uid Value="NERVES_CRIT"/>
@@ -80,6 +81,7 @@
 			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
 			<MovementRate Value="0.7" RestoreOnlyOnHeal="TRUE"/>
 			<DisableSprint RestoreOnlyOnHeal="TRUE"/>
+			<StartScreenEffect Name="DrugsDrivingIn" Duration="5000" Loop="TRUE" Main="TRUE"/>
 		</Wound>
 	</WoundList>
 </GswWoundConfig.xml>

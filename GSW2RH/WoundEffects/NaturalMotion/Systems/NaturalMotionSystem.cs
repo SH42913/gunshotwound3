@@ -18,7 +18,7 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
         {
         }
 
-        protected override void PrepareRunActions()
+        protected override void PreExecuteActions()
         {
             if (_dict.IsEmpty())
             {

@@ -131,6 +131,11 @@
     <Compile Include="WoundEffects\Ragdoll\PermanentRagdollComponent.cs" />
     <Compile Include="WoundEffects\Ragdoll\Systems\RagdollInitSystem.cs" />
     <Compile Include="WoundEffects\Ragdoll\Systems\RagdollSystem.cs" />
+    <Compile Include="WoundEffects\ScreenEffect\MainScreenEffectComponent.cs" />
+    <Compile Include="WoundEffects\ScreenEffect\StartScreenEffectComponent.cs" />
+    <Compile Include="WoundEffects\ScreenEffect\StopScreenEffectComponent.cs" />
+    <Compile Include="WoundEffects\ScreenEffect\Systems\ScreenEffectInitSystem.cs" />
+    <Compile Include="WoundEffects\ScreenEffect\Systems\ScreenEffectSystem.cs" />
     <Compile Include="WoundEffects\WeaponDrop\Systems\WeaponDropInitSystem.cs" />
     <Compile Include="WoundEffects\WeaponDrop\Systems\WeaponDropSystem.cs" />
     <Compile Include="WoundEffects\WeaponDrop\WeaponDropComponent.cs" />

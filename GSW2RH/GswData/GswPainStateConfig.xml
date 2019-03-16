@@ -15,6 +15,7 @@
 			<MovementRate Value="0.9" RestoreOnlyOnHeal="FALSE"/>
 			<EnableSprint/>
 			<CameraShake OneTime="FALSE" DisableOnlyOnHeal="FALSE" ShakeName="HAND_SHAKE" Intensity="1.0" Priority="1"/>
+			<StopScreenEffect Name="FocusIn"/>
 		</PainState>
         <PainState PainPercent="0.6">
             <LocalizationKey Key="INTENSE"/>
@@ -23,6 +24,7 @@
 			<MovementRate Value="0.8" RestoreOnlyOnHeal="FALSE"/>
 			<DisableSprint RestoreOnlyOnHeal="FALSE"/>
 			<CameraShake OneTime="FALSE" DisableOnlyOnHeal="FALSE" ShakeName="HAND_SHAKE" Intensity="2.0" Priority="1"/>
+			<StartScreenEffect Name="FocusIn" Duration="5000" Loop="TRUE" Main="FALSE"/>
         </PainState>
         <PainState PainPercent="1">
             <LocalizationKey Key="UNBEARABLE"/>

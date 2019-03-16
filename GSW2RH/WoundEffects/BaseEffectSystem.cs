@@ -24,7 +24,7 @@ namespace GunshotWound2.WoundEffects
 
         public void Run()
         {
-            PrepareRunActions();
+            PreExecuteActions();
 
             foreach (int i in NewPeds)
             {
@@ -57,12 +57,20 @@ namespace GunshotWound2.WoundEffects
                     ProcessWound(ped, pedEntity, woundEntity);
                 }
             }
+            
+            PostExecuteActions();
         }
 
-        protected abstract void PrepareRunActions();
+        protected virtual void PreExecuteActions()
+        {
+        }
 
         protected abstract void ResetEffect(Ped ped, int pedEntity);
 
         protected abstract void ProcessWound(Ped ped, int pedEntity, int woundEntity);
+
+        protected virtual void PostExecuteActions()
+        {
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace GunshotWound2.WoundEffects.WeaponDrop.Systems
         {
         }
 
-        protected override void PrepareRunActions()
+        protected override void PreExecuteActions()
         {
             if (_stats.IsEmpty())
             {

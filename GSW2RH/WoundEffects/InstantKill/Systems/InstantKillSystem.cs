@@ -12,10 +12,6 @@ namespace GunshotWound2.WoundEffects.InstantKill.Systems
         {
         }
 
-        protected override void PrepareRunActions()
-        {
-        }
-
         protected override void ResetEffect(Ped ped, int pedEntity)
         {
         }

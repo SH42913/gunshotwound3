@@ -15,7 +15,7 @@ namespace GunshotWound2.WoundEffects.Ragdoll.Systems
         {
         }
 
-        protected override void PrepareRunActions()
+        protected override void PreExecuteActions()
         {
             foreach (int i in _needRagdollPeds)
             {

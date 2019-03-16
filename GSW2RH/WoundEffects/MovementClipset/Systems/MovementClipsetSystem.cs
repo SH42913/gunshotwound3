@@ -17,7 +17,7 @@ namespace GunshotWound2.WoundEffects.MovementClipset.Systems
         {
         }
 
-        protected override void PrepareRunActions()
+        protected override void PreExecuteActions()
         {
             foreach (int i in _pedsWithoutPain)
             {

@@ -13,10 +13,6 @@ namespace GunshotWound2.WoundEffects.Flash.Systems
         {
         }
 
-        protected override void PrepareRunActions()
-        {
-        }
-
         protected override void ProcessWound(Ped ped, int pedEntity, int woundEntity)
         {
             bool isPlayer = EcsWorld.GetComponent<PlayerMarkComponent>(pedEntity) != null;

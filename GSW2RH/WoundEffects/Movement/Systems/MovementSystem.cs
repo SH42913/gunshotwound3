@@ -13,10 +13,6 @@ namespace GunshotWound2.WoundEffects.Movement.Systems
         {
         }
 
-        protected override void PrepareRunActions()
-        {
-        }
-
         protected override void ResetEffect(Ped ped, int pedEntity)
         {
             var permanentRate = EcsWorld.GetComponent<PermanentMovementRateComponent>(pedEntity);

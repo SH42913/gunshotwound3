@@ -24,6 +24,7 @@ using GunshotWound2.WoundEffects.Movement.Systems;
 using GunshotWound2.WoundEffects.MovementClipset.Systems;
 using GunshotWound2.WoundEffects.NaturalMotion.Systems;
 using GunshotWound2.WoundEffects.Ragdoll.Systems;
+using GunshotWound2.WoundEffects.ScreenEffect.Systems;
 using GunshotWound2.WoundEffects.WeaponDrop.Systems;
 using Leopotam.Ecs;
 using Rage;
@@ -84,6 +85,7 @@ namespace GunshotWound2
                 .Add(new MovementClipsetInitSystem())
                 .Add(new FlashInitSystem())
                 .Add(new CameraShakeInitSystem())
+                .Add(new ScreenEffectInitSystem())
                 //CommonSystems
                 .Add(new PainStateSystem())
                 .Add(new BaseHitDetectingSystem())
@@ -110,6 +112,7 @@ namespace GunshotWound2
                 .Add(new MovementClipsetSystem())
                 .Add(new FlashSystem())
                 .Add(new CameraShakeSystem())
+                .Add(new ScreenEffectSystem())
 #if DEBUG
                 .Add(new DamagedBoneHistorySystem())
                 .Add(new FrameTimeStopSystem())
