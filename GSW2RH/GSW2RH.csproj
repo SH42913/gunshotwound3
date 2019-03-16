@@ -90,6 +90,11 @@
     <Compile Include="Pause\Systems\PauseDetectingSystem.cs" />
     <Compile Include="WoundEffects\BaseEffectInitSystem.cs" />
     <Compile Include="WoundEffects\BaseEffectSystem.cs" />
+    <Compile Include="WoundEffects\CameraShake\DisableCameraShakeComponent.cs" />
+    <Compile Include="WoundEffects\CameraShake\EnablePermanentCameraShakeComponent.cs" />
+    <Compile Include="WoundEffects\CameraShake\PermanentCameraShakeComponent.cs" />
+    <Compile Include="WoundEffects\CameraShake\Systems\CameraShakeInitSystem.cs" />
+    <Compile Include="WoundEffects\CameraShake\Systems\CameraShakeSystem.cs" />
     <Compile Include="WoundEffects\FacialAnimation\DisableFacialAnimationComponent.cs" />
     <Compile Include="WoundEffects\FacialAnimation\PermanentFacialAnimationComponent.cs" />
     <Compile Include="WoundEffects\FacialAnimation\EnableFacialAnimationComponent.cs" />

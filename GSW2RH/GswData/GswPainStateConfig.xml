@@ -5,6 +5,7 @@
 			<LocalizationKey Key="MILD"/>
 			<RestoreMovementRate/>
 			<MovementClipset Player="move_m@gangster@a" PedMale="" PedFemale=""/>
+			<DisableCameraShake/>
 		</PainState>
         <PainState PainPercent="0.3">
             <LocalizationKey Key="AVERAGE"/>
@@ -13,6 +14,7 @@
 			<MovementClipset Player="move_m@drunk@moderatedrunk" PedMale="" PedFemale=""/>
 			<MovementRate Value="0.9" Permanent="FALSE"/>
 			<EnableSprint/>
+			<CameraShake OneTime="FALSE" DisableOnlyOnHeal="FALSE" ShakeName="HAND_SHAKE" Intensity="1.0" Priority="1"/>
 		</PainState>
         <PainState PainPercent="0.6">
             <LocalizationKey Key="INTENSE"/>
@@ -20,6 +22,7 @@
 			<MovementClipset Player="move_m@drunk@verydrunk" PedMale="" PedFemale=""/>
 			<MovementRate Value="0.8" Permanent="FALSE"/>
 			<DisableSprint Permanent="FALSE"/>
+			<CameraShake OneTime="FALSE" DisableOnlyOnHeal="FALSE" ShakeName="HAND_SHAKE" Intensity="2.0" Priority="1"/>
         </PainState>
         <PainState PainPercent="1">
             <LocalizationKey Key="UNBEARABLE"/>

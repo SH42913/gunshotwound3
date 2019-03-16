@@ -34,6 +34,7 @@
 			<BasePain Value="30"/>
 			<BaseBleeding Value="0.4"/>
 			<DropWeapon/>
+			<CameraShake DisableOnlyOnHeal="TRUE" ShakeName="DRUNK_SHAKE" Intensity="1.0" Priority="2"/>
 		</Wound>
 		<Wound>
 			<Uid Value="LEG_CRIT"/>
