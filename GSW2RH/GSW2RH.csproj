@@ -125,6 +125,10 @@
     <Compile Include="WoundEffects\NaturalMotion\NaturalMotionMessagesDictComponent.cs" />
     <Compile Include="WoundEffects\NaturalMotion\Systems\NaturalMotionInitSystem.cs" />
     <Compile Include="WoundEffects\NaturalMotion\Systems\NaturalMotionSystem.cs" />
+    <Compile Include="WoundEffects\PedFlags\ChangedPedFlagsComponent.cs" />
+    <Compile Include="WoundEffects\PedFlags\ChangePedFlagComponent.cs" />
+    <Compile Include="WoundEffects\PedFlags\Systems\PedFlagsInitSystem.cs" />
+    <Compile Include="WoundEffects\PedFlags\Systems\PedFlagsSystem.cs" />
     <Compile Include="WoundEffects\Ragdoll\CreatePermanentRagdollComponent.cs" />
     <Compile Include="WoundEffects\Ragdoll\DisablePermanentRagdollComponent.cs" />
     <Compile Include="WoundEffects\Ragdoll\EnableRagdollComponent.cs" />

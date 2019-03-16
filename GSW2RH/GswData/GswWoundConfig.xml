@@ -40,12 +40,13 @@
 			<Uid Value="LEG_CRIT"/>
 			<LocalizationKey Key="LEG_BONE_BROKEN"/>
 			<BaseDamage Value="5"/>
-			<BasePain Value="30"/>
+			<BasePain Value="10"/>
 			<BaseBleeding Value="0.4"/>
 			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
 			<NaturalMotionMessages List="KneeShot;"/>
 			<MovementRate Value="0.7" RestoreOnlyOnHeal="TRUE"/>
 			<DisableSprint RestoreOnlyOnHeal="TRUE"/>
+			<ChangePedFlag Id="170" Value="TRUE" ForPlayer="TRUE"/>
 		</Wound>
 		<Wound>
 			<Uid Value="LUNGS_CRIT"/>
@@ -71,6 +72,7 @@
 			<BaseBleeding Value="1"/>
 			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
 			<NaturalMotionMessages List="GutsWound;"/>
+			<ChangePedFlag Id="187" Value="TRUE" ForPlayer="FALSE"/>
 		</Wound>
 		<Wound>
 			<Uid Value="HEART_CRIT"/>

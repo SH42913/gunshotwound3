@@ -96,12 +96,9 @@ namespace GunshotWound2.GswWorld.Systems
                 {
                     entity = -1;
                 }
-
-                ped.InjuryHealthThreshold = 0.8f;
-                ped.FatalInjuryHealthThreshold = 0f;
                 
                 NativeFunction.Natives.SET_PED_SUFFERS_CRITICAL_HITS(ped, false);
-                NativeFunction.Natives.SET_PED_CONFIG_FLAG(ped, 281, false);
+                NativeFunction.Natives.SET_PED_CONFIG_FLAG(ped, 281, true);
                 _ecsWorld.AddComponent<NewPedMarkComponent>(entity);
                 if (!forceCreatePed) continue;
 
