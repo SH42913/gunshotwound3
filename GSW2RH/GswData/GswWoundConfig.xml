@@ -26,6 +26,7 @@
 			<BaseBleeding Value="1.0"/>
 			<CritChance Value="1.0"/>
 			<CreateFlash FadeIn="1000" FadeOut="1000"/>
+			<PlayPainSound Player="-1" Male="6" Female="6"/>
 		</Wound>
 		<Wound>
 			<Uid Value="ARM_CRIT"/>

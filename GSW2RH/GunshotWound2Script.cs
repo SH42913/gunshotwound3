@@ -23,6 +23,7 @@ using GunshotWound2.WoundEffects.InstantKill.Systems;
 using GunshotWound2.WoundEffects.Movement.Systems;
 using GunshotWound2.WoundEffects.MovementClipset.Systems;
 using GunshotWound2.WoundEffects.NaturalMotion.Systems;
+using GunshotWound2.WoundEffects.PainSound.Systems;
 using GunshotWound2.WoundEffects.PedFlags.Systems;
 using GunshotWound2.WoundEffects.Ragdoll.Systems;
 using GunshotWound2.WoundEffects.ScreenEffect.Systems;
@@ -88,6 +89,7 @@ namespace GunshotWound2
                 .Add(new CameraShakeInitSystem())
                 .Add(new ScreenEffectInitSystem())
                 .Add(new PedFlagsInitSystem())
+                .Add(new PlayPainInitSystem())
                 //CommonSystems
                 .Add(new PainStateSystem())
                 .Add(new BaseHitDetectingSystem())
@@ -116,6 +118,7 @@ namespace GunshotWound2
                 .Add(new CameraShakeSystem())
                 .Add(new ScreenEffectSystem())
                 .Add(new PedFlagsSystem())
+                .Add(new PlayPainSystem())
 #if DEBUG
                 .Add(new DamagedBoneHistorySystem())
                 .Add(new FrameTimeStopSystem())

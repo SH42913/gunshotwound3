@@ -125,6 +125,9 @@
     <Compile Include="WoundEffects\NaturalMotion\NaturalMotionMessagesDictComponent.cs" />
     <Compile Include="WoundEffects\NaturalMotion\Systems\NaturalMotionInitSystem.cs" />
     <Compile Include="WoundEffects\NaturalMotion\Systems\NaturalMotionSystem.cs" />
+    <Compile Include="WoundEffects\PainSound\PlayPainComponent.cs" />
+    <Compile Include="WoundEffects\PainSound\Systems\PlayPainInitSystem.cs" />
+    <Compile Include="WoundEffects\PainSound\Systems\PlayPainSystem.cs" />
     <Compile Include="WoundEffects\PedFlags\ChangedPedFlagsComponent.cs" />
     <Compile Include="WoundEffects\PedFlags\ChangePedFlagComponent.cs" />
     <Compile Include="WoundEffects\PedFlags\Systems\PedFlagsInitSystem.cs" />
