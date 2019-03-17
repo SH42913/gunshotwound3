@@ -19,7 +19,9 @@ namespace GunshotWound2.WoundEffects.WeaponDrop.Systems
             var dropElement = partRoot.Element("DropWeapon");
             if (dropElement == null) return;
 
-            EcsWorld.AddComponent<WeaponDropComponent>(partEntity);
+            var component = EcsWorld.AddComponent<WeaponDropComponent>(partEntity);
+            component.TakeCoverDuration = dropElement.GetInt("TakeCoverDuration");
+            component.FleeIfHasNoWeapons = dropElement.GetBool("FleeIfHasNoWeapons");
         }
 
         public void PreInitialize()

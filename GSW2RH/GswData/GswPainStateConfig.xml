@@ -32,7 +32,7 @@
             <LocalizationKey Key="UNBEARABLE"/>
 			<EnableRagdoll LengthInMs="-1" Type="0" Permanent="TRUE" DisableOnlyOnHeal="FALSE"/>
 			<EnableFacialAnimation Animations="dead_1;dead_2;" MaleDict="facials@gen_male@base" FemaleDict="facials@gen_female@base" Permanent="TRUE"/>
-			<DropWeapon/>
+			<DropWeapon FleeIfHasNoWeapons="FALSE" TakeCoverDuration="10000"/>
         </PainState>
 		<PainState PainPercent="2.5">
 			<LocalizationKey Key="DEADLY"/>
