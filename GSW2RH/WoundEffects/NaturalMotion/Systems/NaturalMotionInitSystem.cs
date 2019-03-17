@@ -108,6 +108,7 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
                 messages.MessageList.Add(messageString);
             }
 
+            messages.PlayInPermanentRagdoll = listElement.GetBool("PlayInPermanentRagdoll");
             Logger.MakeLog($"{partEntity.GetEntityName()} have got {messages}");
         }
 

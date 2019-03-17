@@ -39,11 +39,12 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
             if (nmMessages == null || nmMessages.MessageList.Count <= 0) return;
 
             var permanentRagdoll = EcsWorld.GetComponent<PermanentRagdollComponent>(pedEntity);
+            if (permanentRagdoll != null && !nmMessages.PlayInPermanentRagdoll) return;
             if (permanentRagdoll != null && !permanentRagdoll.DisableOnlyOnHeal)
             {
                 NativeFunction.Natives.SET_PED_TO_RAGDOLL(ped, 0, 0, 1, 0, 0, 0);
             }
-            
+
             foreach (string messageName in nmMessages.MessageList)
             {
                 NaturalMotionMessage nmMessage = dict.MessageDict[messageName];

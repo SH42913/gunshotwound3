@@ -44,7 +44,7 @@
 			<BasePain Value="10"/>
 			<BaseBleeding Value="0.4"/>
 			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
-			<NaturalMotionMessages List="KneeShot;"/>
+			<NaturalMotionMessages List="KneeShot;" PlayInPermanentRagdoll="TRUE"/>
 			<MovementRate Value="0.7" RestoreOnlyOnHeal="TRUE"/>
 			<DisableSprint RestoreOnlyOnHeal="TRUE"/>
 			<ChangePedFlag Id="170" Value="TRUE" ForPlayer="TRUE"/>
@@ -72,7 +72,7 @@
 			<BasePain Value="30"/>
 			<BaseBleeding Value="1"/>
 			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
-			<NaturalMotionMessages List="GutsWound;"/>
+			<NaturalMotionMessages List="GutsWound;" PlayInPermanentRagdoll="FALSE"/>
 			<ChangePedFlag Id="187" Value="TRUE" ForPlayer="FALSE"/>
 		</Wound>
 		<Wound>

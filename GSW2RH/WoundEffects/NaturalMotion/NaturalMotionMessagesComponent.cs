@@ -8,6 +8,8 @@ namespace GunshotWound2.WoundEffects.NaturalMotion
         [EcsIgnoreNullCheck] 
         public readonly List<string> MessageList = new List<string>();
 
+        public bool PlayInPermanentRagdoll;
+
         public void Reset()
         {
             MessageList.Clear();
