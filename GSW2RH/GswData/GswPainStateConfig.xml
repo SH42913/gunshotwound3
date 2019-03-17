@@ -6,6 +6,7 @@
 			<RestoreMovementRate/>
 			<MovementClipset Player="move_m@gangster@a" PedMale="" PedFemale=""/>
 			<DisableCameraShake/>
+			<UnlockSpecialAbility/>
 		</PainState>
         <PainState PainPercent="0.3">
             <LocalizationKey Key="AVERAGE"/>
@@ -25,6 +26,7 @@
 			<DisableSprint RestoreOnlyOnHeal="FALSE"/>
 			<CameraShake OneTime="FALSE" DisableOnlyOnHeal="FALSE" ShakeName="HAND_SHAKE" Intensity="2.0" Priority="1"/>
 			<StartScreenEffect Name="FocusIn" Duration="5000" Loop="TRUE" Main="FALSE"/>
+			<LockSpecialAbility/>
         </PainState>
         <PainState PainPercent="1">
             <LocalizationKey Key="UNBEARABLE"/>

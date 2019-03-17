@@ -143,6 +143,10 @@
     <Compile Include="WoundEffects\ScreenEffect\StopScreenEffectComponent.cs" />
     <Compile Include="WoundEffects\ScreenEffect\Systems\ScreenEffectInitSystem.cs" />
     <Compile Include="WoundEffects\ScreenEffect\Systems\ScreenEffectSystem.cs" />
+    <Compile Include="WoundEffects\SpecialAbilityLock\LockSpecialAbilityComponent.cs" />
+    <Compile Include="WoundEffects\SpecialAbilityLock\Systems\SpecialAbilityLockInitSystem.cs" />
+    <Compile Include="WoundEffects\SpecialAbilityLock\Systems\SpecialAbilityLockSystem.cs" />
+    <Compile Include="WoundEffects\SpecialAbilityLock\UnlockSpecialAbilityComponent.cs" />
     <Compile Include="WoundEffects\WeaponDrop\Systems\WeaponDropInitSystem.cs" />
     <Compile Include="WoundEffects\WeaponDrop\Systems\WeaponDropSystem.cs" />
     <Compile Include="WoundEffects\WeaponDrop\WeaponDropComponent.cs" />
