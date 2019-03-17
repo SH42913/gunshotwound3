@@ -10,6 +10,7 @@ namespace GunshotWound2.WoundEffects.Ragdoll.Systems
     public class RagdollSystem : BaseEffectSystem
     {
         private readonly EcsFilter<GswPedComponent, CreatePermanentRagdollComponent> _needRagdollPeds = null;
+        private readonly EcsFilter<GswPedComponent, PermanentRagdollComponent> _permanentRagdollPeds = null;
 
         public RagdollSystem() : base(new GswLogger(typeof(RagdollSystem)))
         {
@@ -32,13 +33,23 @@ namespace GunshotWound2.WoundEffects.Ragdoll.Systems
                 CreatePermanentRagdollComponent createRagdoll = _needRagdollPeds.Components2[i];
                 NativeFunction.Natives.SET_PED_TO_RAGDOLL(ped, -1, -1, createRagdoll.Type, 0, 0, 0);
 
-                EcsWorld
-                    .EnsureComponent<PermanentRagdollComponent>(pedEntity, out _)
-                    .DisableOnlyOnHeal = createRagdoll.DisableOnlyOnHeal;
+                var permanentRagdoll = EcsWorld.EnsureComponent<PermanentRagdollComponent>(pedEntity, out _);
+                permanentRagdoll.DisableOnlyOnHeal = createRagdoll.DisableOnlyOnHeal;
+                permanentRagdoll.Type = createRagdoll.Type;
+                
                 EcsWorld.RemoveComponent<CreatePermanentRagdollComponent>(pedEntity);
 #if DEBUG
                 Logger.MakeLog($"{pedEntity.GetEntityName()} have got permanent ragdoll");
 #endif
+            }
+
+            foreach (int i in _permanentRagdollPeds)
+            {
+                Ped ped = _permanentRagdollPeds.Components1[i].ThisPed;
+                if (!ped.Exists() || ped.IsRagdoll) continue;
+
+                PermanentRagdollComponent ragdoll = _permanentRagdollPeds.Components2[i];
+                NativeFunction.Natives.SET_PED_TO_RAGDOLL(ped, -1, -1, ragdoll.Type, 0, 0, 0);
             }
         }
 

@@ -8,6 +8,9 @@
 			<IntArgument Name="armDirection" Value="0"/>
 			<BoolArgument Name="disableOnImpact" Value="FALSE"/>
 		</NaturalMotionMessage>
+		<NaturalMotionMessage Name="BodyBalance">
+			<MessageName Value="bodyBalance"/>
+		</NaturalMotionMessage>
 		<NaturalMotionMessage Name="GutsWound">
 			<MessageName Value="shotInGuts"/>
 			<BoolArgument Name="shotInGuts" Value="TRUE"/>

@@ -1,6 +1,7 @@
 using System;
 using GunshotWound2.Utils;
 using GunshotWound2.WoundEffects.NaturalMotion.Arguments;
+using GunshotWound2.WoundEffects.Ragdoll;
 using Leopotam.Ecs;
 using Rage;
 using Rage.Euphoria;
@@ -37,8 +38,12 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
             var nmMessages = EcsWorld.GetComponent<NaturalMotionMessagesComponent>(woundEntity);
             if (nmMessages == null || nmMessages.MessageList.Count <= 0) return;
 
-            NativeFunction.Natives.CREATE_NM_MESSAGE(true, 0);
-            NativeFunction.Natives.GIVE_PED_NM_MESSAGE(ped);
+            var permanentRagdoll = EcsWorld.GetComponent<PermanentRagdollComponent>(pedEntity);
+            if (permanentRagdoll != null && !permanentRagdoll.DisableOnlyOnHeal)
+            {
+                NativeFunction.Natives.SET_PED_TO_RAGDOLL(ped, 0, 0, 1, 0, 0, 0);
+            }
+            
             foreach (string messageName in nmMessages.MessageList)
             {
                 NaturalMotionMessage nmMessage = dict.MessageDict[messageName];
