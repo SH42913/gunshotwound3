@@ -27,12 +27,14 @@
 			<CameraShake OneTime="FALSE" DisableOnlyOnHeal="FALSE" ShakeName="HAND_SHAKE" Intensity="2.0" Priority="1"/>
 			<StartScreenEffect Name="FocusIn" Duration="5000" Loop="TRUE" Main="FALSE"/>
 			<LockSpecialAbility/>
+			<EnableCarControl/>
         </PainState>
         <PainState PainPercent="1">
             <LocalizationKey Key="UNBEARABLE"/>
 			<EnableRagdoll LengthInMs="-1" Type="0" Permanent="TRUE" DisableOnlyOnHeal="FALSE"/>
 			<EnableFacialAnimation Animations="dead_1;dead_2;" MaleDict="facials@gen_male@base" FemaleDict="facials@gen_female@base" Permanent="TRUE"/>
 			<DropWeapon FleeIfHasNoWeapons="FALSE" TakeCoverDuration="10000"/>
+			<DisableCarControl EnableOnlyOnHeal="FALSE"/>
         </PainState>
 		<PainState PainPercent="2.5">
 			<LocalizationKey Key="DEADLY"/>

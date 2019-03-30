@@ -95,6 +95,11 @@
     <Compile Include="WoundEffects\CameraShake\PermanentCameraShakeComponent.cs" />
     <Compile Include="WoundEffects\CameraShake\Systems\CameraShakeInitSystem.cs" />
     <Compile Include="WoundEffects\CameraShake\Systems\CameraShakeSystem.cs" />
+    <Compile Include="WoundEffects\VehicleControl\DisableVehicleControlComponent.cs" />
+    <Compile Include="WoundEffects\VehicleControl\DisabledVehicleControlComponent.cs" />
+    <Compile Include="WoundEffects\VehicleControl\EnableVehicleControlComponent.cs" />
+    <Compile Include="WoundEffects\VehicleControl\Systems\VehicleControlInitSystem.cs" />
+    <Compile Include="WoundEffects\VehicleControl\Systems\VehicleControlSystem.cs" />
     <Compile Include="WoundEffects\FacialAnimation\DisableFacialAnimationComponent.cs" />
     <Compile Include="WoundEffects\FacialAnimation\PermanentFacialAnimationComponent.cs" />
     <Compile Include="WoundEffects\FacialAnimation\EnableFacialAnimationComponent.cs" />

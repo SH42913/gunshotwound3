@@ -64,6 +64,7 @@
 			<LocalizationKey Key="NERVES_DAMAGED"/>
 			<EnableRagdoll LengthInMs="-1" Type="0" Permanent="TRUE" DisableOnlyOnHeal="TRUE"/>
 			<DropWeapon FleeIfHasNoWeapons="FALSE" TakeCoverDuration="-1"/>
+			<DisableCarControl EnableOnlyOnHeal="TRUE"/>
 		</Wound>
 		<Wound>
 			<Uid Value="GUTS_CRIT"/>

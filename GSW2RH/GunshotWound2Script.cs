@@ -28,6 +28,7 @@ using GunshotWound2.WoundEffects.PedFlags.Systems;
 using GunshotWound2.WoundEffects.Ragdoll.Systems;
 using GunshotWound2.WoundEffects.ScreenEffect.Systems;
 using GunshotWound2.WoundEffects.SpecialAbilityLock.Systems;
+using GunshotWound2.WoundEffects.VehicleControl.Systems;
 using GunshotWound2.WoundEffects.WeaponDrop.Systems;
 using Leopotam.Ecs;
 using Rage;
@@ -92,6 +93,7 @@ namespace GunshotWound2
                 .Add(new PedFlagsInitSystem())
                 .Add(new PlayPainInitSystem())
                 .Add(new SpecialAbilityLockInitSystem())
+                .Add(new VehicleControlInitSystem())
                 //CommonSystems
                 .Add(new PainStateSystem())
                 .Add(new BaseHitDetectingSystem())
@@ -122,6 +124,7 @@ namespace GunshotWound2
                 .Add(new PedFlagsSystem())
                 .Add(new PlayPainSystem())
                 .Add(new SpecialAbilityLockSystem())
+                .Add(new VehicleControlSystem())
 #if DEBUG
                 .Add(new DamagedBoneHistorySystem())
                 .Add(new FrameTimeStopSystem())
