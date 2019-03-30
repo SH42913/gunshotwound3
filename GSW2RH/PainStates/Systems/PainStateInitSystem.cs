@@ -10,14 +10,13 @@ namespace GunshotWound2.PainStates.Systems
     [EcsInject]
     public class PainStateInitSystem : IEcsPreInitSystem, IEcsInitSystem, IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
+        private readonly EcsWorld _ecsWorld = null;
 
-        private EcsFilter<LoadedConfigComponent> _loadedConfigs;
-        private EcsFilter<PainStateComponent> _painStates;
-        private EcsFilter<NewPedMarkComponent> _newPeds;
+        private readonly EcsFilter<LoadedConfigComponent> _loadedConfigs = null;
+        private readonly EcsFilter<PainStateComponent> _painStates = null;
+        private readonly EcsFilter<NewPedMarkComponent> _newPeds = null;
 
         private readonly GswLogger _logger;
-        private const string PAIN_STATE_LIST = "PainStateList";
 
         public PainStateInitSystem()
         {
@@ -26,14 +25,12 @@ namespace GunshotWound2.PainStates.Systems
 
         public void PreInitialize()
         {
-            _logger.MakeLog("Pain State list is loading!");
-
             foreach (int i in _loadedConfigs)
             {
                 LoadedConfigComponent config = _loadedConfigs.Components1[i];
                 XElement xmlRoot = config.ElementRoot;
 
-                XElement listElement = xmlRoot.Element(PAIN_STATE_LIST);
+                XElement listElement = xmlRoot.Element("PainStateList");
                 if (listElement == null) continue;
 
                 foreach (XElement stateRoot in listElement.Elements("PainState"))
@@ -42,7 +39,7 @@ namespace GunshotWound2.PainStates.Systems
                 }
             }
 
-            _logger.MakeLog("Pain State list loaded!");
+            _logger.MakeLog("PainStateList loaded!");
         }
 
         private void CreatePainState(XElement stateRoot)
@@ -64,12 +61,12 @@ namespace GunshotWound2.PainStates.Systems
                 sortedDict.Add(state.PainPercent, stateEntity);
             }
 
-            foreach (KeyValuePair<float,int> pair in sortedDict)
+            foreach (KeyValuePair<float, int> pair in sortedDict)
             {
                 component.PainStateEntities.Add(pair.Value);
                 component.PainStatePercents.Add(pair.Key);
 #if DEBUG
-                _logger.MakeLog($"PainState {pair.Value.GetEntityName(_ecsWorld)} got {pair.Key} percent");
+                _logger.MakeLog($"PainState {pair.Value.GetEntityName()} got {pair.Key} percent");
 #endif
             }
         }

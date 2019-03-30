@@ -1,5 +1,5 @@
 using System;
-using GunshotWound2.Bodies;
+using GunshotWound2.BodyParts;
 using GunshotWound2.Utils;
 using GunshotWound2.Wounds;
 using Leopotam.Ecs;
@@ -9,10 +9,10 @@ namespace GunshotWound2.Bleeding.Systems
     [EcsInject]
     public class BleedingCreateSystem : IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
+        private readonly EcsWorld _ecsWorld = null;
 
-        private EcsFilter<BleedingStatsComponent> _bleedingStats;
-        private EcsFilter<BleedingInfoComponent, WoundedComponent, DamagedBodyPartComponent> _woundedPeds;
+        private readonly EcsFilter<BleedingStatsComponent> _bleedingStats = null;
+        private readonly EcsFilter<BleedingInfoComponent, WoundedComponent, DamagedBodyPartComponent> _wounded = null;
 
         private readonly GswLogger _logger;
         private static readonly Random Random = new Random();
@@ -24,18 +24,12 @@ namespace GunshotWound2.Bleeding.Systems
 
         public void Run()
         {
-            if (_bleedingStats.EntitiesCount <= 0)
-            {
-                throw new Exception("BleedingSystem was not init!");
-            }
-
             BleedingStatsComponent stats = _bleedingStats.Components1[0];
-
-            foreach (int i in _woundedPeds)
+            foreach (int i in _wounded)
             {
-                BleedingInfoComponent info = _woundedPeds.Components1[i];
-                WoundedComponent wounded = _woundedPeds.Components2[i];
-                int pedEntity = _woundedPeds.Entities[i];
+                BleedingInfoComponent info = _wounded.Components1[i];
+                WoundedComponent wounded = _wounded.Components2[i];
+                int pedEntity = _wounded.Entities[i];
 
                 foreach (int woundEntity in wounded.WoundEntities)
                 {
@@ -45,7 +39,7 @@ namespace GunshotWound2.Bleeding.Systems
                     float baseSeverity = baseBleeding.BaseBleeding;
                     if (baseSeverity <= 0) continue;
 
-                    int bodyPartEntity = _woundedPeds.Components3[i].DamagedBodyPartEntity;
+                    int bodyPartEntity = _wounded.Components3[i].DamagedBodyPartEntity;
                     float bodyPartMult = _ecsWorld.GetComponent<BleedingMultComponent>(bodyPartEntity).Multiplier;
                     float sevWithMult = stats.BleedingMultiplier * bodyPartMult * baseSeverity;
 
@@ -58,7 +52,7 @@ namespace GunshotWound2.Bleeding.Systems
                     bleeding.Severity = finalSeverity;
 #if DEBUG
                     _logger.MakeLog(
-                        $"Created bleeding {woundEntity.GetEntityName(_ecsWorld)} for Entity ({pedEntity}). " +
+                        $"Created bleeding {woundEntity.GetEntityName()} for {pedEntity.GetEntityName()}. " +
                         $"Base severity {baseSeverity:0.00}; final severity {finalSeverity:0.00}");
 #endif
                     info.BleedingEntities.Add(bleedingEntity);

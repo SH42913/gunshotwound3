@@ -12,17 +12,16 @@ namespace GunshotWound2.Health.Systems
     [EcsInject]
     public class HealthInitSystem : IEcsPreInitSystem, IEcsInitSystem, IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
+        private readonly EcsWorld _ecsWorld = null;
 
-        private EcsFilter<LoadedConfigComponent> _loadedConfigs;
-        private EcsFilter<LoadedItemConfigComponent> _initParts;
-
-        private EcsFilter<PedHealthStatsComponent> _healthStats;
-        private EcsFilter<GswPedComponent, NewPedMarkComponent>.Exclude<AnimalMarkComponent> _newHumans;
-        private EcsFilter<GswPedComponent, NewPedMarkComponent, AnimalMarkComponent> _newAnimals;
-        private static readonly Random Random = new Random();
+        private readonly EcsFilter<LoadedConfigComponent> _loadedConfigs = null;
+        private readonly EcsFilter<LoadedItemConfigComponent> _initParts = null;
+        private readonly EcsFilter<PedHealthStatsComponent> _healthStats = null;
+        private readonly EcsFilter<GswPedComponent, NewPedMarkComponent>.Exclude<AnimalMarkComponent> _newHumans = null;
+        private readonly EcsFilter<GswPedComponent, NewPedMarkComponent, AnimalMarkComponent> _newAnimals = null;
 
         private readonly GswLogger _logger;
+        private static readonly Random Random = new Random();
 
         public HealthInitSystem()
         {
@@ -31,8 +30,6 @@ namespace GunshotWound2.Health.Systems
 
         public void PreInitialize()
         {
-            _logger.MakeLog("HealthSystem is loading!");
-
             var stats = _ecsWorld.AddComponent<HealthStatsComponent>(GunshotWound2Script.StatsContainerEntity);
             stats.DamageMultiplier = 1f;
             stats.DamageDeviation = 0.2f;
@@ -79,8 +76,10 @@ namespace GunshotWound2.Health.Systems
                 }
             }
 
+#if DEBUG
             _logger.MakeLog(stats.ToString());
             _logger.MakeLog(pedStats.ToString());
+#endif
             _logger.MakeLog("HealthSystem loaded!");
         }
 
@@ -90,7 +89,7 @@ namespace GunshotWound2.Health.Systems
             {
                 XElement partRoot = _initParts.Components1[i].ElementRoot;
                 int partEntity = _initParts.Entities[i];
-                
+
                 XElement multElement = partRoot.Element("DamageMult");
                 if (multElement != null)
                 {
@@ -109,23 +108,22 @@ namespace GunshotWound2.Health.Systems
 
         public void Run()
         {
-            if (_healthStats.EntitiesCount <= 0)
+            if (_healthStats.IsEmpty())
             {
                 throw new Exception("HealthSystem was not init!");
             }
-            PedHealthStatsComponent stats = _healthStats.Components1[0];
 
+            PedHealthStatsComponent stats = _healthStats.Components1[0];
             foreach (int i in _newHumans)
             {
                 Ped ped = _newHumans.Components1[i].ThisPed;
                 int humanEntity = _newHumans.Entities[i];
-
                 bool isPlayer = _ecsWorld.GetComponent<PlayerMarkComponent>(humanEntity) != null;
 
                 float healthAmount = isPlayer
                     ? stats.PlayerHealth
                     : Random.NextMinMax(stats.PedHealth);
-                
+
                 var health = _ecsWorld.AddComponent<HealthComponent>(humanEntity);
                 health.MinHealth = 0;
                 health.Health = health.MinHealth + healthAmount;
@@ -144,7 +142,7 @@ namespace GunshotWound2.Health.Systems
                 health.MinHealth = 0;
                 health.Health = health.MinHealth + ped.GetHealth();
                 health.MaxHealth = (float) Math.Floor(health.Health);
-                
+
                 ped.SetMaxHealth(health.MaxHealth);
                 ped.SetHealth(health.Health);
             }

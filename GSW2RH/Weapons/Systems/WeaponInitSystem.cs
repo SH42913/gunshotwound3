@@ -8,11 +8,10 @@ namespace GunshotWound2.Weapons.Systems
     [EcsInject]
     public class WeaponInitSystem : IEcsPreInitSystem
     {
-        private EcsWorld _ecsWorld;
-        private EcsFilter<LoadedConfigComponent> _loadedConfigs;
+        private readonly EcsWorld _ecsWorld = null;
+        private readonly EcsFilter<LoadedConfigComponent> _loadedConfigs = null;
 
         private readonly GswLogger _logger;
-        private const string WEAPON_LIST = "WeaponList";
 
         public WeaponInitSystem()
         {
@@ -21,14 +20,12 @@ namespace GunshotWound2.Weapons.Systems
 
         public void PreInitialize()
         {
-            _logger.MakeLog("Weapon list is loading!");
-
             foreach (int i in _loadedConfigs)
             {
                 LoadedConfigComponent config = _loadedConfigs.Components1[i];
                 XElement xmlRoot = config.ElementRoot;
 
-                XElement listElement = xmlRoot.Element(WEAPON_LIST);
+                XElement listElement = xmlRoot.Element("WeaponList");
                 if (listElement != null)
                 {
                     foreach (XElement weaponRoot in listElement.Elements("Weapon"))

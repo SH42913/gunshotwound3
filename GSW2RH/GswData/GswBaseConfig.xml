@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GswBaseConfig.xml>
+	<OverallDamageMultiplier Value="1.0"/>
+	<!-- Overall damage multiplier, 2.0 mean every wound will make x2 damage for ped -->
+
+	<OverallDamageDeviation Value="0.2"/>
+	<!-- 0.2 mean +-20% random damage -->
+	
+	<OverallPainMultiplier Value="1.0"/>
+	<!-- Overall pain multiplier, 2.0 mean every wound will make x2 pain for ped -->
+
+	<OverallPainDeviation Value="0.2"/>
+	<!-- 0.2 mean +-20% random pain -->
+
+	<OverallBleedingMultiplier Value="1.0"/>
+	<!-- Overall bleeding multiplier, 2.0 mean every wound will make x2 bleeding for ped -->
+
+	<OverallBleedingDeviation Value="0.2"/>
+	<!-- 0.2 mean +-20% random bleeding -->
+	
+	<ConfigFiles>
+		<Config Path="GswWorldConfig.xml"/>
+		<Config Path="GswPlayerConfig.xml"/>
+		<Config Path="GswWeaponConfig.xml"/>
+		<Config Path="GswBodyPartConfig.xml"/>
+		<Config Path="GswWoundConfig.xml"/>
+		<Config Path="GswNaturalMotionConfig.xml"/>
+		<Config Path="GswPainStateConfig.xml"/>
+	</ConfigFiles>
+</GswBaseConfig.xml>

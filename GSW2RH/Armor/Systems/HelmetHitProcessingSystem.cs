@@ -1,5 +1,5 @@
 ﻿using System;
-using GunshotWound2.Bodies;
+using GunshotWound2.BodyParts;
 using GunshotWound2.GswWorld;
 using GunshotWound2.Utils;
 using GunshotWound2.Weapons;
@@ -11,11 +11,16 @@ namespace GunshotWound2.Armor.Systems
     [EcsInject]
     public class HelmetHitProcessingSystem : IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
-        private EcsFilter<GswPedComponent, DamagedBodyPartComponent, DamagedByWeaponComponent, ArmorComponent> _damagedPeds;
+        private readonly EcsWorld _ecsWorld = null;
 
-        private static readonly Random Random = new Random();
+        private readonly EcsFilter<
+            GswPedComponent,
+            DamagedBodyPartComponent,
+            DamagedByWeaponComponent,
+            ArmorComponent> _damagedPeds = null;
+
         private readonly GswLogger _logger;
+        private static readonly Random Random = new Random();
 
         public HelmetHitProcessingSystem()
         {
@@ -26,15 +31,14 @@ namespace GunshotWound2.Armor.Systems
         {
             foreach (int i in _damagedPeds)
             {
-                GswPedComponent gswPed = _damagedPeds.Components1[i];
-                Ped ped = gswPed.ThisPed;
+                Ped ped = _damagedPeds.Components1[i].ThisPed;
                 if (!ped.Exists()) continue;
-                
+
                 int pedEntity = _damagedPeds.Entities[i];
                 if (!ped.IsWearingHelmet)
                 {
 #if DEBUG
-                    _logger.MakeLog($"Ped {ped.Name(pedEntity)} doesn't have Helmet");
+                    _logger.MakeLog($"{pedEntity.GetEntityName()} doesn't have helmet");
 #endif
                     continue;
                 }
@@ -44,8 +48,8 @@ namespace GunshotWound2.Armor.Systems
                 if (bodyArmor == null || !bodyArmor.ProtectedByHelmet)
                 {
 #if DEBUG
-                    var partName = bodyPartEntity.GetEntityName(_ecsWorld);
-                    _logger.MakeLog($"Helmet of {ped.Name(pedEntity)} doesn't protect {partName}");
+                    string partName = bodyPartEntity.GetEntityName();
+                    _logger.MakeLog($"Helmet of {pedEntity.GetEntityName()} doesn't protect {partName}");
 #endif
                     continue;
                 }
@@ -55,7 +59,7 @@ namespace GunshotWound2.Armor.Systems
                 if (weaponStats == null)
                 {
 #if DEBUG
-                    _logger.MakeLog($"This weapon doesn't have {nameof(ArmorWeaponStatsComponent)}");
+                    _logger.MakeLog($"Weapon {weaponEntity.GetEntityName()} doesn't have {nameof(ArmorWeaponStatsComponent)}");
 #endif
                     continue;
                 }
@@ -65,7 +69,8 @@ namespace GunshotWound2.Armor.Systems
                 if (!helmetPenetrated)
                 {
 #if DEBUG
-                    _logger.MakeLog($"Helmet of {ped.Name(pedEntity)} was not penetrated, when chance was {chance}");
+                    _logger.MakeLog($"Helmet of {pedEntity.GetEntityName()} was not penetrated, " +
+                                    $"when chance was {chance:0.00}");
 #endif
                     _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(pedEntity);
                     _ecsWorld.RemoveComponent<DamagedBodyPartComponent>(pedEntity);
@@ -73,7 +78,7 @@ namespace GunshotWound2.Armor.Systems
                 }
 
 #if DEBUG
-                _logger.MakeLog($"Helmet of {ped.Name(pedEntity)} was penetrated, when chance was {chance}");
+                _logger.MakeLog($"Helmet of {pedEntity.GetEntityName()} was penetrated, when chance was {chance:0.00}");
 #endif
             }
         }

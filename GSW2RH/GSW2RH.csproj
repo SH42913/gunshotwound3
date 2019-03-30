@@ -67,13 +67,11 @@
     <Compile Include="Bleeding\Systems\BleedingHealSystem.cs" />
     <Compile Include="Bleeding\Systems\BleedingInitSystem.cs" />
     <Compile Include="Bleeding\Systems\BleedingSystem.cs" />
-    <Compile Include="Bodies\BodyHitHistoryComponent.cs" />
-    <Compile Include="Bodies\BodyPartComponent.cs" />
-    <Compile Include="Bodies\BoneToBodyPartDictComponent.cs" />
-    <Compile Include="Bodies\DamagedBodyPartComponent.cs" />
-    <Compile Include="Bodies\Systems\BodyHitDetectingSystem.cs" />
-    <Compile Include="Bodies\Systems\BodyHitHistoryShowSystem.cs" />
-    <Compile Include="Bodies\Systems\BodyPartInitSystem.cs" />
+    <Compile Include="BodyParts\BodyPartComponent.cs" />
+    <Compile Include="BodyParts\BoneToBodyPartDictComponent.cs" />
+    <Compile Include="BodyParts\DamagedBodyPartComponent.cs" />
+    <Compile Include="BodyParts\Systems\BodyHitDetectingSystem.cs" />
+    <Compile Include="BodyParts\Systems\BodyPartInitSystem.cs" />
     <Compile Include="Configs\LoadedConfigComponent.cs" />
     <Compile Include="Configs\LoadedItemConfigComponent.cs" />
     <Compile Include="Configs\Systems\ConfigInitSystem.cs" />
@@ -81,6 +79,83 @@
     <Compile Include="Crits\CritListComponent.cs" />
     <Compile Include="Crits\Systems\CritInitSystem.cs" />
     <Compile Include="Crits\Systems\CritSystem.cs" />
+    <Compile Include="DebugSystems\DamagedBonesHistory\DamagedBoneHistoryComponent.cs" />
+    <Compile Include="DebugSystems\DamagedBonesHistory\Systems\DamagedBoneHistorySystem.cs" />
+    <Compile Include="DebugSystems\DebugText\DebugTextComponent.cs" />
+    <Compile Include="DebugSystems\DebugText\Systems\DebugTextSystem.cs" />
+    <Compile Include="DebugSystems\FrameTime\FrameTimeComponent.cs" />
+    <Compile Include="DebugSystems\FrameTime\Systems\FrameTimeStartSystem.cs" />
+    <Compile Include="DebugSystems\FrameTime\Systems\FrameTimeStopSystem.cs" />
+    <Compile Include="Pause\PauseStateComponent.cs" />
+    <Compile Include="Pause\Systems\PauseDetectingSystem.cs" />
+    <Compile Include="WoundEffects\BaseEffectInitSystem.cs" />
+    <Compile Include="WoundEffects\BaseEffectSystem.cs" />
+    <Compile Include="WoundEffects\CameraShake\DisableCameraShakeComponent.cs" />
+    <Compile Include="WoundEffects\CameraShake\EnablePermanentCameraShakeComponent.cs" />
+    <Compile Include="WoundEffects\CameraShake\PermanentCameraShakeComponent.cs" />
+    <Compile Include="WoundEffects\CameraShake\Systems\CameraShakeInitSystem.cs" />
+    <Compile Include="WoundEffects\CameraShake\Systems\CameraShakeSystem.cs" />
+    <Compile Include="WoundEffects\VehicleControl\DisableVehicleControlComponent.cs" />
+    <Compile Include="WoundEffects\VehicleControl\DisabledVehicleControlComponent.cs" />
+    <Compile Include="WoundEffects\VehicleControl\EnableVehicleControlComponent.cs" />
+    <Compile Include="WoundEffects\VehicleControl\Systems\VehicleControlInitSystem.cs" />
+    <Compile Include="WoundEffects\VehicleControl\Systems\VehicleControlSystem.cs" />
+    <Compile Include="WoundEffects\FacialAnimation\DisableFacialAnimationComponent.cs" />
+    <Compile Include="WoundEffects\FacialAnimation\PermanentFacialAnimationComponent.cs" />
+    <Compile Include="WoundEffects\FacialAnimation\EnableFacialAnimationComponent.cs" />
+    <Compile Include="WoundEffects\FacialAnimation\Systems\FacialAnimationInitSystem.cs" />
+    <Compile Include="WoundEffects\FacialAnimation\Systems\FacialAnimationSystem.cs" />
+    <Compile Include="WoundEffects\Flash\CreateFlashComponent.cs" />
+    <Compile Include="WoundEffects\Flash\Systems\FlashInitSystem.cs" />
+    <Compile Include="WoundEffects\Flash\Systems\FlashSystem.cs" />
+    <Compile Include="WoundEffects\InstantKill\InstantKillComponent.cs" />
+    <Compile Include="WoundEffects\InstantKill\Systems\InstantKillInitSystem.cs" />
+    <Compile Include="WoundEffects\InstantKill\Systems\InstantKillSystem.cs" />
+    <Compile Include="WoundEffects\MovementClipset\NewMovementClipsetComponent.cs" />
+    <Compile Include="WoundEffects\MovementClipset\Systems\MovementClipsetInitSystem.cs" />
+    <Compile Include="WoundEffects\MovementClipset\Systems\MovementClipsetSystem.cs" />
+    <Compile Include="WoundEffects\Movement\DisableSprintComponent.cs" />
+    <Compile Include="WoundEffects\Movement\NewMovementRateComponent.cs" />
+    <Compile Include="WoundEffects\Movement\PermanentDisabledSprintComponent.cs" />
+    <Compile Include="WoundEffects\Movement\PermanentMovementRateComponent.cs" />
+    <Compile Include="WoundEffects\Movement\RestoreMovementComponent.cs" />
+    <Compile Include="WoundEffects\Movement\EnableSprintComponent.cs" />
+    <Compile Include="WoundEffects\Movement\Systems\MovementInitSystem.cs" />
+    <Compile Include="WoundEffects\Movement\Systems\MovementSystem.cs" />
+    <Compile Include="WoundEffects\NaturalMotion\Arguments\NmArgument.cs" />
+    <Compile Include="WoundEffects\NaturalMotion\Arguments\RandomFloatArgument.cs" />
+    <Compile Include="WoundEffects\NaturalMotion\Arguments\RandomIntArgument.cs" />
+    <Compile Include="WoundEffects\NaturalMotion\NaturalMotionMessage.cs" />
+    <Compile Include="WoundEffects\NaturalMotion\NaturalMotionMessagesComponent.cs" />
+    <Compile Include="WoundEffects\NaturalMotion\NaturalMotionMessagesDictComponent.cs" />
+    <Compile Include="WoundEffects\NaturalMotion\Systems\NaturalMotionInitSystem.cs" />
+    <Compile Include="WoundEffects\NaturalMotion\Systems\NaturalMotionSystem.cs" />
+    <Compile Include="WoundEffects\PainSound\PlayPainComponent.cs" />
+    <Compile Include="WoundEffects\PainSound\Systems\PlayPainInitSystem.cs" />
+    <Compile Include="WoundEffects\PainSound\Systems\PlayPainSystem.cs" />
+    <Compile Include="WoundEffects\PedFlags\ChangedPedFlagsComponent.cs" />
+    <Compile Include="WoundEffects\PedFlags\ChangePedFlagComponent.cs" />
+    <Compile Include="WoundEffects\PedFlags\Systems\PedFlagsInitSystem.cs" />
+    <Compile Include="WoundEffects\PedFlags\Systems\PedFlagsSystem.cs" />
+    <Compile Include="WoundEffects\Ragdoll\CreatePermanentRagdollComponent.cs" />
+    <Compile Include="WoundEffects\Ragdoll\DisablePermanentRagdollComponent.cs" />
+    <Compile Include="WoundEffects\Ragdoll\EnableRagdollComponent.cs" />
+    <Compile Include="WoundEffects\Ragdoll\PermanentRagdollComponent.cs" />
+    <Compile Include="WoundEffects\Ragdoll\Systems\RagdollInitSystem.cs" />
+    <Compile Include="WoundEffects\Ragdoll\Systems\RagdollSystem.cs" />
+    <Compile Include="WoundEffects\ScreenEffect\MainScreenEffectComponent.cs" />
+    <Compile Include="WoundEffects\ScreenEffect\StartScreenEffectComponent.cs" />
+    <Compile Include="WoundEffects\ScreenEffect\StopScreenEffectComponent.cs" />
+    <Compile Include="WoundEffects\ScreenEffect\Systems\ScreenEffectInitSystem.cs" />
+    <Compile Include="WoundEffects\ScreenEffect\Systems\ScreenEffectSystem.cs" />
+    <Compile Include="WoundEffects\SpecialAbilityLock\LockSpecialAbilityComponent.cs" />
+    <Compile Include="WoundEffects\SpecialAbilityLock\Systems\SpecialAbilityLockInitSystem.cs" />
+    <Compile Include="WoundEffects\SpecialAbilityLock\Systems\SpecialAbilityLockSystem.cs" />
+    <Compile Include="WoundEffects\SpecialAbilityLock\UnlockSpecialAbilityComponent.cs" />
+    <Compile Include="WoundEffects\WeaponDrop\Systems\WeaponDropInitSystem.cs" />
+    <Compile Include="WoundEffects\WeaponDrop\Systems\WeaponDropSystem.cs" />
+    <Compile Include="WoundEffects\WeaponDrop\WeaponDropComponent.cs" />
+    <Compile Include="WoundEffects\WeaponDrop\WeaponDropStatsComponent.cs" />
     <Compile Include="GswWorld\AnimalMarkComponent.cs" />
     <Compile Include="GswWorld\ForceCreateGswPedEvent.cs" />
     <Compile Include="GswWorld\GswPedComponent.cs" />
@@ -127,6 +202,7 @@
     <Compile Include="Uids\Systems\UidInitSystem.cs" />
     <Compile Include="Uids\UidComponent.cs" />
     <Compile Include="Uids\UidToEntityDictComponent.cs" />
+    <Compile Include="Utils\MinMaxInt.cs" />
     <Compile Include="Weapons\DamagedByWeaponComponent.cs" />
     <Compile Include="Weapons\Systems\WeaponHitDetectingSystem.cs" />
     <Compile Include="Weapons\Systems\WeaponInitSystem.cs" />
@@ -154,6 +230,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configs\OldGSW2Config.xml" />
+    <Content Include="GswData\GswBodyPartConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GswData\GswNaturalMotionConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GswData\GswPainStateConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="GswData\GswPlayerConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -161,6 +246,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GswData\GswWorldConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GswData\GswBaseConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="GswData\GswWoundConfig.xml">

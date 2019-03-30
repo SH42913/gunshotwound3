@@ -1,146 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GswWoundConfig.xml>
-	<OverallDamageMultiplier Value="1.0"/>
-	<!-- Overall damage multiplier, 2.0 mean every wound will make x2 damage for ped -->
-
-	<OverallDamageDeviation Value="0.2"/>
-	<!-- 0.2 mean +-20% random damage -->
-	
-	<OverallPainMultiplier Value="1.0"/>
-	<!-- Overall pain multiplier, 2.0 mean every wound will make x2 pain for ped -->
-
-	<OverallPainDeviation Value="0.2"/>
-	<!-- 0.2 mean +-20% random pain -->
-
-	<OverallBleedingMultiplier Value="1.0"/>
-	<!-- Overall bleeding multiplier, 2.0 mean every wound will make x2 bleeding for ped -->
-
-	<OverallBleedingDeviation Value="0.2"/>
-	<!-- 0.2 mean +-20% random bleeding -->
-	
-	<PainStateList>
-		<PainState PainPercent="0">
-			<LocalizationKey Key="MILD"/>
-		</PainState>
-        <PainState PainPercent="0.3">
-            <LocalizationKey Key="AVERAGE"/>
-        </PainState>
-        <PainState PainPercent="0.7">
-            <LocalizationKey Key="INTENSE"/>
-        </PainState>
-        <PainState PainPercent="1">
-            <LocalizationKey Key="UNBEARABLE"/>
-        </PainState>
-		<PainState PainPercent="2.5">
-			<LocalizationKey Key="DEADLY"/>
-		</PainState>
-	</PainStateList>
-	
-	<BodyPartList>
-		<BodyPart>
-			<LocalizationKey Key="HEAD"/>
-			<!-- Head; -->
-			<Hashes Hashes="31086;"/>
-			<Protection ByHelmet="TRUE" ByArmor="FALSE"/>
-			<DamageMult Value="2.0"/>
-			<PainMult Value="2.0"/>
-			<BleedingMult Value="1.0"/>
-			<CritChance Value="1.0"/>
-			<CritWoundList>
-			</CritWoundList>
-		</BodyPart>
-		<BodyPart>
-			<LocalizationKey Key="NECK"/>
-			<!-- Neck; -->
-			<Hashes Hashes="39317;"/>
-			<Protection ByHelmet="FALSE" ByArmor="TRUE"/>
-			<DamageMult Value="1.0"/>
-			<PainMult Value="1.0"/>
-			<BleedingMult Value="2.0"/>
-			<CritChance Value="0.7"/>
-			<CritWoundList>
-			</CritWoundList>
-		</BodyPart>
-		<BodyPart>
-			<!-- LeftClavicle;RightClavicle;Spine2;Spine3; -->
-			<LocalizationKey Key="UPPER_BODY"/>
-			<Hashes Hashes="64729;10706;24817;24818;"/>
-			<Protection ByHelmet="FALSE" ByArmor="TRUE"/>
-			<DamageMult Value="1.0"/>
-			<PainMult Value="1.0"/>
-			<BleedingMult Value="1.0"/>
-			<CritChance Value="1.0"/>
-			<CritWoundList>
-				<CritWound Uid="4" Weight="1"/>
-			</CritWoundList>
-		</BodyPart>
-		<BodyPart>
-			<LocalizationKey Key="LOWER_BODY"/>
-			<!-- SKEL_ROOT;SpineRoot;Spine;Spine1;Pelvis; -->
-			<Hashes Hashes="0;57597;23553;24816;11816;"/>
-			<Protection ByHelmet="FALSE" ByArmor="TRUE"/>
-			<DamageMult Value="1.0"/>
-			<PainMult Value="1.0"/>
-			<BleedingMult Value="1.0"/>
-			<CritChance Value="0.4"/>
-			<CritWoundList>
-			</CritWoundList>
-		</BodyPart>
-		<BodyPart>
-			<LocalizationKey Key="LEFT_LEG"/>
-			<!-- LeftThigh;LeftFoot;LeftPhFoot;LeftCalf; -->
-			<Hashes Hashes="58271;14201;57717;63931;"/>
-			<Protection ByHelmet="FALSE" ByArmor="FALSE"/>
-			<DamageMult Value="0.7"/>
-			<PainMult Value="1.0"/>
-			<BleedingMult Value="1.2"/>
-			<CritChance Value="0.4"/>
-			<CritWoundList>
-			</CritWoundList>
-		</BodyPart>
-		<BodyPart>
-			<LocalizationKey Key="RIGHT_LEG"/>
-			<!-- RightThigh;RightFoot;RightPhFoot;RightCalf; -->
-			<Hashes Hashes="51826;52301;24806;36864;"/>
-			<Protection ByHelmet="FALSE" ByArmor="FALSE"/>
-			<DamageMult Value="0.7"/>
-			<PainMult Value="1.0"/>
-			<BleedingMult Value="1.2"/>
-			<CritChance Value="0.4"/>
-			<CritWoundList>
-			</CritWoundList>
-		</BodyPart>
-		<BodyPart>
-			<LocalizationKey Key="LEFT_ARM"/>
-			<!-- LeftUpperArm;LeftForeArm;LeftHand;LeftPhHand; -->
-			<Hashes Hashes="45509;61163;18905;60309;"/>
-			<Protection ByHelmet="FALSE" ByArmor="FALSE"/>
-			<DamageMult Value="0.7"/>
-			<PainMult Value="1.0"/>
-			<BleedingMult Value="1.2"/>
-			<CritChance Value="0.4"/>
-			<CritWoundList>
-				<CritWound Uid="3" Weight="1"/>
-			</CritWoundList>
-		</BodyPart>
-		<BodyPart>
-			<LocalizationKey Key="RIGHT_ARM"/>
-			<!-- RightUpperArm;RightForearm;RightHand;RightPhHand; -->
-			<Hashes Hashes="40269;28252;57005;28422;"/>
-			<Protection ByHelmet="FALSE" ByArmor="FALSE"/>
-			<DamageMult Value="0.7"/>
-			<PainMult Value="1.0"/>
-			<BleedingMult Value="1.2"/>
-			<CritChance Value="0.4"/>
-			<CritWoundList>
-				<CritWound Uid="3" Weight="1"/>
-			</CritWoundList>
-		</BodyPart>
-	</BodyPartList>
-	
 	<WoundList>
 		<Wound>
-			<Uid Value="0"/>
+			<Uid Value="FLESH_WOUND"/>
 			<LocalizationKey Key="FLESH"/>
 			<BaseDamage Value="5"/>
 			<BasePain Value="15"/>
@@ -148,34 +10,82 @@
 			<CritChance Value="0"/>
 		</Wound>
 		<Wound>
-			<Uid Value="1"/>
+			<Uid Value="PERFORATING_WOUND"/>
 			<LocalizationKey Key="PERFORATING"/>
 			<BaseDamage Value="9"/>
 			<BasePain Value="25"/>
 			<BaseBleeding Value="0.6"/>
 			<CritChance Value="0.5"/>
+			<CreateFlash FadeIn="500" FadeOut="500"/>
 		</Wound>
 		<Wound>
-			<Uid Value="2"/>
+			<Uid Value="AVULSIVE_WOUND"/>
 			<LocalizationKey Key="AVULSIVE"/>
 			<BaseDamage Value="11"/>
 			<BasePain Value="30"/>
 			<BaseBleeding Value="1.0"/>
 			<CritChance Value="1.0"/>
+			<CreateFlash FadeIn="1000" FadeOut="1000"/>
+			<PlayPainSound Player="-1" Male="6" Female="6"/>
 		</Wound>
 		<Wound>
-			<Uid Value="3"/>
+			<Uid Value="ARM_CRIT"/>
 			<LocalizationKey Key="ARM_BONE_BROKEN"/>
 			<BaseDamage Value="5"/>
 			<BasePain Value="30"/>
 			<BaseBleeding Value="0.4"/>
+			<DropWeapon FleeIfHasNoWeapons="TRUE" TakeCoverDuration="10000"/>
+			<CameraShake DisableOnlyOnHeal="TRUE" ShakeName="DRUNK_SHAKE" Intensity="1.0" Priority="2"/>
 		</Wound>
 		<Wound>
-			<Uid Value="4"/>
+			<Uid Value="LEG_CRIT"/>
+			<LocalizationKey Key="LEG_BONE_BROKEN"/>
+			<BaseDamage Value="5"/>
+			<BasePain Value="10"/>
+			<BaseBleeding Value="0.4"/>
+			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
+			<NaturalMotionMessages List="KneeShot;" PlayInPermanentRagdoll="TRUE"/>
+			<MovementRate Value="0.7" RestoreOnlyOnHeal="TRUE"/>
+			<DisableSprint RestoreOnlyOnHeal="TRUE"/>
+			<ChangePedFlag Id="170" Value="TRUE" ForPlayer="TRUE"/>
+		</Wound>
+		<Wound>
+			<Uid Value="LUNGS_CRIT"/>
 			<LocalizationKey Key="LUNGS_COLLAPSED"/>
 			<BaseDamage Value="10"/>
 			<BasePain Value="15"/>
 			<BaseBleeding Value="1.5"/>
+			<MovementRate Value="0.7" RestoreOnlyOnHeal="TRUE"/>
+			<DisableSprint RestoreOnlyOnHeal="TRUE"/>
+			<StartScreenEffect Name="DeathFailOut" Duration="10000" Loop="TRUE" Main="TRUE"/>
+		</Wound>
+		<Wound>
+			<Uid Value="NERVES_CRIT"/>
+			<LocalizationKey Key="NERVES_DAMAGED"/>
+			<EnableRagdoll LengthInMs="-1" Type="0" Permanent="TRUE" DisableOnlyOnHeal="TRUE"/>
+			<DropWeapon FleeIfHasNoWeapons="FALSE" TakeCoverDuration="-1"/>
+			<DisableCarControl EnableOnlyOnHeal="TRUE"/>
+		</Wound>
+		<Wound>
+			<Uid Value="GUTS_CRIT"/>
+			<LocalizationKey Key="GUTS_DAMAGED"/>
+			<BaseDamage Value="15"/>
+			<BasePain Value="30"/>
+			<BaseBleeding Value="1"/>
+			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
+			<NaturalMotionMessages List="GutsWound;" PlayInPermanentRagdoll="FALSE"/>
+			<ChangePedFlag Id="187" Value="TRUE" ForPlayer="FALSE"/>
+		</Wound>
+		<Wound>
+			<Uid Value="HEART_CRIT"/>
+			<LocalizationKey Key="HEART_DAMAGED"/>
+			<BaseDamage Value="20"/>
+			<BasePain Value="20"/>
+			<BaseBleeding Value="2"/>
+			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
+			<MovementRate Value="0.7" RestoreOnlyOnHeal="TRUE"/>
+			<DisableSprint RestoreOnlyOnHeal="TRUE"/>
+			<StartScreenEffect Name="DrugsDrivingIn" Duration="5000" Loop="TRUE" Main="TRUE"/>
 		</Wound>
 	</WoundList>
 </GswWoundConfig.xml>

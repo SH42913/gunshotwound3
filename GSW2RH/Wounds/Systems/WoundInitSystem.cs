@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using GunshotWound2.Configs;
 using GunshotWound2.Uids;
@@ -10,13 +11,13 @@ namespace GunshotWound2.Wounds.Systems
     [EcsInject]
     public class WoundInitSystem : IEcsPreInitSystem, IEcsInitSystem
     {
-        private EcsWorld _ecsWorld;
-        private EcsFilter<LoadedConfigComponent> _loadedConfigs;
-        private EcsFilter<LoadedItemConfigComponent> _loadedItems;
-        private EcsFilter<UidToEntityDictComponent> _uidDict;
+        private readonly EcsWorld _ecsWorld = null;
+        
+        private readonly EcsFilter<LoadedConfigComponent> _loadedConfigs = null;
+        private readonly EcsFilter<LoadedItemConfigComponent> _loadedItems = null;
+        private readonly EcsFilter<UidToEntityDictComponent> _uidDict = null;
 
         private readonly GswLogger _logger;
-        private const string WOUND_LIST = "WoundList";
 
         public WoundInitSystem()
         {
@@ -25,14 +26,11 @@ namespace GunshotWound2.Wounds.Systems
 
         public void PreInitialize()
         {
-            _logger.MakeLog("Wound list is loading!");
-
             foreach (int i in _loadedConfigs)
             {
                 LoadedConfigComponent config = _loadedConfigs.Components1[i];
                 XElement xmlRoot = config.ElementRoot;
-
-                XElement listElement = xmlRoot.Element(WOUND_LIST);
+                XElement listElement = xmlRoot.Element("WoundList");
                 if (listElement == null) continue;
 
                 foreach (XElement woundRoot in listElement.Elements("Wound"))
@@ -41,7 +39,7 @@ namespace GunshotWound2.Wounds.Systems
                 }
             }
 
-            _logger.MakeLog("Wound list loaded!");
+            _logger.MakeLog("WoundList loaded!");
         }
 
         private void CreateWound(XElement woundRoot)
@@ -52,13 +50,12 @@ namespace GunshotWound2.Wounds.Systems
 
         public void Initialize()
         {
-            if (_uidDict.EntitiesCount <= 0)
+            if (_uidDict.IsEmpty())
             {
                 throw new Exception("UidSystem was not init!");
             }
 
-            var uidDict = _uidDict.Components1[0].UidToEntityDict;
-
+            Dictionary<string, int> uidDict = _uidDict.Components1[0].UidToEntityDict;
             foreach (int i in _loadedItems)
             {
                 XElement itemRoot = _loadedItems.Components1[i].ElementRoot;
@@ -82,7 +79,7 @@ namespace GunshotWound2.Wounds.Systems
                 var randomizer = _ecsWorld.AddComponent<WoundRandomizerComponent>(itemEntity);
                 foreach (XElement woundElement in woundListElement.Elements(woundElementName))
                 {
-                    long woundUid = woundElement.GetLong("Uid");
+                    string woundUid = woundElement.GetAttributeValue("Uid");
                     if (!uidDict.ContainsKey(woundUid))
                     {
                         throw new Exception($"Entity with Uid {woundUid} not found!");

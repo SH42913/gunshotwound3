@@ -13,18 +13,17 @@ namespace GunshotWound2.Pain.Systems
     [EcsInject]
     public class PainInitSystem : IEcsPreInitSystem, IEcsInitSystem, IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
+        private readonly EcsWorld _ecsWorld = null;
 
-        private EcsFilter<LoadedConfigComponent> _loadedConfigs;
-        private EcsFilter<LoadedItemConfigComponent> _initParts;
-
-        private EcsFilter<PedPainStatsComponent> _painStats;
-        private EcsFilter<PedHealthStatsComponent> _healthStats;
-        private EcsFilter<NewPedMarkComponent>.Exclude<AnimalMarkComponent> _newHumans;
-        private EcsFilter<GswPedComponent, NewPedMarkComponent, AnimalMarkComponent> _newAnimals;
-        private static readonly Random Random = new Random();
+        private readonly EcsFilter<LoadedConfigComponent> _loadedConfigs = null;
+        private readonly EcsFilter<LoadedItemConfigComponent> _initParts = null;
+        private readonly EcsFilter<PedPainStatsComponent> _painStats = null;
+        private readonly EcsFilter<PedHealthStatsComponent> _healthStats = null;
+        private readonly EcsFilter<NewPedMarkComponent>.Exclude<AnimalMarkComponent> _newHumans = null;
+        private readonly EcsFilter<GswPedComponent, NewPedMarkComponent, AnimalMarkComponent> _newAnimals = null;
 
         private readonly GswLogger _logger;
+        private static readonly Random Random = new Random();
 
         public PainInitSystem()
         {
@@ -33,8 +32,6 @@ namespace GunshotWound2.Pain.Systems
 
         public void PreInitialize()
         {
-            _logger.MakeLog("PainSystem is loading!");
-
             var stats = _ecsWorld.AddComponent<PainStatsComponent>(GunshotWound2Script.StatsContainerEntity);
             stats.PainMultiplier = 1f;
             stats.PainDeviation = 0.2f;
@@ -103,8 +100,10 @@ namespace GunshotWound2.Pain.Systems
                 }
             }
 
+#if DEBUG
             _logger.MakeLog(stats.ToString());
             _logger.MakeLog(pedStats.ToString());
+#endif
             _logger.MakeLog("PainSystem loaded!");
         }
 
@@ -114,7 +113,7 @@ namespace GunshotWound2.Pain.Systems
             {
                 XElement partRoot = _initParts.Components1[i].ElementRoot;
                 int partEntity = _initParts.Entities[i];
-                
+
                 XElement multElement = partRoot.Element("PainMult");
                 if (multElement != null)
                 {
@@ -133,33 +132,27 @@ namespace GunshotWound2.Pain.Systems
 
         public void Run()
         {
-            if (_painStats.EntitiesCount <= 0)
+            if (_painStats.IsEmpty())
             {
                 throw new Exception("PainSystem was not init!");
             }
-            PedPainStatsComponent stats = _painStats.Components1[0];
 
+            PedPainStatsComponent stats = _painStats.Components1[0];
             foreach (int i in _newHumans)
             {
                 int humanEntity = _newHumans.Entities[i];
-                
                 bool isPlayer = _ecsWorld.GetComponent<PlayerMarkComponent>(humanEntity) != null;
 
                 var painInfo = _ecsWorld.AddComponent<PainInfoComponent>(humanEntity);
-                painInfo.UnbearablePain = isPlayer 
-                    ? stats.PlayerUnbearablePain 
+                painInfo.UnbearablePain = isPlayer
+                    ? stats.PlayerUnbearablePain
                     : Random.NextMinMax(stats.PedUnbearablePain);
-                painInfo.PainRecoverySpeed = isPlayer 
-                    ? stats.PlayerPainRecoverySpeed 
+                painInfo.PainRecoverySpeed = isPlayer
+                    ? stats.PlayerPainRecoverySpeed
                     : Random.NextMinMax(stats.PedPainRecoverySpeed);
             }
 
-            if (_healthStats.EntitiesCount <= 0)
-            {
-                throw new Exception("HealthSystem was not init!");
-            }
             PedHealthStatsComponent healthStats = _healthStats.Components1[0];
-
             foreach (int i in _newAnimals)
             {
                 Ped ped = _newAnimals.Components1[i].ThisPed;

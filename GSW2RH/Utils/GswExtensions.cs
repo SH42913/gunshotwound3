@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Xml.Linq;
+using GunshotWound2.GswWorld;
 using GunshotWound2.Localization;
+using GunshotWound2.Pause;
 using Leopotam.Ecs;
 using Rage;
 using Rage.Native;
@@ -33,10 +36,21 @@ namespace GunshotWound2.Utils
             return rand.NextFloat(minMax.Min, minMax.Max);
         }
 
+        public static int NextMinMax(this Random rand, MinMaxInt minMax)
+        {
+            return rand.Next(minMax.Min, minMax.Max);
+        }
+
         public static T NextFromArray<T>(this Random random, T[] array)
         {
             int index = random.Next(0, array.Length);
             return array[index];
+        }
+
+        public static T NextFromList<T>(this Random random, List<T> list)
+        {
+            int index = random.Next(0, list.Count);
+            return list[index];
         }
 
         public static T NextEnum<T>(this Random random) where T : Enum
@@ -73,7 +87,8 @@ namespace GunshotWound2.Utils
             XAttribute attribute = node.Attribute(attributeName);
             if (attribute == null)
             {
-                throw new Exception($"Can't find attribute {attributeName} in {node.Parent?.Name}/{node.Name.LocalName}");
+                throw new Exception($"Can't find attribute {attributeName} in " +
+                                    $"{node.Parent?.Name}/{node.Name.LocalName}");
             }
 
             return attribute.Value;
@@ -133,19 +148,31 @@ namespace GunshotWound2.Utils
             };
         }
 
-        public static string GetEntityName(this int entity, EcsWorld ecsWorld)
+        public static MinMaxInt GetMinMaxInt(this XElement node)
         {
-            var localizationKey = ecsWorld.GetComponent<LocalizationKeyComponent>(entity);
+            return new MinMaxInt
+            {
+                Min = node.GetInt("Min"),
+                Max = node.GetInt("Max")
+            };
+        }
 
-            return localizationKey != null 
-                ? localizationKey.Key 
-                : $"Entity #{entity}";
+        public static string GetEntityName(this int entity)
+        {
+            EcsWorld ecsWorld = EcsWorld.Active;
+            var localizationKey = ecsWorld.GetComponent<LocalizationKeyComponent>(entity);
+            if (localizationKey != null) return $"{localizationKey.Key}({entity})";
+
+            var gswPed = ecsWorld.GetComponent<GswPedComponent>(entity);
+            if (gswPed != null) return gswPed.ThisPed.Name(entity);
+
+            return $"Entity #{entity}";
         }
 
         public static string Name(this Ped ped, int entity)
         {
-            string name = ped.Exists() 
-                ? ped.Model.Name 
+            string name = ped.Exists()
+                ? ped.Model.Name
                 : "NOT_EXISTS";
             return $"{name}({entity})";
         }
@@ -171,6 +198,11 @@ namespace GunshotWound2.Utils
             return Game.Console.IsOpen
                 ? 0f
                 : Game.TimeScale * Game.FrameTime;
+        }
+
+        public static bool GameIsPaused(this EcsFilter<PauseStateComponent> filter)
+        {
+            return !filter.IsEmpty();
         }
     }
 }

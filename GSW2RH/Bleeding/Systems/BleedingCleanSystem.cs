@@ -7,8 +7,8 @@ namespace GunshotWound2.Bleeding.Systems
     [EcsInject]
     public class BleedingCleanSystem : IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
-        private EcsFilter<BleedingInfoComponent, RemovedPedMarkComponent> _pedsToRemove;
+        private readonly EcsWorld _ecsWorld = null;
+        private readonly EcsFilter<BleedingInfoComponent, RemovedPedMarkComponent> _pedsToRemove = null;
 
         private readonly GswLogger _logger;
 

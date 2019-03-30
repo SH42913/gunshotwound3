@@ -1,5 +1,6 @@
 using GunshotWound2.GswWorld;
 using GunshotWound2.Health;
+using GunshotWound2.Pause;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
@@ -10,9 +11,10 @@ namespace GunshotWound2.Bleeding.Systems
     public class BleedingSystem : IEcsRunSystem
     {
         private const float HEAL_RATE_SLOWER = 100f;
-        
-        private EcsWorld _ecsWorld;
-        private EcsFilter<GswPedComponent, HealthComponent, BleedingInfoComponent> _entities;
+
+        private readonly EcsWorld _ecsWorld = null;
+        private readonly EcsFilter<PauseStateComponent> _pause = null;
+        private readonly EcsFilter<GswPedComponent, HealthComponent, BleedingInfoComponent> _entities = null;
 
         private readonly GswLogger _logger;
 
@@ -23,6 +25,8 @@ namespace GunshotWound2.Bleeding.Systems
 
         public void Run()
         {
+            if(_pause.GameIsPaused()) return;
+            
             foreach (int i in _entities)
             {
                 Ped ped = _entities.Components1[i].ThisPed;
@@ -59,14 +63,13 @@ namespace GunshotWound2.Bleeding.Systems
                     if (bleeding.Severity > 0) continue;
 
 #if DEBUG
-                    _logger.MakeLog($"Bleeding {bleedingEntity} on Entity ({pedEntity}) was healed");
+                    _logger.MakeLog($"Bleeding {bleedingEntity} on {pedEntity.GetEntityName()} was healed");
 #endif
                     _ecsWorld.RemoveComponent<BleedingComponent>(bleedingEntity);
                     info.BleedingEntities.RemoveAt(bleedingIndex);
                 }
 
                 if (bleedingDamage <= 0) continue;
-                
                 health.Health -= bleedingDamage;
                 ped.SetHealth(health.Health);
             }

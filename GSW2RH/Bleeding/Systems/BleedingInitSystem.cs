@@ -13,18 +13,17 @@ namespace GunshotWound2.Bleeding.Systems
     [EcsInject]
     public class BleedingInitSystem : IEcsPreInitSystem, IEcsInitSystem, IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
+        private readonly EcsWorld _ecsWorld = null;
 
-        private EcsFilter<LoadedConfigComponent> _loadedConfigs;
-        private EcsFilter<LoadedItemConfigComponent> _initParts;
-
-        private EcsFilter<PedBleedingStatsComponent> _bleedingStats;
-        private EcsFilter<PedHealthStatsComponent> _healthStats;
-        private EcsFilter<GswPedComponent, NewPedMarkComponent>.Exclude<AnimalMarkComponent> _newHumans;
-        private EcsFilter<GswPedComponent, NewPedMarkComponent, AnimalMarkComponent> _newAnimals;
-        private static readonly Random Random = new Random();
-
+        private readonly EcsFilter<LoadedConfigComponent> _loadedConfigs = null;
+        private readonly EcsFilter<LoadedItemConfigComponent> _initParts = null;
+        private readonly EcsFilter<PedBleedingStatsComponent> _bleedingStats = null;
+        private readonly EcsFilter<PedHealthStatsComponent> _healthStats = null;
+        private readonly EcsFilter<GswPedComponent, NewPedMarkComponent>.Exclude<AnimalMarkComponent> _newHumans = null;
+        private readonly EcsFilter<GswPedComponent, NewPedMarkComponent, AnimalMarkComponent> _newAnimals = null;
+        
         private readonly GswLogger _logger;
+        private static readonly Random Random = new Random();
 
         public BleedingInitSystem()
         {
@@ -33,8 +32,6 @@ namespace GunshotWound2.Bleeding.Systems
 
         public void PreInitialize()
         {
-            _logger.MakeLog("BleedingSystem is loading!");
-
             var stats = _ecsWorld.AddComponent<BleedingStatsComponent>(GunshotWound2Script.StatsContainerEntity);
             stats.BleedingMultiplier = 1f;
             stats.BleedingMultiplier = 0.2f;
@@ -80,8 +77,10 @@ namespace GunshotWound2.Bleeding.Systems
                 }
             }
 
+#if DEBUG
             _logger.MakeLog(stats.ToString());
             _logger.MakeLog(pedStats.ToString());
+#endif
             _logger.MakeLog("BleedingSystem loaded!");
         }
 
@@ -110,12 +109,12 @@ namespace GunshotWound2.Bleeding.Systems
 
         public void Run()
         {
-            if (_bleedingStats.EntitiesCount <= 0)
+            if (_bleedingStats.IsEmpty())
             {
                 throw new Exception("BleedingSystem was not init!");
             }
-            PedBleedingStatsComponent stats = _bleedingStats.Components1[0];
             
+            PedBleedingStatsComponent stats = _bleedingStats.Components1[0];
             foreach (int i in _newHumans)
             {
                 int humanEntity = _newHumans.Entities[i];
@@ -127,12 +126,7 @@ namespace GunshotWound2.Bleeding.Systems
                     : Random.NextMinMax(stats.PedBleedingHealRate);
             }
 
-            if (_healthStats.EntitiesCount <= 0)
-            {
-                throw new Exception("HealthSystem was not init!");
-            }
-            PedHealthStatsComponent healthStats = _healthStats.Components1[0];
-            
+            PedHealthStatsComponent healthStats = _healthStats.Components1[0];            
             foreach (int i in _newAnimals)
             {
                 Ped ped = _newAnimals.Components1[i].ThisPed;

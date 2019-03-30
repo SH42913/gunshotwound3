@@ -1,31 +1,35 @@
 using System;
-using System.Drawing;
-using GunshotWound2.Bodies;
-using GunshotWound2.GswWorld;
+using GunshotWound2.BodyParts;
 using GunshotWound2.Health;
+using GunshotWound2.Pause;
 using GunshotWound2.Utils;
 using GunshotWound2.Wounds;
 using Leopotam.Ecs;
+
+#if DEBUG
 using Rage;
+using System.Drawing;
+using GunshotWound2.GswWorld;
+#endif
 
 namespace GunshotWound2.Pain.Systems
 {
     [EcsInject]
     public class PainSystem : IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
-
-        private EcsFilter<PainStatsComponent> _painStats;
-        private EcsFilter<WoundedComponent, PainInfoComponent, DamagedBodyPartComponent> _woundedPeds;
-        private EcsFilter<PainComponent, PainInfoComponent> _painToReduce;
-        private EcsFilter<FullyHealedComponent, PainComponent> _healedEntities;
-        private EcsFilter<PainIsGoneComponent> _entitiesToClean;
+        private readonly EcsWorld _ecsWorld = null;
+        private readonly EcsFilter<PauseStateComponent> _pause = null;
+        private readonly EcsFilter<PainStatsComponent> _painStats = null;
+        private readonly EcsFilter<WoundedComponent, PainInfoComponent, DamagedBodyPartComponent> _woundedPeds = null;
+        private readonly EcsFilter<PainComponent, PainInfoComponent> _painToReduce = null;
+        private readonly EcsFilter<FullyHealedComponent, PainComponent> _healedEntities = null;
+        private readonly EcsFilter<PainIsGoneComponent> _entitiesToClean = null;
 #if DEBUG
-        private EcsFilter<GswPedComponent, PainComponent, PainInfoComponent> _pedsWithPain;
+        private readonly EcsFilter<GswPedComponent, PainComponent, PainInfoComponent> _pedsWithPain = null;
 #endif
 
-        private static readonly Random Random = new Random();
         private readonly GswLogger _logger;
+        private static readonly Random Random = new Random();
 
         public PainSystem()
         {
@@ -39,14 +43,8 @@ namespace GunshotWound2.Pain.Systems
                 int entity = _entitiesToClean.Entities[i];
                 _ecsWorld.RemoveComponent<PainIsGoneComponent>(entity);
             }
-            
-            if (_painStats.EntitiesCount <= 0)
-            {
-                throw new Exception("PainSystem was not init!");
-            }
 
             PainStatsComponent stats = _painStats.Components1[0];
-
             foreach (int i in _woundedPeds)
             {
                 WoundedComponent wounded = _woundedPeds.Components1[i];
@@ -63,7 +61,7 @@ namespace GunshotWound2.Pain.Systems
 
                     basePain += pain.BasePain;
 #if DEBUG
-                    _logger.MakeLog($"{woundEntity.GetEntityName(_ecsWorld)} increase pain for {pain.BasePain}");
+                    _logger.MakeLog($"{woundEntity.GetEntityName()} increased pain for {pain.BasePain:0.00}");
 #endif
                 }
 
@@ -74,14 +72,12 @@ namespace GunshotWound2.Pain.Systems
                 }
 
                 if (basePain <= 0) continue;
-
                 int bodyPartEntity = _woundedPeds.Components3[i].DamagedBodyPartEntity;
                 float bodyPartPainMult = _ecsWorld.GetComponent<PainMultComponent>(bodyPartEntity).Multiplier;
                 float painWithMult = stats.PainMultiplier * bodyPartPainMult * basePain;
 
                 float painDeviation = painWithMult * stats.PainDeviation;
                 painDeviation = Random.NextFloat(-painDeviation, painDeviation);
-
                 float finalPain = painWithMult + painDeviation;
 
                 var painComponent = _ecsWorld.EnsureComponent<PainComponent>(entity, out bool isNew);
@@ -96,12 +92,21 @@ namespace GunshotWound2.Pain.Systems
 #if DEBUG
                 int pedEntity = _woundedPeds.Entities[i];
                 float painPercent = painComponent.PainAmount / maxPain * 100f;
-                _logger.MakeLog($"Entity ({pedEntity}): Base pain is {basePain:0.0}; " +
-                                $"Final pain is {finalPain:0.0}; " +
-                                $"Pain percent is {painPercent:0.0}");
+                _logger.MakeLog($"{pedEntity.GetEntityName()}: " +
+                                $"Base pain is {basePain:0.00}; " +
+                                $"Final pain is {finalPain:0.00}; " +
+                                $"Pain percent is {painPercent:0.00}");
 #endif
             }
 
+            foreach (int i in _healedEntities)
+            {
+                int entity = _healedEntities.Entities[i];
+                _ecsWorld.AddComponent<PainIsGoneComponent>(entity);
+                _ecsWorld.RemoveComponent<PainComponent>(entity);
+            }
+
+            if(_pause.GameIsPaused()) return;
             foreach (int i in _painToReduce)
             {
                 PainComponent painComponent = _painToReduce.Components1[i];
@@ -110,14 +115,7 @@ namespace GunshotWound2.Pain.Systems
 
                 painComponent.PainAmount -= painRecoverySpeed * GswExtensions.GetDeltaTime();
                 if (painComponent.PainAmount > 0) continue;
-                
-                _ecsWorld.AddComponent<PainIsGoneComponent>(entity);
-                _ecsWorld.RemoveComponent<PainComponent>(entity);
-            }
 
-            foreach (int i in _healedEntities)
-            {
-                int entity = _healedEntities.Entities[i];
                 _ecsWorld.AddComponent<PainIsGoneComponent>(entity);
                 _ecsWorld.RemoveComponent<PainComponent>(entity);
             }

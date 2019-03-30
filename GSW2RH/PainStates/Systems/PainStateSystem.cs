@@ -1,5 +1,4 @@
 using System;
-using GunshotWound2.Health;
 using GunshotWound2.Pain;
 using GunshotWound2.Utils;
 using GunshotWound2.Wounds;
@@ -10,11 +9,11 @@ namespace GunshotWound2.PainStates.Systems
     [EcsInject]
     public class PainStateSystem : IEcsRunSystem
     {
-        private EcsWorld _ecsWorld;
+        private readonly EcsWorld _ecsWorld = null;
 
-        private EcsFilter<PainComponent, PainInfoComponent, CurrentPainStateComponent> _entities;
-        private EcsFilter<PainIsGoneComponent, CurrentPainStateComponent> _painIsGone;
-        private EcsFilter<PainStateListComponent> _painStates;
+        private readonly EcsFilter<PainComponent, PainInfoComponent, CurrentPainStateComponent> _entities = null;
+        private readonly EcsFilter<PainIsGoneComponent, CurrentPainStateComponent> _painIsGone = null;
+        private readonly EcsFilter<PainStateListComponent> _painStates = null;
 
         private readonly GswLogger _logger;
 
@@ -25,23 +24,40 @@ namespace GunshotWound2.PainStates.Systems
 
         public void Run()
         {
-            if (_painStates.EntitiesCount <= 0)
+            if (_painStates.IsEmpty())
             {
                 throw new Exception("PainState list was not init!");
             }
 
+            PainStateListComponent stateList = _painStates.Components1[0];
             foreach (int i in _painIsGone)
             {
+                CurrentPainStateComponent stateComponent = _painIsGone.Components2[i];
+                int pedEntity = _painIsGone.Entities[i];
+                int oldState = stateComponent.CurrentPainStateIndex;
+
                 _painIsGone.Components2[i].CurrentPainStateIndex = -1;
+                int newStateIndex = stateComponent.CurrentPainStateIndex;
+
+#if DEBUG
+                string currentState = oldState >= 0
+                    ? stateList.PainStateEntities[oldState].GetEntityName()
+                    : "NO PAIN";
+                string newState = newStateIndex >= 0
+                    ? stateList.PainStateEntities[newStateIndex].GetEntityName()
+                    : "NO PAIN";
+                _logger.MakeLog($"{pedEntity.GetEntityName()}: Changed Pain State from {currentState} to {newState}");
+#endif
             }
 
-            PainStateListComponent stateList = _painStates.Components1[0];
-            foreach (int pedEntity in _entities)
+            foreach (int pedIndex in _entities)
             {
-                PainComponent pain = _entities.Components1[pedEntity];
-                PainInfoComponent painInfo = _entities.Components2[pedEntity];
-                CurrentPainStateComponent currentStateComponent = _entities.Components3[pedEntity];
-                int entity = _entities.Entities[pedEntity];
+                int pedEntity = _entities.Entities[pedIndex];
+                if (!_ecsWorld.IsEntityExists(pedEntity)) continue;
+
+                PainComponent pain = _entities.Components1[pedIndex];
+                PainInfoComponent painInfo = _entities.Components2[pedIndex];
+                CurrentPainStateComponent currentStateComponent = _entities.Components3[pedIndex];
 
                 int newStateIndex = -1;
                 float painPercent = pain.PainAmount / painInfo.UnbearablePain;
@@ -63,7 +79,7 @@ namespace GunshotWound2.PainStates.Systems
                     {
                         int newStateEntity = stateList.PainStateEntities[i];
 #if DEBUG
-                        _logger.MakeLog($"Added {newStateEntity.GetEntityName(_ecsWorld)} PainState");
+                        _logger.MakeLog($"Added {newStateEntity.GetEntityName()} PainState");
 #endif
                         wounded.WoundEntities.Add(newStateEntity);
                     }
@@ -76,7 +92,7 @@ namespace GunshotWound2.PainStates.Systems
 
                         int newStateEntity = stateList.PainStateEntities[i];
 #if DEBUG
-                        _logger.MakeLog($"Added {newStateEntity.GetEntityName(_ecsWorld)} PainState");
+                        _logger.MakeLog($"Added {newStateEntity.GetEntityName()} PainState");
 #endif
                         wounded.WoundEntities.Add(newStateEntity);
                     }
@@ -85,12 +101,12 @@ namespace GunshotWound2.PainStates.Systems
                 currentStateComponent.CurrentPainStateIndex = newStateIndex;
 #if DEBUG
                 string currentState = currentStateIndex >= 0
-                    ? stateList.PainStateEntities[currentStateIndex].GetEntityName(_ecsWorld)
+                    ? stateList.PainStateEntities[currentStateIndex].GetEntityName()
                     : "NO PAIN";
                 string newState = newStateIndex >= 0
-                    ? stateList.PainStateEntities[newStateIndex].GetEntityName(_ecsWorld)
+                    ? stateList.PainStateEntities[newStateIndex].GetEntityName()
                     : "NO PAIN";
-                _logger.MakeLog($"Entity ({entity}): Changed Pain State from {currentState} to {newState}");
+                _logger.MakeLog($"{pedEntity.GetEntityName()}: Changed Pain State from {currentState} to {newState}");
 #endif
             }
         }
