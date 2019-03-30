@@ -1,5 +1,6 @@
 using GunshotWound2.GswWorld;
 using GunshotWound2.Health;
+using GunshotWound2.Pause;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
@@ -12,6 +13,7 @@ namespace GunshotWound2.Bleeding.Systems
         private const float HEAL_RATE_SLOWER = 100f;
 
         private readonly EcsWorld _ecsWorld = null;
+        private readonly EcsFilter<PauseStateComponent> _pause = null;
         private readonly EcsFilter<GswPedComponent, HealthComponent, BleedingInfoComponent> _entities = null;
 
         private readonly GswLogger _logger;
@@ -23,6 +25,8 @@ namespace GunshotWound2.Bleeding.Systems
 
         public void Run()
         {
+            if(_pause.GameIsPaused()) return;
+            
             foreach (int i in _entities)
             {
                 Ped ped = _entities.Components1[i].ThisPed;

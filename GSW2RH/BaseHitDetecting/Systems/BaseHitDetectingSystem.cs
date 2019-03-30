@@ -1,4 +1,5 @@
 ﻿using GunshotWound2.GswWorld;
+using GunshotWound2.Pause;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
@@ -11,6 +12,7 @@ namespace GunshotWound2.BaseHitDetecting.Systems
     {
         private readonly EcsWorld _ecsWorld = null;
         private readonly EcsFilter<GswPedComponent> _peds = null;
+        private readonly EcsFilter<PauseStateComponent> _pause = null;
 
         private readonly GswLogger _logger;
 
@@ -21,6 +23,8 @@ namespace GunshotWound2.BaseHitDetecting.Systems
 
         public void Run()
         {
+            if(_pause.GameIsPaused()) return;
+            
             foreach (int i in _peds)
             {
                 Ped ped = _peds.Components1[i].ThisPed;

@@ -1,6 +1,7 @@
 using System;
 using GunshotWound2.BodyParts;
 using GunshotWound2.Health;
+using GunshotWound2.Pause;
 using GunshotWound2.Utils;
 using GunshotWound2.Wounds;
 using Leopotam.Ecs;
@@ -17,7 +18,7 @@ namespace GunshotWound2.Pain.Systems
     public class PainSystem : IEcsRunSystem
     {
         private readonly EcsWorld _ecsWorld = null;
-
+        private readonly EcsFilter<PauseStateComponent> _pause = null;
         private readonly EcsFilter<PainStatsComponent> _painStats = null;
         private readonly EcsFilter<WoundedComponent, PainInfoComponent, DamagedBodyPartComponent> _woundedPeds = null;
         private readonly EcsFilter<PainComponent, PainInfoComponent> _painToReduce = null;
@@ -98,6 +99,14 @@ namespace GunshotWound2.Pain.Systems
 #endif
             }
 
+            foreach (int i in _healedEntities)
+            {
+                int entity = _healedEntities.Entities[i];
+                _ecsWorld.AddComponent<PainIsGoneComponent>(entity);
+                _ecsWorld.RemoveComponent<PainComponent>(entity);
+            }
+
+            if(_pause.GameIsPaused()) return;
             foreach (int i in _painToReduce)
             {
                 PainComponent painComponent = _painToReduce.Components1[i];
@@ -107,13 +116,6 @@ namespace GunshotWound2.Pain.Systems
                 painComponent.PainAmount -= painRecoverySpeed * GswExtensions.GetDeltaTime();
                 if (painComponent.PainAmount > 0) continue;
 
-                _ecsWorld.AddComponent<PainIsGoneComponent>(entity);
-                _ecsWorld.RemoveComponent<PainComponent>(entity);
-            }
-
-            foreach (int i in _healedEntities)
-            {
-                int entity = _healedEntities.Entities[i];
                 _ecsWorld.AddComponent<PainIsGoneComponent>(entity);
                 _ecsWorld.RemoveComponent<PainComponent>(entity);
             }
