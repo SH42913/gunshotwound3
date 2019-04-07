@@ -11,7 +11,7 @@ namespace GunshotWound2.WoundEffects.VehicleControl.Systems
         {
         }
 
-        protected override void CheckPart(XElement partRoot, int partEntity)
+        protected override void CheckPart(XElement partRoot, EcsEntity partEntity)
         {
             XElement disable = partRoot.Element("DisableCarControl");
             if (disable != null)

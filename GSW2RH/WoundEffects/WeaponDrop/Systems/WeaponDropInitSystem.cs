@@ -14,7 +14,7 @@ namespace GunshotWound2.WoundEffects.WeaponDrop.Systems
         {
         }
 
-        protected override void CheckPart(XElement partRoot, int partEntity)
+        protected override void CheckPart(XElement partRoot, EcsEntity partEntity)
         {
             var dropElement = partRoot.Element("DropWeapon");
             if (dropElement == null) return;

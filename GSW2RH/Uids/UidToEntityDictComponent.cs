@@ -6,7 +6,7 @@ namespace GunshotWound2.Uids
     public class UidToEntityDictComponent : IEcsAutoResetComponent
     {
         [EcsIgnoreNullCheck]
-        public readonly Dictionary<string, int> UidToEntityDict = new Dictionary<string, int>();
+        public readonly Dictionary<string, EcsEntity> UidToEntityDict = new Dictionary<string, EcsEntity>(32);
 
         public void Reset()
         {

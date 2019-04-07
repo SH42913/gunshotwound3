@@ -19,7 +19,7 @@ namespace GunshotWound2.Localization.Systems
                 XElement localElement = itemRoot.Element("LocalizationKey");
                 if (localElement == null) continue;
 
-                int itemEntity = _loadedItems.Entities[i];
+                EcsEntity itemEntity = _loadedItems.Entities[i];
                 _ecsWorld
                     .AddComponent<LocalizationKeyComponent>(itemEntity)
                     .Key = localElement.GetAttributeValue("Key");

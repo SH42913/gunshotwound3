@@ -12,6 +12,7 @@ namespace GunshotWound2.Crits.Systems
     public class CritSystem : IEcsRunSystem
     {
         private readonly EcsWorld _ecsWorld = null;
+        private readonly Random _random = null;
         private readonly EcsFilter<FullyHealedComponent, CritListComponent> _healedPeds = null;
 
         private readonly EcsFilter<
@@ -21,7 +22,6 @@ namespace GunshotWound2.Crits.Systems
             CritListComponent> _woundedPeds = null;
 
         private readonly GswLogger _logger;
-        private static readonly Random Random = new Random();
 
         public CritSystem()
         {
@@ -40,9 +40,9 @@ namespace GunshotWound2.Crits.Systems
                 DamagedByWeaponComponent damagedByWeapon = _woundedPeds.Components1[i];
                 WoundedComponent wounded = _woundedPeds.Components3[i];
                 CritListComponent critList = _woundedPeds.Components4[i];
-                int pedEntity = _woundedPeds.Entities[i];
+                EcsEntity pedEntity = _woundedPeds.Entities[i];
 
-                int bodyPartEntity = _woundedPeds.Components2[i].DamagedBodyPartEntity;
+                EcsEntity bodyPartEntity = _woundedPeds.Components2[i].DamagedBodyPartEntity;
                 var bodyPartCrits = _ecsWorld.GetComponent<WoundRandomizerComponent>(bodyPartEntity);
                 if (bodyPartCrits == null)
                 {
@@ -52,11 +52,11 @@ namespace GunshotWound2.Crits.Systems
                     continue;
                 }
 
-                int weaponEntity = damagedByWeapon.WeaponEntity;
+                EcsEntity weaponEntity = damagedByWeapon.WeaponEntity;
                 var weaponChanceComponent = _ecsWorld.GetComponent<CritChanceComponent>(weaponEntity);
                 float weaponChance = weaponChanceComponent?.CritChance ?? 0f;
 
-                int woundEntity = damagedByWeapon.WoundEntity;
+                EcsEntity woundEntity = damagedByWeapon.WoundEntity;
                 var woundChanceComponent = _ecsWorld.GetComponent<CritChanceComponent>(woundEntity);
                 float woundChance = woundChanceComponent?.CritChance ?? 0f;
 
@@ -75,7 +75,7 @@ namespace GunshotWound2.Crits.Systems
                 }
 
                 float finalChance = weaponChance * woundChance * bodyPartChance;
-                bool critSuccess = Random.IsTrueWithProbability(finalChance);
+                bool critSuccess = _random.IsTrueWithProbability(finalChance);
 #if DEBUG
                 _logger.MakeLog(
                     $"{pedEntity.GetEntityName()} crit check is {critSuccess}, when chance was {finalChance:0.000}" +
@@ -85,7 +85,7 @@ namespace GunshotWound2.Crits.Systems
 #endif
                 if (!critSuccess) continue;
 
-                int critEntity = bodyPartCrits.WoundRandomizer.NextWithReplacement();
+                EcsEntity critEntity = bodyPartCrits.WoundRandomizer.NextWithReplacement();
                 wounded.WoundEntities.Add(critEntity);
                 critList.CritList.Add(critEntity);
 #if DEBUG

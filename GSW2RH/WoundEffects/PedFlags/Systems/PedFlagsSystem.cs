@@ -13,7 +13,7 @@ namespace GunshotWound2.WoundEffects.PedFlags.Systems
         {
         }
 
-        protected override void ResetEffect(Ped ped, int pedEntity)
+        protected override void ResetEffect(Ped ped, EcsEntity pedEntity)
         {
             var changedFlags = EcsWorld.GetComponent<ChangedPedFlagsComponent>(pedEntity);
             if(changedFlags == null) return;
@@ -25,7 +25,7 @@ namespace GunshotWound2.WoundEffects.PedFlags.Systems
             changedFlags.ChangedFlags.Clear();
         }
 
-        protected override void ProcessWound(Ped ped, int pedEntity, int woundEntity)
+        protected override void ProcessWound(Ped ped, EcsEntity pedEntity, EcsEntity woundEntity)
         {
             bool isPlayer = EcsWorld.GetComponent<PlayerMarkComponent>(pedEntity) != null;
             var changeFlag = EcsWorld.GetComponent<ChangePedFlagComponent>(woundEntity);

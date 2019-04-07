@@ -15,7 +15,7 @@ namespace GunshotWound2.Pause.Systems
             _isPaused = Game.GameTime == _last;
             _last = Game.GameTime;
 
-            int mainEntity = GunshotWound2Script.StatsContainerEntity;
+            EcsEntity mainEntity = GunshotWound2Script.StatsContainerEntity;
             if (_isPaused)
             {
                 _ecsWorld.EnsureComponent<PauseStateComponent>(mainEntity, out _);

@@ -31,7 +31,7 @@ namespace GunshotWound2.Armor.Systems
             {
                 XElement weaponRoot = _initWeapons.Components1[i].ElementRoot;
                 XElement statsElement = weaponRoot.GetElement("WeaponArmorStats");
-                int weaponEntity = _initWeapons.Entities[i];
+                EcsEntity weaponEntity = _initWeapons.Entities[i];
 
                 var stats = _ecsWorld.AddComponent<ArmorWeaponStatsComponent>(weaponEntity);
                 stats.CanPenetrateArmor = statsElement.GetBool("CanPenetrateArmor");
@@ -42,7 +42,7 @@ namespace GunshotWound2.Armor.Systems
 
             foreach (int i in _initParts)
             {
-                int entity = _initParts.Entities[i];
+                EcsEntity entity = _initParts.Entities[i];
                 XElement partRoot = _initParts.Components1[i].ElementRoot;
                 XElement protection = partRoot.Element("Protection");
 
@@ -57,9 +57,9 @@ namespace GunshotWound2.Armor.Systems
             foreach (int i in _newPeds)
             {
                 Ped ped = _newPeds.Components1[i].ThisPed;
-                int pedEntity = _newPeds.Entities[i];
+                EcsEntity pedEntity = _newPeds.Entities[i];
 
-                var armor = _ecsWorld.AddComponent<ArmorComponent>(pedEntity);
+                var armor = _ecsWorld.AddComponent<PedArmorComponent>(pedEntity);
                 armor.Armor = ped.Armor;
             }
         }

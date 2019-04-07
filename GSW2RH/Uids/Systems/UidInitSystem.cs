@@ -28,11 +28,11 @@ namespace GunshotWound2.Uids.Systems
                 XElement uidElement = itemRoot.Element("Uid");
                 if (uidElement == null) continue;
 
-                int entity = _items.Entities[i];
+                EcsEntity entity = _items.Entities[i];
                 string uid = uidElement.GetAttributeValue("Value");
                 if (dict.UidToEntityDict.ContainsKey(uid))
                 {
-                    _logger.MakeLog($"WARNING! Uid {uid} already exists! {itemRoot.Name} skipped!");
+                    _logger.MakeLog($"!!!WARNING!!! Uid {uid} already exists! {itemRoot.Name} skipped!");
                     return;
                 }
 

@@ -14,6 +14,7 @@ namespace GunshotWound2.Pain.Systems
     public class PainInitSystem : IEcsPreInitSystem, IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsWorld _ecsWorld = null;
+        private readonly Random _random = null;
 
         private readonly EcsFilter<LoadedConfigComponent> _loadedConfigs = null;
         private readonly EcsFilter<LoadedItemConfigComponent> _initParts = null;
@@ -23,7 +24,6 @@ namespace GunshotWound2.Pain.Systems
         private readonly EcsFilter<GswPedComponent, NewPedMarkComponent, AnimalMarkComponent> _newAnimals = null;
 
         private readonly GswLogger _logger;
-        private static readonly Random Random = new Random();
 
         public PainInitSystem()
         {
@@ -32,11 +32,12 @@ namespace GunshotWound2.Pain.Systems
 
         public void PreInitialize()
         {
-            var stats = _ecsWorld.AddComponent<PainStatsComponent>(GunshotWound2Script.StatsContainerEntity);
+            EcsEntity mainEntity = GunshotWound2Script.StatsContainerEntity;
+            var stats = _ecsWorld.AddComponent<PainStatsComponent>(mainEntity);
             stats.PainMultiplier = 1f;
             stats.PainDeviation = 0.2f;
 
-            var pedStats = _ecsWorld.AddComponent<PedPainStatsComponent>(GunshotWound2Script.StatsContainerEntity);
+            var pedStats = _ecsWorld.AddComponent<PedPainStatsComponent>(mainEntity);
             pedStats.PlayerUnbearablePain = 100f;
             pedStats.PlayerPainRecoverySpeed = 1f;
             pedStats.PedUnbearablePain = new MinMax
@@ -112,7 +113,7 @@ namespace GunshotWound2.Pain.Systems
             foreach (int i in _initParts)
             {
                 XElement partRoot = _initParts.Components1[i].ElementRoot;
-                int partEntity = _initParts.Entities[i];
+                EcsEntity partEntity = _initParts.Entities[i];
 
                 XElement multElement = partRoot.Element("PainMult");
                 if (multElement != null)
@@ -140,23 +141,23 @@ namespace GunshotWound2.Pain.Systems
             PedPainStatsComponent stats = _painStats.Components1[0];
             foreach (int i in _newHumans)
             {
-                int humanEntity = _newHumans.Entities[i];
+                EcsEntity humanEntity = _newHumans.Entities[i];
                 bool isPlayer = _ecsWorld.GetComponent<PlayerMarkComponent>(humanEntity) != null;
 
                 var painInfo = _ecsWorld.AddComponent<PainInfoComponent>(humanEntity);
                 painInfo.UnbearablePain = isPlayer
                     ? stats.PlayerUnbearablePain
-                    : Random.NextMinMax(stats.PedUnbearablePain);
+                    : _random.NextMinMax(stats.PedUnbearablePain);
                 painInfo.PainRecoverySpeed = isPlayer
                     ? stats.PlayerPainRecoverySpeed
-                    : Random.NextMinMax(stats.PedPainRecoverySpeed);
+                    : _random.NextMinMax(stats.PedPainRecoverySpeed);
             }
 
             PedHealthStatsComponent healthStats = _healthStats.Components1[0];
             foreach (int i in _newAnimals)
             {
                 Ped ped = _newAnimals.Components1[i].ThisPed;
-                int animalEntity = _newAnimals.Entities[i];
+                EcsEntity animalEntity = _newAnimals.Entities[i];
 
                 float healthPercent = ped.GetHealth() / healthStats.PedHealth.Max;
                 var painInfo = _ecsWorld.AddComponent<PainInfoComponent>(animalEntity);

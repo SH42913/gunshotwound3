@@ -11,7 +11,7 @@ namespace GunshotWound2.WoundEffects.Ragdoll.Systems
         {
         }
 
-        protected override void CheckPart(XElement partRoot, int partEntity)
+        protected override void CheckPart(XElement partRoot, EcsEntity partEntity)
         {
             XElement ragdoll = partRoot.Element("EnableRagdoll");
             if (ragdoll != null)

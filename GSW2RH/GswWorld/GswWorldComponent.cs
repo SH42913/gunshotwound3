@@ -22,7 +22,7 @@ namespace GunshotWound2.GswWorld
         public readonly HashSet<Ped> ForceCreatePeds = new HashSet<Ped>();
 
         [EcsIgnoreNullCheck]
-        public readonly Dictionary<Ped, int> PedsToEntityDict = new Dictionary<Ped, int>();
+        public readonly Dictionary<Ped, EcsEntity> PedsToEntityDict = new Dictionary<Ped, EcsEntity>(128);
 
         public int MaxDetectTimeInMs;
 

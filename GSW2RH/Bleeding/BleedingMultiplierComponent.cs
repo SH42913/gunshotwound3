@@ -1,12 +1,12 @@
 namespace GunshotWound2.Bleeding
 {
-    public class BleedingMultComponent
+    public class BleedingMultiplierComponent
     {
         public float Multiplier;
 
         public override string ToString()
         {
-            return nameof(BleedingMultComponent) + ": " +
+            return nameof(BleedingMultiplierComponent) + ": " +
                    nameof(Multiplier) + " " + Multiplier + "; ";
         }
     }

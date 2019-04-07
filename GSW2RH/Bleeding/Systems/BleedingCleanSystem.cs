@@ -8,28 +8,20 @@ namespace GunshotWound2.Bleeding.Systems
     public class BleedingCleanSystem : IEcsRunSystem
     {
         private readonly EcsWorld _ecsWorld = null;
-        private readonly EcsFilter<BleedingInfoComponent, RemovedPedMarkComponent> _pedsToRemove = null;
-
-        private readonly GswLogger _logger;
-
-        public BleedingCleanSystem()
-        {
-            _logger = new GswLogger(typeof(BleedingCleanSystem));
-        }
+        private readonly EcsFilter<PedBleedingInfoComponent, RemovedPedMarkComponent> _pedsToRemove = null;
         
         public void Run()
         {
             foreach (int i in _pedsToRemove)
             {
-                BleedingInfoComponent info = _pedsToRemove.Components1[i];
-                int pedEntity = _pedsToRemove.Entities[i];
-                
-                foreach (int entity in info.BleedingEntities)
+                PedBleedingInfoComponent info = _pedsToRemove.Components1[i];
+                EcsEntity pedEntity = _pedsToRemove.Entities[i];
+                foreach (EcsEntity entity in info.BleedingEntities)
                 {
                     _ecsWorld.RemoveEntity(entity);
                 }
                 
-                _ecsWorld.RemoveComponent<BleedingInfoComponent>(pedEntity);
+                _ecsWorld.RemoveComponent<PedBleedingInfoComponent>(pedEntity);
             }
         }
     }

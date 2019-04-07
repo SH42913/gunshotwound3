@@ -53,15 +53,15 @@ namespace GunshotWound2.PainStates.Systems
         {
             var component = _ecsWorld.AddComponent<PainStateListComponent>(GunshotWound2Script.StatsContainerEntity);
 
-            var sortedDict = new SortedDictionary<float, int>();
+            var sortedDict = new SortedDictionary<float, EcsEntity>();
             foreach (int i in _painStates)
             {
                 PainStateComponent state = _painStates.Components1[i];
-                int stateEntity = _painStates.Entities[i];
+                EcsEntity stateEntity = _painStates.Entities[i];
                 sortedDict.Add(state.PainPercent, stateEntity);
             }
 
-            foreach (KeyValuePair<float, int> pair in sortedDict)
+            foreach (KeyValuePair<float, EcsEntity> pair in sortedDict)
             {
                 component.PainStateEntities.Add(pair.Value);
                 component.PainStatePercents.Add(pair.Key);
@@ -75,7 +75,7 @@ namespace GunshotWound2.PainStates.Systems
         {
             foreach (int i in _newPeds)
             {
-                int pedEntity = _newPeds.Entities[i];
+                EcsEntity pedEntity = _newPeds.Entities[i];
                 _ecsWorld.AddComponent<CurrentPainStateComponent>(pedEntity);
             }
         }

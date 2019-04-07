@@ -23,11 +23,11 @@ namespace GunshotWound2.WoundEffects.WeaponDrop.Systems
             }
         }
 
-        protected override void ResetEffect(Ped ped, int pedEntity)
+        protected override void ResetEffect(Ped ped, EcsEntity pedEntity)
         {
         }
 
-        protected override void ProcessWound(Ped ped, int pedEntity, int woundEntity)
+        protected override void ProcessWound(Ped ped, EcsEntity pedEntity, EcsEntity woundEntity)
         {
             WeaponDropStatsComponent stats = _stats.Components1[0];
             bool isPlayer = EcsWorld.GetComponent<PlayerMarkComponent>(pedEntity) != null;

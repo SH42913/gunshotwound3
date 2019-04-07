@@ -16,6 +16,7 @@ namespace GunshotWound2.Health.Systems
     public class HealthSystem : IEcsRunSystem
     {
         private readonly EcsWorld _ecsWorld = null;
+        private readonly Random _random = null;
 
         private readonly EcsFilter<HealthStatsComponent> _healthStats = null;
         private readonly EcsFilter<GswPedComponent, HealthComponent, FullyHealedComponent> _fullyHealedPeds = null;
@@ -30,7 +31,6 @@ namespace GunshotWound2.Health.Systems
 #endif
 
         private readonly GswLogger _logger;
-        private static readonly Random Random = new Random();
 
         public HealthSystem()
         {
@@ -52,7 +52,7 @@ namespace GunshotWound2.Health.Systems
 
             foreach (int i in _woundedPeds)
             {
-                int pedEntity = _woundedPeds.Entities[i];
+                EcsEntity pedEntity = _woundedPeds.Entities[i];
 #if DEBUG
                 _logger.MakeLog($"{pedEntity.GetEntityName()} was wounded");
 #endif
@@ -63,7 +63,7 @@ namespace GunshotWound2.Health.Systems
                 WoundedComponent wounded = _woundedPeds.Components3[i];
 
                 float baseDamage = 0;
-                foreach (int woundEntity in wounded.WoundEntities)
+                foreach (EcsEntity woundEntity in wounded.WoundEntities)
                 {
                     var damage = _ecsWorld.GetComponent<BaseDamageComponent>(woundEntity);
                     if (damage == null) continue;
@@ -75,12 +75,12 @@ namespace GunshotWound2.Health.Systems
                 }
 
                 if (baseDamage <= 0) continue;
-                int bodyPartEntity = _woundedPeds.Components4[i].DamagedBodyPartEntity;
+                EcsEntity bodyPartEntity = _woundedPeds.Components4[i].DamagedBodyPartEntity;
                 float bodyPartDamageMult = _ecsWorld.GetComponent<DamageMultComponent>(bodyPartEntity).Multiplier;
                 float damageWithMult = stats.DamageMultiplier * bodyPartDamageMult * baseDamage;
 
                 float damageDeviation = damageWithMult * stats.DamageDeviation;
-                damageDeviation = Random.NextFloat(-damageDeviation, damageDeviation);
+                damageDeviation = _random.NextFloat(-damageDeviation, damageDeviation);
 
                 float finalDamage = damageWithMult + damageDeviation;
                 health.Health -= finalDamage;
@@ -104,8 +104,7 @@ namespace GunshotWound2.Health.Systems
 
                 Vector3 position = ped.AbovePosition + 0.1f * Vector3.WorldUp;
                 Debug.DrawWireBoxDebug(position, ped.Orientation, new Vector3(1.05f, 0.15f, 0.1f), Color.Gold);
-                Debug.DrawWireBoxDebug(position, ped.Orientation,
-                    new Vector3(health.Health / health.MaxHealth, 0.1f, 0.1f), Color.Green);
+                Debug.DrawWireBoxDebug(position, ped.Orientation, new Vector3(health.Health / health.MaxHealth, 0.1f, 0.1f), Color.Green);
             }
 #endif
         }

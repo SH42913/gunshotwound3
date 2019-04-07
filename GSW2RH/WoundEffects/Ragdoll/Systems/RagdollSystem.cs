@@ -21,7 +21,7 @@ namespace GunshotWound2.WoundEffects.Ragdoll.Systems
             foreach (int i in _needRagdollPeds)
             {
                 Ped ped = _needRagdollPeds.Components1[i].ThisPed;
-                int pedEntity = _needRagdollPeds.Entities[i];
+                EcsEntity pedEntity = _needRagdollPeds.Entities[i];
                 if (!ped.Exists() || EcsWorld.GetComponent<PermanentRagdollComponent>(pedEntity) != null)
                 {
                     EcsWorld.RemoveComponent<CreatePermanentRagdollComponent>(pedEntity);
@@ -53,7 +53,7 @@ namespace GunshotWound2.WoundEffects.Ragdoll.Systems
             }
         }
 
-        protected override void ResetEffect(Ped ped, int pedEntity)
+        protected override void ResetEffect(Ped ped, EcsEntity pedEntity)
         {
             if (!ped.IsRagdoll) return;
 
@@ -71,7 +71,7 @@ namespace GunshotWound2.WoundEffects.Ragdoll.Systems
 #endif
         }
 
-        protected override void ProcessWound(Ped ped, int pedEntity, int woundEntity)
+        protected override void ProcessWound(Ped ped, EcsEntity pedEntity, EcsEntity woundEntity)
         {
             var permanent = EcsWorld.GetComponent<PermanentRagdollComponent>(pedEntity);
             var enable = EcsWorld.GetComponent<EnableRagdollComponent>(woundEntity);

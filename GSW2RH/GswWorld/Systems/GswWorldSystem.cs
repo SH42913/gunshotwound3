@@ -16,6 +16,7 @@ namespace GunshotWound2.GswWorld.Systems
     public class GswWorldSystem : IEcsRunSystem
     {
         private readonly EcsWorld _ecsWorld = null;
+        private readonly Random _random = null;
 
         private readonly EcsFilter<GswWorldComponent> _world = null;
         private readonly EcsFilter<GswPedComponent> _gswPeds = null;
@@ -27,7 +28,6 @@ namespace GunshotWound2.GswWorld.Systems
 
         private readonly GswLogger _logger;
         private readonly Stopwatch _stopwatch = new Stopwatch();
-        private static readonly Random Random = new Random();
 
         public GswWorldSystem()
         {
@@ -61,7 +61,7 @@ namespace GunshotWound2.GswWorld.Systems
                     Ped ped = gswPed.ThisPed;
                     if (IsExistsAndAlive(ped)) continue;
 
-                    int pedEntity = _gswPeds.Entities[i];
+                    EcsEntity pedEntity = _gswPeds.Entities[i];
                     _ecsWorld.AddComponent<RemovedPedMarkComponent>(pedEntity);
                 }
 
@@ -83,7 +83,7 @@ namespace GunshotWound2.GswWorld.Systems
                 bool forceCreatePed = gswWorld.ForceCreatePeds.Contains(ped);
                 if (!forceCreatePed && IsNotDamaged(ped)) continue;
 
-                int entity;
+                EcsEntity? entity = null;
                 if (ped.IsHuman && (forceCreatePed || gswWorld.HumanDetectingEnabled))
                 {
                     entity = CreateHuman(gswWorld, ped);
@@ -92,18 +92,19 @@ namespace GunshotWound2.GswWorld.Systems
                 {
                     entity = CreateAnimal(gswWorld, ped);
                 }
-                else
+
+                if (entity == null)
                 {
-                    entity = -1;
+                    throw new Exception($"Ped is not supported! {ped.Model.Name} is not animal or human!");
                 }
                 
                 NativeFunction.Natives.SET_PED_SUFFERS_CRITICAL_HITS(ped, false);
                 NativeFunction.Natives.SET_PED_CONFIG_FLAG(ped, 281, true);
-                _ecsWorld.AddComponent<NewPedMarkComponent>(entity);
+                _ecsWorld.AddComponent<NewPedMarkComponent>(entity.Value);
                 if (!forceCreatePed) continue;
 
 #if DEBUG
-                _logger.MakeLog($"Ped {entity.GetEntityName()} was force created");
+                _logger.MakeLog($"Ped {entity.Value.GetEntityName()} was force created");
 #endif
                 gswWorld.ForceCreatePeds.Remove(ped);
             }
@@ -145,19 +146,19 @@ namespace GunshotWound2.GswWorld.Systems
             return !damaged;
         }
 
-        private int CreateHuman(GswWorldComponent gswWorld, Ped ped)
+        private EcsEntity CreateHuman(GswWorldComponent gswWorld, Ped ped)
         {
-            int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed);
+            EcsEntity entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed);
             gswPed.ThisPed = ped;
 
             if (!gswWorld.HumanAccuracy.IsDisabled())
             {
-                ped.Accuracy = (int) Random.NextMinMax(gswWorld.HumanAccuracy);
+                ped.Accuracy = (int) _random.NextMinMax(gswWorld.HumanAccuracy);
             }
 
             if (!gswWorld.HumanShootRate.IsDisabled())
             {
-                int rate = (int) Random.NextMinMax(gswWorld.HumanShootRate);
+                int rate = (int) _random.NextMinMax(gswWorld.HumanShootRate);
                 NativeFunction.Natives.SET_PED_SHOOT_RATE(ped, rate);
             }
 
@@ -165,9 +166,9 @@ namespace GunshotWound2.GswWorld.Systems
             return entity;
         }
 
-        private int CreateAnimal(GswWorldComponent gswWorld, Ped ped)
+        private EcsEntity CreateAnimal(GswWorldComponent gswWorld, Ped ped)
         {
-            int entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed, out AnimalMarkComponent _);
+            EcsEntity entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed, out AnimalMarkComponent _);
             gswPed.ThisPed = ped;
             gswWorld.PedsToEntityDict.Add(ped, entity);
             return entity;

@@ -22,19 +22,19 @@ namespace GunshotWound2.Wounds.Systems
             foreach (int i in _damagedPeds)
             {
                 DamagedByWeaponComponent damagedComponent = _damagedPeds.Components1[i];
-                int weaponEntity = damagedComponent.WeaponEntity;
-                int pedEntity = _damagedPeds.Entities[i];
+                EcsEntity weaponEntity = damagedComponent.WeaponEntity;
+                EcsEntity pedEntity = _damagedPeds.Entities[i];
 
                 var woundRandomizer = _ecsWorld.GetComponent<WoundRandomizerComponent>(weaponEntity);
                 if (woundRandomizer == null || woundRandomizer.WoundRandomizer.Count <= 0)
                 {
-                    _logger.MakeLog($"Weapon {weaponEntity.GetEntityName()} " +
+                    _logger.MakeLog($"!!!WARNING!!! Weapon {weaponEntity.GetEntityName()} " +
                                     $"doesn't have {nameof(WoundRandomizerComponent)}");
                     _ecsWorld.RemoveComponent<DamagedByWeaponComponent>(pedEntity);
                     continue;
                 }
 
-                int woundEntity = woundRandomizer.WoundRandomizer.NextWithReplacement();
+                EcsEntity woundEntity = woundRandomizer.WoundRandomizer.NextWithReplacement();
                 damagedComponent.WoundEntity = woundEntity;
 
                 var wounded = _ecsWorld.EnsureComponent<WoundedComponent>(pedEntity, out _);

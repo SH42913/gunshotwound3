@@ -1,5 +1,6 @@
 using System.Xml.Linq;
 using GunshotWound2.Utils;
+using Leopotam.Ecs;
 
 namespace GunshotWound2.WoundEffects.InstantKill.Systems
 {
@@ -9,7 +10,7 @@ namespace GunshotWound2.WoundEffects.InstantKill.Systems
         {
         }
 
-        protected override void CheckPart(XElement partRoot, int partEntity)
+        protected override void CheckPart(XElement partRoot, EcsEntity partEntity)
         {
             XElement element = partRoot.Element("InstantKill");
             if (element == null) return;

@@ -23,13 +23,13 @@ namespace GunshotWound2.WoundEffects
             foreach (int i in InitParts)
             {
                 XElement partRoot = InitParts.Components1[i].ElementRoot;
-                int partEntity = InitParts.Entities[i];
+                EcsEntity partEntity = InitParts.Entities[i];
 
                 CheckPart(partRoot, partEntity);
             }
         }
 
-        protected abstract void CheckPart(XElement partRoot, int partEntity);
+        protected abstract void CheckPart(XElement partRoot, EcsEntity partEntity);
 
         public void Destroy()
         {

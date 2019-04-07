@@ -59,18 +59,6 @@ namespace GunshotWound2.Utils
             return random.NextFromArray(array);
         }
 
-        public static void ShowInGsw(this string text, float x, float y, float scale = 1f, Color color = new Color())
-        {
-            //NativeFunction.Natives.SetTextFont(0);
-            //NativeFunction.Natives.SetTextDropShadow(2, 2, 0, 0, 0);
-            //NativeFunction.Natives.SetTextEdge(1, 0, 0, 0, 205);
-            NativeFunction.Natives.SET_TEXT_COLOUR((int) color.R, (int) color.G, (int) color.B, 255);
-            NativeFunction.Natives.SET_TEXT_SCALE(scale, scale);
-            NativeFunction.Natives.BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
-            NativeFunction.Natives.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
-            NativeFunction.Natives.END_TEXT_COMMAND_DISPLAY_TEXT(x, y);
-        }
-
         public static XElement GetElement(this XElement root, string elementName)
         {
             XElement element = root.Element(elementName);
@@ -157,24 +145,40 @@ namespace GunshotWound2.Utils
             };
         }
 
-        public static string GetEntityName(this int entity)
+        public static string GetEntityName(this EcsEntity entity)
         {
-            EcsWorld ecsWorld = EcsWorld.Active;
+            EcsWorld ecsWorld = GunshotWound2Script.World;
             var localizationKey = ecsWorld.GetComponent<LocalizationKeyComponent>(entity);
-            if (localizationKey != null) return $"{localizationKey.Key}({entity})";
+            if (localizationKey != null)
+            {
+#if DEBUG
+                return $"{localizationKey.Key}({entity})";
+#else
+                return $"{localizationKey.Key}";
+#endif
+            }
 
             var gswPed = ecsWorld.GetComponent<GswPedComponent>(entity);
             if (gswPed != null) return gswPed.ThisPed.Name(entity);
 
+#if DEBUG
             return $"Entity #{entity}";
+#else
+            return "UNKNOWN ENTITY";
+#endif
         }
 
-        public static string Name(this Ped ped, int entity)
+        public static string Name(this Ped ped, EcsEntity entity)
         {
             string name = ped.Exists()
                 ? ped.Model.Name
                 : "NOT_EXISTS";
+            
+#if DEBUG
             return $"{name}({entity})";
+#else
+            return $"{name}";
+#endif
         }
 
         public static void SetHealth(this Ped ped, float health)

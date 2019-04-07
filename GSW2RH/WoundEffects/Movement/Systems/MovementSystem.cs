@@ -13,7 +13,7 @@ namespace GunshotWound2.WoundEffects.Movement.Systems
         {
         }
 
-        protected override void ResetEffect(Ped ped, int pedEntity)
+        protected override void ResetEffect(Ped ped, EcsEntity pedEntity)
         {
             var permanentRate = EcsWorld.GetComponent<PermanentMovementRateComponent>(pedEntity);
             if (permanentRate != null)
@@ -32,7 +32,7 @@ namespace GunshotWound2.WoundEffects.Movement.Systems
             EcsWorld.RemoveComponent<PermanentDisabledSprintComponent>(pedEntity, true);
         }
 
-        protected override void ProcessWound(Ped ped, int pedEntity, int woundEntity)
+        protected override void ProcessWound(Ped ped, EcsEntity pedEntity, EcsEntity woundEntity)
         {
             var permanentDisabled = EcsWorld.GetComponent<PermanentDisabledSprintComponent>(pedEntity);
             var player = EcsWorld.GetComponent<PlayerMarkComponent>(pedEntity);

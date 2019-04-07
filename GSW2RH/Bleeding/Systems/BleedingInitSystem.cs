@@ -14,6 +14,7 @@ namespace GunshotWound2.Bleeding.Systems
     public class BleedingInitSystem : IEcsPreInitSystem, IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsWorld _ecsWorld = null;
+        private readonly Random _random = null;
 
         private readonly EcsFilter<LoadedConfigComponent> _loadedConfigs = null;
         private readonly EcsFilter<LoadedItemConfigComponent> _initParts = null;
@@ -23,7 +24,6 @@ namespace GunshotWound2.Bleeding.Systems
         private readonly EcsFilter<GswPedComponent, NewPedMarkComponent, AnimalMarkComponent> _newAnimals = null;
         
         private readonly GswLogger _logger;
-        private static readonly Random Random = new Random();
 
         public BleedingInitSystem()
         {
@@ -32,11 +32,12 @@ namespace GunshotWound2.Bleeding.Systems
 
         public void PreInitialize()
         {
-            var stats = _ecsWorld.AddComponent<BleedingStatsComponent>(GunshotWound2Script.StatsContainerEntity);
+            EcsEntity mainEntity = GunshotWound2Script.StatsContainerEntity;
+            var stats = _ecsWorld.AddComponent<BleedingStatsComponent>(mainEntity);
             stats.BleedingMultiplier = 1f;
             stats.BleedingMultiplier = 0.2f;
 
-            var pedStats = _ecsWorld.AddComponent<PedBleedingStatsComponent>(GunshotWound2Script.StatsContainerEntity);
+            var pedStats = _ecsWorld.AddComponent<PedBleedingStatsComponent>(mainEntity);
             pedStats.PedBleedingHealRate = new MinMax
             {
                 Min = 0.5f,
@@ -89,12 +90,12 @@ namespace GunshotWound2.Bleeding.Systems
             foreach (int i in _initParts)
             {
                 XElement partRoot = _initParts.Components1[i].ElementRoot;
-                int partEntity = _initParts.Entities[i];
+                EcsEntity partEntity = _initParts.Entities[i];
                 
                 XElement multElement = partRoot.Element("BleedingMult");
                 if (multElement != null)
                 {
-                    var mult = _ecsWorld.AddComponent<BleedingMultComponent>(partEntity);
+                    var mult = _ecsWorld.AddComponent<BleedingMultiplierComponent>(partEntity);
                     mult.Multiplier = multElement.GetFloat();
                 }
 
@@ -117,23 +118,23 @@ namespace GunshotWound2.Bleeding.Systems
             PedBleedingStatsComponent stats = _bleedingStats.Components1[0];
             foreach (int i in _newHumans)
             {
-                int humanEntity = _newHumans.Entities[i];
+                EcsEntity humanEntity = _newHumans.Entities[i];
                 bool isPlayer = _ecsWorld.GetComponent<PlayerMarkComponent>(humanEntity) != null;
                 
-                var info = _ecsWorld.AddComponent<BleedingInfoComponent>(humanEntity);
+                var info = _ecsWorld.AddComponent<PedBleedingInfoComponent>(humanEntity);
                 info.BleedingHealRate = isPlayer 
                     ? stats.PlayerBleedingHealRate 
-                    : Random.NextMinMax(stats.PedBleedingHealRate);
+                    : _random.NextMinMax(stats.PedBleedingHealRate);
             }
 
             PedHealthStatsComponent healthStats = _healthStats.Components1[0];            
             foreach (int i in _newAnimals)
             {
                 Ped ped = _newAnimals.Components1[i].ThisPed;
-                int animalEntity = _newAnimals.Entities[i];
+                EcsEntity animalEntity = _newAnimals.Entities[i];
 
                 float healthPercent = ped.GetHealth() / healthStats.PedHealth.Max;
-                var info = _ecsWorld.AddComponent<BleedingInfoComponent>(animalEntity);
+                var info = _ecsWorld.AddComponent<PedBleedingInfoComponent>(animalEntity);
                 info.BleedingHealRate = healthPercent * stats.PedBleedingHealRate.Max;
             }
         }

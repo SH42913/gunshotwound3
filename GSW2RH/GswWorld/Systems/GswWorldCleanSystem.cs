@@ -31,7 +31,7 @@ namespace GunshotWound2.GswWorld.Systems
             foreach (int i in _pedsToRemove)
             {
                 Ped ped = _pedsToRemove.Components1[i].ThisPed;
-                int pedEntity = _pedsToRemove.Entities[i];
+                EcsEntity pedEntity = _pedsToRemove.Entities[i];
                 
                 gswWorld.PedsToEntityDict.Remove(ped);
                 _ecsWorld.RemoveEntity(pedEntity);

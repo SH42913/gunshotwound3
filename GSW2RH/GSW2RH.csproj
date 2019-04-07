@@ -48,7 +48,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Armor\ArmorComponent.cs" />
+    <Compile Include="Armor\PedArmorComponent.cs" />
     <Compile Include="Armor\ArmorWeaponStatsComponent.cs" />
     <Compile Include="Armor\BodyPartArmorComponent.cs" />
     <Compile Include="Armor\Systems\ArmorHitProcessingSystem.cs" />
@@ -58,8 +58,8 @@
     <Compile Include="BaseHitDetecting\Systems\BaseHitDetectingSystem.cs" />
     <Compile Include="Bleeding\BaseBleedingComponent.cs" />
     <Compile Include="Bleeding\BleedingComponent.cs" />
-    <Compile Include="Bleeding\BleedingInfoComponent.cs" />
-    <Compile Include="Bleeding\BleedingMultComponent.cs" />
+    <Compile Include="Bleeding\PedBleedingInfoComponent.cs" />
+    <Compile Include="Bleeding\BleedingMultiplierComponent.cs" />
     <Compile Include="Bleeding\BleedingStatsComponent.cs" />
     <Compile Include="Bleeding\PedBleedingStatsComponent.cs" />
     <Compile Include="Bleeding\Systems\BleedingCleanSystem.cs" />
@@ -229,7 +229,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configs\OldGSW2Config.xml" />
     <Content Include="GswData\GswBodyPartConfig.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

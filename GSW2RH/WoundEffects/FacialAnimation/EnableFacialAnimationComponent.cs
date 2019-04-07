@@ -5,7 +5,7 @@ namespace GunshotWound2.WoundEffects.FacialAnimation
 {
     public class EnableFacialAnimationComponent : IEcsAutoResetComponent
     {
-        [EcsIgnoreNullCheck] public readonly List<string> Animations = new List<string>();
+        [EcsIgnoreNullCheck] public readonly List<string> Animations = new List<string>(8);
 
         public string MaleDict;
         public string FemaleDict;

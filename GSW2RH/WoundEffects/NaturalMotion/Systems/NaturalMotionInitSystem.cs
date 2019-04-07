@@ -20,7 +20,7 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
 
         public void PreInitialize()
         {
-            int statsEntity = GunshotWound2Script.StatsContainerEntity;
+            EcsEntity statsEntity = GunshotWound2Script.StatsContainerEntity;
             var dict = EcsWorld.AddComponent<NaturalMotionMessagesDictComponent>(statsEntity);
             foreach (int i in _loadedConfig)
             {
@@ -88,7 +88,7 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
             }
         }
 
-        protected override void CheckPart(XElement partRoot, int partEntity)
+        protected override void CheckPart(XElement partRoot, EcsEntity partEntity)
         {
             XElement listElement = partRoot.Element("NaturalMotionMessages");
             if (listElement == null) return;

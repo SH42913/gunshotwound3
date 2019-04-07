@@ -28,12 +28,12 @@ namespace GunshotWound2.WoundEffects.MovementClipset.Systems
             }
         }
 
-        protected override void ResetEffect(Ped ped, int pedEntity)
+        protected override void ResetEffect(Ped ped, EcsEntity pedEntity)
         {
             NativeFunction.Natives.RESET_PED_MOVEMENT_CLIPSET(ped, 0.0f);
         }
 
-        protected override void ProcessWound(Ped ped, int pedEntity, int woundEntity)
+        protected override void ProcessWound(Ped ped, EcsEntity pedEntity, EcsEntity woundEntity)
         {
             var clipset = EcsWorld.GetComponent<NewMovementClipsetComponent>(woundEntity);
             if (clipset == null) return;
@@ -53,7 +53,7 @@ namespace GunshotWound2.WoundEffects.MovementClipset.Systems
             }
         }
 
-        private void ApplyClipset(Ped ped, string clipset, int pedEntity)
+        private void ApplyClipset(Ped ped, string clipset, EcsEntity pedEntity)
         {
             if (string.IsNullOrEmpty(clipset)) return;
 

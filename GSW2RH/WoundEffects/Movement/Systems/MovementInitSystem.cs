@@ -11,7 +11,7 @@ namespace GunshotWound2.WoundEffects.Movement.Systems
         {
         }
 
-        protected override void CheckPart(XElement partRoot, int partEntity)
+        protected override void CheckPart(XElement partRoot, EcsEntity partEntity)
         {
             XElement disable = partRoot.Element("DisableSprint");
             if (disable != null)

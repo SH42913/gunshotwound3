@@ -5,7 +5,7 @@ namespace GunshotWound2.Weapons
     [EcsOneFrame]
     public class DamagedByWeaponComponent
     {
-        public int WeaponEntity;
-        public int WoundEntity;
+        public EcsEntity WeaponEntity;
+        public EcsEntity WoundEntity;
     }
 }

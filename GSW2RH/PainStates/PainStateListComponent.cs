@@ -6,7 +6,7 @@ namespace GunshotWound2.PainStates
     public class PainStateListComponent : IEcsAutoResetComponent
     {
         [EcsIgnoreNullCheck]
-        public readonly List<int> PainStateEntities = new List<int>();
+        public readonly List<EcsEntity> PainStateEntities = new List<EcsEntity>(8);
         
         [EcsIgnoreNullCheck]
         public readonly List<float> PainStatePercents = new List<float>();

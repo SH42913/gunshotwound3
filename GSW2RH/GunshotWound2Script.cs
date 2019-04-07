@@ -43,19 +43,20 @@ namespace GunshotWound2
 {
     public class GunshotWound2Script : IDisposable
     {
-        public static int StatsContainerEntity { get; private set; }
+        public static EcsEntity StatsContainerEntity { get; private set; }
 
-        private EcsWorld _world;
+        internal static EcsWorld World { get; set; }
         private EcsSystems _systems;
+        private static readonly Random Random = new Random();
 
         public bool IsRunning { get; set; }
         public bool IsPaused { get; set; }
 
         public void Init()
         {
-            _world = new EcsWorld();
-            _systems = new EcsSystems(_world);
-            StatsContainerEntity = _world.CreateEntityWith(out StatsContainerComponent _);
+            World = new EcsWorld();
+            _systems = new EcsSystems(World);
+            StatsContainerEntity = World.CreateEntityWith(out StatsContainerComponent _);
 
             _systems
                 .Add(new PauseDetectingSystem())
@@ -130,7 +131,7 @@ namespace GunshotWound2
                 .Add(new FrameTimeStopSystem())
                 .Add(new DebugTextSystem())
 #endif
-                ;
+                .Inject(Random);
             _systems.Initialize();
             GameFiber.Yield();
         }
@@ -146,14 +147,14 @@ namespace GunshotWound2
                 }
 
                 _systems.Run();
-                _world.RemoveOneFrameComponents();
+                World.RemoveOneFrameComponents();
                 GameFiber.Yield();
             }
         }
 
         public void Dispose()
         {
-            _world?.Dispose();
+            World?.Dispose();
             _systems?.Dispose();
         }
     }

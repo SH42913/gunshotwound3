@@ -11,7 +11,7 @@ namespace GunshotWound2.WoundEffects.MovementClipset.Systems
         {
         }
 
-        protected override void CheckPart(XElement partRoot, int partEntity)
+        protected override void CheckPart(XElement partRoot, EcsEntity partEntity)
         {
             var clipset = partRoot.Element("MovementClipset");
             if (clipset == null) return;

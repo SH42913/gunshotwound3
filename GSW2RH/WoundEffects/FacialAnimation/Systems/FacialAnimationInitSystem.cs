@@ -11,7 +11,7 @@ namespace GunshotWound2.WoundEffects.FacialAnimation.Systems
         {
         }
 
-        protected override void CheckPart(XElement partRoot, int partEntity)
+        protected override void CheckPart(XElement partRoot, EcsEntity partEntity)
         {
             XElement enable = partRoot.Element("EnableFacialAnimation");
             if (enable != null)

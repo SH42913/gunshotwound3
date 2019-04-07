@@ -28,7 +28,7 @@ namespace GunshotWound2.Hashes.Systems
                 XElement hashesElement = root.Element(HASHES);
                 if (hashesElement == null) continue;
 
-                int entity = _configParts.Entities[i];
+                EcsEntity entity = _configParts.Entities[i];
                 var hashesComponent = _ecsWorld.AddComponent<HashesComponent>(entity);
 
                 string[] hashStrings = hashesElement.GetAttributeValue("Hashes").Split(';');
@@ -42,7 +42,7 @@ namespace GunshotWound2.Hashes.Systems
                     }
                     else
                     {
-                        _logger.MakeLog($"WARNING! Wrong hash: {hashString}");
+                        _logger.MakeLog($"!!!WARNING!!! Wrong hash: {hashString}");
                     }
                 }
 

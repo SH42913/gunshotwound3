@@ -11,7 +11,7 @@ namespace GunshotWound2.WoundEffects.CameraShake.Systems
         {
         }
 
-        protected override void CheckPart(XElement partRoot, int partEntity)
+        protected override void CheckPart(XElement partRoot, EcsEntity partEntity)
         {
             XElement shake = partRoot.Element("CameraShake");
             if (shake != null)

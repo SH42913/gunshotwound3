@@ -47,15 +47,14 @@ namespace GunshotWound2.BodyParts.Systems
 
         public void Initialize()
         {
-            var listComponent = _ecsWorld.CreateEntityWith<BoneToBodyPartDictComponent>();
+            _ecsWorld.CreateEntityWith(out BoneToBodyPartDictComponent dictComponent);
             foreach (int i in _partsWithHashes)
             {
                 HashesComponent hashesComponent = _partsWithHashes.Components1[i];
-                int entity = _partsWithHashes.Entities[i];
-
+                EcsEntity entity = _partsWithHashes.Entities[i];
                 foreach (uint hash in hashesComponent.Hashes)
                 {
-                    listComponent.BoneIdToBodyPartEntity.Add(hash, entity);
+                    dictComponent.BoneIdToBodyPartEntity.Add(hash, entity);
                 }
             }
         }

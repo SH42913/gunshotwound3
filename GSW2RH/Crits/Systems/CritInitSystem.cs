@@ -25,7 +25,7 @@ namespace GunshotWound2.Crits.Systems
             foreach (int i in _loadedItems)
             {
                 XElement itemRoot = _loadedItems.Components1[i].ElementRoot;
-                int entity = _loadedItems.Entities[i];
+                EcsEntity entity = _loadedItems.Entities[i];
 
                 XElement chanceElement = itemRoot.Element("CritChance");
                 if (chanceElement != null)
@@ -44,7 +44,7 @@ namespace GunshotWound2.Crits.Systems
         {
             foreach (int i in _newPeds)
             {
-                int pedEntity = _newPeds.Entities[i];
+                EcsEntity pedEntity = _newPeds.Entities[i];
                 _ecsWorld.AddComponent<CritListComponent>(pedEntity);
             }
         }

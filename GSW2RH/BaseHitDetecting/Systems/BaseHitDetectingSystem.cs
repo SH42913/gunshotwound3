@@ -33,7 +33,7 @@ namespace GunshotWound2.BaseHitDetecting.Systems
                 bool damaged = NativeFunction.Natives.HAS_ENTITY_BEEN_DAMAGED_BY_ANY_PED<bool>(ped);
                 if (!damaged) continue;
 
-                int pedEntity = _peds.Entities[i];
+                EcsEntity pedEntity = _peds.Entities[i];
                 _ecsWorld.AddComponent<HasBeenHitMarkComponent>(pedEntity);
 #if DEBUG
                 _logger.MakeLog($"{pedEntity.GetEntityName()} has been damaged");

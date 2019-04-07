@@ -18,16 +18,16 @@ namespace GunshotWound2.Armor.Systems
     public class ArmorHitProcessingSystem : IEcsRunSystem
     {
         private readonly EcsWorld _ecsWorld = null;
-        private readonly EcsFilter<GswPedComponent, ArmorComponent> _pedsWithArmor = null;
+        private readonly Random _random = null;
+        private readonly EcsFilter<GswPedComponent, PedArmorComponent> _pedsWithArmor = null;
 
         private readonly EcsFilter<
             GswPedComponent,
             DamagedBodyPartComponent,
             DamagedByWeaponComponent,
-            ArmorComponent> _damagedPedsWithArmor = null;
+            PedArmorComponent> _damagedPedsWithArmor = null;
 
         private readonly GswLogger _logger;
-        private static readonly Random Random = new Random();
 
         public ArmorHitProcessingSystem()
         {
@@ -39,7 +39,7 @@ namespace GunshotWound2.Armor.Systems
             foreach (int i in _pedsWithArmor)
             {
                 GswPedComponent gswPed = _pedsWithArmor.Components1[i];
-                ArmorComponent armor = _pedsWithArmor.Components2[i];
+                PedArmorComponent armor = _pedsWithArmor.Components2[i];
 
                 Ped ped = gswPed.ThisPed;
                 if (!ped.Exists()) continue;
@@ -56,19 +56,18 @@ namespace GunshotWound2.Armor.Systems
                     ? NativeFunction.Natives.GET_PLAYER_MAX_ARMOUR<int>(Game.LocalPlayer)
                     : 100;
                 Debug.DrawWireBoxDebug(position, ped.Orientation, new Vector3(1.05f, 0.15f, 0.1f), Color.LightSkyBlue);
-                Debug.DrawWireBoxDebug(position, ped.Orientation, new Vector3(armor.Armor / maxArmor, 0.1f, 0.1f),
-                    Color.MediumBlue);
+                Debug.DrawWireBoxDebug(position, ped.Orientation, new Vector3(armor.Armor / maxArmor, 0.1f, 0.1f), Color.MediumBlue);
 #endif
             }
 
             foreach (int i in _damagedPedsWithArmor)
             {
                 GswPedComponent gswPed = _damagedPedsWithArmor.Components1[i];
-                ArmorComponent armor = _damagedPedsWithArmor.Components4[i];
+                PedArmorComponent armor = _damagedPedsWithArmor.Components4[i];
                 Ped ped = gswPed.ThisPed;
                 if (!ped.Exists()) continue;
 
-                int pedEntity = _damagedPedsWithArmor.Entities[i];
+                EcsEntity pedEntity = _damagedPedsWithArmor.Entities[i];
                 if (armor.Armor <= 0)
                 {
 #if DEBUG
@@ -78,7 +77,7 @@ namespace GunshotWound2.Armor.Systems
                     continue;
                 }
 
-                int bodyPartEntity = _damagedPedsWithArmor.Components2[i].DamagedBodyPartEntity;
+                EcsEntity bodyPartEntity = _damagedPedsWithArmor.Components2[i].DamagedBodyPartEntity;
                 var bodyArmor = _ecsWorld.GetComponent<BodyPartArmorComponent>(bodyPartEntity);
                 if (bodyArmor == null || !bodyArmor.ProtectedByBodyArmor)
                 {
@@ -90,7 +89,7 @@ namespace GunshotWound2.Armor.Systems
                     continue;
                 }
 
-                int weaponEntity = _damagedPedsWithArmor.Components3[i].WeaponEntity;
+                EcsEntity weaponEntity = _damagedPedsWithArmor.Components3[i].WeaponEntity;
                 var weaponStats = _ecsWorld.GetComponent<ArmorWeaponStatsComponent>(weaponEntity);
                 if (weaponStats == null)
                 {
@@ -136,7 +135,7 @@ namespace GunshotWound2.Armor.Systems
                 }
 
                 float chanceToPenetrate = 1 - armorPercent / weaponStats.MinArmorPercentForPenetration;
-                bool wasPenetrated = Random.IsTrueWithProbability(chanceToPenetrate);
+                bool wasPenetrated = _random.IsTrueWithProbability(chanceToPenetrate);
                 if (!wasPenetrated)
                 {
 #if DEBUG

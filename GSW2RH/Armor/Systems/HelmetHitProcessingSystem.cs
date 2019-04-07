@@ -12,15 +12,15 @@ namespace GunshotWound2.Armor.Systems
     public class HelmetHitProcessingSystem : IEcsRunSystem
     {
         private readonly EcsWorld _ecsWorld = null;
+        private readonly Random _random = null;
 
         private readonly EcsFilter<
             GswPedComponent,
             DamagedBodyPartComponent,
             DamagedByWeaponComponent,
-            ArmorComponent> _damagedPeds = null;
+            PedArmorComponent> _damagedPeds = null;
 
         private readonly GswLogger _logger;
-        private static readonly Random Random = new Random();
 
         public HelmetHitProcessingSystem()
         {
@@ -34,7 +34,7 @@ namespace GunshotWound2.Armor.Systems
                 Ped ped = _damagedPeds.Components1[i].ThisPed;
                 if (!ped.Exists()) continue;
 
-                int pedEntity = _damagedPeds.Entities[i];
+                EcsEntity pedEntity = _damagedPeds.Entities[i];
                 if (!ped.IsWearingHelmet)
                 {
 #if DEBUG
@@ -43,7 +43,7 @@ namespace GunshotWound2.Armor.Systems
                     continue;
                 }
 
-                int bodyPartEntity = _damagedPeds.Components2[i].DamagedBodyPartEntity;
+                EcsEntity bodyPartEntity = _damagedPeds.Components2[i].DamagedBodyPartEntity;
                 var bodyArmor = _ecsWorld.GetComponent<BodyPartArmorComponent>(bodyPartEntity);
                 if (bodyArmor == null || !bodyArmor.ProtectedByHelmet)
                 {
@@ -54,7 +54,7 @@ namespace GunshotWound2.Armor.Systems
                     continue;
                 }
 
-                int weaponEntity = _damagedPeds.Components3[i].WeaponEntity;
+                EcsEntity weaponEntity = _damagedPeds.Components3[i].WeaponEntity;
                 var weaponStats = _ecsWorld.GetComponent<ArmorWeaponStatsComponent>(weaponEntity);
                 if (weaponStats == null)
                 {
@@ -65,7 +65,7 @@ namespace GunshotWound2.Armor.Systems
                 }
 
                 float chance = weaponStats.ChanceToPenetrateHelmet;
-                bool helmetPenetrated = Random.IsTrueWithProbability(chance);
+                bool helmetPenetrated = _random.IsTrueWithProbability(chance);
                 if (!helmetPenetrated)
                 {
 #if DEBUG

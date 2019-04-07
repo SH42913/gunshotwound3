@@ -6,7 +6,7 @@ namespace GunshotWound2.WoundEffects.NaturalMotion
     public class NaturalMotionMessagesDictComponent : IEcsAutoResetComponent
     {
         [EcsIgnoreNullCheck]
-        public readonly Dictionary<string, NaturalMotionMessage> MessageDict = new Dictionary<string, NaturalMotionMessage>();
+        public readonly Dictionary<string, NaturalMotionMessage> MessageDict = new Dictionary<string, NaturalMotionMessage>(32);
         
         public void Reset()
         {

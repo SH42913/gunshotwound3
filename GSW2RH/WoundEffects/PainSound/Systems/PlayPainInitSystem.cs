@@ -11,7 +11,7 @@ namespace GunshotWound2.WoundEffects.PainSound.Systems
         {
         }
 
-        protected override void CheckPart(XElement partRoot, int partEntity)
+        protected override void CheckPart(XElement partRoot, EcsEntity partEntity)
         {
             XElement play = partRoot.Element("PlayPainSound");
             if(play == null) return;

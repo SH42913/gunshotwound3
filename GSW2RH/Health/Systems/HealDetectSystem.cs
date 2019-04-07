@@ -29,7 +29,7 @@ namespace GunshotWound2.Health.Systems
                 float realHealth = ped.GetHealth();
                 if (realHealth <= health.MaxHealth) continue;
 
-                int entity = _pedsToCheck.Entities[i];
+                EcsEntity entity = _pedsToCheck.Entities[i];
                 _ecsWorld.AddComponent<FullyHealedComponent>(entity);
 #if DEBUG
                 _logger.MakeLog($"{entity.GetEntityName()} was fully healed!");

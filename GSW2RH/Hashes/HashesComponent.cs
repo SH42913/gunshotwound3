@@ -6,7 +6,7 @@ namespace GunshotWound2.Hashes
     public class HashesComponent : IEcsAutoResetComponent
     {
         [EcsIgnoreNullCheck] 
-        public readonly List<uint> Hashes = new List<uint>();
+        public readonly List<uint> Hashes = new List<uint>(16);
 
         public void Reset()
         {

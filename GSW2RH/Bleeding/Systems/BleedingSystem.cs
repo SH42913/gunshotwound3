@@ -14,7 +14,7 @@ namespace GunshotWound2.Bleeding.Systems
 
         private readonly EcsWorld _ecsWorld = null;
         private readonly EcsFilter<PauseStateComponent> _pause = null;
-        private readonly EcsFilter<GswPedComponent, HealthComponent, BleedingInfoComponent> _entities = null;
+        private readonly EcsFilter<GswPedComponent, HealthComponent, PedBleedingInfoComponent> _entities = null;
 
         private readonly GswLogger _logger;
 
@@ -35,13 +35,13 @@ namespace GunshotWound2.Bleeding.Systems
                 HealthComponent health = _entities.Components2[i];
                 if (health.Health <= 0) continue;
 
-                BleedingInfoComponent info = _entities.Components3[i];
-                int pedEntity = _entities.Entities[i];
+                PedBleedingInfoComponent info = _entities.Components3[i];
+                EcsEntity pedEntity = _entities.Entities[i];
                 float bleedingDamage = 0;
 
                 for (int bleedingIndex = info.BleedingEntities.Count - 1; bleedingIndex >= 0; bleedingIndex--)
                 {
-                    int bleedingEntity = info.BleedingEntities[bleedingIndex];
+                    EcsEntity bleedingEntity = info.BleedingEntities[bleedingIndex];
                     if (!_ecsWorld.IsEntityExists(bleedingEntity))
                     {
                         info.BleedingEntities.RemoveAt(bleedingIndex);

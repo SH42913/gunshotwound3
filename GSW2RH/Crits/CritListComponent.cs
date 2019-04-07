@@ -6,7 +6,7 @@ namespace GunshotWound2.Crits
     public class CritListComponent : IEcsAutoResetComponent
     {
         [EcsIgnoreNullCheck]
-        public List<int> CritList = new List<int>();
+        public List<EcsEntity> CritList = new List<EcsEntity>(16);
 
         public void Reset()
         {

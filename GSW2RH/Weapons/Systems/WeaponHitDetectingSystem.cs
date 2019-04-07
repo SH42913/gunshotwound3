@@ -34,17 +34,16 @@ namespace GunshotWound2.Weapons.Systems
             }
         }
 
-        private void DetectWeaponHash(Ped ped, int pedEntity)
+        private void DetectWeaponHash(Ped ped, EcsEntity pedEntity)
         {
             foreach (int i in _weapons)
             {
                 HashesComponent hashesComponent = _weapons.Components1[i];
-
                 foreach (uint hash in hashesComponent.Hashes)
                 {
                     if (!NativeFunction.Natives.HAS_PED_BEEN_DAMAGED_BY_WEAPON<bool>(ped, hash, 0)) continue;
 
-                    int weaponEntity = _weapons.Entities[i];
+                    EcsEntity weaponEntity = _weapons.Entities[i];
 #if DEBUG
                     _logger.MakeLog($"{pedEntity.GetEntityName()} was damaged by {weaponEntity.GetEntityName()}");
 #endif
@@ -55,7 +54,7 @@ namespace GunshotWound2.Weapons.Systems
                 }
             }
 
-            _logger.MakeLog($"WARNING! {pedEntity.GetEntityName()} was damaged by UNKNOWN weapon");
+            _logger.MakeLog($"!!!WARNING!!! Ped {ped.Model.Name} was damaged by UNKNOWN weapon");
         }
     }
 }

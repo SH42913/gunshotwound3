@@ -11,7 +11,7 @@ namespace GunshotWound2.WoundEffects.PedFlags.Systems
         {
         }
 
-        protected override void CheckPart(XElement partRoot, int partEntity)
+        protected override void CheckPart(XElement partRoot, EcsEntity partEntity)
         {
             XElement change = partRoot.Element("ChangePedFlag");
             if(change == null) return;

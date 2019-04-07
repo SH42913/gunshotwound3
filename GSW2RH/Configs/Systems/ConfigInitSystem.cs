@@ -51,9 +51,12 @@ namespace GunshotWound2.Configs.Systems
                 throw new Exception($"Can't find XML-root in {fullPath}");
             }
 
-            var loadedConfig = _ecsWorld.CreateEntityWith<LoadedConfigComponent>();
+            _ecsWorld.CreateEntityWith(out LoadedConfigComponent loadedConfig);
             loadedConfig.Path = fullPath;
             loadedConfig.ElementRoot = xmlRoot;
+#if DEBUG
+            _logger.MakeLog($"Loaded config {fullPath}");
+#endif
 
             return xmlRoot;
         }

@@ -13,6 +13,7 @@ namespace GunshotWound2.Health.Systems
     public class HealthInitSystem : IEcsPreInitSystem, IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsWorld _ecsWorld = null;
+        private readonly Random Random = null;
 
         private readonly EcsFilter<LoadedConfigComponent> _loadedConfigs = null;
         private readonly EcsFilter<LoadedItemConfigComponent> _initParts = null;
@@ -21,7 +22,6 @@ namespace GunshotWound2.Health.Systems
         private readonly EcsFilter<GswPedComponent, NewPedMarkComponent, AnimalMarkComponent> _newAnimals = null;
 
         private readonly GswLogger _logger;
-        private static readonly Random Random = new Random();
 
         public HealthInitSystem()
         {
@@ -30,11 +30,12 @@ namespace GunshotWound2.Health.Systems
 
         public void PreInitialize()
         {
-            var stats = _ecsWorld.AddComponent<HealthStatsComponent>(GunshotWound2Script.StatsContainerEntity);
+            EcsEntity mainEntity = GunshotWound2Script.StatsContainerEntity;
+            var stats = _ecsWorld.AddComponent<HealthStatsComponent>(mainEntity);
             stats.DamageMultiplier = 1f;
             stats.DamageDeviation = 0.2f;
 
-            var pedStats = _ecsWorld.AddComponent<PedHealthStatsComponent>(GunshotWound2Script.StatsContainerEntity);
+            var pedStats = _ecsWorld.AddComponent<PedHealthStatsComponent>(mainEntity);
             pedStats.PlayerHealth = 100f;
             pedStats.PedHealth = new MinMax
             {
@@ -88,7 +89,7 @@ namespace GunshotWound2.Health.Systems
             foreach (int i in _initParts)
             {
                 XElement partRoot = _initParts.Components1[i].ElementRoot;
-                int partEntity = _initParts.Entities[i];
+                EcsEntity partEntity = _initParts.Entities[i];
 
                 XElement multElement = partRoot.Element("DamageMult");
                 if (multElement != null)
@@ -117,7 +118,7 @@ namespace GunshotWound2.Health.Systems
             foreach (int i in _newHumans)
             {
                 Ped ped = _newHumans.Components1[i].ThisPed;
-                int humanEntity = _newHumans.Entities[i];
+                EcsEntity humanEntity = _newHumans.Entities[i];
                 bool isPlayer = _ecsWorld.GetComponent<PlayerMarkComponent>(humanEntity) != null;
 
                 float healthAmount = isPlayer
@@ -136,7 +137,7 @@ namespace GunshotWound2.Health.Systems
             foreach (int i in _newAnimals)
             {
                 Ped ped = _newAnimals.Components1[i].ThisPed;
-                int animalEntity = _newAnimals.Entities[i];
+                EcsEntity animalEntity = _newAnimals.Entities[i];
 
                 var health = _ecsWorld.AddComponent<HealthComponent>(animalEntity);
                 health.MinHealth = 0;

@@ -6,7 +6,7 @@ namespace GunshotWound2.WoundEffects.NaturalMotion
     public class NaturalMotionMessagesComponent : IEcsAutoResetComponent
     {
         [EcsIgnoreNullCheck] 
-        public readonly List<string> MessageList = new List<string>();
+        public readonly List<string> MessageList = new List<string>(16);
 
         public bool PlayInPermanentRagdoll;
 

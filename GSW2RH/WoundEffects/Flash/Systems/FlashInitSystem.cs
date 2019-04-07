@@ -11,7 +11,7 @@ namespace GunshotWound2.WoundEffects.Flash.Systems
         {
         }
 
-        protected override void CheckPart(XElement partRoot, int partEntity)
+        protected override void CheckPart(XElement partRoot, EcsEntity partEntity)
         {
             XElement flash = partRoot.Element("CreateFlash");
             if(flash == null) return;

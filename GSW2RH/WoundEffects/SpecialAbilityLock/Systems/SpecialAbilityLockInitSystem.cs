@@ -11,7 +11,7 @@ namespace GunshotWound2.WoundEffects.SpecialAbilityLock.Systems
         {
         }
 
-        protected override void CheckPart(XElement partRoot, int partEntity)
+        protected override void CheckPart(XElement partRoot, EcsEntity partEntity)
         {
             XElement lockAbility = partRoot.Element("LockSpecialAbility");
             if (lockAbility != null)

@@ -1,6 +1,6 @@
 ﻿namespace GunshotWound2.Armor
 {
-    public class ArmorComponent
+    public class PedArmorComponent
     {
         public int Armor;
     }

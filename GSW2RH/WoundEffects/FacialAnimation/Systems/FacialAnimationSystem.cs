@@ -11,7 +11,7 @@ namespace GunshotWound2.WoundEffects.FacialAnimation.Systems
     public class FacialAnimationSystem : BaseEffectSystem
     {
         private readonly EcsFilter<GswPedComponent, PermanentFacialAnimationComponent> _permanentAnimPeds = null;
-        private static readonly Random Random = new Random();
+        private readonly Random _random = null;
 
         public FacialAnimationSystem() : base(new GswLogger(typeof(FacialAnimationSystem)))
         {
@@ -29,7 +29,7 @@ namespace GunshotWound2.WoundEffects.FacialAnimation.Systems
             }
         }
 
-        protected override void ResetEffect(Ped ped, int pedEntity)
+        protected override void ResetEffect(Ped ped, EcsEntity pedEntity)
         {
             var permanent = EcsWorld.GetComponent<PermanentFacialAnimationComponent>(pedEntity);
             if (permanent == null) return;
@@ -37,12 +37,12 @@ namespace GunshotWound2.WoundEffects.FacialAnimation.Systems
             EcsWorld.RemoveComponent<PermanentFacialAnimationComponent>(pedEntity);
         }
 
-        protected override void ProcessWound(Ped ped, int pedEntity, int woundEntity)
+        protected override void ProcessWound(Ped ped, EcsEntity pedEntity, EcsEntity woundEntity)
         {
             var enable = EcsWorld.GetComponent<EnableFacialAnimationComponent>(woundEntity);
             if (enable != null)
             {
-                string animationName = Random.NextFromList(enable.Animations);
+                string animationName = _random.NextFromList(enable.Animations);
                 string dict = ped.IsMale
                     ? enable.MaleDict
                     : enable.FemaleDict;

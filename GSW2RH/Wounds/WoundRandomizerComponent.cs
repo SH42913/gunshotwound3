@@ -6,7 +6,7 @@ namespace GunshotWound2.Wounds
     public class WoundRandomizerComponent : IEcsAutoResetComponent
     {
         [EcsIgnoreNullCheck]
-        public readonly StaticWeightedRandomizer<int> WoundRandomizer = new StaticWeightedRandomizer<int>();
+        public readonly StaticWeightedRandomizer<EcsEntity> WoundRandomizer = new StaticWeightedRandomizer<EcsEntity>();
 
         public void Reset()
         {

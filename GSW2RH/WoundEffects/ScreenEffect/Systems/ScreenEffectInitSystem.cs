@@ -11,7 +11,7 @@ namespace GunshotWound2.WoundEffects.ScreenEffect.Systems
         {
         }
 
-        protected override void CheckPart(XElement partRoot, int partEntity)
+        protected override void CheckPart(XElement partRoot, EcsEntity partEntity)
         {
             XElement startEffect = partRoot.Element("StartScreenEffect");
             if (startEffect != null)

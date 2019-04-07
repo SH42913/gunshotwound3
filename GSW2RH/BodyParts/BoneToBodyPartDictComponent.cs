@@ -6,7 +6,7 @@ namespace GunshotWound2.BodyParts
     public class BoneToBodyPartDictComponent : IEcsAutoResetComponent
     {
         [EcsIgnoreNullCheck]
-        public readonly Dictionary<uint, int> BoneIdToBodyPartEntity = new Dictionary<uint, int>();
+        public readonly Dictionary<uint, EcsEntity> BoneIdToBodyPartEntity = new Dictionary<uint, EcsEntity>(64);
         
         public void Reset()
         {

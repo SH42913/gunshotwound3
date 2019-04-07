@@ -2,6 +2,7 @@ using System;
 using System.Xml.Linq;
 using GunshotWound2.Configs;
 using GunshotWound2.GswWorld;
+using GunshotWound2.Pause;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
@@ -18,6 +19,7 @@ namespace GunshotWound2.Player.Systems
         private readonly EcsFilter<PlayerConfigComponent> _playerConfig = null;
         private readonly EcsFilter<GswPedComponent, NewPedMarkComponent> _newPeds = null;
         private readonly EcsFilter<GswPedComponent, PlayerMarkComponent> _playerPeds = null;
+        private readonly EcsFilter<PauseStateComponent> _pause = null;
 
         private readonly GswLogger _logger;
 
@@ -57,7 +59,7 @@ namespace GunshotWound2.Player.Systems
             foreach (int i in _playerPeds)
             {
                 Ped ped = _playerPeds.Components1[i].ThisPed;
-                int entity = _playerPeds.Entities[i];
+                EcsEntity entity = _playerPeds.Entities[i];
                 if (Game.LocalPlayer.Character.Equals(ped)) continue;
 
                 _ecsWorld.RemoveComponent<PlayerMarkComponent>(entity);
@@ -69,7 +71,7 @@ namespace GunshotWound2.Player.Systems
             foreach (int i in _newPeds)
             {
                 Ped ped = _newPeds.Components1[i].ThisPed;
-                int entity = _newPeds.Entities[i];
+                EcsEntity entity = _newPeds.Entities[i];
                 if (!ped.IsLocalPlayer) continue;
 
                 if (config.PlayerEnabled)
@@ -88,14 +90,17 @@ namespace GunshotWound2.Player.Systems
 #endif
                 }
             }
+            
+            if(!Game.IsPaused && !Game.IsLoading && !_pause.GameIsPaused()) return;
 
             _ecsWorld.ProcessDelayedUpdates();
-            if (config.PlayerEnabled && _playerPeds.IsEmpty() && !Game.IsPaused && !Game.IsLoading)
+            if (config.PlayerEnabled && _playerPeds.IsEmpty())
             {
 #if DEBUG
                 _logger.MakeLog("No players found! PlayerPed will force create!");
 #endif
-                _ecsWorld.CreateEntityWith<ForceCreateGswPedEvent>().TargetPed = Game.LocalPlayer.Character;
+                _ecsWorld.CreateEntityWith(out ForceCreateGswPedEvent forceCreateEvent);
+                forceCreateEvent.TargetPed = Game.LocalPlayer.Character;
             }
         }
 

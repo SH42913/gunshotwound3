@@ -26,7 +26,7 @@ namespace GunshotWound2.WoundEffects.CameraShake.Systems
 #endif
         }
 
-        protected override void ResetEffect(Ped ped, int pedEntity)
+        protected override void ResetEffect(Ped ped, EcsEntity pedEntity)
         {
             bool isPlayer = EcsWorld.GetComponent<PlayerMarkComponent>(pedEntity) != null;
             if (!isPlayer) return;
@@ -35,7 +35,7 @@ namespace GunshotWound2.WoundEffects.CameraShake.Systems
             EcsWorld.RemoveComponent<PermanentCameraShakeComponent>(pedEntity, true);
         }
 
-        protected override void ProcessWound(Ped ped, int pedEntity, int woundEntity)
+        protected override void ProcessWound(Ped ped, EcsEntity pedEntity, EcsEntity woundEntity)
         {
             bool isPlayer = EcsWorld.GetComponent<PlayerMarkComponent>(pedEntity) != null;
             if(!isPlayer) return;

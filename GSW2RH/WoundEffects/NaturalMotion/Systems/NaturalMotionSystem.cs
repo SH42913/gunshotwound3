@@ -13,7 +13,7 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
     public class NaturalMotionSystem : BaseEffectSystem
     {
         private readonly EcsFilter<NaturalMotionMessagesDictComponent> _dict = null;
-        private static readonly Random Random = new Random();
+        private readonly Random _random = null;
 
         public NaturalMotionSystem() : base(new GswLogger(typeof(NaturalMotionSystem)))
         {
@@ -27,11 +27,11 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
             }
         }
 
-        protected override void ResetEffect(Ped ped, int pedEntity)
+        protected override void ResetEffect(Ped ped, EcsEntity pedEntity)
         {
         }
 
-        protected override void ProcessWound(Ped ped, int pedEntity, int woundEntity)
+        protected override void ProcessWound(Ped ped, EcsEntity pedEntity, EcsEntity woundEntity)
         {
             NaturalMotionMessagesDictComponent dict = _dict.Components1[0];
 
@@ -57,18 +57,18 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
 
                 foreach (RandomFloatArgument argument in nmMessage.RandomFloatArguments)
                 {
-                    message.SetArgument(argument.Name, Random.NextMinMax(argument.Value));
+                    message.SetArgument(argument.Name, _random.NextMinMax(argument.Value));
                 }
 
                 foreach (RandomIntArgument argument in nmMessage.RandomIntArguments)
                 {
-                    message.SetArgument(argument.Name, Random.NextMinMax(argument.Value));
+                    message.SetArgument(argument.Name, _random.NextMinMax(argument.Value));
                 }
 
                 message.SendTo(ped);
             }
 #if DEBUG
-            Logger.MakeLog($"{pedEntity.GetEntityName()} have got {nmMessages}");
+            Logger.MakeLog($"{pedEntity.GetEntityName()} have got NM-message {nmMessages}");
 #endif
         }
     }

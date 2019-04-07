@@ -31,7 +31,7 @@ namespace GunshotWound2.WoundEffects
                 Ped ped = NewPeds.Components1[i].ThisPed;
                 if (!ped.Exists()) continue;
 
-                int pedEntity = NewPeds.Entities[i];
+                EcsEntity pedEntity = NewPeds.Entities[i];
                 ResetEffect(ped, pedEntity);
             }
 
@@ -40,7 +40,7 @@ namespace GunshotWound2.WoundEffects
                 Ped ped = HealedPeds.Components1[i].ThisPed;
                 if (!ped.Exists()) continue;
 
-                int pedEntity = HealedPeds.Entities[i];
+                EcsEntity pedEntity = HealedPeds.Entities[i];
                 ResetEffect(ped, pedEntity);
             }
 
@@ -49,10 +49,10 @@ namespace GunshotWound2.WoundEffects
                 Ped ped = WoundedPeds.Components1[pedIndex].ThisPed;
                 if (!ped.Exists()) continue;
 
-                int pedEntity = WoundedPeds.Entities[pedIndex];
+                EcsEntity pedEntity = WoundedPeds.Entities[pedIndex];
                 WoundedComponent wounded = WoundedPeds.Components2[pedIndex];
 
-                foreach (int woundEntity in wounded.WoundEntities)
+                foreach (EcsEntity woundEntity in wounded.WoundEntities)
                 {
                     ProcessWound(ped, pedEntity, woundEntity);
                 }
@@ -65,9 +65,9 @@ namespace GunshotWound2.WoundEffects
         {
         }
 
-        protected abstract void ResetEffect(Ped ped, int pedEntity);
+        protected abstract void ResetEffect(Ped ped, EcsEntity pedEntity);
 
-        protected abstract void ProcessWound(Ped ped, int pedEntity, int woundEntity);
+        protected abstract void ProcessWound(Ped ped, EcsEntity pedEntity, EcsEntity woundEntity);
 
         protected virtual void PostExecuteActions()
         {

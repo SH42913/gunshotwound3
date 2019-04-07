@@ -7,7 +7,7 @@ namespace GunshotWound2.Wounds
     public class WoundedComponent : IEcsAutoResetComponent
     {
         [EcsIgnoreNullCheck]
-        public readonly List<int> WoundEntities = new List<int>();
+        public readonly List<EcsEntity> WoundEntities = new List<EcsEntity>(16);
         
         public void Reset()
         {
