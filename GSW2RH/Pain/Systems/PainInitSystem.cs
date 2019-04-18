@@ -38,6 +38,7 @@ namespace GunshotWound2.Pain.Systems
             stats.PainDeviation = 0.2f;
 
             var pedStats = _ecsWorld.AddComponent<PedPainStatsComponent>(mainEntity);
+            pedStats.AnimalMult = 1f;
             pedStats.PlayerUnbearablePain = 100f;
             pedStats.PlayerPainRecoverySpeed = 1f;
             pedStats.PedUnbearablePain = new MinMax
@@ -76,6 +77,8 @@ namespace GunshotWound2.Pain.Systems
                     {
                         pedStats.PedUnbearablePain = pain;
                     }
+
+                    pedStats.AnimalMult = pedPainElement.GetFloat("AnimalMult");
                 }
 
                 XElement pedSpeedElement = xmlRoot.Element("PedPainRecoverySpeed");

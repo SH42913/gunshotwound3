@@ -22,7 +22,7 @@ namespace GunshotWound2.Bleeding.Systems
         private readonly EcsFilter<PedHealthStatsComponent> _healthStats = null;
         private readonly EcsFilter<GswPedComponent, NewPedMarkComponent>.Exclude<AnimalMarkComponent> _newHumans = null;
         private readonly EcsFilter<GswPedComponent, NewPedMarkComponent, AnimalMarkComponent> _newAnimals = null;
-        
+
         private readonly GswLogger _logger;
 
         public BleedingInitSystem()
@@ -35,9 +35,10 @@ namespace GunshotWound2.Bleeding.Systems
             EcsEntity mainEntity = GunshotWound2Script.StatsContainerEntity;
             var stats = _ecsWorld.AddComponent<BleedingStatsComponent>(mainEntity);
             stats.BleedingMultiplier = 1f;
-            stats.BleedingMultiplier = 0.2f;
+            stats.BleedingDeviation = 0.2f;
 
             var pedStats = _ecsWorld.AddComponent<PedBleedingStatsComponent>(mainEntity);
+            pedStats.AnimalMult = 1f;
             pedStats.PedBleedingHealRate = new MinMax
             {
                 Min = 0.5f,
@@ -69,6 +70,8 @@ namespace GunshotWound2.Bleeding.Systems
                     {
                         pedStats.PedBleedingHealRate = bleeding;
                     }
+
+                    pedStats.AnimalMult = pedElement.GetFloat("AnimalMult");
                 }
 
                 XElement playerElement = xmlRoot.Element("PlayerBleedingHealRate");
@@ -91,7 +94,7 @@ namespace GunshotWound2.Bleeding.Systems
             {
                 XElement partRoot = _initParts.Components1[i].ElementRoot;
                 EcsEntity partEntity = _initParts.Entities[i];
-                
+
                 XElement multElement = partRoot.Element("BleedingMult");
                 if (multElement != null)
                 {
@@ -114,20 +117,20 @@ namespace GunshotWound2.Bleeding.Systems
             {
                 throw new Exception("BleedingSystem was not init!");
             }
-            
+
             PedBleedingStatsComponent stats = _bleedingStats.Components1[0];
             foreach (int i in _newHumans)
             {
                 EcsEntity humanEntity = _newHumans.Entities[i];
                 bool isPlayer = _ecsWorld.GetComponent<PlayerMarkComponent>(humanEntity) != null;
-                
+
                 var info = _ecsWorld.AddComponent<PedBleedingInfoComponent>(humanEntity);
-                info.BleedingHealRate = isPlayer 
-                    ? stats.PlayerBleedingHealRate 
+                info.BleedingHealRate = isPlayer
+                    ? stats.PlayerBleedingHealRate
                     : _random.NextMinMax(stats.PedBleedingHealRate);
             }
 
-            PedHealthStatsComponent healthStats = _healthStats.Components1[0];            
+            PedHealthStatsComponent healthStats = _healthStats.Components1[0];
             foreach (int i in _newAnimals)
             {
                 Ped ped = _newAnimals.Components1[i].ThisPed;
@@ -135,7 +138,7 @@ namespace GunshotWound2.Bleeding.Systems
 
                 float healthPercent = ped.GetHealth() / healthStats.PedHealth.Max;
                 var info = _ecsWorld.AddComponent<PedBleedingInfoComponent>(animalEntity);
-                info.BleedingHealRate = healthPercent * stats.PedBleedingHealRate.Max;
+                info.BleedingHealRate = healthPercent * stats.PedBleedingHealRate.Max * stats.AnimalMult;
             }
         }
 

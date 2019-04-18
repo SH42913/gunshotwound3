@@ -17,11 +17,11 @@
     It will increase performance, but it will less accurate.
     Attention! PedHealth, new Accuracy and ShootRate will applied only after first damage! -->
 	
-	<PedHealth Min="50" Max="100"/>
+	<PedHealth Min="50" Max="100" AnimalMult="1.0"/>
 	<!-- Any new GswPed(exclude animals) will get Health between Min and Max.
 	If you will set Min or Max lower 0, will be loaded GSW-Default values(50-99). -->
 
-	<PedUnbearablePain Min="50" Max="100"/>
+	<PedUnbearablePain Min="50" Max="100" AnimalMult="1.0"/>
 	<!-- Any new GswPed(exclude animals) will get Unbearable Pain Limit between Min and Max.
 	If you will set Min or Max lower 0, will be loaded GSW-Default values(50-100). -->
 
@@ -29,7 +29,7 @@
 	<!-- Any new GswPed(exclude animals) will get PedPainRecoverySpeed between Min and Max.
 	If you will set Min or Max lower 0, will be loaded GSW-Default values(0.5-1). -->
 
-	<PedBleedingHealRate Min="1.0" Max="1.0"/>
+	<PedBleedingHealRate Min="1.0" Max="1.0" AnimalMult="1.0"/>
 	<!-- Any new GswPed(exclude animals) will get PedBleedingHealRate between Min and Max.
 	If you will set Min or Max lower 0, will be loaded GSW-Default values(0.5-1). -->
 </GswWorldConfig.xml>

@@ -13,7 +13,7 @@ namespace GunshotWound2.Health.Systems
     public class HealthInitSystem : IEcsPreInitSystem, IEcsInitSystem, IEcsRunSystem
     {
         private readonly EcsWorld _ecsWorld = null;
-        private readonly Random Random = null;
+        private readonly Random _random = null;
 
         private readonly EcsFilter<LoadedConfigComponent> _loadedConfigs = null;
         private readonly EcsFilter<LoadedItemConfigComponent> _initParts = null;
@@ -37,6 +37,7 @@ namespace GunshotWound2.Health.Systems
 
             var pedStats = _ecsWorld.AddComponent<PedHealthStatsComponent>(mainEntity);
             pedStats.PlayerHealth = 100f;
+            pedStats.AnimalMult = 1f;
             pedStats.PedHealth = new MinMax
             {
                 Min = 50,
@@ -68,6 +69,8 @@ namespace GunshotWound2.Health.Systems
                     {
                         pedStats.PedHealth = health;
                     }
+
+                    pedStats.AnimalMult = pedElement.GetFloat("AnimalMult");
                 }
 
                 XElement playerElement = xmlRoot.Element("PlayerHealth");
@@ -123,7 +126,7 @@ namespace GunshotWound2.Health.Systems
 
                 float healthAmount = isPlayer
                     ? stats.PlayerHealth
-                    : Random.NextMinMax(stats.PedHealth);
+                    : _random.NextMinMax(stats.PedHealth);
 
                 var health = _ecsWorld.AddComponent<HealthComponent>(humanEntity);
                 health.MinHealth = 0;
@@ -142,6 +145,7 @@ namespace GunshotWound2.Health.Systems
                 var health = _ecsWorld.AddComponent<HealthComponent>(animalEntity);
                 health.MinHealth = 0;
                 health.Health = health.MinHealth + ped.GetHealth();
+                health.Health *= stats.AnimalMult;
                 health.MaxHealth = (float) Math.Floor(health.Health);
 
                 ped.SetMaxHealth(health.MaxHealth);
