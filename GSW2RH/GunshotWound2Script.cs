@@ -10,6 +10,7 @@ using GunshotWound2.GswWorld.Systems;
 using GunshotWound2.Hashes.Systems;
 using GunshotWound2.Health.Systems;
 using GunshotWound2.Localization.Systems;
+using GunshotWound2.Notifications.Systems;
 using GunshotWound2.Pain.Systems;
 using GunshotWound2.PainStates.Systems;
 using GunshotWound2.Pause.Systems;
@@ -71,6 +72,8 @@ namespace GunshotWound2
                 .Add(new LocalizationInitSystem())
                 .Add(new UidInitSystem())
                 .Add(new HashesInitSystem())
+                .Add(new NotificationsInitSystem())
+                .Add(new DonateListSystem())
                 .Add(new GswWorldInitSystem())
                 .Add(new GswWorldCleanSystem())
                 .Add(new GswWorldSystem())
@@ -134,6 +137,7 @@ namespace GunshotWound2
                 .Add(new FrameTimeStopSystem())
                 .Add(new DebugTextSystem())
 #endif
+                .Add(new NotificationsSystem())
                 .Inject(Random)
                 .Inject(new GameService());
             _systems.Initialize();
