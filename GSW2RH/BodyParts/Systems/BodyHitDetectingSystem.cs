@@ -37,10 +37,10 @@ namespace GunshotWound2.BodyParts.Systems
                 if (!ped.Exists()) continue;
 
                 EcsEntity pedEntity = _damagedPeds.Entities[i];
+                PedBoneId lastBone = ped.LastDamageBone;
                 EcsEntity bodyPartEntity = GetDamagedBodyPart(ped);
 
 #if DEBUG
-                PedBoneId lastBone = ped.LastDamageBone;
                 string partName = bodyPartEntity.GetEntityName();
                 _logger.MakeLog($"{pedEntity.GetEntityName()} has damaged {partName} with boneId {(uint) lastBone}");
 
@@ -60,7 +60,9 @@ namespace GunshotWound2.BodyParts.Systems
                 }
 #endif
 
-                _ecsWorld.AddComponent<DamagedBodyPartComponent>(pedEntity).DamagedBodyPartEntity = bodyPartEntity;
+                var damagedBodyPart = _ecsWorld.AddComponent<DamagedBodyPartComponent>(pedEntity);
+                damagedBodyPart.DamagedBodyPartEntity = bodyPartEntity;
+                damagedBodyPart.DamagedBoneId = (uint) lastBone;
                 ped.ClearLastDamageBone();
             }
         }

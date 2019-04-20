@@ -29,6 +29,7 @@ namespace GunshotWound2.Bleeding.Systems
             {
                 PedBleedingInfoComponent info = _wounded.Components1[i];
                 WoundedComponent wounded = _wounded.Components2[i];
+                DamagedBodyPartComponent damagedBodyPart = _wounded.Components3[i];
                 
                 EcsEntity pedEntity = _wounded.Entities[i];
                 foreach (EcsEntity woundEntity in wounded.WoundEntities)
@@ -39,7 +40,7 @@ namespace GunshotWound2.Bleeding.Systems
                     float baseSeverity = baseBleeding.BaseBleeding;
                     if (baseSeverity <= 0) continue;
 
-                    EcsEntity bodyPartEntity = _wounded.Components3[i].DamagedBodyPartEntity;
+                    EcsEntity bodyPartEntity = damagedBodyPart.DamagedBodyPartEntity;
                     float bodyPartMult = _ecsWorld.GetComponent<BleedingMultiplierComponent>(bodyPartEntity).Multiplier;
                     float sevWithMult = stats.BleedingMultiplier * bodyPartMult * baseSeverity;
 
@@ -49,10 +50,11 @@ namespace GunshotWound2.Bleeding.Systems
                     float finalSeverity = sevWithMult + sevDeviation;
 
                     EcsEntity bleedingEntity = _ecsWorld.CreateEntityWith(out BleedingComponent bleeding);
+                    bleeding.DamagedBoneId = damagedBodyPart.DamagedBoneId;
                     bleeding.Severity = finalSeverity;
 #if DEBUG
                     _logger.MakeLog(
-                        $"Created bleeding {woundEntity.GetEntityName()} for {pedEntity.GetEntityName()}. " +
+                        $"Created bleeding {woundEntity.GetEntityName()} on bone {bleeding.DamagedBoneId} for {pedEntity.GetEntityName()}. " +
                         $"Base severity {baseSeverity:0.00}; final severity {finalSeverity:0.00}");
 #endif
                     info.BleedingEntities.Add(bleedingEntity);
