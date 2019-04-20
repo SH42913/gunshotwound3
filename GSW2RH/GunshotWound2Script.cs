@@ -4,6 +4,7 @@ using GunshotWound2.BaseHitDetecting.Systems;
 using GunshotWound2.Bleeding.Systems;
 using GunshotWound2.BodyParts.Systems;
 using GunshotWound2.Configs.Systems;
+using GunshotWound2.ConsoleCommands.Systems;
 using GunshotWound2.Crits.Systems;
 using GunshotWound2.GswWorld.Systems;
 using GunshotWound2.Hashes.Systems;
@@ -45,7 +46,7 @@ namespace GunshotWound2
     {
         public static EcsEntity StatsContainerEntity { get; private set; }
 
-        internal static EcsWorld World { get; set; }
+        internal static EcsWorld EcsWorld { get; private set; }
         private EcsSystems _systems;
         private static readonly Random Random = new Random();
 
@@ -54,9 +55,10 @@ namespace GunshotWound2
 
         public void Init()
         {
-            World = new EcsWorld();
-            _systems = new EcsSystems(World);
-            StatsContainerEntity = World.CreateEntityWith(out StatsContainerComponent _);
+            EcsWorld?.Dispose();
+            EcsWorld = new EcsWorld();
+            _systems = new EcsSystems(EcsWorld);
+            StatsContainerEntity = EcsWorld.CreateEntityWith(out StatsContainerComponent _);
 
             _systems
                 .Add(new PauseDetectingSystem())
@@ -65,6 +67,7 @@ namespace GunshotWound2
 #endif
                 //InitSystems
                 .Add(new ConfigInitSystem())
+                .Add(new ConsoleCommandsInitSystem())
                 .Add(new LocalizationInitSystem())
                 .Add(new UidInitSystem())
                 .Add(new HashesInitSystem())
@@ -148,14 +151,14 @@ namespace GunshotWound2
                 }
 
                 _systems.Run();
-                World.RemoveOneFrameComponents();
+                EcsWorld.RemoveOneFrameComponents();
                 GameFiber.Yield();
             }
         }
 
         public void Dispose()
         {
-            World?.Dispose();
+            EcsWorld?.Dispose();
             _systems?.Dispose();
         }
     }

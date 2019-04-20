@@ -1,7 +1,8 @@
 ﻿using System.Globalization;
 using System.Threading;
+using Rage.Attributes;
 
-[assembly: Rage.Attributes.Plugin(
+[assembly: Plugin(
     "GunShot Wound 2",
     Description = "GunShot Wound 2 will bring most realistic damage system to GTAV.",
     Author = "SH42913",

@@ -144,7 +144,7 @@ namespace GunshotWound2.Utils
 
         public static string GetEntityName(this EcsEntity entity)
         {
-            EcsWorld ecsWorld = GunshotWound2Script.World;
+            EcsWorld ecsWorld = GunshotWound2Script.EcsWorld;
             var localizationKey = ecsWorld.GetComponent<LocalizationKeyComponent>(entity);
             if (localizationKey != null)
             {

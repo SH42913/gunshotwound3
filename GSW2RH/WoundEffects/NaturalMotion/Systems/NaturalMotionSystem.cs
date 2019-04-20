@@ -48,28 +48,32 @@ namespace GunshotWound2.WoundEffects.NaturalMotion.Systems
             foreach (string messageName in nmMessages.MessageList)
             {
                 NaturalMotionMessage nmMessage = dict.MessageDict[messageName];
-
-                EuphoriaMessage message = new EuphoriaMessage(nmMessage.Name, true);
-                foreach (NmArgument argument in nmMessage.NmArguments)
-                {
-                    message.SetArgument(argument.Name, argument.Value);
-                }
-
-                foreach (RandomFloatArgument argument in nmMessage.RandomFloatArguments)
-                {
-                    message.SetArgument(argument.Name, _random.NextMinMax(argument.Value));
-                }
-
-                foreach (RandomIntArgument argument in nmMessage.RandomIntArguments)
-                {
-                    message.SetArgument(argument.Name, _random.NextMinMax(argument.Value));
-                }
-
-                message.SendTo(ped);
+                PlayNaturalMotionMessage(nmMessage, ped, _random);
             }
 #if DEBUG
             Logger.MakeLog($"{pedEntity.GetEntityName()} have got NM-message {nmMessages}");
 #endif
+        }
+
+        public static void PlayNaturalMotionMessage(NaturalMotionMessage nmMessage, Ped ped, Random random)
+        {
+            EuphoriaMessage message = new EuphoriaMessage(nmMessage.Name, true);
+            foreach (NmArgument argument in nmMessage.NmArguments)
+            {
+                message.SetArgument(argument.Name, argument.Value);
+            }
+
+            foreach (RandomFloatArgument argument in nmMessage.RandomFloatArguments)
+            {
+                message.SetArgument(argument.Name, random.NextMinMax(argument.Value));
+            }
+
+            foreach (RandomIntArgument argument in nmMessage.RandomIntArguments)
+            {
+                message.SetArgument(argument.Name, random.NextMinMax(argument.Value));
+            }
+
+            message.SendTo(ped);
         }
     }
 }

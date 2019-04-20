@@ -58,6 +58,7 @@
     <Compile Include="BaseHitDetecting\Systems\BaseHitDetectingSystem.cs" />
     <Compile Include="Bleeding\BaseBleedingComponent.cs" />
     <Compile Include="Bleeding\BleedingComponent.cs" />
+    <Compile Include="Bleeding\BleedingConsoleCommands.cs" />
     <Compile Include="Bleeding\PedBleedingInfoComponent.cs" />
     <Compile Include="Bleeding\BleedingMultiplierComponent.cs" />
     <Compile Include="Bleeding\BleedingStatsComponent.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Configs\LoadedConfigComponent.cs" />
     <Compile Include="Configs\LoadedItemConfigComponent.cs" />
     <Compile Include="Configs\Systems\ConfigInitSystem.cs" />
+    <Compile Include="ConsoleCommands\Systems\ConsoleCommandsInitSystem.cs" />
     <Compile Include="Crits\CritChanceComponent.cs" />
     <Compile Include="Crits\CritListComponent.cs" />
     <Compile Include="Crits\Systems\CritInitSystem.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="DebugSystems\FrameTime\Systems\FrameTimeStartSystem.cs" />
     <Compile Include="DebugSystems\FrameTime\Systems\FrameTimeStopSystem.cs" />
     <Compile Include="GameService.cs" />
+    <Compile Include="Health\HealthConsoleCommands.cs" />
     <Compile Include="Pause\Systems\PauseDetectingSystem.cs" />
     <Compile Include="WoundEffects\BaseEffectInitSystem.cs" />
     <Compile Include="WoundEffects\BaseEffectSystem.cs" />
@@ -95,6 +98,7 @@
     <Compile Include="WoundEffects\CameraShake\PermanentCameraShakeComponent.cs" />
     <Compile Include="WoundEffects\CameraShake\Systems\CameraShakeInitSystem.cs" />
     <Compile Include="WoundEffects\CameraShake\Systems\CameraShakeSystem.cs" />
+    <Compile Include="WoundEffects\NaturalMotion\NaturalMotionMessageConsoleCommands.cs" />
     <Compile Include="WoundEffects\VehicleControl\DisableVehicleControlComponent.cs" />
     <Compile Include="WoundEffects\VehicleControl\DisabledVehicleControlComponent.cs" />
     <Compile Include="WoundEffects\VehicleControl\EnableVehicleControlComponent.cs" />
