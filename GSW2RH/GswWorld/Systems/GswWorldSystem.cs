@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using GunshotWound2.Pause;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
@@ -16,12 +15,12 @@ namespace GunshotWound2.GswWorld.Systems
     public class GswWorldSystem : IEcsRunSystem
     {
         private readonly EcsWorld _ecsWorld = null;
+        private readonly GameService _gameService = null;
         private readonly Random _random = null;
 
         private readonly EcsFilter<GswWorldComponent> _world = null;
         private readonly EcsFilter<GswPedComponent> _gswPeds = null;
         private readonly EcsFilter<ForceCreateGswPedEvent> _forceCreateEvents = null;
-        private readonly EcsFilter<PauseStateComponent> _pause = null;
 #if DEBUG
         private readonly EcsFilter<DebugTextComponent> _debugText = null;
 #endif
@@ -36,7 +35,7 @@ namespace GunshotWound2.GswWorld.Systems
 
         public void Run()
         {
-            if (_pause.GameIsPaused()) return;
+            if (_gameService.GameIsPaused) return;
 
             GswWorldComponent gswWorld = _world.Components1[0];
             bool detectingEnabled = gswWorld.HumanDetectingEnabled || gswWorld.AnimalDetectingEnabled;

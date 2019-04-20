@@ -1,5 +1,4 @@
 using GunshotWound2.Health;
-using GunshotWound2.Utils;
 using Leopotam.Ecs;
 
 namespace GunshotWound2.Bleeding.Systems

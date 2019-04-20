@@ -131,7 +131,8 @@ namespace GunshotWound2
                 .Add(new FrameTimeStopSystem())
                 .Add(new DebugTextSystem())
 #endif
-                .Inject(Random);
+                .Inject(Random)
+                .Inject(new GameService());
             _systems.Initialize();
             GameFiber.Yield();
         }

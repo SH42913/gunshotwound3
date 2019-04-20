@@ -6,7 +6,7 @@ namespace GunshotWound2.Pause.Systems
     [EcsInject]
     public class PauseDetectingSystem : IEcsRunSystem
     {
-        private readonly EcsWorld _ecsWorld = null;
+        private readonly GameService _gameService = null;
         private uint _last;
         private bool _isPaused;
 
@@ -14,16 +14,7 @@ namespace GunshotWound2.Pause.Systems
         {
             _isPaused = Game.GameTime == _last;
             _last = Game.GameTime;
-
-            EcsEntity mainEntity = GunshotWound2Script.StatsContainerEntity;
-            if (_isPaused)
-            {
-                _ecsWorld.EnsureComponent<PauseStateComponent>(mainEntity, out _);
-            }
-            else
-            {
-                _ecsWorld.RemoveComponent<PauseStateComponent>(mainEntity, true);
-            }
+            _gameService.GameIsPaused = _isPaused;
         }
     }
 }

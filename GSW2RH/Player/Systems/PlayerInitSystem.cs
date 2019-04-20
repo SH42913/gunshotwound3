@@ -2,7 +2,6 @@ using System;
 using System.Xml.Linq;
 using GunshotWound2.Configs;
 using GunshotWound2.GswWorld;
-using GunshotWound2.Pause;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
 using Rage;
@@ -14,12 +13,13 @@ namespace GunshotWound2.Player.Systems
     public class PlayerInitSystem : IEcsPreInitSystem, IEcsRunSystem
     {
         private readonly EcsWorld _ecsWorld = null;
+        private readonly GameService _gameService = null;
 
         private readonly EcsFilter<LoadedConfigComponent> _loadedConfigs = null;
         private readonly EcsFilter<PlayerConfigComponent> _playerConfig = null;
+        
         private readonly EcsFilter<GswPedComponent, NewPedMarkComponent> _newPeds = null;
         private readonly EcsFilter<GswPedComponent, PlayerMarkComponent> _playerPeds = null;
-        private readonly EcsFilter<PauseStateComponent> _pause = null;
 
         private readonly GswLogger _logger;
 
@@ -91,7 +91,7 @@ namespace GunshotWound2.Player.Systems
                 }
             }
             
-            if(!Game.IsPaused && !Game.IsLoading && !_pause.GameIsPaused()) return;
+            if(Game.IsPaused || Game.IsLoading && _gameService.GameIsPaused) return;
 
             _ecsWorld.ProcessDelayedUpdates();
             if (config.PlayerEnabled && _playerPeds.IsEmpty())
