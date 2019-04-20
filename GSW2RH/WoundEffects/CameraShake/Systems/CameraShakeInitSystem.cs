@@ -21,6 +21,7 @@ namespace GunshotWound2.WoundEffects.CameraShake.Systems
                 permanent.ShakeName = shake.GetAttributeValue("ShakeName");
                 permanent.Intensity = shake.GetFloat("Intensity");
                 permanent.Priority = shake.GetInt("Priority");
+                permanent.PedAccuracy = shake.GetFloat("PedAccuracy");
                 return;
             }
 

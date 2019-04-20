@@ -15,7 +15,7 @@
 			<MovementClipset Player="move_m@drunk@moderatedrunk" PedMale="" PedFemale=""/>
 			<MovementRate Value="0.9" RestoreOnlyOnHeal="FALSE"/>
 			<EnableSprint/>
-			<CameraShake OneTime="FALSE" DisableOnlyOnHeal="FALSE" ShakeName="HAND_SHAKE" Intensity="1.0" Priority="1"/>
+			<CameraShake DisableOnlyOnHeal="FALSE" ShakeName="HAND_SHAKE" Intensity="1.0" Priority="1" PedAccuracy="0.8"/>
 			<StopScreenEffect Name="FocusIn"/>
 		</PainState>
         <PainState PainPercent="0.6">
@@ -24,7 +24,7 @@
 			<MovementClipset Player="move_m@drunk@verydrunk" PedMale="" PedFemale=""/>
 			<MovementRate Value="0.8" RestoreOnlyOnHeal="FALSE"/>
 			<DisableSprint RestoreOnlyOnHeal="FALSE"/>
-			<CameraShake OneTime="FALSE" DisableOnlyOnHeal="FALSE" ShakeName="HAND_SHAKE" Intensity="2.0" Priority="1"/>
+			<CameraShake DisableOnlyOnHeal="FALSE" ShakeName="HAND_SHAKE" Intensity="2.0" Priority="1" PedAccuracy="0.5"/>
 			<StartScreenEffect Name="FocusIn" Duration="5000" Loop="TRUE" Main="FALSE"/>
 			<LockSpecialAbility/>
 			<EnableCarControl/>

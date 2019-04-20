@@ -1,3 +1,4 @@
+using GunshotWound2.GswWorld;
 using GunshotWound2.Player;
 using GunshotWound2.Utils;
 using Leopotam.Ecs;
@@ -9,7 +10,7 @@ namespace GunshotWound2.WoundEffects.CameraShake.Systems
     [EcsInject]
     public class CameraShakeSystem : BaseEffectSystem
     {
-        private readonly EcsFilter<PermanentCameraShakeComponent> _permanentCameraShake = null;
+        private readonly EcsFilter<PermanentCameraShakeComponent, PlayerMarkComponent> _permanentCameraShake = null;
 
         public CameraShakeSystem() : base(new GswLogger(typeof(CameraShakeSystem)))
         {
@@ -38,8 +39,8 @@ namespace GunshotWound2.WoundEffects.CameraShake.Systems
         protected override void ProcessWound(Ped ped, EcsEntity pedEntity, EcsEntity woundEntity)
         {
             bool isPlayer = EcsWorld.GetComponent<PlayerMarkComponent>(pedEntity) != null;
-            if(!isPlayer) return;
 
+            var gswPed = EcsWorld.GetComponent<GswPedComponent>(pedEntity);
             var pedPermanent = EcsWorld.GetComponent<PermanentCameraShakeComponent>(pedEntity);
             var permanent = EcsWorld.GetComponent<EnablePermanentCameraShakeComponent>(woundEntity);
             if (permanent != null)
@@ -51,7 +52,18 @@ namespace GunshotWound2.WoundEffects.CameraShake.Systems
                 shake.ShakeName = permanent.ShakeName;
                 shake.Intensity = permanent.Intensity;
                 shake.Priority = permanent.Priority;
-                NativeFunction.Natives.STOP_GAMEPLAY_CAM_SHAKING(true);
+                if (isPlayer)
+                {
+                    NativeFunction.Natives.STOP_GAMEPLAY_CAM_SHAKING(true);
+                }
+                else
+                {
+                    float accuracy = permanent.PedAccuracy * gswPed.DefaultAccuracy;
+                    ped.Accuracy = (int) accuracy;
+#if DEBUG
+                    Logger.MakeLog($"Changed accuracy for {pedEntity.GetEntityName()}, accuracy is {ped.Accuracy}/{gswPed.DefaultAccuracy}");
+#endif
+                }
                 
 #if DEBUG
                 Logger.MakeLog($"Enable permanent camera shake, only on heal - {permanent.DisableOnlyOnHeal}");
@@ -65,7 +77,18 @@ namespace GunshotWound2.WoundEffects.CameraShake.Systems
             var disable = EcsWorld.GetComponent<DisableCameraShakeComponent>(woundEntity);
             if (disable == null) return;
 
-            NativeFunction.Natives.STOP_GAMEPLAY_CAM_SHAKING(true);
+            if (isPlayer)
+            {
+                NativeFunction.Natives.STOP_GAMEPLAY_CAM_SHAKING(true);
+            }
+            else
+            {
+                ped.Accuracy = (int) gswPed.DefaultAccuracy;
+#if DEBUG
+                Logger.MakeLog($"Restored accuracy for {pedEntity.GetEntityName()}, accuracy is {ped.Accuracy}/{gswPed.DefaultAccuracy}");
+#endif
+            }
+            
             EcsWorld.RemoveComponent<PermanentCameraShakeComponent>(pedEntity);
 #if DEBUG
             Logger.MakeLog("Disable camera shake");

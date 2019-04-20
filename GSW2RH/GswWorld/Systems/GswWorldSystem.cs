@@ -162,6 +162,7 @@ namespace GunshotWound2.GswWorld.Systems
                 NativeFunction.Natives.SET_PED_SHOOT_RATE(ped, rate);
             }
 
+            gswPed.DefaultAccuracy = ped.Accuracy;
             gswWorld.PedsToEntityDict.Add(ped, entity);
             return entity;
         }
@@ -170,6 +171,7 @@ namespace GunshotWound2.GswWorld.Systems
         {
             EcsEntity entity = _ecsWorld.CreateEntityWith(out GswPedComponent gswPed, out AnimalMarkComponent _);
             gswPed.ThisPed = ped;
+            gswPed.DefaultAccuracy = ped.Accuracy;
             gswWorld.PedsToEntityDict.Add(ped, entity);
             return entity;
         }

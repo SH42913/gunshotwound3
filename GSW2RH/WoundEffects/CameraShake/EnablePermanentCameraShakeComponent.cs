@@ -6,5 +6,6 @@ namespace GunshotWound2.WoundEffects.CameraShake
         public float Intensity;
         public int Priority;
         public bool DisableOnlyOnHeal;
+        public float PedAccuracy;
     }
 }
