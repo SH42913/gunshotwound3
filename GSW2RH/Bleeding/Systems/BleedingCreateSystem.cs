@@ -1,6 +1,7 @@
 using System;
 using GunshotWound2.BodyParts;
 using GunshotWound2.Utils;
+using GunshotWound2.Weapons;
 using GunshotWound2.Wounds;
 using Leopotam.Ecs;
 
@@ -13,7 +14,7 @@ namespace GunshotWound2.Bleeding.Systems
         private readonly Random _random = null;
 
         private readonly EcsFilter<BleedingStatsComponent> _bleedingStats = null;
-        private readonly EcsFilter<PedBleedingInfoComponent, WoundedComponent, DamagedBodyPartComponent> _wounded = null;
+        private readonly EcsFilter<PedBleedingInfoComponent, WoundedComponent, DamagedBodyPartComponent, DamagedByWeaponComponent> _wounded = null;
 
         private readonly GswLogger _logger;
 
@@ -30,6 +31,7 @@ namespace GunshotWound2.Bleeding.Systems
                 PedBleedingInfoComponent info = _wounded.Components1[i];
                 WoundedComponent wounded = _wounded.Components2[i];
                 DamagedBodyPartComponent damagedBodyPart = _wounded.Components3[i];
+                DamagedByWeaponComponent damagedByWeapon = _wounded.Components4[i];
                 
                 EcsEntity pedEntity = _wounded.Entities[i];
                 foreach (EcsEntity woundEntity in wounded.WoundEntities)
@@ -52,6 +54,9 @@ namespace GunshotWound2.Bleeding.Systems
                     EcsEntity bleedingEntity = _ecsWorld.CreateEntityWith(out BleedingComponent bleeding);
                     bleeding.DamagedBoneId = damagedBodyPart.DamagedBoneId;
                     bleeding.Severity = finalSeverity;
+                    bleeding.MotherWoundEntity = woundEntity;
+                    bleeding.WeaponEntity = damagedByWeapon.WeaponEntity;
+                    
 #if DEBUG
                     _logger.MakeLog(
                         $"Created bleeding {woundEntity.GetEntityName()} on bone {bleeding.DamagedBoneId} for {pedEntity.GetEntityName()}. " +
