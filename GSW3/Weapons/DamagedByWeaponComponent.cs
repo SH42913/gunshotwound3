@@ -6,6 +6,6 @@ namespace GSW3.Weapons
     public class DamagedByWeaponComponent
     {
         public EcsEntity WeaponEntity;
-        public EcsEntity WoundEntity;
+        public EcsEntity MainWoundEntity;
     }
 }

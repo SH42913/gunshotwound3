@@ -35,7 +35,7 @@ namespace GSW3.Wounds.Systems
                 }
 
                 EcsEntity woundEntity = woundRandomizer.WoundRandomizer.NextWithReplacement();
-                damagedComponent.WoundEntity = woundEntity;
+                damagedComponent.MainWoundEntity = woundEntity;
 
                 var wounded = _ecsWorld.EnsureComponent<WoundedComponent>(pedEntity, out _);
                 wounded.WoundEntities.Add(woundEntity);

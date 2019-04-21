@@ -28,7 +28,7 @@ namespace GSW3.Notifications.Systems
                     notification.Delay -= delta;
                     if (notification.Delay <= 0)
                     {
-                        finalMessage += notification.Message + "\n";
+                        finalMessage += notification.Message + "~n~";
                         _ecsWorld.RemoveComponent<NotificationComponent>(_notifications.Entities[i]);
                     }
                 }

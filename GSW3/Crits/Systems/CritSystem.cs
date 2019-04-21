@@ -34,7 +34,7 @@ namespace GSW3.Crits.Systems
         {
             foreach (int i in _healedPeds)
             {
-                _healedPeds.Components2[i].CritList.Clear();
+                _healedPeds.Components2[i].Reset();
             }
 
             foreach (int i in _woundedPeds)
@@ -57,7 +57,7 @@ namespace GSW3.Crits.Systems
                 var weaponChanceComponent = _ecsWorld.GetComponent<CritChanceComponent>(weaponEntity);
                 float weaponChance = weaponChanceComponent?.CritChance ?? 0f;
 
-                EcsEntity woundEntity = damagedByWeapon.WoundEntity;
+                EcsEntity woundEntity = damagedByWeapon.MainWoundEntity;
                 var woundChanceComponent = _ecsWorld.GetComponent<CritChanceComponent>(woundEntity);
                 float woundChance = woundChanceComponent?.CritChance ?? 0f;
 

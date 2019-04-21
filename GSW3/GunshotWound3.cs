@@ -134,6 +134,7 @@ namespace GSW3
                 .Add(new FrameTimeStopSystem())
                 .Add(new DebugTextSystem())
 #endif
+                .Add(new WoundNotificationSystem())
                 .Add(new NotificationsSystem())
                 .Inject(Random)
                 .Inject(new GameService());

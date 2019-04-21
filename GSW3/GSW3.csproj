@@ -95,6 +95,7 @@
     <Compile Include="Notifications\Systems\DonateListSystem.cs" />
     <Compile Include="Notifications\Systems\NotificationsInitSystem.cs" />
     <Compile Include="Notifications\Systems\NotificationsSystem.cs" />
+    <Compile Include="Notifications\Systems\WoundNotificationSystem.cs" />
     <Compile Include="Pause\Systems\PauseDetectingSystem.cs" />
     <Compile Include="WoundEffects\BaseEffectInitSystem.cs" />
     <Compile Include="WoundEffects\BaseEffectSystem.cs" />
