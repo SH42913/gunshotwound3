@@ -106,7 +106,8 @@ namespace GSW3.Bleeding
             }
 
             float estTime = bleeding.Severity / info.BleedingHealRate * 100f;
-            Game.Console.Print($"Bleeding {bleeding.MotherWoundEntity.GetEntityName()} on {boneName} " +
+            Game.Console.Print($"{bleeding.MotherWoundEntity.GetEntityName()} " +
+                               $"on {bleeding.BodyPartEntity.GetEntityName()}(bone {boneName}) " +
                                $"by weapon {bleeding.WeaponEntity.GetEntityName()}, " +
                                $"severity {bleeding.Severity}, time to heal {estTime} seconds");
         }

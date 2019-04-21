@@ -55,6 +55,7 @@ namespace GSW3.Bleeding.Systems
 
                     EcsEntity bleedingEntity = _ecsWorld.CreateEntityWith(out BleedingComponent bleeding);
                     bleeding.DamagedBoneId = damagedBodyPart.DamagedBoneId;
+                    bleeding.BodyPartEntity = damagedBodyPart.DamagedBodyPartEntity;
                     bleeding.Severity = finalSeverity;
                     bleeding.MotherWoundEntity = woundEntity;
                     bleeding.WeaponEntity = damagedByWeapon.WeaponEntity;
