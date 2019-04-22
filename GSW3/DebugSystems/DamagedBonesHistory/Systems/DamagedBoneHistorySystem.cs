@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using GSW3.GswWorld;
 using Leopotam.Ecs;
@@ -93,15 +94,22 @@ namespace GSW3.DebugSystems.DamagedBonesHistory.Systems
 
         private void GameOnRawFrameRender(object sender, GraphicsEventArgs e)
         {
-            if (_screenPositionList == null || _screenPositionList.Count <= 0 || _gameService.GameIsPaused) return;
-
-            for (int i = 0; i < _screenPositionList.Count; i++)
+            try
             {
-                Vector2 screenPosition = _screenPositionList[i];
-                float radius = _radiusList[i];
-                Color color = _colorList[i];
+                if (_screenPositionList == null || _screenPositionList.Count <= 0 || _gameService.GameIsPaused) return;
 
-                e.Graphics.DrawFilledCircle(screenPosition, radius, color);
+                for (int i = 0; i < _screenPositionList.Count; i++)
+                {
+                    Vector2 screenPosition = _screenPositionList[i];
+                    float radius = _radiusList[i];
+                    Color color = _colorList[i];
+
+                    e.Graphics.DrawFilledCircle(screenPosition, radius, color);
+                }
+            }
+            catch (Exception)
+            {
+                // Ignore
             }
         }
 
