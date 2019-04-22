@@ -1,91 +1,111 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GswWoundConfig.xml>
+	<!-- Here you can set every Wound that will used by GSW3 -->
 	<WoundList>
 		<Wound>
-			<Uid Value="FLESH_WOUND"/>
-			<LocalizationKey Key="FLESH"/>
+			<!-- That's unique ID of Wound, that let you reference to wound in CritWoundList of BodyPart or WeaponWoundList -->
+			<Uid Value="GRAZE_GSW"/>
+			<!-- LocalizationKey needed for Localization in future, 
+            currently this key will used in wound notifications and console -->
+			<LocalizationKey Key="GRAZE_GSW"/>
+			<!-- You can skip any of next nodes for your wound -->
+			<!-- BaseDamage is how many Damage wound deal to ped, it will multiply with DamageMult of Weapon and BodyPart -->
 			<BaseDamage Value="5"/>
+			<!-- BasePain is how many Pain wound deal to ped, it will multiply with PainMult of Weapon and BodyPart -->
 			<BasePain Value="15"/>
-			<BaseBleeding Value="0.2"/>
+			<!-- BasePain is base bleeding severity of wound, it will multiply with BleedingMult of Weapon and BodyPart -->
+			<BaseBleeding Value="0.15"/>
+			<!-- Chance to get CritWound for current Wound. 
+			Chances of Weapon, BodyPart and wound is multiplies for get a final CritChance. -->
 			<CritChance Value="0"/>
 		</Wound>
 		<Wound>
-			<Uid Value="PERFORATING_WOUND"/>
-			<LocalizationKey Key="PERFORATING"/>
-			<BaseDamage Value="9"/>
-			<BasePain Value="25"/>
-			<BaseBleeding Value="0.6"/>
-			<CritChance Value="0.5"/>
+			<Uid Value="FLESH_GSW"/>
+			<LocalizationKey Key="FLESH_GSW"/>
+			<BaseDamage Value="10"/>
+			<BasePain Value="20"/>
+			<BaseBleeding Value="0.2"/>
+		</Wound>
+		<Wound>
+			<Uid Value="PENETRATING_GSW"/>
+			<LocalizationKey Key="PENETRATING_GSW"/>
+			<BaseDamage Value="10"/>
+			<BasePain Value="30"/>
+			<BaseBleeding Value="0.25"/>
+			<CritChance Value="0.3"/>
+			<!-- It will create flash effect on screen, when player will get this wound -->
 			<CreateFlash FadeIn="500" FadeOut="500"/>
 		</Wound>
 		<Wound>
-			<Uid Value="AVULSIVE_WOUND"/>
-			<LocalizationKey Key="AVULSIVE"/>
-			<BaseDamage Value="11"/>
-			<BasePain Value="30"/>
-			<BaseBleeding Value="1.0"/>
-			<CritChance Value="1.0"/>
+			<Uid Value="PERFORATING_GSW"/>
+			<LocalizationKey Key="PERFORATING_GSW"/>
+			<BaseDamage Value="8"/>
+			<BasePain Value="35"/>
+			<BaseBleeding Value="0.3"/>
+			<CritChance Value="0.4"/>
+			<CreateFlash FadeIn="500" FadeOut="500"/>
+			<!-- Ped will play PainSound, when it will get this wound -->
+			<PlayPainSound Player="-1" Male="6" Female="6"/>
+		</Wound>
+		<Wound>
+			<Uid Value="AVULSIVE_GSW"/>
+			<LocalizationKey Key="AVULSIVE_GSW"/>
+			<BaseDamage Value="15"/>
+			<BasePain Value="40"/>
+			<BaseBleeding Value="0.35"/>
+			<CritChance Value="0.6"/>
 			<CreateFlash FadeIn="1000" FadeOut="1000"/>
 			<PlayPainSound Player="-1" Male="6" Female="6"/>
 		</Wound>
 		<Wound>
-			<Uid Value="ARM_CRIT"/>
-			<LocalizationKey Key="ARM_BONE_BROKEN"/>
-			<BaseDamage Value="5"/>
-			<BasePain Value="30"/>
-			<BaseBleeding Value="0.4"/>
-			<DropWeapon FleeIfHasNoWeapons="TRUE" TakeCoverDuration="10000"/>
-			<CameraShake DisableOnlyOnHeal="TRUE" ShakeName="DRUNK_SHAKE" Intensity="1.0" Priority="2" PedAccuracy="0.2"/>
-		</Wound>
-		<Wound>
-			<Uid Value="LEG_CRIT"/>
-			<LocalizationKey Key="LEG_BONE_BROKEN"/>
-			<BaseDamage Value="5"/>
-			<BasePain Value="10"/>
-			<BaseBleeding Value="0.4"/>
-			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
-			<NaturalMotionMessages List="KneeShot;" PlayInPermanentRagdoll="TRUE"/>
-			<MovementRate Value="0.7" RestoreOnlyOnHeal="TRUE"/>
-			<DisableSprint RestoreOnlyOnHeal="TRUE"/>
-			<ChangePedFlag Id="170" Value="TRUE" ForPlayer="TRUE"/>
-		</Wound>
-		<Wound>
-			<Uid Value="LUNGS_CRIT"/>
-			<LocalizationKey Key="LUNGS_COLLAPSED"/>
-			<BaseDamage Value="10"/>
+			<Uid Value="LIGHT_BRUISE"/>
+			<LocalizationKey Key="LIGHT_BRUISE"/>
+			<BaseDamage Value="3"/>
 			<BasePain Value="15"/>
-			<BaseBleeding Value="1.5"/>
-			<MovementRate Value="0.7" RestoreOnlyOnHeal="TRUE"/>
-			<DisableSprint RestoreOnlyOnHeal="TRUE"/>
-			<StartScreenEffect Name="DeathFailOut" Duration="10000" Loop="TRUE" Main="TRUE"/>
 		</Wound>
 		<Wound>
-			<Uid Value="NERVES_CRIT"/>
-			<LocalizationKey Key="NERVES_DAMAGED"/>
-			<EnableRagdoll LengthInMs="-1" Type="0" Permanent="TRUE" DisableOnlyOnHeal="TRUE"/>
-			<DropWeapon FleeIfHasNoWeapons="FALSE" TakeCoverDuration="-1"/>
-			<DisableCarControl EnableOnlyOnHeal="TRUE"/>
+			<Uid Value="MEDIUM_BRUISE"/>
+			<LocalizationKey Key="MEDIUM_BRUISE"/>
+			<BaseDamage Value="5"/>
+			<BasePain Value="25"/>
+			<CritChance Value="0.2"/>
 		</Wound>
 		<Wound>
-			<Uid Value="GUTS_CRIT"/>
-			<LocalizationKey Key="GUTS_DAMAGED"/>
+			<Uid Value="HEAVY_BRUISE"/>
+			<LocalizationKey Key="HEAVY_BRUISE"/>
+			<BaseDamage Value="10"/>
+			<BasePain Value="35"/>
+			<CritChance Value="0.4"/>
+		</Wound>
+		<Wound>
+			<Uid Value="ABRASION_WOUND"/>
+			<LocalizationKey Key="ABRASION_WOUND"/>
+			<BaseDamage Value="3"/>
+			<BasePain Value="15"/>
+			<BaseBleeding Value="0.15"/>
+		</Wound>
+		<Wound>
+			<Uid Value="INCISION_WOUND"/>
+			<LocalizationKey Key="INCISION_WOUND"/>
+			<BaseDamage Value="5"/>
+			<BasePain Value="15"/>
+			<BaseBleeding Value="0.25"/>
+		</Wound>
+		<Wound>
+			<Uid Value="LACERATION_WOUND"/>
+			<LocalizationKey Key="LACERATION_WOUND"/>
+			<BaseDamage Value="10"/>
+			<BasePain Value="25"/>
+			<BaseBleeding Value="0.3"/>
+			<CritChance Value="0.4"/>
+		</Wound>
+		<Wound>
+			<Uid Value="STAB_WOUND"/>
+			<LocalizationKey Key="STAB_WOUND"/>
 			<BaseDamage Value="15"/>
 			<BasePain Value="30"/>
-			<BaseBleeding Value="1"/>
-			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
-			<NaturalMotionMessages List="GutsWound;" PlayInPermanentRagdoll="FALSE"/>
-			<ChangePedFlag Id="187" Value="TRUE" ForPlayer="FALSE"/>
-		</Wound>
-		<Wound>
-			<Uid Value="HEART_CRIT"/>
-			<LocalizationKey Key="HEART_DAMAGED"/>
-			<BaseDamage Value="20"/>
-			<BasePain Value="20"/>
-			<BaseBleeding Value="2"/>
-			<EnableRagdoll LengthInMs="4000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
-			<MovementRate Value="0.7" RestoreOnlyOnHeal="TRUE"/>
-			<DisableSprint RestoreOnlyOnHeal="TRUE"/>
-			<StartScreenEffect Name="DrugsDrivingIn" Duration="5000" Loop="TRUE" Main="TRUE"/>
+			<BaseBleeding Value="0.35"/>
+			<CritChance Value="0.8"/>
 		</Wound>
 	</WoundList>
 </GswWoundConfig.xml>

@@ -13,6 +13,8 @@ namespace GSW3.Bleeding.Systems
     [EcsInject]
     public class BleedingInitSystem : IEcsPreInitSystem, IEcsInitSystem, IEcsRunSystem
     {
+        private const float HEAL_RATE_SLOWER = 1000f;
+
         private readonly EcsWorld _ecsWorld = null;
         private readonly Random _random = null;
 
@@ -123,6 +125,7 @@ namespace GSW3.Bleeding.Systems
                 info.BleedingHealRate = isPlayer
                     ? stats.PlayerBleedingHealRate
                     : _random.NextMinMax(stats.PedBleedingHealRate);
+                info.BleedingHealRate /= HEAL_RATE_SLOWER;
             }
 
             PedHealthStatsComponent healthStats = _healthStats.Components1[0];
@@ -134,6 +137,7 @@ namespace GSW3.Bleeding.Systems
                 float healthPercent = ped.GetHealth() / healthStats.PedHealth.Max;
                 var info = _ecsWorld.AddComponent<PedBleedingInfoComponent>(animalEntity);
                 info.BleedingHealRate = healthPercent * stats.PedBleedingHealRate.Max * stats.AnimalMult;
+                info.BleedingHealRate /= HEAL_RATE_SLOWER;
             }
         }
 

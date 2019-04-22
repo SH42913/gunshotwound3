@@ -1,32 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GswNaturalMotionConfig.xml>
+	<!-- Here you can set NaturalMotionMessages for call in GSW3 -->
 	<NaturalMotionMessageList>
+		<!-- For creating new NaturalMotionMessage you need:
+         - Install OpenIV
+         - Open Grand Theft Auto V\common.rpf\data\naturalmotion\behaviours.xml
+         - Find desirable Message, where <Item type="rage__NMBehavior"> -->
+		<!-- This custom name must be unique! This name you should use for wounds in other .xml and in ConsoleCommands.-->
 		<NaturalMotionMessage Name="BasicWindmill">
+			<!-- Here you should set name of target message from behaviours.xml, 
+			eg <name>armsWindmillAdaptive</name> or <name>bodyBalance</name> -->
 			<MessageName Value="armsWindmillAdaptive"/>
+			<!-- Below you can set any params with <Item type="rage__NMParam"> -->
+			<!-- For the first you need to check <type></type> of NMParam. -->
+			<!-- If <type>bool</type>, you can use only BoolArgument -->
+			<BoolArgument Name="disableOnImpact" Value="FALSE"/>
+			<!-- If <type>float</type>, you can use FloatArgument or RandomFloatArgument -->
 			<FloatArgument Name="angSpeed" Value="10.0"/>
 			<RandomFloatArgument Name="amplitude" Min="1.0" Max="3.0"/>
+			<!-- If <type>int</type>, you can use IntArgument or RandomIntArgument -->
 			<IntArgument Name="armDirection" Value="0"/>
-			<BoolArgument Name="disableOnImpact" Value="FALSE"/>
+			<!-- When you create new NaturalMotionMessage, you can test it in DEBUG build of GSW3, 
+			just type to Console command PlayNaturalMotionMessage {yourNM-name} {ragdollType from 0 to 4} {RagdollLength in ms},
+			eg PlayNaturalMotionMessage armsWindmillAdaptive 1 3000 -->
 		</NaturalMotionMessage>
 		<NaturalMotionMessage Name="BodyBalance">
 			<MessageName Value="bodyBalance"/>
-		</NaturalMotionMessage>
-		<NaturalMotionMessage Name="GutsWound">
-			<MessageName Value="shotInGuts"/>
-			<BoolArgument Name="shotInGuts" Value="TRUE"/>
-			<RandomFloatArgument Name="sigSpineAmount" Min="0.0" Max="10.0"/>
-			<RandomFloatArgument Name="sigKneeAmount" Min="0.0" Max="1.0"/>
-			<RandomFloatArgument Name="sigPeriod" Min="1.0" Max="10.0"/>
-			<RandomFloatArgument Name="sigForceBalancePeriod" Min="1.0" Max="10.0"/>
-			<RandomFloatArgument Name="sigKneesOnset" Min="1.0" Max="10.0"/>
-		</NaturalMotionMessage>
-		<NaturalMotionMessage Name="KneeShot">
-			<MessageName Value="shotFallToKnees"/>
-			<BoolArgument Name="fallToKnees" Value="TRUE"/>
-			<RandomFloatArgument Name="ftkBalanceTime" Min="0.0" Max="5.0"/>
-			<RandomFloatArgument Name="ftkBendRate" Min="0.0" Max="4.0"/>
-			<RandomIntArgument Name="ftkOnKneesArmType" Min="0" Max="2"/>
-			<BoolArgument Name="ftkReleasePointGun" Value="TRUE"/>
 		</NaturalMotionMessage>
 	</NaturalMotionMessageList>
 </GswNaturalMotionConfig.xml>

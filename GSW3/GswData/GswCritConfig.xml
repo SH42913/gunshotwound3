@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GswCfitConfig.xml>
+	<!-- Here you can set every CritWound that will used by GSW3, check GswWoundConfig.xml for more info about creating wounds -->
+	<WoundList>
+		<Wound>
+			<Uid Value="HEAVY_BRAIN_DAMAGE"/>
+			<LocalizationKey Key="HEAVY_BRAIN_DAMAGE"/>
+			<BaseDamage Value="20"/>
+			<BasePain Value="70"/>
+			<BaseBleeding Value="1.5"/>
+			<DisableCarControl EnableOnlyOnHeal="TRUE"/>
+			<DropWeapon FleeIfHasNoWeapons="FALSE" TakeCoverDuration="-1"/>
+			<StartScreenEffect Name="DeathFailOut" Duration="10000" Loop="TRUE" Main="TRUE"/>
+			<EnableRagdoll LengthInMs="-1" Type="0" Permanent="TRUE" DisableOnlyOnHeal="TRUE"/>
+		</Wound>
+		<Wound>
+			<Uid Value="NERVES_CRIT_DAMAGE"/>
+			<LocalizationKey Key="NERVES_CRIT_DAMAGE"/>
+			<DisableCarControl EnableOnlyOnHeal="TRUE"/>
+			<DropWeapon FleeIfHasNoWeapons="FALSE" TakeCoverDuration="-1"/>
+			<EnableRagdoll LengthInMs="-1" Type="0" Permanent="TRUE" DisableOnlyOnHeal="TRUE"/>
+		</Wound>
+		<Wound>
+			<Uid Value="LUNGS_CRIT_DAMAGE"/>
+			<LocalizationKey Key="LUNGS_CRIT_DAMAGE"/>
+			<BaseDamage Value="10"/>
+			<BasePain Value="20"/>
+			<BaseBleeding Value="1.3"/>
+			<DisableSprint RestoreOnlyOnHeal="TRUE"/>
+			<MovementRate Value="0.8" RestoreOnlyOnHeal="TRUE"/>
+			<StartScreenEffect Name="DeathFailOut" Duration="10000" Loop="TRUE" Main="TRUE"/>
+		</Wound>
+		<Wound>
+			<Uid Value="HEART_CRIT_DAMAGE"/>
+			<LocalizationKey Key="HEART_CRIT_DAMAGE"/>
+			<BaseDamage Value="15"/>
+			<BasePain Value="30"/>
+			<BaseBleeding Value="1.5"/>
+			<DisableSprint RestoreOnlyOnHeal="TRUE"/>
+			<MovementRate Value="0.7" RestoreOnlyOnHeal="TRUE"/>
+			<StartScreenEffect Name="DrugsDrivingIn" Duration="5000" Loop="TRUE" Main="TRUE"/>
+			<!-- For using NaturalMotionMessages you need to enable ragdoll before -->
+			<EnableRagdoll LengthInMs="6000" Type="4" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
+			<!-- Also you can add many NMM to List, it will launch all of them -->
+			<!-- <NaturalMotionMessages List="BasicWindmill;BodyBalance;" PlayInPermanentRagdoll="FALSE"/> -->
+			<!-- If PlayInPermanentRagdoll is TRUE, NMM will play even if ped is in permanent ragdoll due pain shock -->
+			<NaturalMotionMessages List="BodyBalance;" PlayInPermanentRagdoll="FALSE"/>
+		</Wound>
+		<Wound>
+			<Uid Value="STOMACH_CRIT_DAMAGE"/>
+			<LocalizationKey Key="STOMACH_CRIT_DAMAGE"/>
+			<BaseDamage Value="10"/>
+			<BasePain Value="25"/>
+			<BaseBleeding Value="0.7"/>
+			<!-- You can change peds' flags, current(187) flag add injury animation for peds with pistols -->
+			<ChangePedFlag Id="187" Value="TRUE" ForPlayer="FALSE"/>
+		</Wound>
+		<Wound>
+			<Uid Value="GUTS_CRIT_DAMAGE"/>
+			<LocalizationKey Key="GUTS_CRIT_DAMAGE"/>
+			<BaseDamage Value="15"/>
+			<BasePain Value="25"/>
+			<BaseBleeding Value="1.3"/>
+			<ChangePedFlag Id="187" Value="TRUE" ForPlayer="FALSE"/>
+		</Wound>
+		<Wound>
+			<Uid Value="ARM_CRIT_DAMAGE"/>
+			<LocalizationKey Key="ARM_BONE_BROKEN"/>
+			<BaseDamage Value="5"/>
+			<BasePain Value="25"/>
+			<BaseBleeding Value="0.4"/>
+			<DropWeapon FleeIfHasNoWeapons="TRUE" TakeCoverDuration="10000"/>
+			<CameraShake DisableOnlyOnHeal="TRUE" ShakeName="DRUNK_SHAKE" Intensity="1.0" Priority="2" PedAccuracy="0.1"/>
+		</Wound>
+		<Wound>
+			<Uid Value="LEG_CRIT_DAMAGE"/>
+			<LocalizationKey Key="LEG_BONE_BROKEN"/>
+			<BaseDamage Value="5"/>
+			<BasePain Value="25"/>
+			<BaseBleeding Value="0.4"/>
+			<DisableSprint RestoreOnlyOnHeal="TRUE"/>
+			<MovementRate Value="0.7" RestoreOnlyOnHeal="TRUE"/>
+			<ChangePedFlag Id="170" Value="TRUE" ForPlayer="TRUE"/>
+			<EnableRagdoll LengthInMs="3000" Type="1" Permanent="FALSE" DisableOnlyOnHeal="FALSE"/>
+			<NaturalMotionMessages List="BodyBalance;" PlayInPermanentRagdoll="FALSE"/>
+		</Wound>
+	</WoundList>
+</GswCfitConfig.xml>

@@ -1,14 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GswPlayerConfig.xml>
 	<PlayerEnabled Value="TRUE"/>
+	<!-- If FALSE, player will not be influenced by GSW3. -->
 	
 	<PlayerHealth Value="99"/>
+	<!-- Maximal Health for player, 
+	if you will set it more than 99, possibly, you can't heal yourself. -->
 
-	<PlayerUnbearablePain Value="90"/>
+	<PlayerUnbearablePain Value="100"/>
+	<!-- Maximal Pain for player. -->
 	
-	<PlayerPainRecoverySpeed Value="1.0"/>
+	<PlayerPainRecoverySpeed Value="4.0"/>
+	<!-- Pain Recovery Rate for player. -->
 
-	<PlayerBleedingHealRate Value="1.0"/>
+	<PlayerBleedingHealRate Value="2.0"/>
+	<!-- Bleeding Heal Rate for player. -->
 	
 	<PlayerCanDropWeapon Value="TRUE"/>
+	<!-- If TRUE, player will can drop his weapon on wound. -->
 </GswPlayerConfig.xml>

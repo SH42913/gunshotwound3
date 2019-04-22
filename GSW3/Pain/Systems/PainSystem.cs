@@ -102,13 +102,15 @@ namespace GSW3.Pain.Systems
             }
 
             if(_gameService.GameIsPaused) return;
+            
+            float delta = GswExtensions.GetDeltaTime();
             foreach (int i in _painToReduce)
             {
                 PainComponent painComponent = _painToReduce.Components1[i];
                 float painRecoverySpeed = _painToReduce.Components2[i].PainRecoverySpeed;
                 EcsEntity entity = _painToReduce.Entities[i];
 
-                painComponent.PainAmount -= painRecoverySpeed * GswExtensions.GetDeltaTime();
+                painComponent.PainAmount -= painRecoverySpeed * delta;
                 if (painComponent.PainAmount > 0) continue;
 
                 _ecsWorld.AddComponent<PainIsGoneComponent>(entity);

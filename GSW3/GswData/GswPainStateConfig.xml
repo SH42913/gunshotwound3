@@ -1,8 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GswPainStateConfig.xml>
+	<!-- Here you can set every PainState that will used by GSW3 -->
 	<PainStateList>
+		<!-- You need to set PainPercent, percent of Pain/UnbearablePain for activation of current PainState -->
 		<PainState PainPercent="0">
+			<!-- LocalizationKey needed for Localization in future, currently this key will used in console messages -->
 			<LocalizationKey Key="MILD"/>
+			<!-- Any other nodes of PainState is various effects -->
 			<RestoreMovementRate/>
 			<MovementClipset Player="move_m@gangster@a" PedMale="" PedFemale=""/>
 			<DisableCameraShake/>

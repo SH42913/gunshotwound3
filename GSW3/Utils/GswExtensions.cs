@@ -161,7 +161,7 @@ namespace GSW3.Utils
 #if DEBUG
             return $"Entity #{entity}";
 #else
-            return "UNKNOWN ENTITY";
+            return "NO_NAME";
 #endif
         }
 

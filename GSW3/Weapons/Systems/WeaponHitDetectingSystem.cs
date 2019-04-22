@@ -45,7 +45,7 @@ namespace GSW3.Weapons.Systems
 
                     EcsEntity weaponEntity = _weapons.Entities[i];
 #if DEBUG
-                    _logger.MakeLog($"{pedEntity.GetEntityName()} was damaged by {weaponEntity.GetEntityName()}");
+                    _logger.MakeLog($"{pedEntity.GetEntityName()} was damaged by {weaponEntity.GetEntityName()}({hash})");
 #endif
 
                     var damaged = _ecsWorld.AddComponent<DamagedByWeaponComponent>(pedEntity);

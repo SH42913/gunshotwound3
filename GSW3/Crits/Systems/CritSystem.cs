@@ -76,7 +76,7 @@ namespace GSW3.Crits.Systems
                 }
 
                 float finalChance = weaponChance * woundChance * bodyPartChance;
-                bool critSuccess = _random.IsTrueWithProbability(finalChance);
+                bool critSuccess = bodyPartChance > 1f || _random.IsTrueWithProbability(finalChance);
 #if DEBUG
                 EcsEntity pedEntity = _woundedPeds.Entities[i];
                 _logger.MakeLog(

@@ -12,24 +12,24 @@
 	<!-- Any new GswPed(exclude animals) will get ShootRate between Min and Max.
 	If you want to use default game ped ShootRate - set Min or Max lower 0 -->
 
-	<ScanOnlyDamaged Value="TRUE"/>
+	<ScanOnlyDamaged Value="FALSE"/>
 	<!-- If TRUE, GSW will mark ped/animal as GSWPed only after first damage.
     It will increase performance, but it will less accurate.
     Attention! PedHealth, new Accuracy and ShootRate will applied only after first damage! -->
 	
-	<PedHealth Min="50" Max="100" AnimalMult="1.0"/>
+	<PedHealth Min="60" Max="90" AnimalMult="1.0"/>
 	<!-- Any new GswPed(exclude animals) will get Health between Min and Max.
-	If you will set Min or Max lower 0, will be loaded GSW-Default values(50-99). -->
+	If you will set Min or Max lower 0, will be loaded GSW-Default values(60-90). -->
 
-	<PedUnbearablePain Min="50" Max="100" AnimalMult="1.0"/>
+	<PedUnbearablePain Min="30" Max="90" AnimalMult="1.0"/>
 	<!-- Any new GswPed(exclude animals) will get Unbearable Pain Limit between Min and Max.
-	If you will set Min or Max lower 0, will be loaded GSW-Default values(50-100). -->
+	If you will set Min or Max lower 0, will be loaded GSW-Default values(30-90). -->
 
-	<PedPainRecoverySpeed Min="1.0" Max="1.0"/>
+	<PedPainRecoverySpeed Min="1.0" Max="4.0"/>
 	<!-- Any new GswPed(exclude animals) will get PedPainRecoverySpeed between Min and Max.
-	If you will set Min or Max lower 0, will be loaded GSW-Default values(0.5-1). -->
+	If you will set Min or Max lower 0, will be loaded GSW-Default values(1.0-4.0). -->
 
-	<PedBleedingHealRate Min="1.0" Max="1.0" AnimalMult="1.0"/>
+	<PedBleedingHealRate Min="0.5" Max="1.5" AnimalMult="1.0"/>
 	<!-- Any new GswPed(exclude animals) will get PedBleedingHealRate between Min and Max.
-	If you will set Min or Max lower 0, will be loaded GSW-Default values(0.5-1). -->
+	If you will set Min or Max lower 0, will be loaded GSW-Default values(0.5-1.5). -->
 </GswWorldConfig.xml>

@@ -13,6 +13,8 @@ namespace GSW3.Pain.Systems
     [EcsInject]
     public class PainInitSystem : IEcsPreInitSystem, IEcsInitSystem, IEcsRunSystem
     {
+        private const float PAIN_RECOVER_RATE_SLOWER = 10f;
+        
         private readonly EcsWorld _ecsWorld = null;
         private readonly Random _random = null;
 
@@ -149,6 +151,7 @@ namespace GSW3.Pain.Systems
                 painInfo.PainRecoverySpeed = isPlayer
                     ? stats.PlayerPainRecoverySpeed
                     : _random.NextMinMax(stats.PedPainRecoverySpeed);
+                painInfo.PainRecoverySpeed /= PAIN_RECOVER_RATE_SLOWER;
             }
 
             PedHealthStatsComponent healthStats = _healthStats.Components1[0];
@@ -161,6 +164,7 @@ namespace GSW3.Pain.Systems
                 var painInfo = _ecsWorld.AddComponent<PainInfoComponent>(animalEntity);
                 painInfo.UnbearablePain = healthPercent * stats.PedUnbearablePain.Max;
                 painInfo.PainRecoverySpeed = healthPercent * stats.PedPainRecoverySpeed.Max;
+                painInfo.PainRecoverySpeed /= PAIN_RECOVER_RATE_SLOWER;
             }
         }
 

@@ -1,16 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GswBodyPartConfig.xml>
+	<!-- Here you can set every BodyPart that will used by GSW3 -->
 	<BodyPartList>
 		<BodyPart>
+			<!-- LocalizationKey needed for Localization in future, 
+			currently this key will used in wound notifications and console  -->
 			<LocalizationKey Key="HEAD"/>
+			<!-- In hashes you need to add IDs of bone that will be part of BodyPart. IDs must be unique! -->
 			<!-- Head; -->
 			<Hashes Hashes="31086;"/>
+			<!-- Should GSW3 to check protection with Helmet or Armor when this BodyPart is damaged.
+			If ByHelmet is TRUE, GSW3 will check for helmet penetration. 
+			If ByArmor is TRUE, GSW3 will check for armor penetration. -->
 			<Protection ByHelmet="TRUE" ByArmor="FALSE"/>
-			<DamageMult Value="2.0"/>
-			<PainMult Value="2.0"/>
+			<!-- Damage/Pain/Bleeding of wound will be multiply by this multipliers -->
+			<DamageMult Value="1.2"/>
+			<PainMult Value="1.2"/>
 			<BleedingMult Value="1.0"/>
-			<CritChance Value="1.0"/>
+			<!-- Chance to get CritWound for current BodyPart. 
+			Chances of Weapon, BodyPart and wound is multiplies for get a final CritChance.
+			If BodyPart CritChance is more than 1.0 and all of other Chances is more than 0, final CritChance always will be 1.0 -->
+			<CritChance Value="2.0"/>
+			<!-- CritWoundList of current BodyPart. 
+			If final CritChance will enough, GSW3 will select one CritWound from CritWoundList.
+			If CritWoundList is empty, GSW3 will not create CritWounds for current BodyPart.-->
 			<CritWoundList>
+				<CritWound Uid="HEAVY_BRAIN_DAMAGE" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -20,10 +35,10 @@
 			<Protection ByHelmet="FALSE" ByArmor="TRUE"/>
 			<DamageMult Value="1.0"/>
 			<PainMult Value="1.0"/>
-			<BleedingMult Value="2.0"/>
-			<CritChance Value="0.7"/>
+			<BleedingMult Value="1.2"/>
+			<CritChance Value="0.2"/>
 			<CritWoundList>
-				<CritWound Uid="NERVES_CRIT" Weight="1"/>
+				<CritWound Uid="NERVES_CRIT_DAMAGE" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -34,11 +49,12 @@
 			<DamageMult Value="1.0"/>
 			<PainMult Value="1.0"/>
 			<BleedingMult Value="1.0"/>
-			<CritChance Value="1.0"/>
+			<CritChance Value="0.7"/>
 			<CritWoundList>
-				<CritWound Uid="NERVES_CRIT" Weight="1"/>
-				<CritWound Uid="HEART_CRIT" Weight="1"/>
-				<CritWound Uid="LUNGS_CRIT" Weight="1"/>
+				<!-- Weight is random weight for current crit. 1 + 3 + 2 = 6, 3/6 = 0.5 = 50% chance to get LUNGS_CRIT_DAMAGE as CritWound -->
+				<CritWound Uid="NERVES_CRIT_DAMAGE" Weight="1"/>
+				<CritWound Uid="LUNGS_CRIT_DAMAGE" Weight="4"/>
+				<CritWound Uid="HEART_CRIT_DAMAGE" Weight="3"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -49,10 +65,11 @@
 			<DamageMult Value="1.0"/>
 			<PainMult Value="1.0"/>
 			<BleedingMult Value="1.0"/>
-			<CritChance Value="1.0"/>
+			<CritChance Value="0.7"/>
 			<CritWoundList>
-				<CritWound Uid="NERVES_CRIT" Weight="1"/>
-				<CritWound Uid="GUTS_CRIT" Weight="1"/>
+				<CritWound Uid="NERVES_CRIT_DAMAGE" Weight="1"/>
+				<CritWound Uid="STOMACH_CRIT_DAMAGE" Weight="3"/>
+				<CritWound Uid="GUTS_CRIT_DAMAGE" Weight="4"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -61,11 +78,11 @@
 			<Hashes Hashes="58271;14201;57717;63931;"/>
 			<Protection ByHelmet="FALSE" ByArmor="FALSE"/>
 			<DamageMult Value="0.7"/>
-			<PainMult Value="1.0"/>
-			<BleedingMult Value="1.2"/>
-			<CritChance Value="1.0"/>
+			<PainMult Value="0.8"/>
+			<BleedingMult Value="0.8"/>
+			<CritChance Value="0.5"/>
 			<CritWoundList>
-				<CritWound Uid="LEG_CRIT" Weight="1"/>
+				<CritWound Uid="LEG_CRIT_DAMAGE" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -74,11 +91,11 @@
 			<Hashes Hashes="51826;52301;24806;36864;"/>
 			<Protection ByHelmet="FALSE" ByArmor="FALSE"/>
 			<DamageMult Value="0.7"/>
-			<PainMult Value="1.0"/>
-			<BleedingMult Value="1.2"/>
-			<CritChance Value="1.0"/>
+			<PainMult Value="0.8"/>
+			<BleedingMult Value="0.8"/>
+			<CritChance Value="0.5"/>
 			<CritWoundList>
-				<CritWound Uid="LEG_CRIT" Weight="1"/>
+				<CritWound Uid="LEG_CRIT_DAMAGE" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -87,11 +104,11 @@
 			<Hashes Hashes="45509;61163;18905;60309;"/>
 			<Protection ByHelmet="FALSE" ByArmor="FALSE"/>
 			<DamageMult Value="0.7"/>
-			<PainMult Value="1.0"/>
-			<BleedingMult Value="1.2"/>
-			<CritChance Value="0.4"/>
+			<PainMult Value="0.8"/>
+			<BleedingMult Value="0.8"/>
+			<CritChance Value="0.5"/>
 			<CritWoundList>
-				<CritWound Uid="ARM_CRIT" Weight="1"/>
+				<CritWound Uid="ARM_CRIT_DAMAGE" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 		<BodyPart>
@@ -100,11 +117,11 @@
 			<Hashes Hashes="40269;28252;57005;28422;"/>
 			<Protection ByHelmet="FALSE" ByArmor="FALSE"/>
 			<DamageMult Value="0.7"/>
-			<PainMult Value="1.0"/>
-			<BleedingMult Value="1.2"/>
-			<CritChance Value="0.4"/>
+			<PainMult Value="0.8"/>
+			<BleedingMult Value="0.8"/>
+			<CritChance Value="0.5"/>
 			<CritWoundList>
-				<CritWound Uid="ARM_CRIT" Weight="1"/>
+				<CritWound Uid="ARM_CRIT_DAMAGE" Weight="1"/>
 			</CritWoundList>
 		</BodyPart>
 	</BodyPartList>

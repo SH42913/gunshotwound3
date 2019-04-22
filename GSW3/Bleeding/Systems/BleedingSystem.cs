@@ -9,8 +9,6 @@ namespace GSW3.Bleeding.Systems
     [EcsInject]
     public class BleedingSystem : IEcsRunSystem
     {
-        private const float HEAL_RATE_SLOWER = 100f;
-
         private readonly EcsWorld _ecsWorld = null;
         private readonly GameService _gameService = null;
         private readonly EcsFilter<GswPedComponent, HealthComponent, PedBleedingInfoComponent> _entities = null;
@@ -60,7 +58,7 @@ namespace GSW3.Bleeding.Systems
                     if (delta <= 0) continue;
 
                     bleedingDamage += bleeding.Severity * delta;
-                    bleeding.Severity -= info.BleedingHealRate / HEAL_RATE_SLOWER * delta;
+                    bleeding.Severity -= info.BleedingHealRate * delta;
                     if (bleeding.Severity > 0) continue;
 
 #if DEBUG

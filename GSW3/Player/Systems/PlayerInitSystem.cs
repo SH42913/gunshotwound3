@@ -90,11 +90,12 @@ namespace GSW3.Player.Systems
             _ecsWorld.ProcessDelayedUpdates();
             if (config.PlayerEnabled && _playerPeds.IsEmpty())
             {
+                Ped playerPed = Game.LocalPlayer.Character;
 #if DEBUG
-                _logger.MakeLog("No players found! PlayerPed will force create!");
+                _logger.MakeLog($"No players found! PlayerPed {playerPed.Model.Name} will force create!");
 #endif
                 _ecsWorld.CreateEntityWith(out ForceCreateGswPedEvent forceCreateEvent);
-                forceCreateEvent.TargetPed = Game.LocalPlayer.Character;
+                forceCreateEvent.TargetPed = playerPed;
             }
         }
 

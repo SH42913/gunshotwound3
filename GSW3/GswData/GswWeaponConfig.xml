@@ -1,29 +1,125 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GswWeaponConfig.xml>
+    <!-- Here you can set WeaponList that will used by GSW3.
+    If any weapon was not added, GSW3 will can't detect which weapon've hit ped and message about that to Console. -->
     <WeaponList>
         <Weapon>
-            <LocalizationKey Key="Pistol"/>
-            <Hashes Hashes="453432689;1593441988;"/>
-            <WeaponArmorStats CanPenetrateArmor="TRUE" ChanceToPenetrateHelmet="0.2" ArmorDamage="1" MinArmorPercentForPenetration="0.3"/>
+            <!-- LocalizationKey needed for Localization in future, 
+            currently this key will used in wound notifications and console -->
+            <LocalizationKey Key="SMALL_CALIBER_WEAPON"/>
+            <!-- In hashes you need to add hashes of weapons in this WeaponGroup -->
+            <!-- Pistol;PistolMk2;CombatPistol;SNSPistol;SNSPistolMk2;VintagePistol;MarksmanPistol;DoubleActionRevolver;APPistol;MicroSMG;MiniSMG;SMG;SMGMk2;CombatPDW;MachinePistol; -->
+            <Hashes Hashes="453432689;3219281620;1593441988;3218215474;2285322324;137902532;3696079510;2548703416;584646201;324215364;3173288789;736523883;2024373456;171789620;3675956304;"/>
+            <!-- WeaponArmorStats will be used for penetration checks.
+            If CanPenetrateArmor is FALSE, weapon will NEVER penetrate armor.
+            ChanceToPenetrateHelmet will used for Helmet Penetration Check.
+            ArmorDamage will set how many points of armor will be removed, when this weapon hit armor.
+            MinArmorPercentForPenetration="0.3" mean when armor percent is more 0.3, you never penetrate armor,
+            when armor percent 0.25 chance to penetrate will be 1 - 0.25/0.3 ~ 1 - 0.83 ~ 17% -->
+            <WeaponArmorStats CanPenetrateArmor="TRUE" ChanceToPenetrateHelmet="0.2" ArmorDamage="3" MinArmorPercentForPenetration="0.3"/>
             <DamageMult Value="1.0"/>
             <PainMult Value="1.0"/>
             <BleedingMult Value="1.0"/>
-            <CritChance Value="0.5"/>
+            <CritChance Value="0.4"/>
             <WeaponWoundList>
-                <!--<WeaponWound Uid="FLESH_WOUND" Weight="3"/>-->
-                <WeaponWound Uid="PERFORATING_WOUND" Weight="2"/>
+                <WeaponWound Uid="GRAZE_GSW" Weight="1"/>
+                <WeaponWound Uid="FLESH_GSW" Weight="3"/>
+                <WeaponWound Uid="PENETRATING_GSW" Weight="7"/>
+                <WeaponWound Uid="PERFORATING_GSW" Weight="4"/>
+                <WeaponWound Uid="AVULSIVE_GSW" Weight="1"/>
             </WeaponWoundList>
         </Weapon>
         <Weapon>
-            <LocalizationKey Key="CarbineRifle"/>
-            <Hashes Hashes="2210333304;"/>
-            <WeaponArmorStats CanPenetrateArmor="TRUE" ChanceToPenetrateHelmet="1" ArmorDamage="5" MinArmorPercentForPenetration="1"/>
-            <DamageMult Value="1.0"/>
-            <PainMult Value="1.0"/>
-            <BleedingMult Value="1.0"/>
-            <CritChance Value="1.0"/>
+            <LocalizationKey Key="SHOTGUN"/>
+            <!-- PumpShotgun;PumpShotgunMk2;SawnOffShotgun;BullpupShotgun;AssaultShotgun;HeavyShotgun;DoubleBarrelShotgun;SweeperShotgun; -->
+            <Hashes Hashes="487013001;1432025498;2017895192;2640438543;3800352039;984333226;4019527611;317205821;"/>
+            <WeaponArmorStats CanPenetrateArmor="FALSE" ChanceToPenetrateHelmet="0.4" ArmorDamage="5" MinArmorPercentForPenetration="0"/>
+            <DamageMult Value="0.8"/>
+            <PainMult Value="1.1"/>
+            <BleedingMult Value="1.1"/>
+            <CritChance Value="0.5"/>
             <WeaponWoundList>
-                <WeaponWound Uid="AVULSIVE_WOUND" Weight="1"/>
+                <WeaponWound Uid="GRAZE_GSW" Weight="1"/>
+                <WeaponWound Uid="FLESH_GSW" Weight="1"/>
+                <WeaponWound Uid="PENETRATING_GSW" Weight="5"/>
+                <WeaponWound Uid="AVULSIVE_GSW" Weight="2"/>
+            </WeaponWoundList>
+        </Weapon>
+        <Weapon>
+            <LocalizationKey Key="MEDIUM_CALIBER_WEAPON"/>
+            <!-- HeavyPistol;Revolver;RevolverMk2;AssaultRifleMk2;AdvancedRifle;AssaultSMG;BullpupRifle;BullpupRifleMk2;CarbineRifle;CarbineRifleMk2;CombatMG;CompactRifle;Gusenberg;SpecialCarbine;SpecialCarbineMk2; -->
+            <Hashes Hashes="3523564046;3249783761;3415619887;961495388;2937143193;4024951519;2132975508;2228681469;2210333304;4208062921;2144741730;1649403952;1627465347;3231910285;2526821735;"/>
+            <WeaponArmorStats CanPenetrateArmor="TRUE" ChanceToPenetrateHelmet="0.7" ArmorDamage="7" MinArmorPercentForPenetration="0.7"/>
+            <DamageMult Value="1.1"/>
+            <PainMult Value="1.4"/>
+            <BleedingMult Value="1.3"/>
+            <CritChance Value="0.6"/>
+            <WeaponWoundList>
+                <WeaponWound Uid="FLESH_GSW" Weight="3"/>
+                <WeaponWound Uid="PENETRATING_GSW" Weight="5"/>
+                <WeaponWound Uid="PERFORATING_GSW" Weight="6"/>
+                <WeaponWound Uid="AVULSIVE_GSW" Weight="1"/>
+            </WeaponWoundList>
+        </Weapon>
+        <Weapon>
+            <LocalizationKey Key="HEAVY_CALIBER_WEAPON"/>
+            <!-- Pistol50;MG;CombatMGMk2;AssaultRifle;HeavySniper;HeavySniperMk2;MarksmanRifle;MarksmanRifleMk2;Minigun;Railgun;Musket; -->
+            <Hashes Hashes="2578377531;2634544996;3686625920;3220176749;205991906;177293209;3342088282;1785463520;1119849093;1834241177;2828843422;"/>
+            <WeaponArmorStats CanPenetrateArmor="TRUE" ChanceToPenetrateHelmet="0.95" ArmorDamage="9" MinArmorPercentForPenetration="1"/>
+            <DamageMult Value="1.2"/>
+            <PainMult Value="1.8"/>
+            <BleedingMult Value="1.5"/>
+            <CritChance Value="0.8"/>
+            <WeaponWoundList>
+                <WeaponWound Uid="FLESH_GSW" Weight="1"/>
+                <WeaponWound Uid="PENETRATING_GSW" Weight="2"/>
+                <WeaponWound Uid="PERFORATING_GSW" Weight="2"/>
+                <WeaponWound Uid="AVULSIVE_GSW" Weight="3"/>
+            </WeaponWoundList>
+        </Weapon>
+        <Weapon>
+            <LocalizationKey Key="LIGHT_IMPACT"/>
+            <!-- Unarmed;Parachute;NightVision;Snowball;Nightstick;KnuckleDuster;Flashlight;HitByWaterCannon;Fall;Rabbit;Briefcase;BirdCrap;Hen;Briefcase2;GarbageBag;SmallDog; -->
+            <Hashes Hashes="2725352035;4222310262;2803906140;126349499;1737195953;3638508604;2343591895;600439132;3425972830;3452007600;2793925639;2294779575;1834887169;955837630;28811031;3794977420;3146768957;"/>
+            <WeaponArmorStats CanPenetrateArmor="FALSE" ChanceToPenetrateHelmet="0.05" ArmorDamage="0" MinArmorPercentForPenetration="0"/>
+            <DamageMult Value="1"/>
+            <PainMult Value="0.9"/>
+            <BleedingMult Value="1"/>
+            <CritChance Value="0.3"/>
+            <WeaponWoundList>
+                <WeaponWound Uid="LIGHT_BRUISE" Weight="9"/>
+                <WeaponWound Uid="MEDIUM_BRUISE" Weight="6"/>
+                <WeaponWound Uid="HEAVY_BRUISE" Weight="1"/>
+            </WeaponWoundList>
+        </Weapon>
+        <Weapon>
+            <LocalizationKey Key="HEAVY_IMPACT"/>
+            <!-- RammedByCar;HelicopterCrash;Boar;Pig;Hammer;Crowbar;Bat;RunOverCar;FireExtinguisher;FireWork;GolfClub;PetrolCan;PoolCue;Wrench;Cow;Deer; -->
+            <Hashes Hashes="133987706;341774354;861723357;1205296881;1317494643;2227010557;2508868239;2741846334;101631238;2138347493;1141786504;883325847;2484171525;419712736;94548753;4106648222;"/>
+            <WeaponArmorStats CanPenetrateArmor="FALSE" ChanceToPenetrateHelmet="0.2" ArmorDamage="1" MinArmorPercentForPenetration="0"/>
+            <DamageMult Value="1.1"/>
+            <PainMult Value="1.1"/>
+            <BleedingMult Value="1"/>
+            <CritChance Value="0.6"/>
+            <WeaponWoundList>
+                <WeaponWound Uid="ABRASION_WOUND" Weight="1"/>
+                <WeaponWound Uid="MEDIUM_BRUISE" Weight="2"/>
+                <WeaponWound Uid="HEAVY_BRUISE" Weight="3"/>
+            </WeaponWoundList>
+        </Weapon>
+        <Weapon>
+            <LocalizationKey Key="CUTTING_WEAPON"/>
+            <!-- Cougar;TigerShark;BarbedWire;Knife;HammerHeadShark;Cat;AnimalRetriever;Animal;KillerWhale;BattleAxe;Bottle;Dagger;Hatchet;Machete;SwitchBlade; -->
+            <Hashes Hashes="148160082;743550225;1223143800;2578778090;3030980043;3799318422;3854032506;4194021054;4198358245;3441901897;4192643659;2460120199;4191993645;3713923289;3756226112;"/>
+            <WeaponArmorStats CanPenetrateArmor="FALSE" ChanceToPenetrateHelmet="0.5" ArmorDamage="1" MinArmorPercentForPenetration="0"/>
+            <DamageMult Value="1"/>
+            <PainMult Value="1"/>
+            <BleedingMult Value="1"/>
+            <CritChance Value="0.6"/>
+            <WeaponWoundList>
+                <WeaponWound Uid="ABRASION_WOUND" Weight="1"/>
+                <WeaponWound Uid="MEDIUM_BRUISE" Weight="2"/>
+                <WeaponWound Uid="HEAVY_BRUISE" Weight="3"/>
             </WeaponWoundList>
         </Weapon>
     </WeaponList>
