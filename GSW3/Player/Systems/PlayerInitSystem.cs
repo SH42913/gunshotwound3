@@ -12,7 +12,6 @@ namespace GSW3.Player.Systems
     public class PlayerInitSystem : IEcsPreInitSystem, IEcsRunSystem
     {
         private readonly EcsWorld _ecsWorld = null;
-        private readonly GameService _gameService = null;
 
         private readonly EcsFilter<LoadedConfigComponent> _loadedConfigs = null;
         private readonly EcsFilter<PlayerConfigComponent> _playerConfig = null;
@@ -84,8 +83,6 @@ namespace GSW3.Player.Systems
 #endif
                 }
             }
-            
-            if(Game.IsPaused || Game.IsLoading && _gameService.GameIsPaused) return;
 
             _ecsWorld.ProcessDelayedUpdates();
             if (config.PlayerEnabled && _playerPeds.IsEmpty())

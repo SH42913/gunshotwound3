@@ -3,6 +3,11 @@
 	<DetectingTargets Humans="TRUE" Animals="TRUE"/>
 	<!-- If TRUE, GSW will mark other humans and/or animals as GswPed
 	and every GswPed will have realistic damage. You can disable it both for maximal performance. -->
+	
+	<MaxPedsPerFrame Value="5"/>
+	<!-- 5 mean 5 peds will be added to GSW-world per one frame. 
+	Bigger value - worse performance, less value - more time to update peds in GSW-world.
+	0 or less will same like FALSE in DetectingTargets -->
 
 	<PedAccuracy Min="5" Max="50"/>
 	<!-- Any new GswPed(exclude animals) will get Accuracy between Min and Max.

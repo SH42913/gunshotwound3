@@ -24,7 +24,7 @@ namespace GSW3.GswWorld
         [EcsIgnoreNullCheck]
         public readonly Dictionary<Ped, EcsEntity> PedsToEntityDict = new Dictionary<Ped, EcsEntity>(128);
 
-        public int MaxDetectTimeInMs;
+        public int MaxPedCountPerFrame;
 
         public void Reset()
         {
@@ -41,7 +41,7 @@ namespace GSW3.GswWorld
                    $"{nameof(HumanAccuracy)} {HumanAccuracy}; " +
                    $"{nameof(HumanShootRate)} {HumanShootRate}; " +
                    $"{nameof(ScanOnlyDamaged)} {ScanOnlyDamaged}; " +
-                   $"{nameof(MaxDetectTimeInMs)} {MaxDetectTimeInMs}";
+                   $"{nameof(MaxPedCountPerFrame)} {MaxPedCountPerFrame}";
         }
     }
 }

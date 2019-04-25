@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using GSW3.DebugSystems.DebugText;
 using GSW3.Utils;
 using Leopotam.Ecs;
@@ -12,7 +11,6 @@ namespace GSW3.GswWorld.Systems
     public class GswWorldSystem : IEcsRunSystem
     {
         private readonly EcsWorld _ecsWorld = null;
-        private readonly GameService _gameService = null;
         private readonly Random _random = null;
 
         private readonly EcsFilter<GswWorldComponent> _world = null;
@@ -21,8 +19,6 @@ namespace GSW3.GswWorld.Systems
 #if DEBUG
         private readonly EcsFilter<DebugTextComponent> _debugText = null;
 #endif
-
-        private readonly Stopwatch _stopwatch = new Stopwatch();
 
 #if DEBUG
         private readonly GswLogger _logger;
@@ -35,12 +31,10 @@ namespace GSW3.GswWorld.Systems
 
         public void Run()
         {
-            if (_gameService.GameIsPaused) return;
-
             GswWorldComponent gswWorld = _world.Components1[0];
-            bool detectingEnabled = gswWorld.HumanDetectingEnabled || gswWorld.AnimalDetectingEnabled;
+            bool detectingEnabled = gswWorld.MaxPedCountPerFrame > 0 &&
+                                    (gswWorld.HumanDetectingEnabled || gswWorld.AnimalDetectingEnabled);
 
-            _stopwatch.Restart();
             if (gswWorld.NeedToCheckPeds.Count <= 0)
             {
                 foreach (int i in _forceCreateEvents)
@@ -73,8 +67,10 @@ namespace GSW3.GswWorld.Systems
                 }
             }
 
-            while (!TimeIsOver() && gswWorld.NeedToCheckPeds.Count > 0)
+            for (int i = 0; i < gswWorld.MaxPedCountPerFrame; i++)
             {
+                if(gswWorld.NeedToCheckPeds.Count <= 0) break;
+                
                 Ped ped = gswWorld.NeedToCheckPeds.Dequeue();
                 if (IsNotExistsOrDead(ped)) continue;
                 if (GswPedAlreadyExist(ped)) continue;
@@ -114,12 +110,6 @@ namespace GSW3.GswWorld.Systems
                 _debugText.Components1[0].UpdateDebugText("Peds", _gswPeds.GetEnumerator().GetCount().ToString());
             }
 #endif
-            _stopwatch.Stop();
-        }
-
-        private bool TimeIsOver()
-        {
-            return _stopwatch.ElapsedMilliseconds > _world.Components1[0].MaxDetectTimeInMs;
         }
 
         private bool IsNotExistsOrDead(Ped ped)

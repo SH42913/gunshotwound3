@@ -35,7 +35,7 @@ namespace GSW3.GswWorld.Systems
                 Max = 30
             };
             world.ScanOnlyDamaged = false;
-            world.MaxDetectTimeInMs = 5;
+            world.MaxPedCountPerFrame = 5;
 
             foreach (int i in _loadedConfigs)
             {
@@ -65,6 +65,12 @@ namespace GSW3.GswWorld.Systems
                 if (onlyDamagedElement != null)
                 {
                     world.ScanOnlyDamaged = onlyDamagedElement.GetBool();
+                }
+
+                XElement pedsPerFrame = xmlRoot.Element("MaxPedsPerFrame");
+                if (pedsPerFrame != null)
+                {
+                    world.MaxPedCountPerFrame = pedsPerFrame.GetInt();
                 }
             }
 
