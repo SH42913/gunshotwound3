@@ -9,6 +9,7 @@
 			<!-- Any other nodes of PainState is various effects -->
 			<RestoreMovementRate/>
 			<MovementClipset Player="move_m@gangster@a" PedMale="" PedFemale=""/>
+			<StopScreenEffect Name="FocusIn"/>
 			<DisableCameraShake/>
 			<UnlockSpecialAbility/>
 		</PainState>
@@ -20,7 +21,7 @@
 			<MovementRate Value="0.9" RestoreOnlyOnHeal="FALSE"/>
 			<EnableSprint/>
 			<CameraShake DisableOnlyOnHeal="FALSE" ShakeName="HAND_SHAKE" Intensity="1.0" Priority="1" PedAccuracy="0.8"/>
-			<StopScreenEffect Name="FocusIn"/>
+			<StartScreenEffect Name="FocusIn" Duration="5000" Loop="TRUE" Main="FALSE"/>
 		</PainState>
         <PainState PainPercent="0.6">
             <LocalizationKey Key="INTENSE"/>
@@ -29,7 +30,6 @@
 			<MovementRate Value="0.8" RestoreOnlyOnHeal="FALSE"/>
 			<DisableSprint RestoreOnlyOnHeal="FALSE"/>
 			<CameraShake DisableOnlyOnHeal="FALSE" ShakeName="HAND_SHAKE" Intensity="2.0" Priority="1" PedAccuracy="0.5"/>
-			<StartScreenEffect Name="FocusIn" Duration="5000" Loop="TRUE" Main="FALSE"/>
 			<LockSpecialAbility/>
 			<EnableCarControl/>
         </PainState>
