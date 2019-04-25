@@ -85,7 +85,6 @@
             <DamageMult Value="1"/>
             <PainMult Value="0.9"/>
             <BleedingMult Value="1"/>
-            <CritChance Value="0.3"/>
             <WeaponWoundList>
                 <WeaponWound Uid="LIGHT_BRUISE" Weight="9"/>
                 <WeaponWound Uid="MEDIUM_BRUISE" Weight="6"/>
@@ -117,9 +116,9 @@
             <BleedingMult Value="1"/>
             <CritChance Value="0.6"/>
             <WeaponWoundList>
-                <WeaponWound Uid="ABRASION_WOUND" Weight="1"/>
-                <WeaponWound Uid="MEDIUM_BRUISE" Weight="2"/>
-                <WeaponWound Uid="HEAVY_BRUISE" Weight="3"/>
+                <WeaponWound Uid="INCISION_WOUND" Weight="4"/>
+                <WeaponWound Uid="LACERATION_WOUND" Weight="3"/>
+                <WeaponWound Uid="STAB_WOUND" Weight="1"/>
             </WeaponWoundList>
         </Weapon>
     </WeaponList>
