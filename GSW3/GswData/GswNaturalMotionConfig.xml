@@ -26,6 +26,9 @@
 		</NaturalMotionMessage>
 		<NaturalMotionMessage Name="BodyBalance">
 			<MessageName Value="bodyBalance"/>
+			<BoolArgument Name="useHeadLook" Value="TRUE"/>
+			<RandomFloatArgument Name="elbow" Min="0.5" Max="2.0"/>
+			<RandomFloatArgument Name="shoulder" Min="0.0" Max="3.0"/>
 		</NaturalMotionMessage>
 	</NaturalMotionMessageList>
 </GswNaturalMotionConfig.xml>
