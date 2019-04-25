@@ -60,6 +60,7 @@ namespace GSW3.GswWorld.Systems
 
                 if (detectingEnabled)
                 {
+                    NativeFunction.Natives.SET_AI_MELEE_WEAPON_DAMAGE_MODIFIER(0.01f);
                     foreach (Ped ped in World.GetAllPeds())
                     {
                         gswWorld.NeedToCheckPeds.Enqueue(ped);

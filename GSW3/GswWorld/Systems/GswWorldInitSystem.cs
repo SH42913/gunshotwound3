@@ -2,6 +2,7 @@
 using GSW3.Configs;
 using GSW3.Utils;
 using Leopotam.Ecs;
+using Rage.Native;
 
 namespace GSW3.GswWorld.Systems
 {

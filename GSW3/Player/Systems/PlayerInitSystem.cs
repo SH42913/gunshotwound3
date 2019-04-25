@@ -27,7 +27,7 @@ namespace GSW3.Player.Systems
         }
 
         public void PreInitialize()
-        {
+        {   
             var config = _ecsWorld.AddComponent<PlayerConfigComponent>(GunshotWound3.StatsContainerEntity);
             config.PlayerEnabled = true;
 
@@ -71,6 +71,7 @@ namespace GSW3.Player.Systems
                 {
                     _ecsWorld.AddComponent<PlayerMarkComponent>(entity);
                     NativeFunction.Natives.SET_PLAYER_HEALTH_RECHARGE_MULTIPLIER(Game.LocalPlayer, 0f);
+                    NativeFunction.Natives.SET_PLAYER_MELEE_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.01f);
 #if DEBUG
                     _logger.MakeLog($"Ped {entity.GetEntityName()} was marked as player");
 #endif
