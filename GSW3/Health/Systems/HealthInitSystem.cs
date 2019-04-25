@@ -34,6 +34,7 @@ namespace GSW3.Health.Systems
             var stats = _ecsWorld.AddComponent<HealthStatsComponent>(mainEntity);
             stats.DamageMultiplier = 1f;
             stats.DamageDeviation = 0.2f;
+            stats.SelfHealingRate = 0.01f;
 
             var pedStats = _ecsWorld.AddComponent<PedHealthStatsComponent>(mainEntity);
             pedStats.PlayerHealth = 100f;
@@ -59,6 +60,12 @@ namespace GSW3.Health.Systems
                 if (devElement != null)
                 {
                     stats.DamageDeviation = devElement.GetFloat();
+                }
+
+                XElement healingRate = xmlRoot.Element("SelfHealingRate");
+                if (healingRate != null)
+                {
+                    stats.SelfHealingRate = healingRate.GetFloat();
                 }
 
                 XElement pedElement = xmlRoot.Element("PedHealth");

@@ -66,7 +66,6 @@
     <Compile Include="Bleeding\PedBleedingStatsComponent.cs" />
     <Compile Include="Bleeding\Systems\BleedingCleanSystem.cs" />
     <Compile Include="Bleeding\Systems\BleedingCreateSystem.cs" />
-    <Compile Include="Bleeding\Systems\BleedingHealSystem.cs" />
     <Compile Include="Bleeding\Systems\BleedingInitSystem.cs" />
     <Compile Include="Bleeding\Systems\BleedingSystem.cs" />
     <Compile Include="BodyParts\BodyPartComponent.cs" />
@@ -90,6 +89,7 @@
     <Compile Include="DebugSystems\FrameTime\Systems\FrameTimeStartSystem.cs" />
     <Compile Include="DebugSystems\FrameTime\Systems\FrameTimeStopSystem.cs" />
     <Compile Include="GameService.cs" />
+    <Compile Include="Health\Systems\SelfHealingSystem.cs" />
     <Compile Include="Notifications\NotificationComponent.cs" />
     <Compile Include="Notifications\NotificationSettingsComponent.cs" />
     <Compile Include="Notifications\Systems\DonateListSystem.cs" />
@@ -185,7 +185,7 @@
     <Compile Include="Health\HealthComponent.cs" />
     <Compile Include="Health\HealthStatsComponent.cs" />
     <Compile Include="Health\PedHealthStatsComponent.cs" />
-    <Compile Include="Health\Systems\HealDetectSystem.cs" />
+    <Compile Include="Health\Systems\FullHealDetectSystem.cs" />
     <Compile Include="Health\Systems\HealthInitSystem.cs" />
     <Compile Include="Health\Systems\HealthSystem.cs" />
     <Compile Include="Localization\LocalizationKeyComponent.cs" />

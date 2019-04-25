@@ -6,7 +6,7 @@ using Rage;
 namespace GSW3.Health.Systems
 {
     [EcsInject]
-    public class HealDetectSystem : IEcsRunSystem
+    public class FullHealDetectSystem : IEcsRunSystem
     {
         private readonly EcsWorld _ecsWorld = null;
         private readonly EcsFilter<GswPedComponent, HealthComponent> _pedsToCheck = null;
@@ -14,9 +14,9 @@ namespace GSW3.Health.Systems
 #if DEBUG
         private readonly GswLogger _logger;
 
-        public HealDetectSystem()
+        public FullHealDetectSystem()
         {
-            _logger = new GswLogger(typeof(HealDetectSystem));
+            _logger = new GswLogger(typeof(FullHealDetectSystem));
         }
 #endif
 
