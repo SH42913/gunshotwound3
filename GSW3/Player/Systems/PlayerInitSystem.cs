@@ -13,6 +13,7 @@ namespace GSW3.Player.Systems
     {
         private readonly EcsWorld _ecsWorld = null;
 
+        private readonly EcsFilter<GswWorldComponent> _gswWorld = null;
         private readonly EcsFilter<LoadedConfigComponent> _loadedConfigs = null;
         private readonly EcsFilter<PlayerConfigComponent> _playerConfig = null;
         
@@ -69,12 +70,7 @@ namespace GSW3.Player.Systems
 
                 if (config.PlayerEnabled)
                 {
-                    _ecsWorld.AddComponent<PlayerMarkComponent>(entity);
-                    NativeFunction.Natives.SET_PLAYER_HEALTH_RECHARGE_MULTIPLIER(Game.LocalPlayer, 0f);
-                    NativeFunction.Natives.SET_PLAYER_MELEE_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.01f);
-#if DEBUG
-                    _logger.MakeLog($"Ped {entity.GetEntityName()} was marked as player");
-#endif
+                    MarkEntityAsPed(entity);
                 }
                 else
                 {
@@ -89,16 +85,37 @@ namespace GSW3.Player.Systems
             if (config.PlayerEnabled && _playerPeds.IsEmpty())
             {
                 Ped playerPed = Game.LocalPlayer.Character;
+                GswWorldComponent gswWorld = _gswWorld.Components1[0];
+
+                if (!gswWorld.PedsToEntityDict.TryGetValue(playerPed, out EcsEntity entity))
+                {
 #if DEBUG
-                _logger.MakeLog($"No players found! PlayerPed {playerPed.Model.Name} will force create!");
+                    _logger.MakeLog($"No players found! PlayerPed {playerPed.Model.Name} will force create!");
 #endif
-                _ecsWorld.CreateEntityWith(out ForceCreateGswPedEvent forceCreateEvent);
-                forceCreateEvent.TargetPed = playerPed;
+                    _ecsWorld.CreateEntityWith(out ForceCreateGswPedEvent forceCreateEvent);
+                    forceCreateEvent.TargetPed = playerPed;
+                    return;
+                }
+
+#if DEBUG
+                _logger.MakeLog("Entity with Player Ped already exists and will be removed!");
+#endif
+                _ecsWorld.AddComponent<RemovedPedMarkComponent>(entity);
             }
         }
 
         public void PreDestroy()
         {
+        }
+
+        private void MarkEntityAsPed(EcsEntity entity)
+        {
+            _ecsWorld.AddComponent<PlayerMarkComponent>(entity);
+            NativeFunction.Natives.SET_PLAYER_HEALTH_RECHARGE_MULTIPLIER(Game.LocalPlayer, 0f);
+            NativeFunction.Natives.SET_PLAYER_MELEE_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.01f);
+#if DEBUG
+            _logger.MakeLog($"Ped {entity.GetEntityName()} was marked as player");
+#endif
         }
     }
 }
