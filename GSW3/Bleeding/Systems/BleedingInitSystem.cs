@@ -38,6 +38,7 @@ namespace GSW3.Bleeding.Systems
             var stats = _ecsWorld.AddComponent<BleedingStatsComponent>(mainEntity);
             stats.BleedingMultiplier = 1f;
             stats.BleedingDeviation = 0.2f;
+            stats.BleedingDamageMultiplier = 1.1f;
 
             var pedStats = _ecsWorld.AddComponent<PedBleedingStatsComponent>(mainEntity);
             pedStats.AnimalMult = 1f;
@@ -62,6 +63,12 @@ namespace GSW3.Bleeding.Systems
                 if (devElement != null)
                 {
                     stats.BleedingDeviation = devElement.GetFloat();
+                }
+
+                XElement damageElement = xmlRoot.Element("BleedingDamageMultiplier");
+                if (damageElement != null)
+                {
+                    stats.BleedingDamageMultiplier = damageElement.GetFloat();
                 }
 
                 XElement pedElement = xmlRoot.Element("PedBleedingHealRate");

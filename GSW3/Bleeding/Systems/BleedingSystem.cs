@@ -11,6 +11,8 @@ namespace GSW3.Bleeding.Systems
     {
         private readonly EcsWorld _ecsWorld = null;
         private readonly GameService _gameService = null;
+
+        private readonly EcsFilter<BleedingStatsComponent> _bleedingStats = null;
         private readonly EcsFilter<GswPedComponent, HealthComponent, PedBleedingInfoComponent> _entities = null;
 
 #if DEBUG
@@ -25,7 +27,8 @@ namespace GSW3.Bleeding.Systems
         public void Run()
         {
             if(_gameService.GameIsPaused) return;
-            
+
+            BleedingStatsComponent bleedingStats = _bleedingStats.Components1[0];
             foreach (int i in _entities)
             {
                 Ped ped = _entities.Components1[i].ThisPed;
@@ -57,7 +60,7 @@ namespace GSW3.Bleeding.Systems
                     float delta = GswExtensions.GetDeltaTime();
                     if (delta <= 0) continue;
 
-                    bleedingDamage += bleeding.Severity * delta;
+                    bleedingDamage += bleedingStats.BleedingDamageMultiplier * bleeding.Severity * delta;
                     bleeding.Severity -= info.BleedingHealRate * delta;
                     if (bleeding.Severity > 0) continue;
 

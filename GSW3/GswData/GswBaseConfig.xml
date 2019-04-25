@@ -17,6 +17,9 @@
 
 	<OverallBleedingDeviation Value="0.2"/>
 	<!-- 0.2 mean +-20% random bleeding -->
+	
+	<BleedingDamageMultiplier Value="1.1"/>
+	<!-- Damage based on bleeding severity. This multiplier will scale damage from bleedings. -->
 
 	<!-- You available to separate GswData to a various config files for more comfortable editing, 
 	but if you've created new .xml-file, you need to add it here -->
