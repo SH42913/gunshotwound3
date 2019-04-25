@@ -29,7 +29,6 @@ namespace GSW3.Notifications.Systems
             List<EcsEntity> woundList = _woundedPlayer.Components3[0].WoundEntities;
             
             int woundCount = 1;
-            bool manyWounds = woundList.Count > 1;
             foreach (EcsEntity woundEntity in woundList)
             {
                 var wounded = _ecsWorld.GetComponent<WoundComponent>(woundEntity);
@@ -42,17 +41,17 @@ namespace GSW3.Notifications.Systems
                 }
 
                 _ecsWorld.CreateEntityWith(out NotificationComponent notification);
-                if (manyWounds)
+                if (woundCount++ <= 1)
                 {
-                    notification.Message = $"~s~Wound {woundCount++.ToString()}: ~r~{woundEntity.GetEntityName()} " +
-                                           $"~s~on ~o~{damagedBodyPart.DamagedBodyPartEntity.GetEntityName()}" +
+                    notification.Message = $"~s~Wound:~n~ ~o~{woundEntity.GetEntityName()} " +
+                                           $"~s~on {damagedBodyPart.DamagedBodyPartEntity.GetEntityName()}" +
                                            $"~c~({boneName})~s~ " +
                                            $"by ~y~{weaponEntity.GetEntityName()}";
                 }
                 else
                 {
-                    notification.Message = $"~s~Wound:~s~ ~r~{woundEntity.GetEntityName()}~s~ " +
-                                           $"on {damagedBodyPart.DamagedBodyPartEntity.GetEntityName()}" +
+                    notification.Message = $"~s~Crit:~n~ ~r~{woundEntity.GetEntityName()} " +
+                                           $"~s~on {damagedBodyPart.DamagedBodyPartEntity.GetEntityName()}" +
                                            $"~c~({boneName})~s~ " +
                                            $"by ~y~{weaponEntity.GetEntityName()}";
                 }
