@@ -12,7 +12,7 @@
 			<!-- BaseDamage is how many Damage wound deal to ped, it will multiply with DamageMult of Weapon and BodyPart -->
 			<BaseDamage Value="5"/>
 			<!-- BasePain is how many Pain wound deal to ped, it will multiply with PainMult of Weapon and BodyPart -->
-			<BasePain Value="15"/>
+			<BasePain Value="18"/>
 			<!-- BasePain is base bleeding severity of wound, it will multiply with BleedingMult of Weapon and BodyPart -->
 			<BaseBleeding Value="0.15"/>
 			<!-- Chance to get CritWound for current Wound. 
@@ -23,14 +23,14 @@
 			<Uid Value="FLESH_GSW"/>
 			<LocalizationKey Key="FLESH_GSW"/>
 			<BaseDamage Value="10"/>
-			<BasePain Value="20"/>
+			<BasePain Value="22"/>
 			<BaseBleeding Value="0.2"/>
 		</Wound>
 		<Wound>
 			<Uid Value="PENETRATING_GSW"/>
 			<LocalizationKey Key="PENETRATING_GSW"/>
 			<BaseDamage Value="10"/>
-			<BasePain Value="30"/>
+			<BasePain Value="33"/>
 			<BaseBleeding Value="0.25"/>
 			<CritChance Value="0.3"/>
 			<!-- It will create flash effect on screen, when player will get this wound -->
@@ -40,7 +40,7 @@
 			<Uid Value="PERFORATING_GSW"/>
 			<LocalizationKey Key="PERFORATING_GSW"/>
 			<BaseDamage Value="8"/>
-			<BasePain Value="35"/>
+			<BasePain Value="38"/>
 			<BaseBleeding Value="0.3"/>
 			<CritChance Value="0.4"/>
 			<CreateFlash FadeIn="500" FadeOut="500"/>
@@ -51,7 +51,7 @@
 			<Uid Value="AVULSIVE_GSW"/>
 			<LocalizationKey Key="AVULSIVE_GSW"/>
 			<BaseDamage Value="15"/>
-			<BasePain Value="40"/>
+			<BasePain Value="42"/>
 			<BaseBleeding Value="0.35"/>
 			<CritChance Value="0.6"/>
 			<CreateFlash FadeIn="1000" FadeOut="1000"/>
@@ -61,20 +61,20 @@
 			<Uid Value="LIGHT_BRUISE"/>
 			<LocalizationKey Key="LIGHT_BRUISE"/>
 			<BaseDamage Value="3"/>
-			<BasePain Value="15"/>
+			<BasePain Value="10"/>
 		</Wound>
 		<Wound>
 			<Uid Value="MEDIUM_BRUISE"/>
 			<LocalizationKey Key="MEDIUM_BRUISE"/>
 			<BaseDamage Value="5"/>
-			<BasePain Value="25"/>
+			<BasePain Value="15"/>
 			<CritChance Value="0.2"/>
 		</Wound>
 		<Wound>
 			<Uid Value="HEAVY_BRUISE"/>
 			<LocalizationKey Key="HEAVY_BRUISE"/>
 			<BaseDamage Value="10"/>
-			<BasePain Value="35"/>
+			<BasePain Value="25"/>
 			<CritChance Value="0.4"/>
 		</Wound>
 		<Wound>
