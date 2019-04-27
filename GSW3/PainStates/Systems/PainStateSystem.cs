@@ -1,4 +1,6 @@
+using GSW3.Notifications;
 using GSW3.Pain;
+using GSW3.Player;
 using GSW3.Utils;
 using GSW3.Wounds;
 using Leopotam.Ecs;
@@ -51,8 +53,6 @@ namespace GSW3.PainStates.Systems
             foreach (int pedIndex in _entities)
             {
                 EcsEntity pedEntity = _entities.Entities[pedIndex];
-                if (!_ecsWorld.IsEntityExists(pedEntity)) continue;
-
                 PainComponent pain = _entities.Components1[pedIndex];
                 PainInfoComponent painInfo = _entities.Components2[pedIndex];
                 CurrentPainStateComponent currentStateComponent = _entities.Components3[pedIndex];
@@ -71,8 +71,15 @@ namespace GSW3.PainStates.Systems
 
                 int diff = newStateIndex - currentStateIndex;
                 var wounded = _ecsWorld.EnsureComponent<WoundedComponent>(pedEntity, out _);
+                bool isPlayer = _ecsWorld.GetComponent<PlayerMarkComponent>(pedEntity) != null;
                 if (diff > 0)
                 {
+                    if (isPlayer)
+                    {
+                        _ecsWorld.CreateEntityWith(out NotificationComponent notification);
+                        notification.Message += "~o~You feel yourself worst";
+                    }
+                    
                     for (int i = currentStateIndex + 1; i <= newStateIndex; i++)
                     {
                         EcsEntity newStateEntity = stateList.PainStateEntities[i];
@@ -84,6 +91,12 @@ namespace GSW3.PainStates.Systems
                 }
                 else
                 {
+                    if (isPlayer)
+                    {
+                        _ecsWorld.CreateEntityWith(out NotificationComponent notification);
+                        notification.Message += "~g~You feel yourself better";
+                    }
+                    
                     for (int i = currentStateIndex - 1; i >= newStateIndex; i--)
                     {
                         if (i < 0) continue;
