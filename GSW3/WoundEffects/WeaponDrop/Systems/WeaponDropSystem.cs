@@ -15,14 +15,6 @@ namespace GSW3.WoundEffects.WeaponDrop.Systems
         {
         }
 
-        protected override void PreExecuteActions()
-        {
-            if (_stats.IsEmpty())
-            {
-                throw new Exception("WeaponDrop system was not init!");
-            }
-        }
-
         protected override void ResetEffect(Ped ped, EcsEntity pedEntity)
         {
         }
@@ -32,7 +24,7 @@ namespace GSW3.WoundEffects.WeaponDrop.Systems
             WeaponDropStatsComponent stats = _stats.Components1[0];
             bool isPlayer = EcsWorld.GetComponent<PlayerMarkComponent>(pedEntity) != null;
             var component = EcsWorld.GetComponent<WeaponDropComponent>(woundEntity);
-            if (component == null || ped.Inventory.EquippedWeapon == null ||
+            if (component == null || ped.CurrentVehicle.Exists() || ped.Inventory.EquippedWeapon == null ||
                 isPlayer && !stats.PlayerCanDropWeapon) return;
 
             ped.Inventory.EquippedWeapon.Drop();
