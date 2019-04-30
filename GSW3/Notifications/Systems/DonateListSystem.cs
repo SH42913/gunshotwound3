@@ -9,8 +9,10 @@ namespace GSW3.Notifications.Systems
 
         private const string DONATER_LIST = "~g~GunShot Wound ~r~3~s~ is supported by...\n" +
                                     "~y~My Little Stormtroopers from Patreon:\n" +
-                                    "- Dawid (MicroPanda123) Drzewiecki\n" +
+                                    "- Dawid Drzewiecki\n" +
                                     "- Jerry Schell\n" +
+                                    "- Patrik Šarabok\n" +
+                                    "- Curtis Lobley\n" +
                                     "~r~Other donaters:\n" +
                                     "- Waterfall\n" +
                                     "~s~You can be one of supporters ;)";
@@ -19,7 +21,7 @@ namespace GSW3.Notifications.Systems
         {
             _ecsWorld.CreateEntityWith(out NotificationComponent notification);
             notification.Message = DONATER_LIST;
-            notification.Delay = 16f;
+            notification.Delay = 21f;
         }
 
         public void Destroy()

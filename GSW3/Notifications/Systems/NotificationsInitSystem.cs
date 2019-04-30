@@ -15,7 +15,7 @@ namespace GSW3.Notifications.Systems
 
             _ecsWorld.CreateEntityWith(out NotificationComponent startNotification);
             startNotification.Message = "Great thanks for using ~g~GunShot Wound ~r~3~s~ by SH42913";
-            startNotification.Delay = 15f;
+            startNotification.Delay = 20f;
         }
 
         public void PreDestroy()
