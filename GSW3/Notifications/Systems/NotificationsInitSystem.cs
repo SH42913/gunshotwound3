@@ -6,6 +6,7 @@ namespace GSW3.Notifications.Systems
     public class NotificationsInitSystem : IEcsPreInitSystem
     {
         private readonly EcsWorld _ecsWorld = null;
+        private const string VERSION = "Alpha-0.1.0";
 
         public void PreInitialize()
         {
@@ -14,7 +15,7 @@ namespace GSW3.Notifications.Systems
             settings.CombineToOne = true;
 
             _ecsWorld.CreateEntityWith(out NotificationComponent startNotification);
-            startNotification.Message = "Great thanks for using ~g~GunShot Wound ~r~3~s~ by SH42913";
+            startNotification.Message = $"Great thanks for using ~g~GunShot Wound ~r~3~s~ v.{VERSION} by SH42913";
             startNotification.Delay = 20f;
         }
 
